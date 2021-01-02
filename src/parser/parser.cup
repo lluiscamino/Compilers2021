@@ -1,0 +1,177 @@
+// Compile: java -jar libs/java-cup-11b.jar parser.cup
+
+package parser;
+
+class Parser;
+
+terminal                CONST, VAR, ARRAY, FUNCTION, PROCEDURE, MAIN, RETURN, WHILE, IF /*, ELSE */;
+terminal                L_PAR, R_PAR, L_BOX, R_BOX, L_BRK, R_BRK, COMMA, EOL;
+terminal                READ, PRINT;
+terminal                EQUALS;
+terminal                ADD, SUB, MUL, DIV, MOD;
+terminal                AND, OR, NOT;
+terminal      String    REL;
+terminal      String    IDENT, TYPE;
+
+// Constants
+terminal      Integer   INTCONST;
+terminal      Boolean   BOOLCONST;
+terminal      String    STRCONST; 
+
+non terminal  /*Program>*/                   PROGRAM;
+
+// Declarations
+non terminal  /*List<Declaration>*/         DECL_LIST;
+non terminal  /*Declaration     */          DECL;
+non terminal  /*CVADeclaration  */          CVA_DECL;
+non terminal  /*ConstantDeclaration*/       CONST_DECL;
+non terminal  /*VariableDeclaration*/       VAR_DECL;
+non terminal  /*ArrayDeclaration*/          ARR_DECL;
+non terminal  /*SubprogramDeclaration*/     SUBPRG_DECL;
+non terminal  /*FunctionDeclaration*/       FUNC_DECL;
+non terminal  /*ProcedureDeclaration*/      PROC_DECL;
+non terminal  /*MainDeclaration*/           MAIN_DECL;
+
+non terminal  /*List<Argument>*/            ARG_LIST;
+non terminal  /*Argument*/                  ARG;
+
+non terminal  /*ArrayDimensions*/           ARR_DIM;
+
+// Statements
+non terminal  /*List<Statement>*/           STMT_LIST;
+non terminal  /*Statement*/                 STMT;
+non terminal  /*Assignment*/                ASGN;
+non terminal  /*Get*/                       GET_STMT;
+non terminal  /*Print*/                     PRINT_STMT;
+non terminal  /*Loop*/                      LOOP;
+non terminal  /*If*/                        IF_STMT;
+non terminal  /*Call*/                      CALL;
+non terminal  /*Return*/                    RETURN_STMT;
+
+// Expressions
+non terminal  /*List<Expression>*/          EXPR_LIST;
+non terminal  /*Expression*/                EXPR;
+
+// Operators
+non terminal  /*ArithmeticOperator*/         ARITH_OP;
+non terminal  /*BinaryOperator*/             BIN_OP;
+
+precedence left                 AND;
+precedence left                 OR;
+precedence left                 ADD, SUB;
+precedence left                 MUL, DIV, MOD;
+precedence left                 REL;
+
+start with PROGRAM;
+
+PROGRAM     ::= DECL_LIST:l MAIN_DECL:m
+              ;
+
+DECL        ::= CVA_DECL
+              | SUBPRG_DECL
+              ;
+
+DECL_LIST   ::= DECL:d DECL_LIST: l
+              |
+              ;
+
+CVA_DECL    ::= CONST_DECL
+              | VAR_DECL
+              | ARR_DECL
+              ;
+
+CONST_DECL  ::= CONST TYPE IDENT EOL
+              ;
+
+VAR_DECL    ::= VAR TYPE IDENT EOL
+              ;
+
+ARR_DECL    ::= ARRAY TYPE IDENT ARR_DIM EOL
+              ;
+
+ARR_DIM     ::= L_BOX EXPR R_BOX ARR_DIM
+              | L_BOX EXPR R_BOX
+              ;
+
+SUBPRG_DECL ::= FUNC_DECL
+              | PROC_DECL
+              ;
+
+FUNC_DECL   ::= FUNCTION IDENT TYPE L_PAR ARG_LIST R_PAR L_BRK STMT_LIST RETURN_STMT R_BRK
+              ;
+
+RETURN_STMT ::= RETURN EXPR EOL
+              ;
+
+PROC_DECL   ::= PROCEDURE IDENT L_PAR ARG_LIST R_PAR L_BRK STMT_LIST R_BRK
+              ;
+
+MAIN_DECL   ::= MAIN L_PAR ARG_LIST R_PAR L_BRK STMT_LIST R_BRK
+              ;
+
+ARG         ::= TYPE IDENT /* faltaria añadir arrays */
+              ;
+
+ARG_LIST    ::= ARG COMMA ARG_LIST
+              |
+              ;
+
+STMT        ::= CVA_DECL
+              | ASGN
+              | GET_STMT
+              | PRINT_STMT
+              | LOOP
+              | IF_STMT
+              | CALL
+              /*| RETURN_STMT*/
+              ;
+
+STMT_LIST   ::= STMT STMT_LIST
+              |
+              ;
+
+ASGN        ::= IDENT EQUALS EXPR EOL
+              ;
+
+GET_STMT    ::= IDENT EQUALS READ EOL
+              ;
+
+PRINT_STMT  ::= PRINT L_PAR EXPR R_PAR EOL
+              ;
+
+LOOP        ::= WHILE L_PAR EXPR R_PAR L_BRK STMT_LIST R_BRK
+              ;
+
+IF_STMT     ::= IF L_PAR EXPR R_PAR L_BRK STMT_LIST R_BRK
+              ;
+
+EXPR        ::= STRCONST
+              | IDENT
+              | L_PAR EXPR R_PAR
+              | CALL
+              | INTCONST
+              | SUB EXPR
+              | EXPR ARITH_OP EXPR
+              | BOOLCONST
+              | EXPR REL EXPR
+              | NOT EXPR
+              | EXPR BIN_OP EXPR
+              ;
+
+EXPR_LIST   ::= EXPR COMMA EXPR_LIST
+              |
+              ;
+
+CALL        ::= IDENT L_PAR EXPR_LIST R_PAR
+             ;
+
+ARITH_OP    ::= ADD
+              | SUB
+              | MUL
+              | DIV
+              | MOD
+              ;
+
+BIN_OP      ::= AND
+              | OR
+              ;
