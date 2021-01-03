@@ -10,14 +10,16 @@ public final class Main {
     
     private Main() {}
     
-    public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
-        
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        try {
             Compiler compiler = new Compiler(INPUT_PATH);
-            /*List<Symbol> tokenList = compiler.getTokenList();
+            List<Symbol> tokenList = compiler.getTokenList();
             for (Symbol token : tokenList) {
                 System.out.print(token + " ");
-            }*/
+            }
             compiler.parse();
-        
+        } catch (Exception ex) {
+            System.out.println("Error : " + ex.getMessage());
+        }
     }
 }
