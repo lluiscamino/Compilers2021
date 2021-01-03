@@ -4,21 +4,21 @@ package parser;
 
 class Parser;
 
-terminal                CONST, VAR, ARRAY, FUNCTION, PROCEDURE, MAIN, RETURN, WHILE, IF /*, ELSE */;
-terminal                L_PAR, R_PAR, L_BOX, R_BOX, L_BRK, R_BRK, COMMA, EOL;
-terminal                READ, PRINT;
-terminal                EQUALS;
-terminal                ADD, SUB, MUL, DIV, MOD;
-terminal                AND, OR, NOT;
-terminal      String    REL;
-terminal      String    IDENT, TYPE;
+terminal                                CONST, VAR, ARRAY, FUNCTION, PROCEDURE, MAIN, RETURN, WHILE, IF /*, ELSE */;
+terminal                                L_PAR, R_PAR, L_BOX, R_BOX, L_BRK, R_BRK, COMMA, EOL;
+terminal                                READ, PRINT;
+terminal                                EQUALS;
+terminal                                ADD, SUB, MUL, DIV, MOD;
+terminal                                AND, OR, NOT;
+terminal    RelationalOperatorType      REL;
+terminal    String                      IDENT, TYPE;
 
 // Constants
 terminal      Integer   INTCONST;
 terminal      Boolean   BOOLCONST;
 terminal      String    STRCONST; 
 
-non terminal  /*Program>*/                   PROGRAM;
+non terminal  /*Program>*/                  PROGRAM;
 
 // Declarations
 non terminal  /*List<Declaration>*/         DECL_LIST;
@@ -153,7 +153,7 @@ EXPR        ::= STRCONST
               | SUB EXPR
               | EXPR ARITH_OP EXPR
               | BOOLCONST
-              | EXPR REL EXPR
+              | EXPR REL:r EXPR
               | NOT EXPR
               | EXPR BIN_OP EXPR
               ;

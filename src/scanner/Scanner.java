@@ -7,6 +7,7 @@ package scanner;
 import parser.ParserSym;
 import java_cup.runtime.*;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
+import parser.RelationalOperatorType;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
@@ -376,6 +377,11 @@ public class Scanner implements java_cup.runtime.Scanner {
     
     private Symbol symbol(int type, Object value) {
         return new ComplexSymbol(ParserSym.terminalNames[type], type, value);
+    }
+
+    private Symbol relationalSymbol(String value) {
+        RelationalOperatorType relType = RelationalOperatorType.get(value);
+        return new ComplexSymbol(ParserSym.terminalNames[ParserSym.REL], ParserSym.REL, relType);
     }
 
 
@@ -780,7 +786,7 @@ public class Scanner implements java_cup.runtime.Scanner {
             // fall through
           case 48: break;
           case 14:
-            { return symbol(ParserSym.REL, this.yytext());
+            { return relationalSymbol(this.yytext());
             }
             // fall through
           case 49: break;

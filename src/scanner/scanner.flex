@@ -3,6 +3,7 @@ package scanner;
 import parser.ParserSym;
 import java_cup.runtime.*;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
+import parser.RelationalOperatorType;
 
 %%
 
@@ -29,6 +30,11 @@ ident       = [a-zA-Z$_] [a-zA-Z0-9$_]*
     
     private Symbol symbol(int type, Object value) {
         return new ComplexSymbol(ParserSym.terminalNames[type], type, value);
+    }
+
+    private Symbol relationalSymbol(String value) {
+        RelationalOperatorType relType = RelationalOperatorType.get(value);
+        return new ComplexSymbol(ParserSym.terminalNames[ParserSym.REL], ParserSym.REL, relType);
     }
 %}
 
@@ -64,7 +70,7 @@ ident       = [a-zA-Z$_] [a-zA-Z0-9$_]*
 "||"        { return symbol(ParserSym.OR); }
 "!"         { return symbol(ParserSym.NOT); }
 "!"         { return symbol(ParserSym.NOT); }
-{rel}       { return symbol(ParserSym.REL, this.yytext()); }
+{rel}       { return relationalSymbol(this.yytext()); }
 {type}      { return symbol(ParserSym.TYPE, this.yytext()); }
 {intconst}  { return symbol(ParserSym.INTCONST, Integer.parseInt(this.yytext())); }
 {boolconst} { return symbol(ParserSym.BOOLCONST, Boolean.parseBoolean(this.yytext())); }
