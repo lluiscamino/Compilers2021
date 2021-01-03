@@ -1,0 +1,5 @@
+main() {
+    array int unidimensional[9];
+    array int bidimensional[9][9];
+    array int tridimensional[9][7][8];
+}

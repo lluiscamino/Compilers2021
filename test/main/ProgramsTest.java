@@ -23,4 +23,10 @@ public class ProgramsTest {
         Compiler compiler = getCompiler("test_program2.txt");
         compiler.parse();
     }
+
+    @Test
+    public void testProgram3() throws Exception { // Array declaration
+        Compiler compiler = getCompiler("test_program3.txt");
+        compiler.parse();
+    }
 }
