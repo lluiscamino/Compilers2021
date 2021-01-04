@@ -16,4 +16,8 @@ main() {
             {80 ,70 ,66}
         }
     };
+
+    unidimensional[3] = 7;
+    bidimensional[0][1] = 7;
+    tridimensional[7][3][4] = 7;
 }

@@ -8,8 +8,8 @@ public abstract class ParserSymbol extends ComplexSymbol {
     
     protected final int id;
     
-    public ParserSymbol(String name, Number value) {
-        super(name, autoIncrementId++, value);
+    public ParserSymbol(String name) {
+        super(name, autoIncrementId++);
         id = autoIncrementId;
     }
     

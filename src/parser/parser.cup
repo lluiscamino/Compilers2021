@@ -1,6 +1,15 @@
 // Compile: java -jar libs/java-cup-11b.jar parser.cup
 
 package parser;
+import java.util.List;
+import parser.symbols.*;
+import parser.symbols.statements.*;
+import parser.symbols.expressions.*;
+import parser.symbols.expressions.literals.*;
+import parser.symbols.statements.assignment.*;
+import parser.symbols.statements.conditional.*;
+import parser.symbols.statements.io.*;
+import parser.symbols.statements.loop.*;
 
 class Parser;
 
@@ -39,36 +48,36 @@ non terminal  /*List<Argument>*/            ARG_LIST;
 non terminal  /*Argument*/                  ARG;
 
 non terminal  /*ArrayDimensions*/           ARR_DIM;
-non terminal  /*ArrayIndexes*/              ARR_INDEX;
+non terminal  ArrayIndexes                  ARR_INDEX;
 
 // Statements
-non terminal  /*List<Statement>*/           STMT_LIST;
-non terminal  /*Statement*/                 STMT;
-non terminal  /*Assignment*/                ASGN;
-non terminal  /*Get*/                       GET_STMT;
-non terminal  /*Print*/                     PRINT_STMT;
-non terminal  /*Loop*/                      LOOP;
-non terminal  /*If*/                        IF_STMT;
-non terminal  /*Call*/                      CALL;
+non terminal  List<Statement>               STMT_LIST;
+non terminal  Statement                     STMT;
+non terminal  Assignment                    ASGN;
+non terminal  Read                          READ_STMT;
+non terminal  Print                         PRINT_STMT;
+non terminal  Loop                          LOOP;
+non terminal  If                            IF_STMT;
+non terminal  Call                          CALL;
 non terminal  /*Return*/                    RETURN_STMT;
 
 // Expressions
-non terminal  /*List<Expression>*/          EXPR_LIST;
-non terminal  /*Expression*/                EXPR;
+non terminal  List<Expression>              EXPR_LIST;
+non terminal  Expression                    EXPR;
 non terminal                                LIT_TAIL;
-non terminal  /*List<Literal>*/             LIT_LIST;
-non terminal  /*Literal*/                   LIT;
+non terminal  List<Literal>                 LIT_LIST;
+non terminal  Literal                       LIT;
 non terminal  /*ArrayLiteral*/              ARR_LIT;
 
 // Operators
-non terminal  /*ArithmeticOperator*/         ARITH_OP;
-non terminal  /*BinaryOperator*/             BIN_OP;
+non terminal  /*ArithmeticOperator*/        ARITH_OP;
+non terminal  /*BinaryOperator*/            BIN_OP;
 
-precedence left                 AND;
-precedence left                 OR;
-precedence left                 ADD, SUB;
-precedence left                 MUL, DIV, MOD;
-precedence left                 REL;
+precedence left                             AND;
+precedence left                             OR;
+precedence left                             ADD, SUB;
+precedence left                             MUL, DIV, MOD;
+precedence left                             REL;
 
 start with PROGRAM;
 
@@ -87,7 +96,7 @@ CVA_DECL    ::= PRIM_DECL
               | ARR_DECL
               ;
 
-PRIM_DECL   ::= DECL_MODE TYPE IDENT EOL
+PRIM_DECL   ::= DECL_MODE PRIM_TYPE IDENT EOL
               ;
 
 ARR_DECL    ::= DECL_MODE ARRAY TYPE IDENT EOL
@@ -105,7 +114,7 @@ ARR_DIM     ::= L_BOX R_BOX ARR_DIM
               | L_BOX R_BOX
               ;
 
-ARR_INDEX   ::= L_BOX EXPR R_BOX ARR_DIM
+ARR_INDEX   ::= L_BOX EXPR R_BOX ARR_INDEX
               | L_BOX EXPR R_BOX
               ;
 
@@ -136,34 +145,35 @@ ARG_TAIL    ::= COMMA ARG ARG_TAIL
               |
               ;
 
-STMT        ::= CVA_DECL
-              | ASGN
-              | GET_STMT
-              | PRINT_STMT
-              | LOOP
-              | IF_STMT
-              | CALL
+STMT        ::= CVA_DECL:d                                          {: RESULT = new CVADeclarationStatement(d); :}
+              | ASGN:a                                              {: RESULT = a; :}        
+              | READ_STMT:r                                         {: RESULT = r; :}
+              | PRINT_STMT:p                                        {: RESULT = p; :}
+              | LOOP:l                                              {: RESULT = l; :}
+              | IF_STMT:i                                           {: RESULT = i; :}
+              | CALL:c                                              {: RESULT = new CallStatement(c); :}
               ;
 
 STMT_LIST   ::= STMT STMT_LIST
               |
               ;
 
-ASGN        ::= IDENT EQUALS EXPR EOL
-              | IDENT ARR_INDEX EQUALS EXPR EOL
+ASGN        ::= IDENT:i EQUALS EXPR:e EOL                           {: RESULT = new Assignment(i, e); :} 
+              | IDENT:i ARR_INDEX:arrin EQUALS EXPR:e EOL           {: RESULT = new ArrayAssignment(i, arrin, e); :}
               ;
 
-GET_STMT    ::= IDENT EQUALS READ EOL
+READ_STMT   ::= IDENT:i EQUALS READ EOL                             {: RESULT = new Read(i); :}
               ;
 
-PRINT_STMT  ::= PRINT L_PAR EXPR R_PAR EOL
+PRINT_STMT  ::= PRINT L_PAR EXPR:e R_PAR EOL                        {: RESULT = new Print(e); :}
               ;
 
-LOOP        ::= WHILE L_PAR EXPR R_PAR L_BRK STMT_LIST R_BRK
+LOOP        ::= WHILE L_PAR EXPR:c R_PAR L_BRK STMT_LIST:l R_BRK    {: RESULT = new WhileLoop(c, l); :}
               ;
 
-IF_STMT     ::= IF L_PAR EXPR R_PAR L_BRK STMT_LIST R_BRK
-              | IF L_PAR EXPR R_PAR L_BRK STMT_LIST R_BRK ELSE L_BRK STMT_LIST R_BRK
+IF_STMT     ::= IF L_PAR EXPR:c R_PAR L_BRK STMT_LIST:l R_BRK       {: RESULT = new If(c, l); :}
+              | IF L_PAR EXPR:c R_PAR L_BRK STMT_LIST:l1 R_BRK ELSE 
+                L_BRK STMT_LIST:l2 R_BRK                            {: RESULT = new IfElse(c, l1, l2); :}
               ;
 
 EXPR        ::= LIT
