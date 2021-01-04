@@ -73,11 +73,11 @@ non terminal  /*ArrayLiteral*/              ARR_LIT;
 non terminal  /*ArithmeticOperator*/        ARITH_OP;
 non terminal  /*BinaryOperator*/            BIN_OP;
 
-precedence left                             AND;
 precedence left                             OR;
+precedence left                             AND;
+precedence left                             REL;
 precedence left                             ADD, SUB;
 precedence left                             MUL, DIV, MOD;
-precedence left                             REL;
 
 start with PROGRAM;
 
