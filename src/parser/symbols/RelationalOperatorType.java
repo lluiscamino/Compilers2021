@@ -1,4 +1,4 @@
-package parser;
+package parser.symbols;
 
 public enum RelationalOperatorType {
     LESS("<"), GREATER(">"), LEQ("<="), GEQ(">="), EQUAL("=="), DIFF("!=");

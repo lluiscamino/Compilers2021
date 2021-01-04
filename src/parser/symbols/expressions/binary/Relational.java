@@ -1,7 +1,7 @@
 package parser.symbols.expressions.binary;
 
 import java.io.PrintWriter;
-import parser.RelationalOperatorType;
+import parser.symbols.RelationalOperatorType;
 import parser.symbols.expressions.Expression;
 
 public final class Relational extends Expression {

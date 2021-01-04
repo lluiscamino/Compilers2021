@@ -3,7 +3,8 @@ package scanner;
 import parser.ParserSym;
 import java_cup.runtime.*;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
-import parser.RelationalOperatorType;
+import parser.symbols.RelationalOperatorType;
+import parser.symbols.types.PrimitiveType;
 import exceptions.LexicalError;
 
 %%
@@ -37,6 +38,11 @@ ident       = [a-zA-Z$_] [a-zA-Z0-9$_]*
     private Symbol relationalSymbol(String value) {
         RelationalOperatorType relType = RelationalOperatorType.get(value);
         return new ComplexSymbol(ParserSym.terminalNames[ParserSym.REL], ParserSym.REL, relType);
+    }
+
+    private Symbol primitiveTypeSymbol(String value) {
+        PrimitiveType primType = PrimitiveType.get(value);
+        return new ComplexSymbol(ParserSym.terminalNames[ParserSym.PRIM_TYPE], ParserSym.PRIM_TYPE, primType);
     }
 %}
 
@@ -73,7 +79,7 @@ ident       = [a-zA-Z$_] [a-zA-Z0-9$_]*
 "!"         { return symbol(ParserSym.NOT); }
 "!"         { return symbol(ParserSym.NOT); }
 {rel}       { return relationalSymbol(this.yytext()); }
-{primtype}  { return symbol(ParserSym.PRIM_TYPE, yytext()); }
+{primtype}  { return primitiveTypeSymbol(yytext()); }
 {intlit}    { return symbol(ParserSym.INT_LIT, Integer.parseInt(yytext())); }
 {boollit}   { return symbol(ParserSym.BOOL_LIT, Boolean.parseBoolean(yytext())); }
 {strlit}    { return symbol(ParserSym.STR_LIT, yytext()); }

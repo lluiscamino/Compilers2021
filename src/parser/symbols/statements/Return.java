@@ -1,13 +1,13 @@
 package parser.symbols.statements;
 
 import java.io.PrintWriter;
-import parser.symbols.declarations.cva.CVADeclaration;
+import parser.symbols.expressions.Expression;
 
-public final class CVADeclarationStatement extends Statement {
-    private final CVADeclaration declaration;
-
-    public CVADeclarationStatement(CVADeclaration declaration) {
-        this.declaration = declaration;
+public final class Return extends Statement {
+    private final Expression expression;
+    
+    public Return(Expression expression) {
+        this.expression = expression;
     }
 
     @Override

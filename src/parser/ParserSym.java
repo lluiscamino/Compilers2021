@@ -32,10 +32,10 @@ public class ParserSym {
   public static final int ADD = 23;
   public static final int MOD = 27;
   public static final int STR_LIT = 36;
-  public static final int IDENT = 32;
+  public static final int IDENT = 33;
   public static final int ELSE = 11;
   public static final int READ = 20;
-  public static final int PRIM_TYPE = 33;
+  public static final int PRIM_TYPE = 32;
   public static final int WHILE = 9;
   public static final int BOOL_LIT = 35;
   public static final int L_BOX = 14;
@@ -78,8 +78,8 @@ public class ParserSym {
   "OR",
   "NOT",
   "REL",
-  "IDENT",
   "PRIM_TYPE",
+  "IDENT",
   "INT_LIT",
   "BOOL_LIT",
   "STR_LIT"

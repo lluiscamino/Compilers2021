@@ -1,6 +1,7 @@
 package parser.symbols;
 
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.List;
 import parser.symbols.expressions.Expression;
 
@@ -9,9 +10,14 @@ public final class ArrayIndexes extends ParserSymbol {
     
     private final List<Expression> indexes;
 
-    public ArrayIndexes(List<Expression> indexes) {
+    public ArrayIndexes(Expression lastIndex) {
         super(STRING_IDENTIFIER);
-        this.indexes = indexes;
+        this.indexes = new LinkedList<>();
+        indexes.add(lastIndex);
+    }
+    
+    public void addIndex(Expression index) {
+        indexes.add(0, index);
     }
 
     @Override
