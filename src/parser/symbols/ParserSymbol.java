@@ -6,7 +6,7 @@ import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 public abstract class ParserSymbol extends ComplexSymbol {
     private static int autoIncrementId = 0;
     
-    protected final int id;
+    public final int id;
     
     public ParserSymbol(String name) {
         super(name, autoIncrementId++);

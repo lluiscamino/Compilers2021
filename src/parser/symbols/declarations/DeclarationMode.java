@@ -1,5 +1,6 @@
 package parser.symbols.declarations;
 
+import dot.DotNode;
 import java.io.PrintWriter;
 import parser.symbols.ParserSymbol;
 
@@ -30,7 +31,9 @@ public final class DeclarationMode extends ParserSymbol {
 
     @Override
     public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String label = isConstant() ? "CONST" : "VAR";
+        DotNode dotNode = new DotNode(this, label, "", "filled", "");
+        dotNode.print(out);
     }
     
     public static DeclarationMode getConstant() {

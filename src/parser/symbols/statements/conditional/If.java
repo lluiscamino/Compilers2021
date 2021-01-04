@@ -1,15 +1,15 @@
 package parser.symbols.statements.conditional;
 
 import java.io.PrintWriter;
-import java.util.List;
+import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
 
 public class If extends Statement {
     protected final Expression condition;
-    protected final List<Statement> statements;
+    protected final SymbolList<Statement> statements;
 
-    public If(Expression condition, List<Statement> statements) {
+    public If(Expression condition, SymbolList<Statement> statements) {
         this.condition = condition;
         this.statements = statements;
     }

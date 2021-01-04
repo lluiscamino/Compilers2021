@@ -1,8 +1,9 @@
 package parser.symbols.declarations.subprogram;
 
+import dot.DotNode;
 import java.io.PrintWriter;
-import java.util.List;
 import parser.symbols.Argument;
+import parser.symbols.SymbolList;
 import parser.symbols.statements.Return;
 import parser.symbols.statements.Statement;
 import parser.symbols.types.Type;
@@ -11,7 +12,7 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
     private final Type type;
     private final Return returnStatement;
     
-    public FunctionDeclaration(String identifier, Type type, List<Argument> arguments, List<Statement> statements, Return returnStatement) {
+    public FunctionDeclaration(String identifier, Type type, SymbolList<Argument> arguments, SymbolList<Statement> statements, Return returnStatement) {
         super(identifier, arguments, statements);
         this.type = type;
         this.returnStatement = returnStatement;
@@ -24,7 +25,18 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
 
     @Override
     public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DotNode dotNode = new DotNode(this, "FUNCTION " + identifier, "", "filled", "#0077ff");
+        dotNode.addEdge(type, "type");
+        dotNode.addEdge(arguments, "args");
+        dotNode.addEdge(statements, "stmts");
+        dotNode.addEdge(returnStatement, "return");
+        
+        dotNode.print(out);
+        
+        type.toDot(out);
+        arguments.toDot(out);
+        statements.toDot(out);
+        returnStatement.toDot(out);
     }
     
 }

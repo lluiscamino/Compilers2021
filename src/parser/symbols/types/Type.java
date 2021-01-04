@@ -1,5 +1,6 @@
 package parser.symbols.types;
 
+import dot.DotNode;
 import java.io.PrintWriter;
 import parser.symbols.ArrayDimensions;
 import parser.symbols.ParserSymbol;
@@ -39,6 +40,13 @@ public final class Type extends ParserSymbol {
 
     @Override
     public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DotNode dotNode = new DotNode(this, primitiveType.toString(), "box", "filled", "");
+        
+        if (isArray()) {
+            dotNode.addEdge(dimensions);
+        }
+        dotNode.print(out);
+        
+        if (isArray()) dimensions.toDot(out);
     }
 }

@@ -13,6 +13,13 @@ import parser.symbols.statements.assignment.*;
 import parser.symbols.statements.conditional.*;
 import parser.symbols.statements.io.*;
 import parser.symbols.statements.loop.*;
+import parser.symbols.declarations.cva.ArrayDeclaration;
+import parser.symbols.declarations.cva.CVADeclaration;
+import parser.symbols.declarations.cva.PrimitiveDeclaration;
+import parser.symbols.declarations.subprogram.FunctionDeclaration;
+import parser.symbols.declarations.subprogram.MainDeclaration;
+import parser.symbols.declarations.subprogram.ProcedureDeclaration;
+import parser.symbols.declarations.subprogram.SubprogramDeclaration;
 
 class Parser;
 
@@ -34,7 +41,7 @@ terminal      String    STR_LIT;
 non terminal  Program                       PROGRAM;
 
 // Declarations
-non terminal  List<Declaration>             DECL_LIST;
+non terminal  SymbolList<Declaration>       DECL_LIST;
 non terminal  Declaration                   DECL;
 non terminal  CVADeclaration                CVA_DECL;
 non terminal  PrimitiveDeclaration          PRIM_DECL;
@@ -47,15 +54,15 @@ non terminal  MainDeclaration               MAIN_DECL;
 
 non terminal  Type                          TYPE;
 
-non terminal  List<Argument>                ARG_TAIL;
-non terminal  List<Argument>                ARG_LIST;
+non terminal  SymbolList<Argument>          ARG_TAIL;
+non terminal  SymbolList<Argument>          ARG_LIST;
 non terminal  Argument                      ARG;
 
 non terminal  ArrayDimensions               ARR_DIM;
 non terminal  ArrayIndexes                  ARR_INDEX;
 
 // Statements
-non terminal  List<Statement>               STMT_LIST;
+non terminal  SymbolList<Statement>         STMT_LIST;
 non terminal  Statement                     STMT;
 non terminal  Assignment                    ASGN;
 non terminal  Read                          READ_STMT;
@@ -92,8 +99,8 @@ DECL        ::= CVA_DECL:d                                          {: RESULT = 
               | SUBPRG_DECL:d                                       {: RESULT = d; :}
               ;
 
-DECL_LIST   ::= DECL:d DECL_LIST: l                                 {: l.add(0, d); RESULT = l; :}
-              |                                                     {: RESULT = new LinkedList<>(); :}
+DECL_LIST   ::= DECL:d DECL_LIST: l                                 {: RESULT = new SymbolList<>(l, d); :}
+              |                                                     {: RESULT = new SymbolList<>(); :}
               ;
 
 CVA_DECL    ::= PRIM_DECL:d                                         {: RESULT = d; :}                                           
@@ -143,12 +150,12 @@ MAIN_DECL   ::= MAIN L_PAR ARG_LIST:a R_PAR L_BRK STMT_LIST:s R_BRK {: RESULT = 
 ARG         ::= TYPE:t IDENT:i                                      {: RESULT = new Argument(t, i); :}
               ;
 
-ARG_LIST    ::= ARG:a ARG_TAIL:t                                    {: t.add(0, a); RESULT = t; :}                                        
-              |                                                     {: RESULT = new LinkedList<>(); :}                                        
+ARG_LIST    ::= ARG:a ARG_TAIL:t                                    {: RESULT = new SymbolList<>(t, a); :}                                        
+              |                                                     {: RESULT = new SymbolList<>(); :}                                        
               ;
 
-ARG_TAIL    ::= COMMA ARG:a ARG_TAIL:t                              {: t.add(0, a); RESULT = t; :}                                  
-              |                                                     {: RESULT = new LinkedList<>(); :}
+ARG_TAIL    ::= COMMA ARG:a ARG_TAIL:t                              {: RESULT = new SymbolList<>(t, a); :}                                  
+              |                                                     {: RESULT = new SymbolList<>(); :}
               ;
 
 STMT        ::= CVA_DECL:d                                          {: RESULT = new CVADeclarationStatement(d); :}
@@ -160,8 +167,8 @@ STMT        ::= CVA_DECL:d                                          {: RESULT = 
               | CALL:c                                              {: RESULT = new CallStatement(c); :}
               ;
 
-STMT_LIST   ::= STMT:s STMT_LIST:l                                  {: l.add(0, s); RESULT = l; :}                                      
-              |                                                     {: RESULT = new LinkedList<>(); :}
+STMT_LIST   ::= STMT:s STMT_LIST:l                                  {: RESULT = new SymbolList<>(l, s); :}                                      
+              |                                                     {: RESULT = new SymbolList<>(); :}
               ;
 
 ASGN        ::= IDENT:i EQUALS EXPR:e EOL                           {: RESULT = new Assignment(i, e); :} 

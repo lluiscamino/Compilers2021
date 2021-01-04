@@ -16,5 +16,6 @@ public final class Main {
             System.out.print(token + " ");
         }
         compiler.parse();
+        compiler.toDot("C:\\Users\\lluis\\Desktop\\arbol.dot");
     }
 }
