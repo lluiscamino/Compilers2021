@@ -4,6 +4,7 @@ import parser.ParserSym;
 import java_cup.runtime.*;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 import parser.RelationalOperatorType;
+import exceptions.LexicalError;
 
 %%
 
@@ -12,6 +13,7 @@ import parser.RelationalOperatorType;
 %implements java_cup.runtime.Scanner
 %function next_token
 %type java_cup.runtime.Symbol
+%yylexthrow LexicalError
 
 intlit      = [0-9]+
 boollit     = "true" | "false"
@@ -71,8 +73,9 @@ ident       = [a-zA-Z$_] [a-zA-Z0-9$_]*
 "!"         { return symbol(ParserSym.NOT); }
 "!"         { return symbol(ParserSym.NOT); }
 {rel}       { return relationalSymbol(this.yytext()); }
-{primtype}  { return symbol(ParserSym.PRIM_TYPE, this.yytext()); }
-{intlit}    { return symbol(ParserSym.INT_LIT, Integer.parseInt(this.yytext())); }
-{boollit}   { return symbol(ParserSym.BOOL_LIT, Boolean.parseBoolean(this.yytext())); }
-{strlit}    { return symbol(ParserSym.STR_LIT, this.yytext()); }
-{ident}     { return symbol(ParserSym.IDENT, this.yytext()); }
+{primtype}  { return symbol(ParserSym.PRIM_TYPE, yytext()); }
+{intlit}    { return symbol(ParserSym.INT_LIT, Integer.parseInt(yytext())); }
+{boollit}   { return symbol(ParserSym.BOOL_LIT, Boolean.parseBoolean(yytext())); }
+{strlit}    { return symbol(ParserSym.STR_LIT, yytext()); }
+{ident}     { return symbol(ParserSym.IDENT, yytext()); }
+"[^]"       { throw new LexicalError("Invalid sequence '" + yytext() + "'", 0); }

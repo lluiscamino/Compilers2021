@@ -1,5 +1,6 @@
 package main;
 
+import exceptions.LexicalError;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public final class Compiler {
         parser = new Parser(scanner, symbolFactory);
     }
     
-    public List<Symbol> getTokenList() throws IOException {
+    public List<Symbol> getTokenList() throws IOException, LexicalError {
         List<Symbol> tokenList = new LinkedList<>();
         Symbol tk = scanner.next_token();
         while (tk != null) {
