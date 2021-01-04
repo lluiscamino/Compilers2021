@@ -10,7 +10,8 @@ public final class Relational extends Expression {
 
     public Relational(
             Expression leftExpression, RelationalOperatorType operator, Expression rightExpression
-    ) {
+    )
+    {
         this.leftExpression = leftExpression;
         this.operator = operator;
         this.rightExpression = rightExpression;
