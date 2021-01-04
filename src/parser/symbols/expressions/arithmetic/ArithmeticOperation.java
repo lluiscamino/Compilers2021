@@ -5,9 +5,9 @@ import parser.symbols.expressions.Expression;
 
 public final class ArithmeticOperation extends Expression {
     private final Expression leftExpression, rightExpression;
-    private final /*ArithmeticOperator*/ Object operator;
+    private final ArithmeticOperator operator;
     
-    public ArithmeticOperation(Expression leftExpression, /*ArithmeticOperator*/ Object operator, Expression rightExpression) {
+    public ArithmeticOperation(Expression leftExpression, ArithmeticOperator operator, Expression rightExpression) {
         this.leftExpression = leftExpression;
         this.operator = operator;
         this.rightExpression = rightExpression;

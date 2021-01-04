@@ -5,9 +5,9 @@ import parser.symbols.expressions.Expression;
 
 public final class BinaryOperation extends Expression {
     private final Expression leftExpression, rightExpression;
-    private final /*BinaryOperator*/ Object operator;
+    private final BinaryOperator operator;
     
-    public BinaryOperation(Expression leftExpression, /*BinaryOperator*/ Object operator, Expression rightExpression) {
+    public BinaryOperation(Expression leftExpression, BinaryOperator operator, Expression rightExpression) {
         this.leftExpression = leftExpression;
         this.operator = operator;
         this.rightExpression = rightExpression;
