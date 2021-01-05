@@ -1,12 +1,12 @@
 package parser.symbols.statements.assignment;
 
-import java.io.PrintWriter;
+import dot.DotNode;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
 
 public class Assignment extends Statement {
-    private final String identifier;
-    private final Expression expression;
+    protected final String identifier;
+    protected final Expression expression;
     
     public Assignment(String identifier, Expression expression) {
         this.identifier = identifier;
@@ -19,8 +19,9 @@ public class Assignment extends Statement {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, "ASSGN - " + identifier, "", "filled", "#00a2ff");
+        dotNode.addEdge(expression);
     }
     
 }

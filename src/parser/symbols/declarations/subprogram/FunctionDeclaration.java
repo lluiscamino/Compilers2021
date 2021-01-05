@@ -1,7 +1,6 @@
 package parser.symbols.declarations.subprogram;
 
 import dot.DotNode;
-import java.io.PrintWriter;
 import parser.symbols.Argument;
 import parser.symbols.SymbolList;
 import parser.symbols.statements.Return;
@@ -24,19 +23,16 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        DotNode dotNode = new DotNode(this, "FUNCTION " + identifier, "", "filled", "#0077ff");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, "FUNCTION", "", "filled", "#0077ff");
+        
         dotNode.addEdge(type, "type");
-        if (arguments != null) dotNode.addEdge(arguments, "args");
-        if (statements != null) dotNode.addEdge(statements, "stmts");
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, identifier, "plaintext", "filled", "");
+        }, "ident");
+        dotNode.addEdgeIfNotNull(arguments, "args");
+        dotNode.addEdgeIfNotNull(statements, "stmts");
         dotNode.addEdge(returnStatement, "return");
-        
-        dotNode.print(out);
-        
-        type.toDot(out);
-        if (arguments != null) arguments.toDot(out);
-        if (statements != null) statements.toDot(out);
-        returnStatement.toDot(out);
     }
     
 }

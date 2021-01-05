@@ -1,7 +1,6 @@
 package parser.symbols.statements.conditional;
 
-import java.io.PrintWriter;
-import java.util.List;
+import dot.DotNode;
 import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
@@ -21,7 +20,11 @@ public final class IfElse extends If {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, "IF", "", "filled", "#00a2ff");
+        
+        dotNode.addEdge(condition, "cond");
+        dotNode.addEdgeIfNotNull(statements, "stmts");
+        dotNode.addEdgeIfNotNull(elseStatements, "else-stmts");
     }
 }

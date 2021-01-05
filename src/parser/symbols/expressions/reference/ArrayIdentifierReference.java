@@ -1,6 +1,5 @@
 package parser.symbols.expressions.reference;
 
-import java.io.PrintWriter;
 import parser.symbols.ArrayIndexes;
 
 
@@ -18,7 +17,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
+    public void toDot(StringBuilder buffer) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

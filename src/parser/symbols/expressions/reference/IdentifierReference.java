@@ -1,6 +1,5 @@
 package parser.symbols.expressions.reference;
 
-import java.io.PrintWriter;
 import parser.symbols.expressions.Expression;
 
 public class IdentifierReference extends Expression {
@@ -17,7 +16,7 @@ public class IdentifierReference extends Expression {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
+    public void toDot(StringBuilder buffer) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

@@ -1,8 +1,6 @@
 package parser.symbols;
 
 import parser.symbols.expressions.*;
-import java.io.PrintWriter;
-
 
 public final class Call extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "CALL";
@@ -22,7 +20,7 @@ public final class Call extends ParserSymbol {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
+    public void toDot(StringBuilder buffer) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

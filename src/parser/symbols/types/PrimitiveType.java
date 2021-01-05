@@ -1,6 +1,9 @@
 package parser.symbols.types;
 
-public enum PrimitiveType {
+import dot.DOTizable;
+import dot.DotNode;
+
+public enum PrimitiveType implements DOTizable {
     INT("int"), BOOLEAN("boolean"), STRING("string");
     
     private final String value;
@@ -14,5 +17,10 @@ public enum PrimitiveType {
             if (type.value.equals(value)) return type;
         }
         return null;
+    }
+
+    @Override
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, toString(), "", "filled", "");
     }
 }

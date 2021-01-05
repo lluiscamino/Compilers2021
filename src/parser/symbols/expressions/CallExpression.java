@@ -1,6 +1,5 @@
 package parser.symbols.expressions;
 
-import java.io.PrintWriter;
 import parser.symbols.Call;
 
 
@@ -17,7 +16,7 @@ public final class CallExpression extends Expression {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
+    public void toDot(StringBuilder buffer) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

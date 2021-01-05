@@ -1,6 +1,6 @@
 package parser.symbols.statements.io;
 
-import java.io.PrintWriter;
+import dot.DotNode;
 import parser.symbols.statements.Statement;
 
 public final class Read extends Statement {
@@ -17,8 +17,11 @@ public final class Read extends Statement {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, "READ", "", "filled", "#00a2ff");
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, identifier, "plaintext", "filled", "");
+        }, "ident");
     }
     
 }

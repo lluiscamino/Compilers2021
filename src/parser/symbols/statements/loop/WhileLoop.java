@@ -1,6 +1,6 @@
 package parser.symbols.statements.loop;
 
-import java.io.PrintWriter;
+import dot.DotNode;
 import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
@@ -17,8 +17,10 @@ public final class WhileLoop extends Loop {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, "WHILE", "box", "filled", "");
+        dotNode.addEdge(condition, "cond");
+        dotNode.addEdge(statements, "stmts");
     }
     
 }

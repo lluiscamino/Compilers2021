@@ -1,6 +1,5 @@
 package parser.symbols.expressions.literals;
 
-import java.io.PrintWriter;
 import parser.symbols.ParserSymbol;
 
 public final class LiteralTail extends ParserSymbol {
@@ -28,7 +27,7 @@ public final class LiteralTail extends ParserSymbol {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
+    public void toDot(StringBuilder buffer) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

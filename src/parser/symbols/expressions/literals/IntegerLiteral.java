@@ -1,7 +1,5 @@
 package parser.symbols.expressions.literals;
 
-import java.io.PrintWriter;
-
 public final class IntegerLiteral extends Literal {
     
     public IntegerLiteral(int value) {
@@ -19,7 +17,7 @@ public final class IntegerLiteral extends Literal {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
+    public void toDot(StringBuilder buffer) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

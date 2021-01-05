@@ -23,15 +23,10 @@ public final class Program extends ParserSymbol {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        DotNode dotNode = new DotNode(this, STRING_IDENTIFIER, "box", "filled", "#0000ff");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, STRING_IDENTIFIER, "box", "filled", "#0000ff");
         
-        dotNode.addEdge(main);
         dotNode.addEdge(declarations);
-        
-        dotNode.print(out);
-        
-        main.toDot(out);
-        declarations.toDot(out);
+        dotNode.addEdge(main);
     }
 }

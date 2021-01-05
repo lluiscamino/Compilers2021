@@ -1,7 +1,6 @@
 package parser.symbols.declarations.cva;
 
 import dot.DotNode;
-import java.io.PrintWriter;
 import parser.symbols.declarations.DeclarationMode;
 import parser.symbols.types.PrimitiveType;
 
@@ -18,14 +17,14 @@ public final class PrimitiveDeclaration extends CVADeclaration {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        DotNode dotNode = new DotNode(this, 
-                "Declaration " + identifier + " (" + primitiveType + ")", 
-                "", "filled", "");
-        dotNode.addEdge(mode, "mode");
-        dotNode.print(out);
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, "Declaration", "box", "filled", "");
         
-        mode.toDot(out);
+        dotNode.addEdge(mode, "mode");
+        dotNode.addEdge(primitiveType, "type");
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, identifier, "plaintext", "filled", "");
+        }, "ident");
     }
     
 }

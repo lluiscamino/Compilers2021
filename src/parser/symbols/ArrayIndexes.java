@@ -1,23 +1,20 @@
 package parser.symbols;
 
-import java.io.PrintWriter;
-import java.util.LinkedList;
-import java.util.List;
 import parser.symbols.expressions.Expression;
 
 public final class ArrayIndexes extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "ARR_INDEX";
     
-    private final List<Expression> indexes;
+    private SymbolList<Expression> indexes;
 
     public ArrayIndexes(Expression lastIndex) {
         super(STRING_IDENTIFIER);
-        this.indexes = new LinkedList<>();
-        indexes.add(lastIndex);
+        this.indexes = new SymbolList<>();
+        this.indexes = new SymbolList<>(indexes, lastIndex);
     }
     
     public void addIndex(Expression index) {
-        indexes.add(0, index);
+        indexes = new SymbolList<>(indexes, index);
     }
 
     @Override
@@ -26,8 +23,8 @@ public final class ArrayIndexes extends ParserSymbol {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void toDot(StringBuilder buffer) {
+        indexes.toDot(buffer);
     }
     
 }

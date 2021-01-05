@@ -1,6 +1,6 @@
 package parser.symbols;
 
-import java.io.PrintWriter;
+import dot.DotNode;
 
 public final class ArrayDimensions extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "ARR_DIM";
@@ -25,8 +25,8 @@ public final class ArrayDimensions extends ParserSymbol {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, String.valueOf(numDimensions), "", "filled", "#ffffff");
     }
     
 }

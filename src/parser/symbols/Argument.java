@@ -1,6 +1,6 @@
 package parser.symbols;
 
-import java.io.PrintWriter;
+import dot.DotNode;
 import parser.symbols.types.Type;
 
 public final class Argument extends ParserSymbol {
@@ -20,8 +20,12 @@ public final class Argument extends ParserSymbol {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, STRING_IDENTIFIER, "box", "filled", "");
+        dotNode.addEdge(type, "type");
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            new DotNode(buffer1, identifier, "plaintext", "", "");
+        }, "ident");
     }
     
 }

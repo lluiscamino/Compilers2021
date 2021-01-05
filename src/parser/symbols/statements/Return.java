@@ -1,6 +1,6 @@
 package parser.symbols.statements;
 
-import java.io.PrintWriter;
+import dot.DotNode;
 import parser.symbols.expressions.Expression;
 
 public final class Return extends Statement {
@@ -16,8 +16,9 @@ public final class Return extends Statement {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        //throw new UnsupportedOperationException("Not supported yet.");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, "RETURN", "", "filled", "#00a2ff");
+        dotNode.addEdge(expression);
     }
     
 }

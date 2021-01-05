@@ -1,6 +1,6 @@
 package parser.symbols.declarations.cva;
 
-import java.io.PrintWriter;
+import dot.DotNode;
 import parser.symbols.ArrayDimensions;
 import parser.symbols.declarations.DeclarationMode;
 import parser.symbols.types.PrimitiveType;
@@ -19,8 +19,15 @@ public final class ArrayDeclaration extends CVADeclaration {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, "Array decl ", "box", "filled", "");
+        
+        dotNode.addEdge(mode, "mode");
+        dotNode.addEdge(primitiveType, "type");
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, identifier, "plaintext", "filled", "");
+        }, "ident");
+        dotNode.addEdge(dimensions, "dimensions");
     }
     
 }

@@ -1,19 +1,17 @@
 package parser.symbols;
 
+import dot.DOTizable;
 import java.io.PrintWriter;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 
-public abstract class ParserSymbol extends ComplexSymbol {
-    private static int autoIncrementId = 0;
-    
-    public final int id;
+public abstract class ParserSymbol extends ComplexSymbol implements DOTizable {
     
     public ParserSymbol(String name) {
-        super(name, autoIncrementId++);
-        id = autoIncrementId;
+        super(name, 0);
     }
     
     public abstract void validate();
     
-    public abstract void toDot(PrintWriter out);
+    @Override
+    public abstract void toDot(StringBuilder out);
 }

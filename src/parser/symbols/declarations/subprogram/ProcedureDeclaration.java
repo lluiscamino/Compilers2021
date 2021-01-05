@@ -1,7 +1,6 @@
 package parser.symbols.declarations.subprogram;
 
 import dot.DotNode;
-import java.io.PrintWriter;
 import parser.symbols.Argument;
 import parser.symbols.SymbolList;
 import parser.symbols.statements.Statement;
@@ -18,16 +17,14 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        DotNode dotNode = new DotNode(this, "PROCEDURE " + identifier, "", "filled", "#00a2ff");
-        if (arguments != null) dotNode.addEdge(arguments, "args");
-        if (statements != null) dotNode.addEdge(statements, "stmts");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, "PROCEDURE", "", "filled", "#00a2ff");
         
-        dotNode.print(out);
-        
-        if (arguments != null) arguments.toDot(out);
-        if (statements != null) statements.toDot(out);
-        
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, identifier, "plaintext", "", "");
+        }, "ident");
+        dotNode.addEdgeIfNotNull(arguments, "args");
+        dotNode.addEdgeIfNotNull(statements, "stmts");
     }
     
 }

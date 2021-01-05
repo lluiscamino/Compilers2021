@@ -20,7 +20,7 @@ public final class ArrayLiteral extends Literal {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
+    public void toDot(StringBuilder buffer) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

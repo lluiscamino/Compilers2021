@@ -16,7 +16,7 @@ public final class CallStatement extends Statement {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void toDot(StringBuilder buffer) {
+        call.toDot(buffer);
     }
 }

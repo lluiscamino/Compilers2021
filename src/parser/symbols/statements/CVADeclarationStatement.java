@@ -1,6 +1,5 @@
 package parser.symbols.statements;
 
-import java.io.PrintWriter;
 import parser.symbols.declarations.cva.CVADeclaration;
 
 public final class CVADeclarationStatement extends Statement {
@@ -16,8 +15,8 @@ public final class CVADeclarationStatement extends Statement {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void toDot(StringBuilder buffer) {
+        declaration.toDot(buffer);
     }
     
 }

@@ -39,14 +39,12 @@ public final class Type extends ParserSymbol {
     }
 
     @Override
-    public void toDot(PrintWriter out) {
-        DotNode dotNode = new DotNode(this, primitiveType.toString(), "box", "filled", "");
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, "TYPE", "box", "filled", "");
         
+        dotNode.addEdge(primitiveType, "prim");
         if (isArray()) {
             dotNode.addEdge(dimensions);
         }
-        dotNode.print(out);
-        
-        if (isArray()) dimensions.toDot(out);
     }
 }

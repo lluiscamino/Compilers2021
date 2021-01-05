@@ -12,6 +12,7 @@ import java_cup.runtime.ComplexSymbolFactory;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.SymbolFactory;
 import parser.Parser;
+import parser.ParserSym;
 import parser.symbols.Program;
 import scanner.Scanner;
 
@@ -29,15 +30,23 @@ public final class Compiler {
         parser = new Parser(scanner, symbolFactory);
     }
     
-    public List<Symbol> getTokenList() throws IOException, LexicalError {
-        List<Symbol> tokenList = new LinkedList<>();
+    public void writeTokenList(String outputPath) throws IOException, LexicalError {
+        PrintWriter out = new PrintWriter(outputPath);
+        StringBuilder buffer = new StringBuilder();
         Symbol tk = scanner.next_token();
         while (tk != null) {
-            System.out.println(tk);
+            buffer.append(tk.toString().substring(8));
+            /*if (tk.sym == ParserSym.EOL) {
+                buffer.append("\n");
+            } else {
+                buffer.append(" ");
+            }*/
+            buffer.append("\n");
             tk = scanner.next_token();
         }
+        out.print(buffer.toString());
+        out.close();
         scanner.yyreset(new FileReader(inputPath));
-        return tokenList;
     }
     
     public void toDot(String outputPath) throws Exception {
@@ -45,9 +54,11 @@ public final class Compiler {
             throw new Exception("Parse file first to get .dot file");
         }
         PrintWriter out = new PrintWriter(outputPath);
-        out.println("strict digraph {");
-        program.toDot(out);
-        out.println("}");
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("strict digraph {\n");
+        program.toDot(buffer);
+        buffer.append("}");
+        out.write(buffer.toString());
         out.close();
     }
     
