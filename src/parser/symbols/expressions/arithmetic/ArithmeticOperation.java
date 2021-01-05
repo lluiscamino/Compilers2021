@@ -2,6 +2,7 @@ package parser.symbols.expressions.arithmetic;
 
 import java.io.PrintWriter;
 import parser.symbols.expressions.Expression;
+import parser.symbols.operators.ArithmeticOperator;
 
 public final class ArithmeticOperation extends Expression {
     private final Expression leftExpression, rightExpression;

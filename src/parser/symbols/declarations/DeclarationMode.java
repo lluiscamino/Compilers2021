@@ -6,22 +6,24 @@ import parser.symbols.ParserSymbol;
 
 public final class DeclarationMode extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "DECL_MODE";
-    private static final int CONST = 0;
-    private static final int VAR = 1;
     
-    private final int mode;
+    private enum Mode {
+        CONST, VAR
+    }
     
-    private DeclarationMode(int mode) {
+    private final Mode mode;
+    
+    private DeclarationMode(Mode mode) {
         super(STRING_IDENTIFIER);
         this.mode = mode;
     }
     
     public boolean isConstant() {
-        return mode == CONST;
+        return mode == Mode.CONST;
     }
     
     public boolean isVariable() {
-        return mode == VAR;
+        return mode == Mode.VAR;
     }
 
     @Override
@@ -31,17 +33,17 @@ public final class DeclarationMode extends ParserSymbol {
 
     @Override
     public void toDot(PrintWriter out) {
-        String label = isConstant() ? "CONST" : "VAR";
+        String label = mode.toString();
         DotNode dotNode = new DotNode(this, label, "", "filled", "");
         dotNode.print(out);
     }
     
     public static DeclarationMode getConstant() {
-        return new DeclarationMode(CONST);
+        return new DeclarationMode(Mode.CONST);
     }
     
     public static DeclarationMode getVariable() {
-        return new DeclarationMode(VAR);
+        return new DeclarationMode(Mode.VAR);
     }
     
 }

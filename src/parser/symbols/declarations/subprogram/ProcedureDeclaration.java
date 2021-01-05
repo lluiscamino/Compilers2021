@@ -20,13 +20,13 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
     @Override
     public void toDot(PrintWriter out) {
         DotNode dotNode = new DotNode(this, "PROCEDURE " + identifier, "", "filled", "#00a2ff");
-        dotNode.addEdge(arguments, "args");
-        dotNode.addEdge(statements, "stmts");
+        if (arguments != null) dotNode.addEdge(arguments, "args");
+        if (statements != null) dotNode.addEdge(statements, "stmts");
         
         dotNode.print(out);
         
-        arguments.toDot(out);
-        statements.toDot(out);
+        if (arguments != null) arguments.toDot(out);
+        if (statements != null) statements.toDot(out);
         
     }
     

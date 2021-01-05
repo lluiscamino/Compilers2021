@@ -4,9 +4,11 @@ import parser.symbols.expressions.Expression;
 
 
 public abstract class Literal extends Expression {
-    private final Object literalValue;
+    protected final Object literalValue;
     
     public Literal(Object value) {
         this.literalValue = value;
     }
+    
+    public abstract Object getValue();
 }

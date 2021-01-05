@@ -1,6 +1,5 @@
 package parser.symbols.declarations.subprogram;
 
-import java.util.List;
 import parser.symbols.Argument;
 import parser.symbols.SymbolList;
 import parser.symbols.statements.Statement;

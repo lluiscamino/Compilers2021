@@ -12,7 +12,7 @@ public abstract class SubprogramDeclaration extends Declaration {
 
     public SubprogramDeclaration(String identifier, SymbolList<Argument> arguments, SymbolList<Statement> statements) {
         this.identifier = identifier;
-        this.arguments = arguments == null ? new SymbolList<>() : arguments;
-        this.statements = statements == null ? new SymbolList<>() : statements;
+        this.arguments = arguments;
+        this.statements = statements;
     }
 }

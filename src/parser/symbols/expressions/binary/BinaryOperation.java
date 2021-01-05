@@ -2,6 +2,7 @@ package parser.symbols.expressions.binary;
 
 import java.io.PrintWriter;
 import parser.symbols.expressions.Expression;
+import parser.symbols.operators.BinaryOperator;
 
 public final class BinaryOperation extends Expression {
     private final Expression leftExpression, rightExpression;

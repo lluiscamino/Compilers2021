@@ -2,7 +2,6 @@
 
 package parser;
 import java.util.List;
-import java.util.LinkedList;
 import parser.symbols.*;
 import parser.symbols.statements.*;
 import parser.symbols.expressions.*;
@@ -20,6 +19,15 @@ import parser.symbols.declarations.subprogram.FunctionDeclaration;
 import parser.symbols.declarations.subprogram.MainDeclaration;
 import parser.symbols.declarations.subprogram.ProcedureDeclaration;
 import parser.symbols.declarations.subprogram.SubprogramDeclaration;
+import parser.symbols.expressions.arithmetic.ArithmeticOperation;
+import parser.symbols.expressions.arithmetic.Negative;
+import parser.symbols.expressions.binary.BinaryOperation;
+import parser.symbols.expressions.binary.Not;
+import parser.symbols.expressions.binary.Relational;
+import parser.symbols.expressions.reference.ArrayIdentifierReference;
+import parser.symbols.expressions.reference.IdentifierReference;
+import parser.symbols.operators.ArithmeticOperator;
+import parser.symbols.operators.BinaryOperator;
 
 class Parser;
 
@@ -73,16 +81,16 @@ non terminal  Call                          CALL;
 non terminal  Return                        RETURN_STMT;
 
 // Expressions
-non terminal  List<Expression>              EXPR_LIST;
+non terminal  ExpressionList                EXPR_LIST;
 non terminal  Expression                    EXPR;
-non terminal                                LIT_TAIL;
-non terminal  List<Literal>                 LIT_LIST;
+non terminal  LiteralTail                   LIT_TAIL;
+non terminal  LiteralList                   LIT_LIST;
 non terminal  Literal                       LIT;
-non terminal  /*ArrayLiteral*/              ARR_LIT;
+non terminal  ArrayLiteral                  ARR_LIT;
 
 // Operators
-non terminal  /*ArithmeticOperator*/        ARITH_OP;
-non terminal  /*BinaryOperator*/            BIN_OP;
+non terminal  ArithmeticOperator            ARITH_OP;
+non terminal  BinaryOperator                BIN_OP;
 
 precedence left                             OR;
 precedence left                             AND;
@@ -189,49 +197,49 @@ IF_STMT     ::= IF L_PAR EXPR:c R_PAR L_BRK STMT_LIST:l R_BRK       {: RESULT = 
                 L_BRK STMT_LIST:l2 R_BRK                            {: RESULT = new IfElse(c, l1, l2); :}
               ;
 
-EXPR        ::= LIT
-              | IDENT
-              | IDENT ARR_INDEX
-              | L_PAR EXPR R_PAR
-              | CALL
-              | SUB EXPR
-              | EXPR ARITH_OP EXPR
-              | EXPR REL:r EXPR
-              | NOT EXPR
-              | EXPR BIN_OP EXPR
+EXPR        ::= LIT:l                                               {: RESULT = l; :}
+              | IDENT:i                                             {: RESULT = new IdentifierReference(i); :}
+              | IDENT:i ARR_INDEX:ai                                {: RESULT = new ArrayIdentifierReference(i, ai); :}
+              | L_PAR EXPR:e R_PAR                                  {: RESULT = new Priority(e); :}
+              | CALL:c                                              {: RESULT = new CallExpression(c); :}
+              | SUB EXPR:e                                          {: RESULT = new Negative(e); :}
+              | EXPR:e1 ARITH_OP:ao EXPR:e2                         {: RESULT = new ArithmeticOperation(e1, ao, e2); :}
+              | EXPR:e1 REL:r EXPR:e2                               {: RESULT = new Relational(e1, r, e2); :}
+              | NOT EXPR:e                                          {: RESULT = new Not(e); :}
+              | EXPR:e1 BIN_OP:bo EXPR:e2                           {: RESULT = new BinaryOperation(e1, bo, e2); :}
               ;
 
-EXPR_LIST   ::= EXPR COMMA EXPR_LIST
-              |
+EXPR_LIST   ::= EXPR:e COMMA EXPR_LIST:el                           {: RESULT = new ExpressionList(e, el); :}
+              |                                                     {: RESULT = new ExpressionList(); :}
               ;
 
-LIT         ::= INT_LIT
-              | BOOL_LIT
-              | STR_LIT
-              | ARR_LIT
+LIT         ::= INT_LIT:v                                           {: RESULT = new IntegerLiteral(v); :}
+              | BOOL_LIT:v                                          {: RESULT = new BooleanLiteral(v); :}
+              | STR_LIT:v                                           {: RESULT = new StringLiteral(v); :}
+              | ARR_LIT:l                                           {: RESULT = l; :}
               ;
 
-LIT_LIST    ::= LIT LIT_TAIL
-              |
+LIT_LIST    ::= LIT:l LIT_TAIL:lt                                   {: RESULT = new LiteralList(l, lt); :}
+              |                                                     {: RESULT = new LiteralList(); :}
               ;
 
-LIT_TAIL    ::= COMMA LIT LIT_TAIL
-              |
+LIT_TAIL    ::= COMMA LIT:l LIT_TAIL:lt                             {: RESULT = new LiteralTail(l, lt); :}
+              |                                                     {: RESULT = new LiteralTail(); :}
               ;
 
-ARR_LIT     ::= L_BRK LIT_LIST R_BRK
+ARR_LIT     ::= L_BRK LIT_LIST:ll R_BRK                             {: RESULT = new ArrayLiteral(ll); :}
               ;
 
-CALL        ::= IDENT L_PAR EXPR_LIST R_PAR
+CALL        ::= IDENT:i L_PAR EXPR_LIST:el R_PAR                    {: RESULT = new Call(i, el); :}
              ;
 
-ARITH_OP    ::= ADD
-              | SUB
-              | MUL
-              | DIV
-              | MOD
+ARITH_OP    ::= ADD                                                 {: RESULT = ArithmeticOperator.getAdd(); :}
+              | SUB                                                 {: RESULT = ArithmeticOperator.getSubstract(); :}
+              | MUL                                                 {: RESULT = ArithmeticOperator.getMultiply(); :}
+              | DIV                                                 {: RESULT = ArithmeticOperator.getDivide(); :}
+              | MOD                                                 {: RESULT = ArithmeticOperator.getModulo(); :}
               ;
 
-BIN_OP      ::= AND
-              | OR
+BIN_OP      ::= AND                                                 {: RESULT = BinaryOperator.getAnd(); :}
+              | OR                                                  {: RESULT = BinaryOperator.getOr(); :}
               ;

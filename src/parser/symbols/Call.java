@@ -2,16 +2,15 @@ package parser.symbols;
 
 import parser.symbols.expressions.*;
 import java.io.PrintWriter;
-import java.util.List;
 
 
 public final class Call extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "CALL";
     
     private final String subProgramIdentifier;
-    private final List<Expression> arguments;
+    private final ExpressionList arguments;
     
-    public Call(String subProgramIdentifier, List<Expression> arguments) {
+    public Call(String subProgramIdentifier, ExpressionList arguments) {
         super(STRING_IDENTIFIER);
         this.subProgramIdentifier = subProgramIdentifier;
         this.arguments = arguments;
