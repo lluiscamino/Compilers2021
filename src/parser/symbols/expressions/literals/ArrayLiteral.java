@@ -21,6 +21,11 @@ public final class ArrayLiteral extends Literal {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DotNode dotNode = new DotNode(buffer, "ARR_LIT", "", "filled", "#00a2ff");
+        
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, "Literal_List", "plaintext", "", "");
+        }, "ident");
+        dotNode.addEdgeIfNotNull(literalsList, "literals");
     }
 }
