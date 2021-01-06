@@ -1,6 +1,6 @@
 package parser.symbols.expressions.literals;
 
-import java.io.PrintWriter;
+import dot.DotNode;
 
 public class BooleanLiteral extends Literal {
     

@@ -1,5 +1,6 @@
 package parser.symbols.operators;
 
+import dot.DotNode;
 import java.io.PrintWriter;
 import parser.symbols.ParserSymbol;
 

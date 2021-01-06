@@ -1,5 +1,6 @@
 package parser.symbols;
 
+import dot.DotNode;
 import parser.symbols.expressions.*;
 
 public final class Call extends ParserSymbol {

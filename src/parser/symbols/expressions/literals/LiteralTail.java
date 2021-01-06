@@ -1,5 +1,6 @@
 package parser.symbols.expressions.literals;
 
+import dot.DotNode;
 import parser.symbols.ParserSymbol;
 
 public final class LiteralTail extends ParserSymbol {
