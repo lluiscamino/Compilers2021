@@ -23,9 +23,6 @@ public final class ArrayLiteral extends Literal {
     public void toDot(StringBuilder buffer) {
         DotNode dotNode = new DotNode(buffer, "ARR_LIT", "", "filled", "#00a2ff");
         
-        dotNode.addEdge((StringBuilder buffer1) -> {
-            DotNode dotNode1 = new DotNode(buffer1, "Literal_List", "plaintext", "", "");
-        }, "ident");
-        //dotNode.addEdgeIfNotNull(value, "literals");
+        dotNode.addEdgeIfNotNull(getValue(), "literals");
     }
 }
