@@ -58,6 +58,7 @@ ident       = [a-zA-Z$_] [a-zA-Z0-9$_]*
 "return"    { return symbol(ParserSym.RETURN); }
 "while"     { return symbol(ParserSym.WHILE); }
 "if"        { return symbol(ParserSym.IF); }
+"else"      { return symbol(ParserSym.ELSE); }
 "("         { return symbol(ParserSym.L_PAR); }
 ")"         { return symbol(ParserSym.R_PAR); }
 "["         { return symbol(ParserSym.L_BOX); }
