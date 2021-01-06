@@ -1,7 +1,6 @@
 package parser.symbols.expressions.literals;
 
 import dot.DotNode;
-import java.io.PrintWriter;
 import parser.symbols.ParserSymbol;
 
 public final class LiteralList extends ParserSymbol {
@@ -36,7 +35,7 @@ public final class LiteralList extends ParserSymbol {
             DotNode dotNode1 = new DotNode(buffer1, "lit_list", "plaintext", "", "");
         }, "ident");
         dotNode.addEdgeIfNotNull(literal, "lit");
-        dotNode.addEdgeIfNotNull(literalList, "litList");
+        //dotNode.addEdgeIfNotNull(literalList, "litList");
     }
     
 }

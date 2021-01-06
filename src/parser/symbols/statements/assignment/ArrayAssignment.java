@@ -19,8 +19,11 @@ public final class ArrayAssignment extends Assignment {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "ASSGN - " + identifier, "", "filled", "#00a2ff");
-        dotNode.addEdge(indexes);
-        dotNode.addEdge(expression);
+        DotNode dotNode = new DotNode(buffer, "ARR_ASSGN", "", "filled", "#00a2ff");
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, identifier, "plaintext", "filled", "");
+        }, "ident");
+        dotNode.addEdge(indexes, "indexes");
+        dotNode.addEdge(expression, "expr");
     }
 }

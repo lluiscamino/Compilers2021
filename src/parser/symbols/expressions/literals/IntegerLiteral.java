@@ -23,8 +23,8 @@ public final class IntegerLiteral extends Literal {
         DotNode dotNode = new DotNode(buffer, "INT_LIT", "", "filled", "#00a2ff");
         
         dotNode.addEdge((StringBuilder buffer1) -> {
-            DotNode dotNode1 = new DotNode(buffer1, Integer.toString((int) value), "plaintext", "", "");
-        }, "ident");
+            DotNode dotNode1 = new DotNode(buffer1, Integer.toString(getValue()), "plaintext", "", "");
+        }, "value");
     }
     
 }

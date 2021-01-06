@@ -81,10 +81,10 @@ non terminal  Call                          CALL;
 non terminal  Return                        RETURN_STMT;
 
 // Expressions
-non terminal  ExpressionList                EXPR_LIST;
+non terminal  SymbolList<Expression>        EXPR_LIST;
 non terminal  Expression                    EXPR;
-non terminal  LiteralTail                   LIT_TAIL;
-non terminal  LiteralList                   LIT_LIST;
+non terminal  SymbolList<Literal>           LIT_TAIL;
+non terminal  SymbolList<Literal>           LIT_LIST;
 non terminal  Literal                       LIT;
 non terminal  ArrayLiteral                  ARR_LIT;
 
@@ -172,7 +172,7 @@ STMT        ::= CVA_DECL:d                                          {: RESULT = 
               | PRINT_STMT:p                                        {: RESULT = p; :}
               | LOOP:l                                              {: RESULT = l; :}
               | IF_STMT:i                                           {: RESULT = i; :}
-              | CALL:c                                              {: RESULT = new CallStatement(c); :}
+              | CALL:c EOL                                          {: RESULT = new CallStatement(c); :}
               ;
 
 STMT_LIST   ::= STMT:s STMT_LIST:l                                  {: RESULT = new SymbolList<>(l, s); :}                                      
@@ -209,7 +209,7 @@ EXPR        ::= LIT:l                                               {: RESULT = 
               | EXPR:e1 BIN_OP:bo EXPR:e2                           {: RESULT = new BinaryOperation(e1, bo, e2); :}
               ;
 
-EXPR_LIST   ::= EXPR:e COMMA EXPR_LIST:el                           {: RESULT = new SymbolList<>(e1, e); :} 
+EXPR_LIST   ::= EXPR:e COMMA EXPR_LIST:el                           {: RESULT = new SymbolList<>(el, e); :} 
               |                                                     {: RESULT = new SymbolList<>(); :} 
               ;
 
@@ -219,7 +219,7 @@ LIT         ::= INT_LIT:v                                           {: RESULT = 
               | ARR_LIT:l                                           {: RESULT = l; :}
               ;
 
-LIT_LIST    ::= LIT:l LIT_TAIL:lt                                   {: RESULT = new SymbolList<>(lt, t); :} 
+LIT_LIST    ::= LIT:l LIT_TAIL:lt                                   {: RESULT = new SymbolList<>(lt, l); :} 
               |                                                     {: RESULT = new SymbolList<>(); :} 
               ;
 

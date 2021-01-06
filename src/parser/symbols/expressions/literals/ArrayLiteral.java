@@ -1,18 +1,17 @@
 package parser.symbols.expressions.literals;
 
 import dot.DotNode;
-import java.io.PrintWriter;
-import java.util.List;
+import parser.symbols.SymbolList;
 
 public final class ArrayLiteral extends Literal {
     
-    public ArrayLiteral(LiteralList literalsList) {
+    public ArrayLiteral(SymbolList<Literal> literalsList) {
         super(literalsList);
     }
     
     @Override
-    public List<Literal> getValue() {
-        return (List<Literal>) literalValue;
+    public SymbolList<Literal> getValue() {
+        return (SymbolList<Literal>) literalValue;
     }
     
     @Override
@@ -27,6 +26,6 @@ public final class ArrayLiteral extends Literal {
         dotNode.addEdge((StringBuilder buffer1) -> {
             DotNode dotNode1 = new DotNode(buffer1, "Literal_List", "plaintext", "", "");
         }, "ident");
-        dotNode.addEdgeIfNotNull(literalsList, "literals");
+        //dotNode.addEdgeIfNotNull(value, "literals");
     }
 }

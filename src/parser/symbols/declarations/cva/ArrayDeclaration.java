@@ -20,14 +20,14 @@ public final class ArrayDeclaration extends CVADeclaration {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "Array decl ", "box", "filled", "");
+        DotNode dotNode = new DotNode(buffer, "ARR_DECL", "box", "filled", "");
         
         dotNode.addEdge(mode, "mode");
         dotNode.addEdge(primitiveType, "type");
+        dotNode.addEdge(dimensions, "dimensions");
         dotNode.addEdge((StringBuilder buffer1) -> {
             DotNode dotNode1 = new DotNode(buffer1, identifier, "plaintext", "filled", "");
         }, "ident");
-        dotNode.addEdge(dimensions, "dimensions");
     }
     
 }

@@ -1,7 +1,6 @@
 package parser.symbols;
 
 import dot.DotNode;
-import java.io.PrintWriter;
 import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.subprogram.MainDeclaration;
 
@@ -26,7 +25,7 @@ public final class Program extends ParserSymbol {
     public void toDot(StringBuilder buffer) {
         DotNode dotNode = new DotNode(buffer, STRING_IDENTIFIER, "box", "filled", "#0000ff");
         
-        dotNode.addEdge(declarations);
+        dotNode.addEdgeIfNotNull(declarations);
         dotNode.addEdge(main);
     }
 }

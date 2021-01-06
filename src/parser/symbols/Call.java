@@ -7,9 +7,9 @@ public final class Call extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "CALL";
     
     private final String subProgramIdentifier;
-    private final ExpressionList arguments;
+    private final SymbolList<Expression> arguments;
     
-    public Call(String subProgramIdentifier, ExpressionList arguments) {
+    public Call(String subProgramIdentifier, SymbolList<Expression> arguments) {
         super(STRING_IDENTIFIER);
         this.subProgramIdentifier = subProgramIdentifier;
         this.arguments = arguments;

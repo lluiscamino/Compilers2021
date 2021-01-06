@@ -20,7 +20,7 @@ public final class WhileLoop extends Loop {
     public void toDot(StringBuilder buffer) {
         DotNode dotNode = new DotNode(buffer, "WHILE", "box", "filled", "");
         dotNode.addEdge(condition, "cond");
-        dotNode.addEdge(statements, "stmts");
+        dotNode.addEdgeIfNotNull(statements, "stmts");
     }
     
 }
