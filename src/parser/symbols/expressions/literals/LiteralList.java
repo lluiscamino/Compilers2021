@@ -29,7 +29,13 @@ public final class LiteralList extends ParserSymbol {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DotNode dotNode = new DotNode(buffer, STRING_IDENTIFIER, "LIT_LIST", "filled", "#00a2ff");
+        
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, "lit_list", "plaintext", "", "");
+        }, "ident");
+        dotNode.addEdgeIfNotNull(literal, "lit");
+        dotNode.addEdgeIfNotNull(literalList, "litList");
     }
     
 }
