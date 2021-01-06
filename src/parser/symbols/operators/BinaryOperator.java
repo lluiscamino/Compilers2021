@@ -24,7 +24,11 @@ public final class BinaryOperator extends ParserSymbol {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DotNode dotNode = new DotNode(buffer, "BIN_OP", "", "filled ",  "#00a2ff");
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, type.toString(), "plaintext", "", "");
+        }, "bin_op");
+        
     }
     
     public static BinaryOperator getAnd() {
