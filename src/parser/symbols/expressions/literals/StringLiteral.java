@@ -1,7 +1,6 @@
 package parser.symbols.expressions.literals;
 
 import dot.DotNode;
-import java.io.PrintWriter;
 
 public class StringLiteral extends Literal {
     
@@ -25,7 +24,7 @@ public class StringLiteral extends Literal {
         
         dotNode.addEdge((StringBuilder buffer1) -> {
             DotNode dotNode1 = new DotNode(buffer1, getValue(), "plaintext", "", "");
-        }, "ident");
+        }, "value");
     }
     
 }

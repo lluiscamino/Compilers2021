@@ -44,7 +44,7 @@ public final class Type extends ParserSymbol {
         
         dotNode.addEdge(primitiveType, "prim");
         if (isArray()) {
-            dotNode.addEdge(dimensions);
+            dotNode.addEdge(dimensions, "dimensions");
         }
     }
 }

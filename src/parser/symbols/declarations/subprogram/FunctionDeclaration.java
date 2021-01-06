@@ -26,10 +26,10 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
     public void toDot(StringBuilder buffer) {
         DotNode dotNode = new DotNode(buffer, "FUNCTION", "", "filled", "#0077ff");
         
-        dotNode.addEdge(type, "type");
         dotNode.addEdge((StringBuilder buffer1) -> {
             DotNode dotNode1 = new DotNode(buffer1, identifier, "plaintext", "filled", "");
         }, "ident");
+        dotNode.addEdge(type, "type");
         dotNode.addEdgeIfNotNull(arguments, "args");
         dotNode.addEdgeIfNotNull(statements, "stmts");
         dotNode.addEdge(returnStatement, "return");
