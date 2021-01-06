@@ -27,7 +27,7 @@ public class ArithmeticOperator extends ParserSymbol {
         DotNode dotNode = new DotNode(buffer, "ARITH_OP", "", "filled ",  "#00a2ff");
         dotNode.addEdge((StringBuilder buffer1) -> {
             DotNode dotNode1 = new DotNode(buffer1, type.toString(), "plaintext", "", "");
-        }, "arith_op");
+        }, "ident");
     }
     
     public static ArithmeticOperator getAdd() {
