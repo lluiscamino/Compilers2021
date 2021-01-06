@@ -81,6 +81,7 @@ non terminal  Call                          CALL;
 non terminal  Return                        RETURN_STMT;
 
 // Expressions
+non terminal  SymbolList<Expression>        EXPR_TAIL;
 non terminal  SymbolList<Expression>        EXPR_LIST;
 non terminal  Expression                    EXPR;
 non terminal  SymbolList<Literal>           LIT_TAIL;
@@ -209,8 +210,12 @@ EXPR        ::= LIT:l                                               {: RESULT = 
               | EXPR:e1 BIN_OP:bo EXPR:e2                           {: RESULT = new BinaryOperation(e1, bo, e2); :}
               ;
 
-EXPR_LIST   ::= EXPR:e COMMA EXPR_LIST:el                           {: RESULT = new SymbolList<>(el, e); :} 
-              |                                                     {: RESULT = new SymbolList<>(); :} 
+EXPR_LIST   ::= EXPR:e EXPR_TAIL:et                                 {: RESULT = new SymbolList<>(et, e); :}
+              |                                                     {: RESULT = new SymbolList<>(); :}
+              ;
+
+EXPR_TAIL   ::= COMMA EXPR:e EXPR_TAIL:et                           {: RESULT = new SymbolList<>(et, e); :}
+              |                                                     {: RESULT = new SymbolList<>(); :}
               ;
 
 LIT         ::= INT_LIT:v                                           {: RESULT = new IntegerLiteral(v); :}
