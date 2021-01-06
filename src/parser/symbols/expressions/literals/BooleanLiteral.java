@@ -20,7 +20,11 @@ public class BooleanLiteral extends Literal {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DotNode dotNode = new DotNode(buffer, "BOOL_LIT", "", "filled", "#00a2ff");
+        
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, String.valueOf(value), "plaintext", "", "");
+        }, "ident");
     }
     
 }
