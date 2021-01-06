@@ -209,8 +209,8 @@ EXPR        ::= LIT:l                                               {: RESULT = 
               | EXPR:e1 BIN_OP:bo EXPR:e2                           {: RESULT = new BinaryOperation(e1, bo, e2); :}
               ;
 
-EXPR_LIST   ::= EXPR:e COMMA EXPR_LIST:el                           {: RESULT = new ExpressionList(e, el); :}
-              |                                                     {: RESULT = new ExpressionList(); :}
+EXPR_LIST   ::= EXPR:e COMMA EXPR_LIST:el                           {: RESULT = new SymbolList<>(e1, e); :} 
+              |                                                     {: RESULT = new SymbolList<>(); :} 
               ;
 
 LIT         ::= INT_LIT:v                                           {: RESULT = new IntegerLiteral(v); :}
@@ -219,12 +219,12 @@ LIT         ::= INT_LIT:v                                           {: RESULT = 
               | ARR_LIT:l                                           {: RESULT = l; :}
               ;
 
-LIT_LIST    ::= LIT:l LIT_TAIL:lt                                   {: RESULT = new LiteralList(l, lt); :}
-              |                                                     {: RESULT = new LiteralList(); :}
+LIT_LIST    ::= LIT:l LIT_TAIL:lt                                   {: RESULT = new SymbolList<>(lt, t); :} 
+              |                                                     {: RESULT = new SymbolList<>(); :} 
               ;
 
-LIT_TAIL    ::= COMMA LIT:l LIT_TAIL:lt                             {: RESULT = new LiteralTail(l, lt); :}
-              |                                                     {: RESULT = new LiteralTail(); :}
+LIT_TAIL    ::= COMMA LIT:l LIT_TAIL:lt                             {: RESULT = new SymbolList<>(lt, l); :} 
+              |                                                     {: RESULT = new SymbolList<>(); :} 
               ;
 
 ARR_LIT     ::= L_BRK LIT_LIST:ll R_BRK                             {: RESULT = new ArrayLiteral(ll); :}
