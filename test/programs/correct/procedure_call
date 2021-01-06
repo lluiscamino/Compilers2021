@@ -1,0 +1,46 @@
+procedure proc1(string text) {
+    print(test);
+    proc2(3, true);
+}
+
+procedure proc2(int a, boolean b) {
+    if (b) {
+        proc3(a);
+    } else {
+        proc4(a - 7, !b);
+    }
+    proc5(3+4, 4*7+1);
+}
+
+procedure proc3(int a) {
+    print(a);
+}
+
+procedure proc4(int num, boolean b) {
+    if (b) {
+        proc5(num, num*2);
+    }
+}
+
+procedure proc5(int num1, int num2) {
+    if (num1 == num2) {
+        print("Equal");
+    } else {
+        print("Different");
+    }
+}
+
+procedure proc6(string[] messages) {
+    print(messages[0]);
+    print(messages[1]);
+}
+
+main() {
+    const string text;
+    const array string[] msgs;
+    text = "Starting";
+    msgs = {"aa", "bab"};
+    proc1();
+    proc6({"Hello", "GoodBye"});
+    proc6(msgs);
+}

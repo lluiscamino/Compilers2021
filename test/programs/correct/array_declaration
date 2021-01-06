@@ -1,0 +1,5 @@
+main() {
+    const array int[] unidimensional;
+    const array int[][] bidimensional;
+    var array int[][][] tridimensional;
+}

@@ -1,32 +1,24 @@
 package main;
 
-import org.junit.Test;
-
-import java.io.FileNotFoundException;
+import java.io.File;
 
 public class ProgramsTest {
 
-    private static final String PROGRAMS_PATH = "C:\\Users\\lluis\\Documents\\NetBeansProjects\\Compiladores2020\\test\\programs\\";
-
-    private Compiler getCompiler(String programName) throws FileNotFoundException {
-        return new Compiler(PROGRAMS_PATH + programName);
-    }
-
-    @Test
-    public void testProgram1() throws Exception {
-        Compiler compiler = getCompiler("test_program1.txt");
-        compiler.parse();
-    }
-
-    @Test(expected = Exception.class)
-    public void testProgram2() throws Exception { // Program needs main
-        Compiler compiler = getCompiler("test_program2.txt");
-        compiler.parse();
-    }
-
-    @Test
-    public void testProgram3() throws Exception { // Array declaration
-        Compiler compiler = getCompiler("test_program3.txt");
-        compiler.parse();
+    private static final String PROGRAMS_PATH = "test/programs/";
+    
+    public static void main(String[] args) throws Exception {
+        File path = new File(PROGRAMS_PATH + "correct");
+        File[] programs = path.listFiles();
+        for (File program : programs) {
+            try {
+                Compiler compiler = new Compiler(program.getAbsolutePath());
+                compiler.parse();
+            } catch (Exception e) {
+                System.err.println("Problem with program " + program.getName());
+                System.err.println(e.getMessage());
+                System.exit(0);
+            }
+        }
+        System.out.println("All tests passed!");
     }
 }
