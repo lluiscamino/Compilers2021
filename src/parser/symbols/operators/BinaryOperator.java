@@ -27,7 +27,7 @@ public final class BinaryOperator extends ParserSymbol {
         DotNode dotNode = new DotNode(buffer, "BIN_OP", "", "filled ",  "#00a2ff");
         dotNode.addEdge((StringBuilder buffer1) -> {
             DotNode dotNode1 = new DotNode(buffer1, type.toString(), "plaintext", "", "");
-        }, "bin_op");
+        }, "ident");
         
     }
     
