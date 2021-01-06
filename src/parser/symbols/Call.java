@@ -21,7 +21,12 @@ public final class Call extends ParserSymbol {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DotNode dotNode = new DotNode(buffer, "CALL", "", "filled", "#00a2ff");
+        
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, subProgramIdentifier, "plaintext", "", "");
+        }, "ident");
+        dotNode.addEdgeIfNotNull(arguments, "args");
     }
     
 }
