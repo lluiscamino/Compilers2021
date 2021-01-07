@@ -17,7 +17,7 @@ public final class CallExpression extends Expression {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        call.toDot();
     }
     
 }
