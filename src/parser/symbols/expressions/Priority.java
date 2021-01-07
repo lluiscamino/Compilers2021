@@ -21,6 +21,7 @@ public final class Priority extends Expression {
         dotNode.addEdge((StringBuilder buffer1) -> {
             DotNode dotNode1 = new DotNode(buffer1, "expr", "plaintext", "", "");
         }, "ident");
+        dotNode.addEdgeIfNotNull(expression, "expr");
     }
     
 }
