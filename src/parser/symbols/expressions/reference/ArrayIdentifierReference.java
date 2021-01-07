@@ -18,7 +18,12 @@ public final class ArrayIdentifierReference extends IdentifierReference {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DotNode dotNode = new DotNode(buffer, "IDENT_ARR", "", "filled", "#00a2ff");
+        
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, identifierName, "plaintext", "", "");
+        }, "ident");
+        dotNode.addEdgeIfNotNull(indexes, "indexes");
     }
     
 }
