@@ -17,7 +17,11 @@ public final class Negative extends Expression {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DotNode dotNode = new DotNode(buffer, "EXPR_NEG", "", "filled", "#00a2ff");
+        
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, "negExpr", "plaintext", "", "");
+        }, "ident");
     }
     
 }
