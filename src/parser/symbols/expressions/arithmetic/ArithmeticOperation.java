@@ -21,6 +21,13 @@ public final class ArithmeticOperation extends Expression {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DotNode dotNode = new DotNode(buffer, "ARITH_OP", "", "filled", "#00a2ff");
+        
+        dotNode.addEdge((StringBuilder buffer1) -> {
+            DotNode dotNode1 = new DotNode(buffer1, "arithOp", "plaintext", "", "");
+        }, "ident");
+        dotNode.addEdgeIfNotNull(leftExpression, "leftExpression");
+        dotNode.addEdgeIfNotNull(operator, "operator");
+        dotNode.addEdgeIfNotNull(rightExpression, "rightExpression");
     }
 }
