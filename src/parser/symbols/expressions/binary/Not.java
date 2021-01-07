@@ -1,13 +1,14 @@
 package parser.symbols.expressions.binary;
 
 import dot.DotNode;
-import java.io.PrintWriter;
 import parser.symbols.expressions.Expression;
+import parser.symbols.types.Type;
 
 public final class Not extends Expression {
     private final Expression expression;
     
     public Not(Expression expression) {
+        super(Type.getBoolean(), Mode.RESULT);
         this.expression = expression;
     }
 

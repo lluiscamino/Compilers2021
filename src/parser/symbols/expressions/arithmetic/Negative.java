@@ -2,11 +2,13 @@ package parser.symbols.expressions.arithmetic;
 
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
+import parser.symbols.types.Type;
 
 public final class Negative extends Expression {
     private final Expression expression;
     
     public Negative(Expression expression) {
+        super(Type.getInteger(), Mode.RESULT);
         this.expression = expression;
     }
 

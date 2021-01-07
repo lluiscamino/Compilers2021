@@ -1,11 +1,12 @@
 package parser.symbols.expressions.literals;
 
 import dot.DotNode;
+import parser.symbols.types.Type;
 
 public class StringLiteral extends Literal {
     
     public StringLiteral(String value) {
-        super(value);
+        super(value, Type.getString());
     }
     
     @Override

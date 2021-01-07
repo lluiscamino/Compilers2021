@@ -1,7 +1,6 @@
 package parser.symbols.types;
 
 import dot.DotNode;
-import java.io.PrintWriter;
 import parser.symbols.ArrayDimensions;
 import parser.symbols.ParserSymbol;
 
@@ -23,13 +22,40 @@ public final class Type extends ParserSymbol {
         this.dimensions = dimensions;
     }
     
+    public boolean isVoid() {
+        return primitiveType == null;
+    }
+    
+    public boolean isInteger() {
+        return !isArray() && primitiveType == PrimitiveType.INT;
+    }
+    
+    public boolean isBoolean() {
+        return !isArray() && primitiveType == PrimitiveType.BOOLEAN;
+    }
+    
+    public boolean isString() {
+        return !isArray() && primitiveType == PrimitiveType.STRING;
+    }
+    
+    public boolean isIntegerArray() {
+        return isArray() && primitiveType == PrimitiveType.INT;
+    }
+    
+    public boolean isBooleanArray() {
+        return isArray() && primitiveType == PrimitiveType.BOOLEAN;
+    }
+    
+    public boolean isStringArray() {
+        return isArray() && primitiveType == PrimitiveType.STRING;
+    }
+    
     public boolean isArray() {
         return dimensions != null;
     }
     
     public boolean equals(Type t) {
-        return t.primitiveType == primitiveType
-                && (!t.isArray() && !isArray() 
+        return t.primitiveType == primitiveType && (!t.isArray() && !isArray() 
                 || t.dimensions.size() == this.dimensions.size()) ;
     }
 
@@ -46,5 +72,29 @@ public final class Type extends ParserSymbol {
         if (isArray()) {
             dotNode.addEdge(dimensions, "dimensions");
         }
+    }
+    
+    public static Type getVoid() {
+        return new Type(null);
+    }
+    
+    public static Type getInteger() {
+        return new Type(PrimitiveType.INT);
+    }
+    
+    public static Type getBoolean() {
+        return new Type(PrimitiveType.BOOLEAN);
+    }
+    
+    public static Type getString() {
+        return new Type(PrimitiveType.STRING);
+    }
+    
+    public static Type getArray(PrimitiveType primType, int numDimensions) {
+        ArrayDimensions dimensions = new ArrayDimensions();
+        while (dimensions.size() < numDimensions) {
+            dimensions.addNewDimension();
+        }
+        return new Type(primType, dimensions);
     }
 }

@@ -2,6 +2,7 @@ package parser.symbols.expressions.reference;
 
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
+import parser.symbols.types.Type;
 
 public class IdentifierReference extends Expression {
 

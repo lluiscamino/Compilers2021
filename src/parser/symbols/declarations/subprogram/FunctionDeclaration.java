@@ -16,6 +16,10 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
         this.type = type;
         this.returnStatement = returnStatement;
     }
+    
+    public Type getReturnType() {
+        return returnStatement.getExpressionType();
+    }
 
     @Override
     public void validate() {

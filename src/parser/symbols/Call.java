@@ -2,6 +2,7 @@ package parser.symbols;
 
 import dot.DotNode;
 import parser.symbols.expressions.*;
+import parser.symbols.types.Type;
 
 public final class Call extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "CALL";
@@ -13,6 +14,10 @@ public final class Call extends ParserSymbol {
         super(STRING_IDENTIFIER);
         this.subProgramIdentifier = subProgramIdentifier;
         this.arguments = arguments;
+    }
+    
+    public Type getReturnType() {
+        // TODO: Consultar tabla de símbolos
     }
 
     @Override
