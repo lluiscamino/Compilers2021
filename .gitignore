@@ -1,1 +1,7 @@
 *.java~
+.idea/
+build/
+out/
+dist/
+nbproject/
+*.iml
