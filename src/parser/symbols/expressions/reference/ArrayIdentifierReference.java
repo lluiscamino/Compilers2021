@@ -1,5 +1,6 @@
 package parser.symbols.expressions.reference;
 
+import dot.DotNode;
 import parser.symbols.ArrayIndexes;
 
 

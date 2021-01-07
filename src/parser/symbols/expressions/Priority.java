@@ -1,6 +1,6 @@
 package parser.symbols.expressions;
 
-import java.io.PrintWriter;
+import dot.DotNode;
 
 public final class Priority extends Expression {
     private final Expression expression;

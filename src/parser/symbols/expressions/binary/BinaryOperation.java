@@ -1,5 +1,6 @@
 package parser.symbols.expressions.binary;
 
+import dot.DotNode;
 import java.io.PrintWriter;
 import parser.symbols.expressions.Expression;
 import parser.symbols.operators.BinaryOperator;
@@ -24,7 +25,7 @@ public final class BinaryOperation extends Expression {
          DotNode dotNode = new DotNode(buffer, "BIN_OP", "", "filled", "#00a2ff");
         
         dotNode.addEdge((StringBuilder buffer1) -> {
-            DotNode dotNode1 = new DotNode(buffer1, "binaryOp, "plaintext", "", "");
+            DotNode dotNode1 = new DotNode(buffer1, "binaryOp", "plaintext", "", "");
         }, "ident");
         dotNode.addEdgeIfNotNull(leftExpression, "leftExpr");
         dotNode.addEdgeIfNotNull(operator, "operator");

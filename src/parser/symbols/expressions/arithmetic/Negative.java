@@ -1,6 +1,6 @@
 package parser.symbols.expressions.arithmetic;
 
-import java.io.PrintWriter;
+import dot.DotNode;
 import parser.symbols.expressions.Expression;
 
 public final class Negative extends Expression {

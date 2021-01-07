@@ -1,10 +1,11 @@
 package parser.symbols.expressions.reference;
 
+import dot.DotNode;
 import parser.symbols.expressions.Expression;
 
 public class IdentifierReference extends Expression {
 
-    private final String identifierName;
+    protected final String identifierName;
 
     public IdentifierReference(String identifierName) {
         this.identifierName = identifierName;

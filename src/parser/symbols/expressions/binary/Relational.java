@@ -1,6 +1,6 @@
 package parser.symbols.expressions.binary;
 
-import java.io.PrintWriter;
+import dot.DotNode;
 import parser.symbols.RelationalOperatorType;
 import parser.symbols.expressions.Expression;
 

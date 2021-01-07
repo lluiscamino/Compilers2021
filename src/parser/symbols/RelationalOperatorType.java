@@ -1,6 +1,9 @@
 package parser.symbols;
 
-public enum RelationalOperatorType {
+import dot.DOTizable;
+import dot.DotNode;
+
+public enum RelationalOperatorType implements DOTizable {
     LESS("<"), GREATER(">"), LEQ("<="), GEQ(">="), EQUAL("=="), DIFF("!=");
     
     private final String value;
@@ -14,5 +17,10 @@ public enum RelationalOperatorType {
             if (type.value.equals(value)) return type;
         }
         return null;
+    }
+
+    @Override
+    public void toDot(StringBuilder buffer) {
+        DotNode dotNode = new DotNode(buffer, toString(), "plaintext", "filled", "");
     }
 }
