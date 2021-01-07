@@ -16,10 +16,10 @@ public final class Priority extends Expression {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "EXPR", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode(buffer, "EXPR_PRIO", "", "filled", "#00a2ff");
         
         dotNode.addEdge((StringBuilder buffer1) -> {
-            DotNode dotNode1 = new DotNode(buffer1, "expression", "plaintext", "", "");
+            DotNode dotNode1 = new DotNode(buffer1, "expr", "plaintext", "", "");
         }, "ident");
     }
     
