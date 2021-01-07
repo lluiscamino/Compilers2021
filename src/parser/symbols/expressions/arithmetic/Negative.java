@@ -22,6 +22,7 @@ public final class Negative extends Expression {
         dotNode.addEdge((StringBuilder buffer1) -> {
             DotNode dotNode1 = new DotNode(buffer1, "negExpr", "plaintext", "", "");
         }, "ident");
+        dotNode.addEdgeIfNotNull(expression, "expr");
     }
     
 }
