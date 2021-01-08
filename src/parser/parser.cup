@@ -200,15 +200,15 @@ EXPR        ::= LIT:l                                               {: RESULT = 
               | L_PAR EXPR:e R_PAR                                  {: RESULT = new Priority(e); :}
               | CALL:c                                              {: RESULT = new CallExpression(c); :}
               | SUB EXPR:e                                          {: RESULT = new Negative(e); :}
-              | EXPR:e1 ADD EXPR:e2                                 {: RESULT = new ArithmeticOperation(e1, ArithmeticOperator.getAdd(), e2); :}
-              | EXPR:e1 SUB EXPR:e2                                 {: RESULT = new ArithmeticOperation(e1, ArithmeticOperator.getSubstract(), e2); :}
-              | EXPR:e1 MUL EXPR:e2                                 {: RESULT = new ArithmeticOperation(e1, ArithmeticOperator.getMultiply(), e2); :}
-              | EXPR:e1 DIV EXPR:e2                                 {: RESULT = new ArithmeticOperation(e1, ArithmeticOperator.getDivide(), e2); :}
-              | EXPR:e1 MOD EXPR:e2                                 {: RESULT = new ArithmeticOperation(e1, ArithmeticOperator.getModulo(), e2); :}
+              | EXPR:e1 ADD EXPR:e2                                 {: RESULT = new ArithmeticAdd(e1, e2); :}
+              | EXPR:e1 SUB EXPR:e2                                 {: RESULT = new ArithmeticSubstract(e1, e2); :}
+              | EXPR:e1 MUL EXPR:e2                                 {: RESULT = new ArithmeticMultiply(e1, e2); :}
+              | EXPR:e1 DIV EXPR:e2                                 {: RESULT = new ArithmeticDivide(e1, e2); :}
+              | EXPR:e1 MOD EXPR:e2                                 {: RESULT = new ArithmeticModulo(e1, e2); :}
               | EXPR:e1 REL:r EXPR:e2                               {: RESULT = new Relational(e1, r, e2); :}
               | NOT EXPR:e                                          {: RESULT = new Not(e); :}
-              | EXPR:e1 AND EXPR:e2                                 {: RESULT = new BinaryOperation(e1, BinaryOperator.getAnd(), e2); :}
-              | EXPR:e1 OR EXPR:e2                                  {: RESULT = new BinaryOperation(e1, BinaryOperator.getOr(), e2); :}
+              | EXPR:e1 AND EXPR:e2                                 {: RESULT = new BinaryAnd(e1, e2); :}
+              | EXPR:e1 OR EXPR:e2                                  {: RESULT = new BinaryOr(e1, e2); :}
               ;
 
 EXPR_LIST   ::= EXPR:e EXPR_TAIL:et                                 {: RESULT = new SymbolList<>(et, e); :}
