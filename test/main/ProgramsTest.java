@@ -13,6 +13,7 @@ public class ProgramsTest {
             try {
                 Compiler compiler = new Compiler(program.getAbsolutePath());
                 compiler.parse();
+                System.out.println(program.getName() + " OK!");
             } catch (Exception e) {
                 System.err.println("Problem with program " + program.getName());
                 System.err.println(e.getMessage());
