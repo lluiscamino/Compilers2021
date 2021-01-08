@@ -1,15 +1,12 @@
 package parser.symbols.expressions.arithmetic;
 
 import dot.DotNode;
-import java.io.PrintWriter;
 import parser.symbols.expressions.Expression;
 
-public final class ArithmeticAdd extends Expression {
-    private final Expression leftExpression, rightExpression;
+public final class ArithmeticAdd extends ArithmeticOperation {
     
     public ArithmeticAdd(Expression leftExpression, Expression rightExpression) {
-        this.leftExpression = leftExpression;
-        this.rightExpression = rightExpression;
+        super(leftExpression, rightExpression);
     }
 
     @Override
@@ -19,12 +16,9 @@ public final class ArithmeticAdd extends Expression {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "ARITH_ADD", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode(buffer, "ADD", "", "filled", "#00a2ff");
         
-        dotNode.addEdge((StringBuilder buffer1) -> {
-            DotNode dotNode1 = new DotNode(buffer1, "arithAdd", "plaintext", "", "");
-        }, "ident");
-        dotNode.addEdgeIfNotNull(leftExpression, "leftExpression");
-        dotNode.addEdgeIfNotNull(rightExpression, "rightExpression");
+        dotNode.addEdgeIfNotNull(leftExpression);
+        dotNode.addEdgeIfNotNull(rightExpression);
     }
 }

@@ -26,11 +26,8 @@ public final class Relational extends Expression {
     public void toDot(StringBuilder buffer) {
         DotNode dotNode = new DotNode(buffer, "RELATIONAL", "", "filled", "#00a2ff");
         
-        dotNode.addEdge((StringBuilder buffer1) -> {
-            DotNode dotNode1 = new DotNode(buffer1, "relational", "plaintext", "", "");
-        }, "ident");
-        dotNode.addEdgeIfNotNull(leftExpression, "leftExpr");
+        dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(operator, "operator");
-        dotNode.addEdgeIfNotNull(rightExpression, "rightExpr");
+        dotNode.addEdgeIfNotNull(rightExpression);
     }
 }

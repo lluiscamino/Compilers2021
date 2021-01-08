@@ -19,12 +19,9 @@ public final class Negative extends Expression {
 
     @Override
     public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "EXPR_NEG", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode(buffer, "NEG", "", "filled", "#00a2ff");
         
-        dotNode.addEdge((StringBuilder buffer1) -> {
-            DotNode dotNode1 = new DotNode(buffer1, "negExpr", "plaintext", "", "");
-        }, "ident");
-        dotNode.addEdgeIfNotNull(expression, "expr");
+        dotNode.addEdgeIfNotNull(expression);
     }
     
 }

@@ -5,7 +5,6 @@
 
 package parser;
 
-import java.util.List;
 import parser.symbols.*;
 import parser.symbols.statements.*;
 import parser.symbols.expressions.*;
@@ -16,22 +15,14 @@ import parser.symbols.statements.assignment.*;
 import parser.symbols.statements.conditional.*;
 import parser.symbols.statements.io.*;
 import parser.symbols.statements.loop.*;
-import parser.symbols.declarations.cva.ArrayDeclaration;
-import parser.symbols.declarations.cva.CVADeclaration;
-import parser.symbols.declarations.cva.PrimitiveDeclaration;
-import parser.symbols.declarations.subprogram.FunctionDeclaration;
-import parser.symbols.declarations.subprogram.MainDeclaration;
-import parser.symbols.declarations.subprogram.ProcedureDeclaration;
-import parser.symbols.declarations.subprogram.SubprogramDeclaration;
-import parser.symbols.expressions.arithmetic.ArithmeticOperation;
+import parser.symbols.declarations.cva.*;
+import parser.symbols.declarations.subprogram.*;
 import parser.symbols.expressions.arithmetic.Negative;
-import parser.symbols.expressions.binary.BinaryOperation;
 import parser.symbols.expressions.binary.Not;
 import parser.symbols.expressions.binary.Relational;
-import parser.symbols.expressions.reference.ArrayIdentifierReference;
-import parser.symbols.expressions.reference.IdentifierReference;
-import parser.symbols.operators.ArithmeticOperator;
-import parser.symbols.operators.BinaryOperator;
+import parser.symbols.expressions.reference.*;
+import parser.symbols.expressions.arithmetic.*;
+import parser.symbols.expressions.binary.*;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -1110,7 +1101,7 @@ class CUP$Parser$actions {
 		int e2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Expression e2 = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new ArithmeticOperation(e1, ArithmeticOperator.getAdd(), e2); 
+		 RESULT = new ArithmeticAdd(e1, e2); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",28, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1125,7 +1116,7 @@ class CUP$Parser$actions {
 		int e2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Expression e2 = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new ArithmeticOperation(e1, ArithmeticOperator.getSubstract(), e2); 
+		 RESULT = new ArithmeticSubstract(e1, e2); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",28, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1140,7 +1131,7 @@ class CUP$Parser$actions {
 		int e2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Expression e2 = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new ArithmeticOperation(e1, ArithmeticOperator.getMultiply(), e2); 
+		 RESULT = new ArithmeticMultiply(e1, e2); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",28, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1155,7 +1146,7 @@ class CUP$Parser$actions {
 		int e2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Expression e2 = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new ArithmeticOperation(e1, ArithmeticOperator.getDivide(), e2); 
+		 RESULT = new ArithmeticDivide(e1, e2); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",28, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1170,7 +1161,7 @@ class CUP$Parser$actions {
 		int e2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Expression e2 = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new ArithmeticOperation(e1, ArithmeticOperator.getModulo(), e2); 
+		 RESULT = new ArithmeticModulo(e1, e2); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",28, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1215,7 +1206,7 @@ class CUP$Parser$actions {
 		int e2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Expression e2 = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new BinaryOperation(e1, BinaryOperator.getAnd(), e2); 
+		 RESULT = new BinaryAnd(e1, e2); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",28, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1230,7 +1221,7 @@ class CUP$Parser$actions {
 		int e2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int e2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Expression e2 = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new BinaryOperation(e1, BinaryOperator.getOr(), e2); 
+		 RESULT = new BinaryOr(e1, e2); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",28, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
