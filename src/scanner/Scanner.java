@@ -7,6 +7,7 @@ package scanner;
 import parser.ParserSym;
 import java_cup.runtime.*;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.RelationalOperatorType;
 import parser.symbols.types.PrimitiveType;
 import exceptions.LexicalError;
@@ -362,15 +363,12 @@ public class Scanner implements java_cup.runtime.Scanner {
   private int zzFinalHighSurrogate = 0;
 
   /** Number of newlines encountered up to the start of the matched text. */
-  @SuppressWarnings("unused")
   private int yyline;
 
   /** Number of characters from the last newline up to the start of the matched text. */
-  @SuppressWarnings("unused")
   private int yycolumn;
 
   /** Number of characters up to the start of the matched text. */
-  @SuppressWarnings("unused")
   private long yychar;
 
   /** Whether the scanner is currently at the beginning of a line. */
@@ -382,22 +380,31 @@ public class Scanner implements java_cup.runtime.Scanner {
   private boolean zzEOFDone;
 
   /* user code: */
+
+    private Location getLeftLocation() {
+        return new Location(yyline + 1, yycolumn + 1, (int) yychar);
+    }
+
+    private Location getRightLocation() {
+        return new Location(yyline + 1, yycolumn+yylength(), (int) yychar + yylength());
+    }
+
     private Symbol symbol(int type) {
-        return new ComplexSymbol(ParserSym.terminalNames[type], type);
+        return new ComplexSymbol(ParserSym.terminalNames[type], type, getLeftLocation(), getRightLocation());
     }
     
     private Symbol symbol(int type, Object value) {
-        return new ComplexSymbol(ParserSym.terminalNames[type], type, value);
+        return new ComplexSymbol(ParserSym.terminalNames[type], type, getLeftLocation(), getRightLocation(), value);
     }
 
     private Symbol relationalSymbol(String value) {
         RelationalOperatorType relType = RelationalOperatorType.get(value);
-        return new ComplexSymbol(ParserSym.terminalNames[ParserSym.REL], ParserSym.REL, relType);
+        return new ComplexSymbol(ParserSym.terminalNames[ParserSym.REL], ParserSym.REL, getLeftLocation(), getRightLocation(), relType);
     }
 
     private Symbol primitiveTypeSymbol(String value) {
         PrimitiveType primType = PrimitiveType.get(value);
-        return new ComplexSymbol(ParserSym.terminalNames[ParserSym.PRIM_TYPE], ParserSym.PRIM_TYPE, primType);
+        return new ComplexSymbol(ParserSym.terminalNames[ParserSym.PRIM_TYPE], ParserSym.PRIM_TYPE, getLeftLocation(), getRightLocation(), primType);
     }
 
 
@@ -670,6 +677,65 @@ public class Scanner implements java_cup.runtime.Scanner {
     while (true) {
       zzMarkedPosL = zzMarkedPos;
 
+      yychar+= zzMarkedPosL-zzStartRead;
+
+      boolean zzR = false;
+      int zzCh;
+      int zzCharCount;
+      for (zzCurrentPosL = zzStartRead  ;
+           zzCurrentPosL < zzMarkedPosL ;
+           zzCurrentPosL += zzCharCount ) {
+        zzCh = Character.codePointAt(zzBufferL, zzCurrentPosL, zzMarkedPosL);
+        zzCharCount = Character.charCount(zzCh);
+        switch (zzCh) {
+        case '\u000B':  // fall through
+        case '\u000C':  // fall through
+        case '\u0085':  // fall through
+        case '\u2028':  // fall through
+        case '\u2029':
+          yyline++;
+          yycolumn = 0;
+          zzR = false;
+          break;
+        case '\r':
+          yyline++;
+          yycolumn = 0;
+          zzR = true;
+          break;
+        case '\n':
+          if (zzR)
+            zzR = false;
+          else {
+            yyline++;
+            yycolumn = 0;
+          }
+          break;
+        default:
+          zzR = false;
+          yycolumn += zzCharCount;
+        }
+      }
+
+      if (zzR) {
+        // peek one character ahead if it is
+        // (if we have counted one line too much)
+        boolean zzPeek;
+        if (zzMarkedPosL < zzEndReadL)
+          zzPeek = zzBufferL[zzMarkedPosL] == '\n';
+        else if (zzAtEOF)
+          zzPeek = false;
+        else {
+          boolean eof = zzRefill();
+          zzEndReadL = zzEndRead;
+          zzMarkedPosL = zzMarkedPos;
+          zzBufferL = zzBuffer;
+          if (eof)
+            zzPeek = false;
+          else
+            zzPeek = zzBufferL[zzMarkedPosL] == '\n';
+        }
+        if (zzPeek) yyline--;
+      }
       zzAction = -1;
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
@@ -737,7 +803,7 @@ public class Scanner implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { throw new LexicalError("Invalid sequence '" + yytext() + "'", 0);
+            { throw new LexicalError("Invalid sequence '" + yytext() + "'", getLeftLocation(), getRightLocation());
             }
             // fall through
           case 38: break;

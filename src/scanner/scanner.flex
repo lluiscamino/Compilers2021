@@ -3,6 +3,7 @@ package scanner;
 import parser.ParserSym;
 import java_cup.runtime.*;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.RelationalOperatorType;
 import parser.symbols.types.PrimitiveType;
 import exceptions.LexicalError;
@@ -10,6 +11,9 @@ import exceptions.LexicalError;
 %%
 
 %public
+%char
+%line
+%column
 %class Scanner
 %implements java_cup.runtime.Scanner
 %function next_token
@@ -28,22 +32,31 @@ comment     = "//"[^\r\n]*[\r\n] | "/*"([^*]|\*[^/])*"*/"
 
 
 %{
+
+    private Location getLeftLocation() {
+        return new Location(yyline + 1, yycolumn + 1, (int) yychar);
+    }
+
+    private Location getRightLocation() {
+        return new Location(yyline + 1, yycolumn+yylength(), (int) yychar + yylength());
+    }
+
     private Symbol symbol(int type) {
-        return new ComplexSymbol(ParserSym.terminalNames[type], type);
+        return new ComplexSymbol(ParserSym.terminalNames[type], type, getLeftLocation(), getRightLocation());
     }
     
     private Symbol symbol(int type, Object value) {
-        return new ComplexSymbol(ParserSym.terminalNames[type], type, value);
+        return new ComplexSymbol(ParserSym.terminalNames[type], type, getLeftLocation(), getRightLocation(), value);
     }
 
     private Symbol relationalSymbol(String value) {
         RelationalOperatorType relType = RelationalOperatorType.get(value);
-        return new ComplexSymbol(ParserSym.terminalNames[ParserSym.REL], ParserSym.REL, relType);
+        return new ComplexSymbol(ParserSym.terminalNames[ParserSym.REL], ParserSym.REL, getLeftLocation(), getRightLocation(), relType);
     }
 
     private Symbol primitiveTypeSymbol(String value) {
         PrimitiveType primType = PrimitiveType.get(value);
-        return new ComplexSymbol(ParserSym.terminalNames[ParserSym.PRIM_TYPE], ParserSym.PRIM_TYPE, primType);
+        return new ComplexSymbol(ParserSym.terminalNames[ParserSym.PRIM_TYPE], ParserSym.PRIM_TYPE, getLeftLocation(), getRightLocation(), primType);
     }
 %}
 
@@ -86,4 +99,4 @@ comment     = "//"[^\r\n]*[\r\n] | "/*"([^*]|\*[^/])*"*/"
 {boollit}   { return symbol(ParserSym.BOOL_LIT, Boolean.parseBoolean(yytext())); }
 {strlit}    { return symbol(ParserSym.STR_LIT, yytext()); }
 {ident}     { return symbol(ParserSym.IDENT, yytext()); }
-.           { throw new LexicalError("Invalid sequence '" + yytext() + "'", 0); }
+.           { throw new LexicalError("Invalid sequence '" + yytext() + "'", getLeftLocation(), getRightLocation()); }

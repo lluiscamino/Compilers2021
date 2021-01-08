@@ -1,14 +1,15 @@
 package exceptions;
 
-public class LexicalError extends Exception {
-    private final int line;
+import java_cup.runtime.ComplexSymbolFactory.Location;
+
+public final class LexicalError extends CompilerException {
     
-    public LexicalError(String message, int line) {
-        super("Lexical Error (Line " + line + "):" + message);
-        this.line = line;
+    public LexicalError(String message, Location leftLocation, Location rightLocation) {
+        super(message, leftLocation, rightLocation);
     }
 
-    public int getLine() {
-        return line;
+    @Override
+    public String getMessage() {
+        return "Lexical Error: " + message;
     }
 }
