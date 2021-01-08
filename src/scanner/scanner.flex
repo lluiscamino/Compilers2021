@@ -24,6 +24,7 @@ rel         = "<" | ">" | "<=" | ">=" | "==" | "!="
 eol         = ";"
 ws          = [ \n\t\r]+
 ident       = [a-zA-Z$_] [a-zA-Z0-9$_]*
+comment     = "//"[^\r\n]*[\r\n] | "/*"([^*]|\*[^/])*"*/"
 
 
 %{
@@ -47,8 +48,8 @@ ident       = [a-zA-Z$_] [a-zA-Z0-9$_]*
 %}
 
 %%
-
 {ws}        { }
+{comment}   { }
 "const"     { return symbol(ParserSym.CONST); }
 "var"       { return symbol(ParserSym.VAR); }
 "array"     { return symbol(ParserSym.ARRAY); }
@@ -85,4 +86,4 @@ ident       = [a-zA-Z$_] [a-zA-Z0-9$_]*
 {boollit}   { return symbol(ParserSym.BOOL_LIT, Boolean.parseBoolean(yytext())); }
 {strlit}    { return symbol(ParserSym.STR_LIT, yytext()); }
 {ident}     { return symbol(ParserSym.IDENT, yytext()); }
-"[^]"       { throw new LexicalError("Invalid sequence '" + yytext() + "'", 0); }
+.           { throw new LexicalError("Invalid sequence '" + yytext() + "'", 0); }
