@@ -1,0 +1,14 @@
+procedure empty(string text) {
+    print("Text: ");
+    print(text);
+}
+
+main() {
+    const string a;
+    a = "Hola, jkadggdajadmgkajdagkhj";
+    print(a);
+    print("Hola");
+    print("😅😀 😃 😄 😁 😆 😅 😂 🤣️ 😊 😇 🙂 🙃");
+    empty(a);
+    empty("jkadahisdka asdkasjdhdaskjçasdodlkj asiuk gsa dsagiuu");
+}

@@ -22,7 +22,7 @@ import exceptions.LexicalError;
 
 intlit      = [0-9]+
 boollit     = "true" | "false"
-strlit      = \" [a-zA-Z0-9$_]* \"
+strlit      = \"([^\\\"]|\\.)*\"
 primtype    = "int" | "boolean" | "string"
 rel         = "<" | ">" | "<=" | ">=" | "==" | "!="
 eol         = ";"
