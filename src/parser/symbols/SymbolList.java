@@ -3,6 +3,7 @@ package parser.symbols;
 import dot.DotNode;
 import java.util.ArrayList;
 import java.util.List;
+import symboltable.SymbolTable;
 
 public final class SymbolList<T extends ParserSymbol> extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "LIST";
@@ -34,18 +35,18 @@ public final class SymbolList<T extends ParserSymbol> extends ParserSymbol {
         return element;
     }
     
-    public T[] toArray() {
+    public List<T> toArrayList() {
         SymbolList<T> node = this;
         List<T> result = new ArrayList<>();
         while (node != null) {
             result.add(node.element);
             node = node.next;
         }
-        return (T[]) result.toArray();
+        return result;
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
