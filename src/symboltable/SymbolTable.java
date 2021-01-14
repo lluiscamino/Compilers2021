@@ -1,50 +1,52 @@
 package symboltable;
 
-public interface SymbolTable {
-    
-    interface Scope {
-        
-        public int getNumber();
-        
-        public void empty();
-        
-        public void put(String symbol);
-        
-        public void putIndex(String identifier, IdentifierDescription description);
-        
-        public void putParameter(String subprogramIdentifier, String paramIdentifier, IdentifierDescription description);
-        
-        public IdentifierDescription get(String identifier);
+import parser.symbols.declarations.Declaration;
+import parser.symbols.declarations.cva.CVADeclaration;
+
+public class SymbolTable {
+
+    private Scope scope;
+
+    public SymbolTable() {
+        this.scope = new Scope();
+    }
+
+    public void put(Declaration declaration) {
+        scope.put(declaration);
+    }
+
+    public Declaration get(String name) {
+        return scope.get(name);
     }
     
-    interface IdentifierDescription {
-        public String getName();
-        
-        public Scope getScope();
+    public CVADeclaration getCVA(String name) {
+        Declaration decl = scope.get(name);
+        if (decl == null || !(decl instanceof CVADeclaration)) {
+            return null;
+        }
+        return (CVADeclaration) decl;
     }
-    
-    public void empty();
-    
-    public void put(String symbol);
-    
-    public IdentifierDescription get(String identifier);
-    
-    public void enterBlock();
-    
-    public void exitBlock();
-    
-    /* Arrays */
-    public void putIndex(String identifier, IdentifierDescription description);
-    
-    public int first(String identifier);
-    
-    public int next(int idx);
-    
-    public int last(int idex);
-    
-    /* Procedure and function arguments */
-    public void putParameter(String subprogramIdentifier, String paramIdentifier, IdentifierDescription description);
-    
+
+    public void enterBlock() {
+        Scope newScope = new Scope(scope);
+        scope = newScope;
+    }
+
+    public void exitBlock() {
+        if (scope.getPrevious() == null) {
+            //gestionar el error
+        }
+        scope = scope.getPrevious();
+    }
+
     @Override
-    public String toString();
+    public String toString() {
+        StringBuilder buffer = new StringBuilder();
+        Scope node = scope;
+        while (node != null) {
+            buffer.append(node.toString());
+            node = node.getPrevious();
+        }
+        return buffer.toString();
+    }
 }
