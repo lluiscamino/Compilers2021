@@ -3,6 +3,7 @@ package parser.symbols.types;
 import dot.DotNode;
 import parser.symbols.ArrayDimensions;
 import parser.symbols.ParserSymbol;
+import symboltable.SymbolTable;
 
 public final class Type extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "TYPE";
@@ -20,6 +21,10 @@ public final class Type extends ParserSymbol {
         super(STRING_IDENTIFIER);
         this.primitiveType = primitiveType;
         this.dimensions = dimensions;
+    }
+
+    public PrimitiveType getPrimitiveType() {
+        return primitiveType;
     }
     
     public boolean isVoid() {
@@ -55,12 +60,14 @@ public final class Type extends ParserSymbol {
     }
     
     public boolean equals(Type t) {
-        return t.primitiveType == primitiveType && (!t.isArray() && !isArray() 
-                || t.dimensions.size() == this.dimensions.size()) ;
+        if (primitiveType != t.primitiveType) return false;
+        if (isArray() != t.isArray()) return false;
+        if (isArray() && dimensions.size() != t.dimensions.size()) return false;
+        return true;
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -72,6 +79,14 @@ public final class Type extends ParserSymbol {
         if (isArray()) {
             dotNode.addEdge(dimensions, "dimensions");
         }
+    }
+    
+    public String toString() {
+        String result = primitiveType != null ? primitiveType.toString() : "UNKNOWN";
+        if (isArray()) {
+            result += "_ARR Dimensions:" + dimensions.size();
+        }
+        return result;
     }
     
     public static Type getVoid() {
