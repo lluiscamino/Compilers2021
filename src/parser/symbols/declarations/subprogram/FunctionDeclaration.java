@@ -6,6 +6,7 @@ import parser.symbols.SymbolList;
 import parser.symbols.statements.Return;
 import parser.symbols.statements.Statement;
 import parser.symbols.types.Type;
+import symboltable.SymbolTable;
 
 public final class FunctionDeclaration extends SubprogramDeclaration {
     private final Type type;
@@ -22,8 +23,21 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
     }
 
     @Override
-    public void validate() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void validate(SymbolTable symbolTable) {
+        symbolTable.enterBlock();
+        symbolTable.put(this);
+        if (arguments != null) {
+            for (Argument argument : arguments.toArrayList()) {
+                argument.validate(symbolTable);
+            }
+        }
+        if (statements != null) {
+            for (Statement statement : statements.toArrayList()) {
+                statement.validate(symbolTable);
+            }
+        }
+        returnStatement.validate(symbolTable);
+        symbolTable.exitBlock();
     }
 
     @Override

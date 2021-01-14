@@ -3,6 +3,7 @@ package parser.symbols;
 import dot.DotNode;
 import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.subprogram.MainDeclaration;
+import symboltable.SymbolTable;
 
 public final class Program extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "PROGRAM";
@@ -17,8 +18,11 @@ public final class Program extends ParserSymbol {
     }
 
     @Override
-    public void validate() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void validate(SymbolTable symbolTable) {
+        for (Declaration declaration : declarations.toArrayList()) {
+            declaration.validate(symbolTable);
+        }
+        main.validate(symbolTable);
     }
 
     @Override

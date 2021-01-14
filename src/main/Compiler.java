@@ -15,8 +15,10 @@ import parser.Parser;
 import parser.ParserSym;
 import parser.symbols.Program;
 import scanner.Scanner;
+import symboltable.SymbolTable;
 
 public final class Compiler {
+    
     private final String inputPath;
     private final Scanner scanner;
     private final Parser parser;
@@ -63,6 +65,7 @@ public final class Compiler {
     }
     
     public void parse() throws Exception {
-        program = (Program) parser.parse().value;
+        program = (Program) parser.parse().value; // Sintáctico
+        program.validate(new SymbolTable()); // Semántico
     }
 }

@@ -2,16 +2,29 @@ package parser.symbols.declarations.cva;
 
 import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.DeclarationMode;
-import parser.symbols.types.PrimitiveType;
+import parser.symbols.types.Type;
+import symboltable.SymbolTable;
 
 public abstract class CVADeclaration extends Declaration {
+    protected final Type type;
     protected final DeclarationMode mode;
-    protected final PrimitiveType primitiveType;
-    protected final String identifier;
 
-    public CVADeclaration(DeclarationMode mode, PrimitiveType primitiveType, String identifier) {
+    public CVADeclaration(DeclarationMode mode, Type type, String identifier) {
+        super(identifier);
         this.mode = mode;
-        this.primitiveType = primitiveType;
-        this.identifier = identifier;
+        this.type = type;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public DeclarationMode getMode() {
+        return mode;
+    }
+    
+    @Override
+    public void validate(SymbolTable symbolTable) {
+        symbolTable.put(this);
     }
 }

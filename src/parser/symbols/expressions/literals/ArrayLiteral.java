@@ -3,17 +3,25 @@ package parser.symbols.expressions.literals;
 import dot.DotNode;
 import java.util.Stack;
 import parser.symbols.SymbolList;
+import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
+import symboltable.SymbolTable;
 
 public final class ArrayLiteral extends Literal {
     
     public ArrayLiteral(SymbolList<Literal> literalsList) {
-        super(literalsList, Type.getArray(null, getNumDimensions(literalsList)));
-        getNumDimensions(literalsList);
+        super(literalsList, Type.getArray(getPrimitiveType(literalsList), getNumDimensions(literalsList)));
     }
     
     private ArrayLiteral() {
         super(null, null);
+    }
+    
+    private static PrimitiveType getPrimitiveType(SymbolList<Literal> literalsList) {
+        if (literalsList == null || literalsList.getElement() == null) {
+            return null;
+        }
+        return literalsList.getElement().getType().getPrimitiveType();
     }
     
     private static int getNumDimensions(SymbolList<Literal> literalsList) {
@@ -50,7 +58,7 @@ public final class ArrayLiteral extends Literal {
     }
     
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

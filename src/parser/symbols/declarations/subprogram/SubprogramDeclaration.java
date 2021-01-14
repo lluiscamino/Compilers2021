@@ -6,12 +6,11 @@ import parser.symbols.declarations.Declaration;
 import parser.symbols.statements.Statement;
 
 public abstract class SubprogramDeclaration extends Declaration {
-    protected final String identifier;
     protected final SymbolList<Argument> arguments;
     protected final SymbolList<Statement> statements;
 
     public SubprogramDeclaration(String identifier, SymbolList<Argument> arguments, SymbolList<Statement> statements) {
-        this.identifier = identifier;
+        super(identifier);
         this.arguments = arguments;
         this.statements = statements;
     }

@@ -3,17 +3,13 @@ package parser.symbols.declarations.cva;
 import dot.DotNode;
 import parser.symbols.declarations.DeclarationMode;
 import parser.symbols.types.PrimitiveType;
+import parser.symbols.types.Type;
 
 
 public final class PrimitiveDeclaration extends CVADeclaration {
 
     public PrimitiveDeclaration(DeclarationMode mode, PrimitiveType primitiveType, String identifier) {
-        super(mode, primitiveType, identifier);
-    }
-
-    @Override
-    public void validate() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        super(mode, new Type(primitiveType), identifier);
     }
 
     @Override
@@ -21,7 +17,7 @@ public final class PrimitiveDeclaration extends CVADeclaration {
         DotNode dotNode = new DotNode(buffer, "DECL", "box", "filled", "");
         
         dotNode.addEdge(mode, "mode");
-        dotNode.addEdge(primitiveType, "type");
+        dotNode.addEdge(type, "type");
         dotNode.addEdge((StringBuilder buffer1) -> {
             DotNode dotNode1 = new DotNode(buffer1, identifier, "plaintext", "filled", "");
         }, "ident");

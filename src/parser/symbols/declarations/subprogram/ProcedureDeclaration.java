@@ -4,6 +4,7 @@ import dot.DotNode;
 import parser.symbols.Argument;
 import parser.symbols.SymbolList;
 import parser.symbols.statements.Statement;
+import symboltable.SymbolTable;
 
 public class ProcedureDeclaration extends SubprogramDeclaration {
     
@@ -12,8 +13,20 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
     }
 
     @Override
-    public void validate() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void validate(SymbolTable symbolTable) {
+        symbolTable.enterBlock();
+        symbolTable.put(this);
+        if (arguments != null) {
+            for (Argument argument : arguments.toArrayList()) {
+                argument.validate(symbolTable);
+            }
+        }
+        if (statements != null) {
+            for (Statement statement : statements.toArrayList()) {
+                statement.validate(symbolTable);
+            }
+        }
+        symbolTable.exitBlock();
     }
 
     @Override
