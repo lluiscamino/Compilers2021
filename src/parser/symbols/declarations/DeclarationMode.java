@@ -3,6 +3,7 @@ package parser.symbols.declarations;
 import dot.DotNode;
 import java.io.PrintWriter;
 import parser.symbols.ParserSymbol;
+import symboltable.SymbolTable;
 
 public final class DeclarationMode extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "DECL_MODE";
@@ -27,7 +28,7 @@ public final class DeclarationMode extends ParserSymbol {
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

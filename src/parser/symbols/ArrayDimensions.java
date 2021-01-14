@@ -1,6 +1,7 @@
 package parser.symbols;
 
 import dot.DotNode;
+import symboltable.SymbolTable;
 
 public final class ArrayDimensions extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "ARR_DIM";
@@ -20,7 +21,7 @@ public final class ArrayDimensions extends ParserSymbol {
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

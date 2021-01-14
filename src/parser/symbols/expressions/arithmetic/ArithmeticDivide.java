@@ -2,6 +2,7 @@ package parser.symbols.expressions.arithmetic;
 
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
+import symboltable.SymbolTable;
 
 public final class ArithmeticDivide extends ArithmeticOperation {
     
@@ -10,7 +11,7 @@ public final class ArithmeticDivide extends ArithmeticOperation {
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

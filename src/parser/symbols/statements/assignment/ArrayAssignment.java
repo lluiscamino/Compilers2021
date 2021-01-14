@@ -3,6 +3,7 @@ package parser.symbols.statements.assignment;
 import dot.DotNode;
 import parser.symbols.ArrayIndexes;
 import parser.symbols.expressions.Expression;
+import symboltable.SymbolTable;
 
 public final class ArrayAssignment extends Assignment {
     private final ArrayIndexes indexes;
@@ -13,7 +14,7 @@ public final class ArrayAssignment extends Assignment {
     }
     
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

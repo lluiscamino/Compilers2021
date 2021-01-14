@@ -1,6 +1,7 @@
 package parser.symbols.expressions;
 
 import parser.symbols.Call;
+import symboltable.SymbolTable;
 
 
 public final class CallExpression extends Expression {
@@ -12,7 +13,7 @@ public final class CallExpression extends Expression {
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

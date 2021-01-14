@@ -2,6 +2,7 @@ package parser.symbols.expressions.binary;
 
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
+import symboltable.SymbolTable;
 
 public final class BinaryOr extends BinaryOperation {
     
@@ -10,7 +11,7 @@ public final class BinaryOr extends BinaryOperation {
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

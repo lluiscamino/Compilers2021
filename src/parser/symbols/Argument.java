@@ -2,6 +2,7 @@ package parser.symbols;
 
 import dot.DotNode;
 import parser.symbols.types.Type;
+import symboltable.SymbolTable;
 
 public final class Argument extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "ARGUMENT";
@@ -15,7 +16,7 @@ public final class Argument extends ParserSymbol {
     }
     
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

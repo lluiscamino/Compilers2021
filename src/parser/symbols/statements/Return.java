@@ -3,6 +3,7 @@ package parser.symbols.statements;
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
+import symboltable.SymbolTable;
 
 public final class Return extends Statement {
     private final Expression expression;
@@ -16,8 +17,8 @@ public final class Return extends Statement {
     }
 
     @Override
-    public void validate() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void validate(SymbolTable symbolTable) {
+        //expression.validate(symbolTable);
     }
 
     @Override

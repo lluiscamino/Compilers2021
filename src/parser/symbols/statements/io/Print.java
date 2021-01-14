@@ -3,6 +3,7 @@ package parser.symbols.statements.io;
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
+import symboltable.SymbolTable;
 
 public final class Print extends Statement {
     
@@ -13,7 +14,7 @@ public final class Print extends Statement {
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

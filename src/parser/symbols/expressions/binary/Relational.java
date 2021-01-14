@@ -4,6 +4,7 @@ import dot.DotNode;
 import parser.symbols.RelationalOperatorType;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
+import symboltable.SymbolTable;
 
 public final class Relational extends Expression {
     private final Expression leftExpression, rightExpression;
@@ -18,7 +19,7 @@ public final class Relational extends Expression {
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

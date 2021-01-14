@@ -2,6 +2,7 @@ package parser.symbols.expressions.reference;
 
 import dot.DotNode;
 import parser.symbols.ArrayIndexes;
+import symboltable.SymbolTable;
 
 
 public final class ArrayIdentifierReference extends IdentifierReference {
@@ -13,7 +14,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
     }
     
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

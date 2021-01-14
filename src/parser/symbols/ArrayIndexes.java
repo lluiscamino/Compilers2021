@@ -1,6 +1,7 @@
 package parser.symbols;
 
 import parser.symbols.expressions.Expression;
+import symboltable.SymbolTable;
 
 public final class ArrayIndexes extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "ARR_INDEX";
@@ -18,7 +19,7 @@ public final class ArrayIndexes extends ParserSymbol {
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

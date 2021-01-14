@@ -2,6 +2,7 @@ package parser.symbols.statements.io;
 
 import dot.DotNode;
 import parser.symbols.statements.Statement;
+import symboltable.SymbolTable;
 
 public final class Read extends Statement {
     
@@ -12,7 +13,7 @@ public final class Read extends Statement {
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

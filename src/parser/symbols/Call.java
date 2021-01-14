@@ -3,6 +3,7 @@ package parser.symbols;
 import dot.DotNode;
 import parser.symbols.expressions.*;
 import parser.symbols.types.Type;
+import symboltable.SymbolTable;
 
 public final class Call extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "CALL";
@@ -18,10 +19,11 @@ public final class Call extends ParserSymbol {
     
     public Type getReturnType() {
         // TODO: Consultar tabla de símbolos
+        return null;
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

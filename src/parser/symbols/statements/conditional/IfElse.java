@@ -4,6 +4,7 @@ import dot.DotNode;
 import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
+import symboltable.SymbolTable;
 
 public final class IfElse extends If {
 
@@ -15,7 +16,7 @@ public final class IfElse extends If {
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

@@ -2,6 +2,7 @@ package parser.symbols.expressions.literals;
 
 import dot.DotNode;
 import parser.symbols.types.Type;
+import symboltable.SymbolTable;
 
 public class BooleanLiteral extends Literal {
     
@@ -15,7 +16,7 @@ public class BooleanLiteral extends Literal {
     }
 
     @Override
-    public void validate() {
+    public void validate(SymbolTable symbolTable) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
