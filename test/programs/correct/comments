@@ -1,7 +1,7 @@
 procedure hola /*aodikghasuidsabhj*/(/*adjkasdgbydayj*/int b) /*uidakjadh*/ {
     //hkhadjshdasbkjasdasbhdn
     //ahldaskhasdkjdsa
-    const int a;
+    var int a;
     a = /*jkadghad*/ 2;
 }
 
