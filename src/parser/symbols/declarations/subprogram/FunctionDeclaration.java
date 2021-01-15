@@ -24,20 +24,20 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        symbolTable.enterBlock();
         symbolTable.put(this);
-        if (arguments != null) {
-            for (Argument argument : arguments.toArrayList()) {
-                argument.validate(symbolTable);
-            }
-        }
-        if (statements != null) {
-            for (Statement statement : statements.toArrayList()) {
-                statement.validate(symbolTable);
-            }
-        }
+        validateReturnType();
+        symbolTable.enterBlock();
+        validateArguments(symbolTable);
+        validateStatements(symbolTable);
         returnStatement.validate(symbolTable);
         symbolTable.exitBlock();
+    }
+    
+    private void validateReturnType() {
+        Type returnType = returnStatement.getExpressionType();
+        if (!type.equals(returnType)) {
+            System.err.println("La función " + identifier + " debería devolver un tipo " + type + " pero devuelve un valor de tipo " + returnType);
+        }
     }
 
     @Override

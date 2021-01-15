@@ -1,6 +1,7 @@
 package parser.symbols.statements.io;
 
 import dot.DotNode;
+import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.statements.Statement;
 import symboltable.SymbolTable;
 
@@ -14,7 +15,18 @@ public final class Read extends Statement {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        CVADeclaration declaration = symbolTable.getCVA(identifier);
+        if (declaration != null) {
+            if (declaration.getMode().isVariable()) {
+                if (!declaration.getType().isString()) {
+                    System.err.println("No se puede asignar el resultado de una operación read() a una variable de tipo " + declaration.getType() + " (la variable debe ser de tipo STRING)");
+                }
+            } else {
+                System.err.println(identifier + " es constante, no se puede variar su valor");
+            }
+        } else {
+            System.err.println("No existe ninguna variable llamada " + identifier);
+        }
     }
 
     @Override

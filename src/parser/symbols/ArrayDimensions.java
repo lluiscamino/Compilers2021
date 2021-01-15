@@ -22,7 +22,6 @@ public final class ArrayDimensions extends ParserSymbol {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override

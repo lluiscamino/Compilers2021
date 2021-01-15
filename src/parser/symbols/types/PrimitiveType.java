@@ -4,7 +4,7 @@ import dot.DOTizable;
 import dot.DotNode;
 
 public enum PrimitiveType implements DOTizable {
-    INT("int"), BOOLEAN("boolean"), STRING("string");
+    INT("int"), BOOLEAN("boolean"), STRING("string"), UNKNOWN("UNKNOWN");
     
     private final String value;
     

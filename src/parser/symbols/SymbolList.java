@@ -35,10 +35,20 @@ public final class SymbolList<T extends ParserSymbol> extends ParserSymbol {
         return element;
     }
     
+    public int size() {
+        int counter = 0;
+        SymbolList<T> node = this;
+        while (node != null && node.element != null) {
+            node = node.next;
+            counter++;
+        }
+        return counter;
+    }
+    
     public List<T> toArrayList() {
         SymbolList<T> node = this;
         List<T> result = new ArrayList<>();
-        while (node != null) {
+        while (node != null && node.element != null) {
             result.add(node.element);
             node = node.next;
         }
@@ -47,7 +57,11 @@ public final class SymbolList<T extends ParserSymbol> extends ParserSymbol {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        SymbolList<T> node = this;
+        while (node != null && node.element != null) {
+            node.element.validate(symbolTable);
+            node = node.next;
+        }
     }
 
     @Override

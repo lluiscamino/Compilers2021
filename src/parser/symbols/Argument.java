@@ -1,6 +1,10 @@
 package parser.symbols;
 
 import dot.DotNode;
+import parser.symbols.declarations.Declaration;
+import parser.symbols.declarations.DeclarationMode;
+import parser.symbols.declarations.cva.ArrayDeclaration;
+import parser.symbols.declarations.cva.PrimitiveDeclaration;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 
@@ -17,7 +21,10 @@ public final class Argument extends ParserSymbol {
     
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Declaration declaration = type.isArray() ?
+                new ArrayDeclaration(DeclarationMode.getVariable(), type.getPrimitiveType(), type.getDimensions(), identifier) :
+                new PrimitiveDeclaration(DeclarationMode.getVariable(), type.getPrimitiveType(), identifier);
+        symbolTable.put(declaration);
     }
 
     @Override

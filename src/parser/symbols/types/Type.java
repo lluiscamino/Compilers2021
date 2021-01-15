@@ -26,6 +26,10 @@ public final class Type extends ParserSymbol {
     public PrimitiveType getPrimitiveType() {
         return primitiveType;
     }
+
+    public ArrayDimensions getDimensions() {
+        return dimensions;
+    }
     
     public boolean isVoid() {
         return primitiveType == null;
@@ -68,7 +72,7 @@ public final class Type extends ParserSymbol {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
@@ -81,16 +85,17 @@ public final class Type extends ParserSymbol {
         }
     }
     
+    @Override
     public String toString() {
-        String result = primitiveType != null ? primitiveType.toString() : "UNKNOWN";
+        String result = primitiveType.toString();
         if (isArray()) {
             result += "_ARR Dimensions:" + dimensions.size();
         }
         return result;
     }
     
-    public static Type getVoid() {
-        return new Type(null);
+    public static Type getUnknown() {
+        return new Type(PrimitiveType.UNKNOWN);
     }
     
     public static Type getInteger() {

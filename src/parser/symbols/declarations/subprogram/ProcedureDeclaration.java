@@ -14,18 +14,10 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        symbolTable.enterBlock();
         symbolTable.put(this);
-        if (arguments != null) {
-            for (Argument argument : arguments.toArrayList()) {
-                argument.validate(symbolTable);
-            }
-        }
-        if (statements != null) {
-            for (Statement statement : statements.toArrayList()) {
-                statement.validate(symbolTable);
-            }
-        }
+        symbolTable.enterBlock();
+        validateArguments(symbolTable);
+        validateStatements(symbolTable);
         symbolTable.exitBlock();
     }
 

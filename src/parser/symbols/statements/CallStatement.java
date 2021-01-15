@@ -1,6 +1,5 @@
 package parser.symbols.statements;
 
-import java.io.PrintWriter;
 import parser.symbols.Call;
 import symboltable.SymbolTable;
 
@@ -13,7 +12,7 @@ public final class CallStatement extends Statement {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        call.validate(symbolTable);
     }
 
     @Override

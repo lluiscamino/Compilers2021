@@ -5,7 +5,6 @@ import parser.symbols.ArrayDimensions;
 import parser.symbols.declarations.DeclarationMode;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
-import symboltable.SymbolTable;
 
 public final class ArrayDeclaration extends CVADeclaration {
     private final ArrayDimensions dimensions;
@@ -13,6 +12,10 @@ public final class ArrayDeclaration extends CVADeclaration {
     public ArrayDeclaration(DeclarationMode mode, PrimitiveType primitiveType, ArrayDimensions dimensions, String identifier) {
         super(mode, new Type(primitiveType, dimensions), identifier);
         this.dimensions = dimensions;
+    }
+
+    public ArrayDimensions getDimensions() {
+        return dimensions;
     }
 
     @Override

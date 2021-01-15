@@ -15,7 +15,7 @@ public final class Print extends Statement {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        expression.validate(symbolTable);
     }
 
     @Override

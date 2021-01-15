@@ -4,6 +4,7 @@ import dot.DotNode;
 import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
+import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 
 public class If extends Statement {
@@ -17,7 +18,12 @@ public class If extends Statement {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (!condition.getType().isBoolean()) {
+            System.err.println("La condición del bucle debe ser de tipo " + Type.getBoolean());
+        }
+        if (statements != null) {
+            statements.validate(symbolTable);
+        }
     }
 
     @Override

@@ -17,7 +17,10 @@ public final class IfElse extends If {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        super.validate(symbolTable);
+        if (elseStatements != null) {
+            elseStatements.validate(symbolTable);
+        }
     }
 
     @Override

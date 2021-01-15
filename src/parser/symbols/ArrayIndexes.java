@@ -1,6 +1,7 @@
 package parser.symbols;
 
 import parser.symbols.expressions.Expression;
+import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 
 public final class ArrayIndexes extends ParserSymbol {
@@ -17,10 +18,19 @@ public final class ArrayIndexes extends ParserSymbol {
     public void addIndex(Expression index) {
         indexes = new SymbolList<>(indexes, index);
     }
+    
+    public int numIndexes() {
+        return indexes.size();
+    }
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        indexes.validate(symbolTable);
+        for (Expression index : indexes.toArrayList()) {
+            if (!index.getType().isInteger()) {
+                System.err.println("Los índeces de un array deben ser de tipo " + Type.getInteger() + ", no de tipo " + index.getType());
+            }
+        }
     }
 
     @Override

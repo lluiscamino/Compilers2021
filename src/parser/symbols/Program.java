@@ -19,8 +19,8 @@ public final class Program extends ParserSymbol {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        for (Declaration declaration : declarations.toArrayList()) {
-            declaration.validate(symbolTable);
+        if (declarations != null) {
+            declarations.validate(symbolTable);
         }
         main.validate(symbolTable);
     }

@@ -19,7 +19,7 @@ public final class ArrayLiteral extends Literal {
     
     private static PrimitiveType getPrimitiveType(SymbolList<Literal> literalsList) {
         if (literalsList == null || literalsList.getElement() == null) {
-            return null;
+            return PrimitiveType.UNKNOWN;
         }
         return literalsList.getElement().getType().getPrimitiveType();
     }
