@@ -21,27 +21,30 @@ public final class ArrayAssignment extends Assignment {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        CVADeclaration declaration = symbolTable.getCVA(identifier);
-        if (declaration != null) {
-            if (declaration.getMode().isVariable()) {
-                if (declaration instanceof ArrayDeclaration) {
-                    Type expectedType = getExpectedType((ArrayDeclaration) declaration);
-                    if (expectedType == null) {
-                        System.err.println("El array " + identifier + " no tiene tantas dimensiones");
-                    } else if (!(expression.getType().equals(expectedType))) {
-                        System.err.println("No se puede asignar un valor de tipo " + expression.getType() + " a una variable de tipo " + expectedType);
-                    }
-                } else {
-                    System.err.println(identifier + " no es un ARRAY");
-                }
-            } else {
-                System.err.println(identifier + " es constante, no se puede variar su valor");
+        try {
+            CVADeclaration declaration = symbolTable.getCVA(identifier);
+            if (declaration == null) {
+                addSemanticError("No existe ninguna variable llamada " + identifier);
+                return;
             }
-        } else {
-            System.err.println("No existe ninguna variable llamada " + identifier);
+            if (declaration.getMode().isConstant()) {
+                addSemanticError(identifier + " es constante, no se puede variar su valor");
+                return;
+            }
+            if (!(declaration instanceof ArrayDeclaration)) {
+                addSemanticError(identifier + " no es un ARRAY");
+                return;
+            }
+            Type expectedType = getExpectedType((ArrayDeclaration) declaration);
+            if (expectedType == null) {
+                addSemanticError("El array " + identifier + " no tiene tantas dimensiones");
+            } else if (!(expression.getType().equals(expectedType))) {
+                addSemanticError("No se puede asignar un valor de tipo " + expression.getType() + " a una variable de tipo " + expectedType);
+            }
+        } finally {
+            indexes.validate(symbolTable);
+            expression.validate(symbolTable);
         }
-        indexes.validate(symbolTable);
-        expression.validate(symbolTable);
     }
     
     private Type getExpectedType(ArrayDeclaration declaration) {

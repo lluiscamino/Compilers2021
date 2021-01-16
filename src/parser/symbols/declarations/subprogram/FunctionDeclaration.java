@@ -36,7 +36,7 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
     private void validateReturnType() {
         Type returnType = returnStatement.getExpressionType();
         if (!type.equals(returnType)) {
-            System.err.println("La función " + identifier + " debería devolver un tipo " + type + " pero devuelve un valor de tipo " + returnType);
+            addSemanticError("La función " + identifier + " debería devolver un tipo " + type + " pero devuelve un valor de tipo " + returnType);
         }
     }
 

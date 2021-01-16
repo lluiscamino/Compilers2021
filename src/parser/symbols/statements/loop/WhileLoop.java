@@ -16,7 +16,7 @@ public final class WhileLoop extends Loop {
     @Override
     public void validate(SymbolTable symbolTable) {
         if (!condition.getType().isBoolean()) {
-            System.err.println("La condición del bucle debe ser de tipo " + Type.getBoolean());
+            addSemanticError("La condición del bucle debe ser de tipo " + Type.getBoolean() + ", no de tipo " + condition.getType());
         }
         if (statements != null) {
             statements.validate(symbolTable);

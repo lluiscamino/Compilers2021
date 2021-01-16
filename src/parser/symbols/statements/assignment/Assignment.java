@@ -18,19 +18,23 @@ public class Assignment extends Statement {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        CVADeclaration declaration = symbolTable.getCVA(identifier);
-        if (declaration != null) {
-            if (declaration.getMode().isVariable()) {
-                if (!declaration.getType().equals(expression.getType())) {
-                    System.err.println("No se puede asignar un valor de tipo " + expression.getType() + " a una variable de tipo " + declaration.getType());
-                }
-            } else {
-                System.err.println(identifier + " es constante, no se puede variar su valor");
+        try {
+            CVADeclaration declaration = symbolTable.getCVA(identifier);
+            if (declaration == null) {
+                addSemanticError("No existe ninguna variable llamada " + identifier);
+                return;
             }
-        } else {
-            System.err.println("No existe ninguna variable llamada " + identifier);
+            if (declaration.getMode().isConstant()) {
+                addSemanticError(identifier + " es constante, no se puede variar su valor");
+                return;
+            }
+            if (!declaration.getType().equals(expression.getType())) {
+                addSemanticError("No se puede asignar un valor de tipo " + expression.getType() + " a una variable de tipo " + declaration.getType());
+            }
+        } finally {
+            expression.validate(symbolTable);
         }
-        expression.validate(symbolTable);
+
     }
 
     @Override

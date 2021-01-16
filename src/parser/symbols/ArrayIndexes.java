@@ -28,7 +28,7 @@ public final class ArrayIndexes extends ParserSymbol {
         indexes.validate(symbolTable);
         for (Expression index : indexes.toArrayList()) {
             if (!index.getType().isInteger()) {
-                System.err.println("Los índeces de un array deben ser de tipo " + Type.getInteger() + ", no de tipo " + index.getType());
+                addSemanticError("Los índices de un array deben ser de tipo " + Type.getInteger() + ", no de tipo " + index.getType());
             }
         }
     }

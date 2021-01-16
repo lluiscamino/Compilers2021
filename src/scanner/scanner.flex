@@ -6,7 +6,7 @@ import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.RelationalOperatorType;
 import parser.symbols.types.PrimitiveType;
-import exceptions.LexicalError;
+import errors.LexicalError;
 
 %%
 
