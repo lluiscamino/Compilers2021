@@ -15,6 +15,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
     
     @Override
     public void validate(SymbolTable symbolTable) {
+        indexes.validate(symbolTable);
     }
 
     @Override
