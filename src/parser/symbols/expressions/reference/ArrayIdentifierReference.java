@@ -15,7 +15,6 @@ public final class ArrayIdentifierReference extends IdentifierReference {
     
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
