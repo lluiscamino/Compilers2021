@@ -17,7 +17,6 @@ public class BooleanLiteral extends Literal {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
