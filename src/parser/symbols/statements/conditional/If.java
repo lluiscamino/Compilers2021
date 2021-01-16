@@ -19,7 +19,7 @@ public class If extends Statement {
     @Override
     public void validate(SymbolTable symbolTable) {
         if (!condition.getType().isBoolean()) {
-            System.err.println("La condición del bucle debe ser de tipo " + Type.getBoolean());
+            addSemanticError("La condición del bucle debe ser de tipo " + Type.getBoolean());
         }
         if (statements != null) {
             statements.validate(symbolTable);

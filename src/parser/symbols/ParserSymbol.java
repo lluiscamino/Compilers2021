@@ -1,7 +1,8 @@
 package parser.symbols;
 
 import dot.DOTizable;
-import java.io.PrintWriter;
+import errors.SemanticError;
+import main.Compiler;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 import symboltable.SymbolTable;
 
@@ -15,4 +16,8 @@ public abstract class ParserSymbol extends ComplexSymbol implements DOTizable {
     
     @Override
     public abstract void toDot(StringBuilder out);
+    
+    public void addSemanticError(String message) {
+        Compiler.errorsList.add(new SemanticError(message, xleft, xright));
+    }
 }

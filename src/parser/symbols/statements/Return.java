@@ -18,7 +18,7 @@ public final class Return extends Statement {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        //expression.validate(symbolTable);
+        expression.validate(symbolTable);
     }
 
     @Override
