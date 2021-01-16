@@ -15,6 +15,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
     
     @Override
     public void validate(SymbolTable symbolTable) {
+        //mirar la tabla de simbolos
         indexes.validate(symbolTable);
     }
 
