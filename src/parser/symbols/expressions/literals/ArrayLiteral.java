@@ -59,7 +59,7 @@ public final class ArrayLiteral extends Literal {
     
     @Override
     public void validate(SymbolTable symbolTable) {
-        
+        //mirar que todos los elementos sean del mismo tipo
     }
 
     @Override
