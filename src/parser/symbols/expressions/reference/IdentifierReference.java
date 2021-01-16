@@ -16,7 +16,7 @@ public class IdentifierReference extends Expression {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //mirar la tabla de simbolos
     }
 
     @Override
