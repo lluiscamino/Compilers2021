@@ -17,7 +17,6 @@ public final class IntegerLiteral extends Literal {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
