@@ -13,7 +13,7 @@ public final class Priority extends Expression {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
