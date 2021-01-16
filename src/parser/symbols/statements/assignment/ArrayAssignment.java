@@ -21,7 +21,6 @@ public final class ArrayAssignment extends Assignment {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        System.out.println(indexes.numIndexes());
         CVADeclaration declaration = symbolTable.getCVA(identifier);
         if (declaration != null) {
             if (declaration.getMode().isVariable()) {
