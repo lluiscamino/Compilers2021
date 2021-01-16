@@ -14,7 +14,7 @@ public final class CallExpression extends Expression {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        call.validate(symbolTable);
     }
 
     @Override
