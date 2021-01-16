@@ -10,6 +10,7 @@ import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.RelationalOperatorType;
 import parser.symbols.types.PrimitiveType;
+import main.Compiler;
 import errors.LexicalError;
 
 
@@ -660,7 +661,7 @@ public class Scanner implements java_cup.runtime.Scanner {
    * @return the next token.
    * @exception java.io.IOException if any I/O-Error occurs.
    */
-  public java_cup.runtime.Symbol next_token() throws java.io.IOException, LexicalError {
+  public java_cup.runtime.Symbol next_token() throws java.io.IOException {
     int zzInput;
     int zzAction;
 
@@ -803,7 +804,7 @@ public class Scanner implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { throw new LexicalError("Invalid sequence '" + yytext() + "'", getLeftLocation(), getRightLocation());
+            { Compiler.errorsList.add(new LexicalError("Invalid sequence '" + yytext() + "'", getLeftLocation(), getRightLocation()));
             }
             // fall through
           case 38: break;

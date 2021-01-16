@@ -6,6 +6,7 @@ import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.RelationalOperatorType;
 import parser.symbols.types.PrimitiveType;
+import main.Compiler;
 import errors.LexicalError;
 
 %%
@@ -18,7 +19,6 @@ import errors.LexicalError;
 %implements java_cup.runtime.Scanner
 %function next_token
 %type java_cup.runtime.Symbol
-%yylexthrow LexicalError
 
 intlit      = [0-9]+
 boollit     = "true" | "false"
@@ -99,4 +99,4 @@ comment     = "//"[^\r\n]*[\r\n] | "/*"([^*]|\*[^/])*"*/"
 {boollit}   { return symbol(ParserSym.BOOL_LIT, Boolean.parseBoolean(yytext())); }
 {strlit}    { return symbol(ParserSym.STR_LIT, yytext()); }
 {ident}     { return symbol(ParserSym.IDENT, yytext()); }
-.           { throw new LexicalError("Invalid sequence '" + yytext() + "'", getLeftLocation(), getRightLocation()); }
+.           { Compiler.errorsList.add(new LexicalError("Invalid sequence '" + yytext() + "'", getLeftLocation(), getRightLocation())); }
