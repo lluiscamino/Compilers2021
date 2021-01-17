@@ -61,6 +61,7 @@ public final class ArrayLiteral extends Literal {
     @Override
     public void validate(SymbolTable symbolTable) {
         //pasar los elementos a una lista
+        if (getValue() == null) return;
         List<Literal> lits = this.getValue().toArrayList();
         //mirar si algun elemento es de otro tipo
         for (Literal l: lits) {
