@@ -5,3 +5,6 @@ out/
 dist/
 nbproject/
 *.iml
+test/**/*.log
+test/**/*.dot
+test/**/*.txt
