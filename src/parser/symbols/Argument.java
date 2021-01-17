@@ -28,7 +28,9 @@ public final class Argument extends ParserSymbol {
         Declaration declaration = type.isArray() ?
                 new ArrayDeclaration(DeclarationMode.getVariable(), type.getPrimitiveType(), type.getDimensions(), identifier) :
                 new PrimitiveDeclaration(DeclarationMode.getVariable(), type.getPrimitiveType(), identifier);
-        symbolTable.put(declaration);
+        if (!symbolTable.put(declaration)) {
+            addSemanticError("Variable " + identifier + " ya definida");
+        }
     }
 
     @Override

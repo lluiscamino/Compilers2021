@@ -11,8 +11,8 @@ public class SymbolTable {
         this.scope = new Scope();
     }
 
-    public void put(Declaration declaration) {
-        scope.put(declaration);
+    public boolean put(Declaration declaration) {
+        return scope.put(declaration);
     }
 
     public Declaration get(String name) {

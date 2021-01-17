@@ -30,15 +30,16 @@ public class Scope {
         return number;
     }
 
-    public void put(Declaration declaration) {
+    public boolean put(Declaration declaration) {
         String name = declaration.getIdentifier();
         Identifier identifier = getIdentifier(name);
         if (identifier != null) {
             if (this.equals(identifier.getScope()))   {
-                System.err.println("Error: " + name + " ya definida");
+                return false;
             }
         }
         map.put(name, new Identifier(declaration, this));
+        return true;
     }
 
     public Declaration get(String name) {

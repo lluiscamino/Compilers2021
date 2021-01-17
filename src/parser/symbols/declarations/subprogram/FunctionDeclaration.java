@@ -24,7 +24,9 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        symbolTable.put(this);
+        if (!symbolTable.put(this)) {
+            addSemanticError("Variable " + identifier + " ya definida");
+        }
         validateReturnType();
         symbolTable.enterBlock();
         validateArguments(symbolTable);

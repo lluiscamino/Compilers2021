@@ -14,7 +14,9 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        symbolTable.put(this);
+        if (!symbolTable.put(this)) {
+            addSemanticError("Variable " + identifier + " ya definida");
+        }
         symbolTable.enterBlock();
         validateArguments(symbolTable);
         validateStatements(symbolTable);
