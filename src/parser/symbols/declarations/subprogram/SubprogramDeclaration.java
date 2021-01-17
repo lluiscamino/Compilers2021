@@ -1,5 +1,6 @@
 package parser.symbols.declarations.subprogram;
 
+import java.util.ArrayList;
 import java.util.List;
 import parser.symbols.Argument;
 import parser.symbols.SymbolList;
@@ -30,6 +31,7 @@ public abstract class SubprogramDeclaration extends Declaration {
     }
     
     public final List<Argument> toArrayListArguments() {
+        if (arguments == null) return new ArrayList<>();
         return arguments.toArrayList();
     }
 }
