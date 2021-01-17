@@ -1,6 +1,7 @@
 package parser.symbols;
 
 import dot.DotNode;
+import java.util.ArrayList;
 import java.util.List;
 import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.subprogram.SubprogramDeclaration;
@@ -40,24 +41,28 @@ public final class Call extends ParserSymbol {
         //mirar si los tipos de argumentos coinciden
         SubprogramDeclaration subpDecl = (SubprogramDeclaration) decl;
         
-        List<Expression> actualArgs  = arguments.toArrayList();
+        List<Expression> actualArgs = arguments != null ? arguments.toArrayList() : new ArrayList<>();
         List<Argument> args = subpDecl.toArrayListArguments();
         
         //comparar la cantidad de argumentos
-        if (arguments.size() != args.size()) {
-            this.addSemanticError("Cantidad de argumentos incorrecta.");
+        if (actualArgs.size() != args.size()) {
+            this.addSemanticError("Cantidad de argumentos incorrecta en la llamada al subprograma " + subProgramIdentifier);
             return;
         }
         
         //comparar los tipos de argumentos
         for (int i = 0; i < actualArgs.size(); i++) {
-            if (actualArgs.get(i).getType() != args.get(i).getType()) {
-                this.addSemanticError("El tipo de argumento " + i + " tiene que ser de tipo " + args.get(i).getType().getName());
+            Type expectedType = args.get(i).getType();
+            Type actualType = actualArgs.get(i).getType();
+            if (!actualType.equals(expectedType)) {
+                this.addSemanticError("El tipo del argumento num. " + (i + 1) + " en la llamada al subprograma " 
+                        + subProgramIdentifier + " tiene que ser de tipo " + expectedType + ", no de " + actualType);
             }
         }
         
-        
-        arguments.validate(symbolTable);
+        if (arguments != null) {
+            arguments.validate(symbolTable);
+        }
     }
 
     @Override
