@@ -31,7 +31,7 @@ public final class Call extends ParserSymbol {
             return;
         }
         if (!(decl instanceof SubprogramDeclaration)) {
-            this.addSemanticError("El identificar " + this.subProgramIdentifier + " no pertenece a un subprograma.");ç
+            this.addSemanticError("El identificador " + this.subProgramIdentifier + " no pertenece a un subprograma.");ç
             return;
         }
         //mirar si los tipos de argumentos coinciden
