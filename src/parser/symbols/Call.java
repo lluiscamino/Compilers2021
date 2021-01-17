@@ -24,7 +24,14 @@ public final class Call extends ParserSymbol {
 
     @Override
     public void validate(SymbolTable symbolTable) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //buscar el identificador en la tabla de simbolos
+        Declaration decl = symbolTable.get(subProgramIdentifier);
+        if (decl == null) {
+            this.addSemanticError("No existe un subprograma llamado " + this.subProgramIdentifier);
+            return;
+        }
+        //mirar si los tipos de argumentos coinciden
+        arguments.validate(symbolTable);
     }
 
     @Override
