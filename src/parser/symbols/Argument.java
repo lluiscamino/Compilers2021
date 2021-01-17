@@ -19,6 +19,10 @@ public final class Argument extends ParserSymbol {
         this.identifier = identifier;
     }
     
+    public Type getType() {
+        return this.type;
+    }
+    
     @Override
     public void validate(SymbolTable symbolTable) {
         Declaration declaration = type.isArray() ?
