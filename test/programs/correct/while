@@ -1,0 +1,31 @@
+procedure doSomething(boolean val) {
+    while (val) {
+        val = false;
+    }
+    while (!val) {
+        val = true;
+    }
+}
+
+main() {
+    while (true) {
+        doSomething(true);
+        doSomething(false);
+    }
+    var boolean condition;
+    var int counter;
+    condition = true;
+    counter = 0;
+
+    while (condition == true) {
+        counter = counter + 1;
+        if (counter > 27) {
+            condition = condition && false;
+        }
+    }
+    print(condition);
+    while ((true && false) || (2 < 0 + 3) && (!condition) == (3<2) && condition) {
+        condition = false;
+    }
+    doSomething(condition);
+}
