@@ -15,7 +15,10 @@ public final class ArrayIdentifierReference extends IdentifierReference {
     
     @Override
     public void validate(SymbolTable symbolTable) {
-        //mirar la tabla de simbolos
+        CVADeclaration decl = symbolTable.getCVA(identifierName);
+        if (decl == null) {
+            addSemanticError("No existe ninguna variable llamada " + identifierName);
+        }
         indexes.validate(symbolTable);
     }
 
