@@ -18,6 +18,6 @@ public abstract class ParserSymbol extends ComplexSymbol implements DOTizable {
     public abstract void toDot(StringBuilder out);
     
     public void addSemanticError(String message) {
-        Compiler.errorsList.add(new SemanticError(message, xleft, xright));
+        Compiler.getCompiler().getErrorsList().add(new SemanticError(message, xleft, xright));
     }
 }

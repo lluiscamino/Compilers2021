@@ -26,7 +26,7 @@ public class ProgramsTest {
             try {
                 Compiler compiler = new Compiler(program.getAbsolutePath(), tokensPath, treePath, errorsPath);
                 compiler.compile();
-                if (Compiler.errorsList.isEmpty()) {
+                if (Compiler.getCompiler().getErrorsList().isEmpty()) {
                     passedTests++;
                     System.out.println(name + " OK!");
                 } else {

@@ -1,6 +1,7 @@
 package dot;
 
 import java.io.PrintWriter;
+import main.Compiler;
 
 public class DotNode {
     private final int id;
@@ -8,7 +9,7 @@ public class DotNode {
     private final StringBuilder buffer;
 
     public DotNode(StringBuilder buffer, String label, String shape, String style, String fillColor) {
-        this.id = DotIdGenerator.get();
+        this.id = Compiler.getCompiler().getDotIdGenerator().get();
         this.label = label.replaceAll("\"", "\\\\\"");
         this.shape = shape.length() > 0 ? shape : "none";
         this.style = style.length() > 0 ? style : "none";
@@ -37,7 +38,7 @@ public class DotNode {
         buffer.append("\t");
         buffer.append(id);
         buffer.append("->");
-        buffer.append(DotIdGenerator.create());
+        buffer.append(Compiler.getCompiler().getDotIdGenerator().create());
         buffer.append("[label=\""); 
         buffer.append(label);
         buffer.append("\"]\n");

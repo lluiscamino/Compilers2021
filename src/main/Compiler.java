@@ -19,17 +19,24 @@ import scanner.Scanner;
 import symboltable.SymbolTable;
 
 public final class Compiler {
+    private static Compiler instance;
     
-    public static final SymbolTable symbolTable = new SymbolTable();
-    public static final List<ProgramError> errorsList = new ArrayList<>();
-
     private final String inputPath;
     private final Scanner scanner;
     private final Parser parser;
     private final PrintWriter tokensWriter, treeWriter, errorsWriter;
+    
     private Program program;
+    private final SymbolTable symbolTable = new SymbolTable();
+    private final List<ProgramError> errorsList = new ArrayList<>();
+    private final DotIdGenerator dotIdGenerator = new DotIdGenerator();
+    
+    public static Compiler getCompiler() {
+        return instance;
+    }
 
     public Compiler(String inputPath, String tokensPath, String treePath, String errorsPath) throws FileNotFoundException {
+        instance = this;
         SymbolFactory symbolFactory = new ComplexSymbolFactory();
         this.inputPath = inputPath;
         Reader input = new FileReader(inputPath);
@@ -40,10 +47,19 @@ public final class Compiler {
         errorsWriter = new PrintWriter(errorsPath);
     }
 
+    public SymbolTable getSymbolTable() {
+        return symbolTable;
+    }
+
+    public List<ProgramError> getErrorsList() {
+        return errorsList;
+    }
+
+    public DotIdGenerator getDotIdGenerator() {
+        return dotIdGenerator;
+    }
+
     public void compile() throws Exception {
-        DotIdGenerator.clear();
-        symbolTable.clear();
-        errorsList.clear();
         writeTokenList();
         program = (Program) parser.parse().value; // Sintáctico
         writeTree();

@@ -804,7 +804,7 @@ public class Scanner implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { Compiler.errorsList.add(new LexicalError("Invalid sequence '" + yytext() + "'", getLeftLocation(), getRightLocation()));
+            { Compiler.getCompiler().getErrorsList().add(new LexicalError("Invalid sequence '" + yytext() + "'", getLeftLocation(), getRightLocation()));
             }
             // fall through
           case 38: break;
