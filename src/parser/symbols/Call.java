@@ -30,6 +30,10 @@ public final class Call extends ParserSymbol {
             this.addSemanticError("No existe un subprograma llamado " + this.subProgramIdentifier);
             return;
         }
+        if (!(decl instanceof SubprogramDeclaration)) {
+            this.addSemanticError("El identificar " + this.subProgramIdentifier + " no pertenece a un subprograma.");ç
+            return;
+        }
         //mirar si los tipos de argumentos coinciden
         arguments.validate(symbolTable);
     }
