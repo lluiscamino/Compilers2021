@@ -1,5 +1,6 @@
 package main;
 
+import dot.DotIdGenerator;
 import errors.LexicalError;
 import errors.ProgramError;
 import java.io.FileNotFoundException;
@@ -40,10 +41,12 @@ public final class Compiler {
     }
 
     public void compile() throws Exception {
+        DotIdGenerator.clear();
+        symbolTable.clear();
+        errorsList.clear();
         writeTokenList();
         program = (Program) parser.parse().value; // Sintáctico
         writeTree();
-        symbolTable.clear();
         program.validate(symbolTable); // Semántico
         writeErrors();
     }

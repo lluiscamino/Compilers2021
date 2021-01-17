@@ -16,7 +16,7 @@ public enum PrimitiveType implements DOTizable {
         for (PrimitiveType type : PrimitiveType.values()) {
             if (type.value.equals(value)) return type;
         }
-        return null;
+        return UNKNOWN;
     }
 
     @Override

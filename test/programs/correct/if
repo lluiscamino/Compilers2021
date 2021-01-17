@@ -3,7 +3,7 @@ function loremIpsum boolean(boolean c) {
 }
 
 main() {
-    const boolean condition;
+    var boolean condition;
     const array boolean[][] conditions;
     condition = false;
 

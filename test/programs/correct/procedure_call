@@ -1,5 +1,5 @@
 procedure proc1(string text) {
-    print(test);
+    print(text);
     proc2(3, true);
 }
 
