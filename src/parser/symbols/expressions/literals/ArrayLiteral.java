@@ -1,6 +1,7 @@
 package parser.symbols.expressions.literals;
 
 import dot.DotNode;
+import java.util.List;
 import java.util.Stack;
 import parser.symbols.SymbolList;
 import parser.symbols.types.PrimitiveType;

@@ -1,6 +1,9 @@
 package parser.symbols;
 
 import dot.DotNode;
+import java.util.List;
+import parser.symbols.declarations.Declaration;
+import parser.symbols.declarations.subprogram.SubprogramDeclaration;
 import parser.symbols.expressions.*;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;

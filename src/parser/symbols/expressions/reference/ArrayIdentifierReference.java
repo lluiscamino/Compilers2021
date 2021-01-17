@@ -2,6 +2,7 @@ package parser.symbols.expressions.reference;
 
 import dot.DotNode;
 import parser.symbols.ArrayIndexes;
+import parser.symbols.declarations.cva.CVADeclaration;
 import symboltable.SymbolTable;
 
 
