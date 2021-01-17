@@ -1,6 +1,7 @@
 package parser.symbols.expressions;
 
 import parser.symbols.Call;
+import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 
 
@@ -8,8 +9,13 @@ public final class CallExpression extends Expression {
     private final Call call;
     
     public CallExpression(Call call) {
-        super(call.getReturnType(), Mode.RESULT);
+        super(Type.getUnknown(), Mode.RESULT);
         this.call = call;
+    }
+    
+    @Override
+    public Type getType() {
+        return call.getReturnType();
     }
 
     @Override

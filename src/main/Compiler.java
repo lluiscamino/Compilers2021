@@ -19,6 +19,7 @@ import symboltable.SymbolTable;
 
 public final class Compiler {
     
+    public static final SymbolTable symbolTable = new SymbolTable();
     public static final List<ProgramError> errorsList = new ArrayList<>();
 
     private final String inputPath;
@@ -42,7 +43,8 @@ public final class Compiler {
         writeTokenList();
         program = (Program) parser.parse().value; // Sintáctico
         writeTree();
-        program.validate(new SymbolTable()); // Semántico
+        symbolTable.clear();
+        program.validate(symbolTable); // Semántico
         writeErrors();
     }
 

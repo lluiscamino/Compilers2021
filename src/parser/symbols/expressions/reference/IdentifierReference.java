@@ -3,6 +3,7 @@ package parser.symbols.expressions.reference;
 import dot.DotNode;
 import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.expressions.Expression;
+import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 
 public class IdentifierReference extends Expression {
@@ -10,8 +11,14 @@ public class IdentifierReference extends Expression {
     protected final String identifierName;
 
     public IdentifierReference(String identifierName) {
-        super(null, null);
+        super(Type.getUnknown(), Mode.UNKNOWN);
         this.identifierName = identifierName;
+    }
+    
+    @Override
+    public Type getType() {
+        // TODO: Consultar tabla de símbolos
+        return null;
     }
 
     @Override

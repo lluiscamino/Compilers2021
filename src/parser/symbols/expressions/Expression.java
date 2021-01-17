@@ -6,7 +6,7 @@ import parser.symbols.types.Type;
 public abstract class Expression extends ParserSymbol {
     
     protected enum Mode {
-        CONST, VAR, RESULT
+        CONST, VAR, RESULT, UNKNOWN
     }
     
     private static final String STRING_IDENTIFIER = "EXPRESSION";

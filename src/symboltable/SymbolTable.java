@@ -38,6 +38,10 @@ public class SymbolTable {
         }
         scope = scope.getPrevious();
     }
+    
+    public void clear() {
+        scope = new Scope();
+    }
 
     @Override
     public String toString() {
