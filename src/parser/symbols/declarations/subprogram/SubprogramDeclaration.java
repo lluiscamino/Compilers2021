@@ -27,4 +27,8 @@ public abstract class SubprogramDeclaration extends Declaration {
             statements.validate(symbolTable);
         }
     }
+    
+    public final List<Argument> toArrayListArguments() {
+        return arguments.toArrayList();
+    }
 }
