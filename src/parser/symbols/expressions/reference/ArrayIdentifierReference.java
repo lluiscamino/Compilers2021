@@ -19,6 +19,10 @@ public final class ArrayIdentifierReference extends IdentifierReference {
         if (decl == null) {
             addSemanticError("No existe ninguna variable llamada " + identifierName);
         }
+        if (!decl.getType().isArray()) {
+            addSemanticError("El tipo no es un array.");
+        }
+        
         indexes.validate(symbolTable);
     }
 
