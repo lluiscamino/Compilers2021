@@ -61,13 +61,17 @@ public final class ArrayLiteral extends Literal {
     @Override
     public void validate(SymbolTable symbolTable) {
         //pasar los elementos a una lista
-        if (getValue() == null) return;
-        List<Literal> lits = this.getValue().toArrayList();
+        if (getValue() == null || getValue().size() <= 1) return;
+        List<Literal> elements = getValue().toArrayList();
         //mirar si algun elemento es de otro tipo
-        for (Literal l: lits) {
-            if (l.getType() != this.getType()) {
-                this.addSemanticError("Los elementos de un array tienen que ser del mismo tipo.");
+        Type firstElementType = elements.get(0).getType();
+        for (Literal l : elements) {
+            if (!(l.getType().equals(firstElementType))) {
+                addSemanticError("Los elementos de un array tienen que ser del mismo tipo. Se encontró un elemento de tipo " + l.getType() + " en un array de " + firstElementType);
                 return;
+            }
+            if (l.getType().isArray()) { // Si el elemento es también un array, validarlo también
+                l.validate(symbolTable);
             }
         }
     }
