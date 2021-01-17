@@ -18,7 +18,7 @@ public final class Negative extends Expression {
     public void validate(SymbolTable symbolTable) {
         //mirar si la expresion es un entero
         if (!expression.getType().isInteger()) {
-            System.err.println("No se puede hacer una operación aritmética con un tipo que no sea entero");
+            addSemanticError("No se puede hacer una operación aritmética con un tipo que no sea entero");
         }
 
         expression.validate(symbolTable);
