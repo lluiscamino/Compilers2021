@@ -1,0 +1,29 @@
+function bubbleSort int[](int[] arr, int n) {
+    var int i;
+    var boolean swapped;
+    i = 0;
+    swapped = false;
+    while (i < n && !swapped) {
+        swapped = true;
+        var int j;
+        j = 0;
+        while (j < n) {
+            if (arr[j] > arr[j + 1]) {
+                swapped = false;
+                var int aux;
+                aux = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = aux;
+            }
+            j = j + 1;
+        }
+        i = i + 1;
+    }
+    return arr;
+}
+
+main() {
+    var array int[] result;
+    result = bubbleSort({1,9,3,3,5,12,10,1}, 8);
+    print(result);
+}
