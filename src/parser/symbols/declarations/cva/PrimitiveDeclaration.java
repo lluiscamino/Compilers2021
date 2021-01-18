@@ -13,13 +13,13 @@ public final class PrimitiveDeclaration extends CVADeclaration {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "DECL", "box", "filled", "");
+    public void toDot() {
+        DotNode dotNode = new DotNode("DECL", "box", "filled", "");
         
         dotNode.addEdge(mode, "mode");
         dotNode.addEdge(type, "type");
-        dotNode.addEdge((StringBuilder buffer1) -> {
-            DotNode dotNode1 = new DotNode(buffer1, identifier, "plaintext", "filled", "");
+        dotNode.addEdge(() -> {
+            new DotNode(identifier, "plaintext", "filled", "");
         }, "ident");
     }
     

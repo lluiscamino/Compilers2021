@@ -38,10 +38,10 @@ public class Assignment extends Statement {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "ASSGN", "", "filled", "#00a2ff");
-        dotNode.addEdge((StringBuilder buffer1) -> {
-            DotNode dotNode1 = new DotNode(buffer1, identifier, "plaintext", "filled", "");
+    public void toDot() {
+        DotNode dotNode = new DotNode("ASSGN", "", "filled", "#00a2ff");
+        dotNode.addEdge(() -> {
+            new DotNode(identifier, "plaintext", "filled", "");
         }, "ident");
         dotNode.addEdge(expression, "expr");
     }

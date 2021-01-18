@@ -30,6 +30,7 @@ public final class Compiler {
     private final SymbolTable symbolTable = new SymbolTable();
     private final List<ProgramError> errorsList = new ArrayList<>();
     private final DotIdGenerator dotIdGenerator = new DotIdGenerator();
+    private final StringBuilder treeBuffer = new StringBuilder();
     
     public static Compiler getCompiler() {
         return instance;
@@ -59,6 +60,10 @@ public final class Compiler {
         return dotIdGenerator;
     }
 
+    public StringBuilder getTreeBuffer() {
+        return treeBuffer;
+    }
+
     public void compile() throws Exception {
         writeTokenList();
         program = (Program) parser.parse().value; // Sintáctico
@@ -84,11 +89,10 @@ public final class Compiler {
         if (program == null) {
             return;
         }
-        StringBuilder buffer = new StringBuilder();
-        buffer.append("strict digraph {\n");
-        program.toDot(buffer);
-        buffer.append("}");
-        treeWriter.write(buffer.toString());
+        treeBuffer.append("strict digraph {\n");
+        program.toDot();
+        treeBuffer.append("}");
+        treeWriter.write(treeBuffer.toString());
         treeWriter.close();
     }
 

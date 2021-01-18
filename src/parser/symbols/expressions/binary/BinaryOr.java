@@ -11,8 +11,8 @@ public final class BinaryOr extends BinaryOperation {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "OR", "", "filled", "#00a2ff");
+    public void toDot() {
+        DotNode dotNode = new DotNode("OR", "", "filled", "#00a2ff");
         
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(rightExpression);

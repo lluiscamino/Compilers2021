@@ -65,8 +65,8 @@ public final class SymbolList<T extends ParserSymbol> extends ParserSymbol {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, STRING_IDENTIFIER, "box", "filled", "#d4d4d4");
+    public void toDot() {
+        DotNode dotNode = new DotNode(STRING_IDENTIFIER, "box", "filled", "#d4d4d4");
         
         dotNode.addEdgeIfNotNull(element);
         dotNode.addEdgeIfNotNull(next);

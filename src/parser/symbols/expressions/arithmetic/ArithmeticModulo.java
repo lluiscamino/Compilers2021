@@ -11,8 +11,8 @@ public final class ArithmeticModulo extends ArithmeticOperation {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "MOD", "", "filled", "#00a2ff");
+    public void toDot() {
+        DotNode dotNode = new DotNode("MOD", "", "filled", "#00a2ff");
         
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(rightExpression);

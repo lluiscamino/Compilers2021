@@ -20,11 +20,11 @@ public final class IntegerLiteral extends Literal {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "INT_LIT", "", "filled", "#00a2ff");
+    public void toDot() {
+        DotNode dotNode = new DotNode("INT_LIT", "", "filled", "#00a2ff");
         
-        dotNode.addEdge((StringBuilder buffer1) -> {
-            DotNode dotNode1 = new DotNode(buffer1, Integer.toString(getValue()), "plaintext", "", "");
+        dotNode.addEdge(() -> {
+             new DotNode(Integer.toString(getValue()), "plaintext", "", "");
         }, "value");
     }
     

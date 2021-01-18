@@ -6,15 +6,14 @@ import main.Compiler;
 public class DotNode {
     private final int id;
     private final String label, shape, style, fillColor;
-    private final StringBuilder buffer;
 
-    public DotNode(StringBuilder buffer, String label, String shape, String style, String fillColor) {
-        this.id = Compiler.getCompiler().getDotIdGenerator().get();
+    public DotNode(String label, String shape, String style, String fillColor) {
+        DotIdGenerator dotIdGenerator = Compiler.getCompiler().getDotIdGenerator();
+        this.id = dotIdGenerator.get();
         this.label = label.replaceAll("\"", "\\\\\"");
         this.shape = shape.length() > 0 ? shape : "none";
         this.style = style.length() > 0 ? style : "none";
         this.fillColor = fillColor.length() > 0 ? fillColor : "none";
-        this.buffer = buffer;
         addLabel();
     }
     
@@ -35,21 +34,25 @@ public class DotNode {
     }
     
     public void addEdge(DOTizable node, String label) {
+        StringBuilder buffer = Compiler.getCompiler().getTreeBuffer();
+        DotIdGenerator dotIdGenerator = Compiler.getCompiler().getDotIdGenerator();
         buffer.append("\t");
         buffer.append(id);
         buffer.append("->");
-        buffer.append(Compiler.getCompiler().getDotIdGenerator().create());
+        buffer.append(dotIdGenerator.create());
         buffer.append("[label=\""); 
         buffer.append(label);
         buffer.append("\"]\n");
-        node.toDot(buffer);
+        node.toDot();
     }
     
     public void print(PrintWriter out) {
+        StringBuilder buffer = Compiler.getCompiler().getTreeBuffer();
         out.print(buffer.toString());
     }
     
     private void addLabel() {
+        StringBuilder buffer = Compiler.getCompiler().getTreeBuffer();
         buffer.append(id);
         buffer.append("\t[label=\"");
         buffer.append(label);

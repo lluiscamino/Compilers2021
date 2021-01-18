@@ -27,8 +27,8 @@ public class If extends Statement {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "IF", "", "filled", "#00a2ff");
+    public void toDot() {
+        DotNode dotNode = new DotNode("IF", "", "filled", "#00a2ff");
         dotNode.addEdge(condition, "cond");
         dotNode.addEdgeIfNotNull(statements, "stmts");
     }

@@ -31,8 +31,8 @@ public final class DeclarationMode extends ParserSymbol {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, mode.toString(), "", "filled", "");
+    public void toDot() {
+        new DotNode(mode.toString(), "", "filled", "");
     }
     
     public static DeclarationMode getConstant() {

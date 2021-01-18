@@ -34,8 +34,8 @@ public final class ArrayIndexes extends ParserSymbol {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        indexes.toDot(buffer);
+    public void toDot() {
+        indexes.toDot();
     }
     
 }

@@ -77,8 +77,8 @@ public final class ArrayLiteral extends Literal {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "ARR_LIT", "", "filled", "#00a2ff");
+    public void toDot() {
+        DotNode dotNode = new DotNode("ARR_LIT", "", "filled", "#00a2ff");
         
         dotNode.addEdgeIfNotNull(getValue(), "literals");
     }

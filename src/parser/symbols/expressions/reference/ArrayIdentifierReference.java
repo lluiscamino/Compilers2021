@@ -28,11 +28,11 @@ public final class ArrayIdentifierReference extends IdentifierReference {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "IDENT_ARR", "", "filled", "#00a2ff");
+    public void toDot() {
+        DotNode dotNode = new DotNode("IDENT_ARR", "", "filled", "#00a2ff");
         
-        dotNode.addEdge((StringBuilder buffer1) -> {
-            DotNode dotNode1 = new DotNode(buffer1, identifierName, "plaintext", "", "");
+        dotNode.addEdge(() -> {
+            new DotNode(identifierName, "plaintext", "", "");
         }, "ident");
         dotNode.addEdgeIfNotNull(indexes, "indexes");
     }

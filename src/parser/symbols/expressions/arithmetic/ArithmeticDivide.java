@@ -11,8 +11,8 @@ public final class ArithmeticDivide extends ArithmeticOperation {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "DIV", "", "filled", "#00a2ff");
+    public void toDot() {
+        DotNode dotNode = new DotNode("DIV", "", "filled", "#00a2ff");
 
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(rightExpression);

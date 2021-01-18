@@ -20,7 +20,7 @@ public enum PrimitiveType implements DOTizable {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, toString(), "", "filled", "");
+    public void toDot() {
+        new DotNode(toString(), "", "filled", "");
     }
 }

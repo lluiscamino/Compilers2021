@@ -34,11 +34,11 @@ public final class Argument extends ParserSymbol {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, STRING_IDENTIFIER, "box", "filled", "");
+    public void toDot() {
+        DotNode dotNode = new DotNode(STRING_IDENTIFIER, "box", "filled", "");
         dotNode.addEdge(type, "type");
-        dotNode.addEdge((StringBuilder buffer1) -> {
-            new DotNode(buffer1, identifier, "plaintext", "", "");
+        dotNode.addEdge(() -> {
+            new DotNode(identifier, "plaintext", "", "");
         }, "ident");
     }
     

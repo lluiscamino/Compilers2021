@@ -20,7 +20,7 @@ public enum RelationalOperatorType implements DOTizable {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, toString(), "plaintext", "filled", "");
+    public void toDot() {
+        new DotNode(toString(), "plaintext", "filled", "");
     }
 }

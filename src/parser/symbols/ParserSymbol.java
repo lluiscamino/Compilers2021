@@ -15,7 +15,7 @@ public abstract class ParserSymbol extends ComplexSymbol implements DOTizable {
     public abstract void validate(SymbolTable symbolTable);
     
     @Override
-    public abstract void toDot(StringBuilder out);
+    public abstract void toDot();
     
     public void addSemanticError(String message) {
         Compiler.getCompiler().getErrorsList().add(new SemanticError(message, xleft, xright));

@@ -30,8 +30,8 @@ public final class Relational extends Expression {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "RELATIONAL", "", "filled", "#00a2ff");
+    public void toDot() {
+        DotNode dotNode = new DotNode("RELATIONAL", "", "filled", "#00a2ff");
         
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(operator, "operator");

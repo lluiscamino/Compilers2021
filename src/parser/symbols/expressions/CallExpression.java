@@ -24,8 +24,8 @@ public final class CallExpression extends Expression {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        call.toDot(buffer);
+    public void toDot() {
+        call.toDot();
     }
     
 }

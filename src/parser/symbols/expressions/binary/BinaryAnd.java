@@ -11,8 +11,8 @@ public final class BinaryAnd extends BinaryOperation {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "AND", "", "filled", "#00a2ff");
+    public void toDot() {
+        DotNode dotNode = new DotNode("AND", "", "filled", "#00a2ff");
         
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(rightExpression);

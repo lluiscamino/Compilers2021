@@ -16,7 +16,7 @@ public final class CallStatement extends Statement {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        call.toDot(buffer);
+    public void toDot() {
+        call.toDot();
     }
 }

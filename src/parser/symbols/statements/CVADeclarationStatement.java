@@ -16,8 +16,8 @@ public final class CVADeclarationStatement extends Statement {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        declaration.toDot(buffer);
+    public void toDot() {
+        declaration.toDot();
     }
     
 }

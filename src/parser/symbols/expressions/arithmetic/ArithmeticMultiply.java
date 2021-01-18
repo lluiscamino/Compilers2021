@@ -11,8 +11,8 @@ public final class ArithmeticMultiply extends ArithmeticOperation {
     }
 
     @Override
-    public void toDot(StringBuilder buffer) {
-        DotNode dotNode = new DotNode(buffer, "MUL", "", "filled", "#00a2ff");
+    public void toDot() {
+        DotNode dotNode = new DotNode("MUL", "", "filled", "#00a2ff");
         
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(rightExpression);
