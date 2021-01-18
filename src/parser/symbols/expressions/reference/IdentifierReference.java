@@ -17,8 +17,8 @@ public class IdentifierReference extends Expression {
     
     @Override
     public Type getType() {
-        // TODO: Consultar tabla de símbolos
-        return null;
+        CVADeclaration decl = Compiler.getCompiler().getSymbolTable().getCVA("identifierName");
+        return decl.getType();
     }
 
     @Override
