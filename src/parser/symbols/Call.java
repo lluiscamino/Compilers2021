@@ -3,11 +3,12 @@ package parser.symbols;
 import dot.DotNode;
 import java.util.ArrayList;
 import java.util.List;
-import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.subprogram.SubprogramDeclaration;
 import parser.symbols.expressions.*;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
+import main.Compiler;
+import parser.symbols.declarations.subprogram.FunctionDeclaration;
 
 public final class Call extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "CALL";
@@ -22,21 +23,14 @@ public final class Call extends ParserSymbol {
     }
     
     public Type getReturnType() {
-        Declaration decl = Compiler.getCompiler().getSymbolTable().get(subProgramIdentifier);
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SubprogramDeclaration decl = symbolTable.getSubprogram(subProgramIdentifier);
+        
         if (decl == null) {
             return Type.getUnknown();
         }
-        
-        if (!(decl instanceof SubprogramDeclaration)) {
-            return Type.getUnknown();
-        }
-        
-        SubprogramDeclaration sd = (SubprogramDeclaration) decl;
-        
-        if (sd instanceof FunctionDeclaration) {
-            return  ((FunctionDeclaration) sd).getReturnType();
-        } else if (sd instanceof ProcedureDeclaration) {
-            return Type.getUnknown();
+        if (decl instanceof FunctionDeclaration) {
+            return  ((FunctionDeclaration) decl).getReturnType();
         }
         return Type.getUnknown();
     }
@@ -44,13 +38,9 @@ public final class Call extends ParserSymbol {
     @Override
     public void validate(SymbolTable symbolTable) {
         //buscar el identificador en la tabla de simbolos
-        Declaration decl = symbolTable.get(subProgramIdentifier);
+        SubprogramDeclaration decl = symbolTable.getSubprogram(subProgramIdentifier);
         if (decl == null) {
             this.addSemanticError("No existe un subprograma llamado " + this.subProgramIdentifier);
-            return;
-        }
-        if (!(decl instanceof SubprogramDeclaration)) {
-            this.addSemanticError("El identificar " + this.subProgramIdentifier + " no pertenece a un subprograma.");
             return;
         }
         //mirar si los tipos de argumentos coinciden

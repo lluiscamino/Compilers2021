@@ -2,6 +2,7 @@ package symboltable;
 
 import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.cva.CVADeclaration;
+import parser.symbols.declarations.subprogram.SubprogramDeclaration;
 
 public class SymbolTable {
 
@@ -25,6 +26,14 @@ public class SymbolTable {
             return null;
         }
         return (CVADeclaration) decl;
+    }
+    
+    public SubprogramDeclaration getSubprogram(String name) {
+        Declaration decl = scope.get(name);
+        if (decl == null || !(decl instanceof SubprogramDeclaration)) {
+            return null;
+        }
+        return (SubprogramDeclaration) decl;
     }
 
     public void enterBlock() {

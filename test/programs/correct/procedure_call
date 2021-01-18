@@ -40,7 +40,7 @@ main() {
     const array string[] msgs;
     text = "Starting";
     msgs = {"aa", "bab"};
-    proc1();
+    proc1("");
     proc6({"Hello", "GoodBye"});
     proc6(msgs);
 }

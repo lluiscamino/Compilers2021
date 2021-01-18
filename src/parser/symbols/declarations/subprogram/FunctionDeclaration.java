@@ -19,7 +19,7 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
     }
     
     public Type getReturnType() {
-        return returnStatement.getExpressionType();
+        return type;
     }
 
     @Override
@@ -27,11 +27,11 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
         if (!symbolTable.put(this)) {
             addSemanticError("Variable " + identifier + " ya definida");
         }
-        validateReturnType();
         symbolTable.enterBlock();
         validateArguments(symbolTable);
         validateStatements(symbolTable);
         returnStatement.validate(symbolTable);
+        validateReturnType();
         symbolTable.exitBlock();
     }
     

@@ -5,6 +5,7 @@ import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
+import main.Compiler;
 
 public class IdentifierReference extends Expression {
 
@@ -17,8 +18,9 @@ public class IdentifierReference extends Expression {
     
     @Override
     public Type getType() {
-        CVADeclaration decl = Compiler.getCompiler().getSymbolTable().getCVA("identifierName");
-        return decl.getType();
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        CVADeclaration decl = symbolTable.getCVA(identifierName);
+        return decl != null ? decl.getType(): Type.getUnknown();
     }
 
     @Override

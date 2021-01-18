@@ -54,8 +54,9 @@ public class Scope {
     @Override
     public String toString() {
         StringBuilder buffer = new StringBuilder();
-        for (Identifier identifier : map.values()) {
-            buffer.append(identifier.getDeclaration().getName()).append(" ");
+        for (String name : map.keySet()) {
+            Declaration decl = map.get(name).getDeclaration();
+            buffer.append(name).append(" ");
         }
         buffer.append("\n");
         return buffer.toString();

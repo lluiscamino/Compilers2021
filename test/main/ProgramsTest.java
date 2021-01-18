@@ -16,7 +16,7 @@ public class ProgramsTest {
         new File(TOKENS_PATH).mkdirs();
         new File(TREE_PATH).mkdirs();
         new File(ERRORS_PATH).mkdirs();
-        int passedTests = 0;
+        int passedTests = 0, totalTests = 0;
         for (File program : programs) {
             if (program.isDirectory()) continue;
             String name = program.getName();
@@ -35,8 +35,9 @@ public class ProgramsTest {
             } catch (Exception e) {
                 System.out.println("Unexpected exception with program " + name + ": " + e.getMessage());
             }
+            totalTests++;
         }
         System.out.println("\nSUMMARY:\nTests passed:\t" + passedTests + "\nTests executed:\t"
-                + programs.length + "\nSuccess rate:\t" + ((float) passedTests / programs.length) + "%");
+                + totalTests + "\nSuccess rate:\t" + ((float) passedTests / totalTests) + "%");
     }
 }
