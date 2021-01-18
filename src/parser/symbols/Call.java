@@ -22,8 +22,23 @@ public final class Call extends ParserSymbol {
     }
     
     public Type getReturnType() {
-        // TODO: Consultar tabla de símbolos
-        return null;
+        Declaration decl = Compiler.getCompiler().getSymbolTable().get(subProgramIdentifier);
+        if (decl == null) {
+            return Type.getUnknown();
+        }
+        
+        if (!(decl instanceof SubprogramDeclaration)) {
+            return Type.getUnknown();
+        }
+        
+        SubprogramDeclaration sd = (SubprogramDeclaration) decl;
+        
+        if (sd instanceof FunctionDeclaration) {
+            return  ((FunctionDeclaration) sd).getReturnType();
+        } else if (sd instanceof ProcedureDeclaration) {
+            return Type.getUnknown();
+        }
+        return Type.getUnknown();
     }
 
     @Override
