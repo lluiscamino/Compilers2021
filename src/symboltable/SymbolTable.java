@@ -6,10 +6,12 @@ import parser.symbols.declarations.subprogram.SubprogramDeclaration;
 
 public class SymbolTable {
 
+    private final Scope initialScope;
     private Scope scope;
 
     public SymbolTable() {
-        this.scope = new Scope();
+        initialScope = new Scope();
+        scope = initialScope;
     }
 
     public boolean put(Declaration declaration) {
@@ -48,8 +50,8 @@ public class SymbolTable {
         scope = scope.getPrevious();
     }
     
-    public void clear() {
-        scope = new Scope();
+    public boolean isInInitialScope() {
+        return scope == initialScope;
     }
 
     @Override

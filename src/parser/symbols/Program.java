@@ -20,6 +20,11 @@ public final class Program extends ParserSymbol {
     @Override
     public void validate(SymbolTable symbolTable) {
         if (declarations != null) {
+            for (Declaration decl : declarations.toArrayList()) {
+                if (!symbolTable.put(decl)) {
+                    addSemanticError("Declaración " + decl.getIdentifier() + " ya definida");
+                }
+            }
             declarations.validate(symbolTable);
         }
         main.validate(symbolTable);

@@ -38,6 +38,6 @@ public class ProgramsTest {
             totalTests++;
         }
         System.out.println("\nSUMMARY:\nTests passed:\t" + passedTests + "\nTests executed:\t"
-                + totalTests + "\nSuccess rate:\t" + ((float) passedTests / totalTests) + "%");
+                + totalTests + "\nSuccess rate:\t" + (100f * passedTests / totalTests) + "%");
     }
 }

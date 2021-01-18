@@ -36,8 +36,8 @@ procedure proc6(string[] messages) {
 }
 
 main() {
-    const string text;
-    const array string[] msgs;
+    var string text;
+    var array string[] msgs;
     text = "Starting";
     msgs = {"aa", "bab"};
     proc1("");

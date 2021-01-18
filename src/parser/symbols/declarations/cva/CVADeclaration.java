@@ -25,7 +25,7 @@ public abstract class CVADeclaration extends Declaration {
     
     @Override
     public void validate(SymbolTable symbolTable) {
-        if (!symbolTable.put(this)) {
+        if (!symbolTable.isInInitialScope() && !symbolTable.put(this)) {
             addSemanticError("Variable " + identifier + " ya definida");
         }
     }
