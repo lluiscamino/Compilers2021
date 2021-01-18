@@ -122,6 +122,7 @@ public final class Type extends ParserSymbol {
     }
     
     public static Type getArray(PrimitiveType primType, int numDimensions) {
+        if (numDimensions <= 0) return new Type(primType);
         ArrayDimensions dimensions = new ArrayDimensions();
         while (dimensions.size() < numDimensions) {
             dimensions.addNewDimension();

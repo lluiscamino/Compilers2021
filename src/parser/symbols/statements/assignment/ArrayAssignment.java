@@ -1,7 +1,6 @@
 package parser.symbols.statements.assignment;
 
 import dot.DotNode;
-import parser.symbols.ArrayDimensions;
 import parser.symbols.ArrayIndexes;
 import parser.symbols.declarations.cva.ArrayDeclaration;
 import parser.symbols.declarations.cva.CVADeclaration;
@@ -10,6 +9,7 @@ import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 import main.Compiler;
+import parser.symbols.ArrayDimensions;
 
 public final class ArrayAssignment extends Assignment {
 
@@ -56,13 +56,8 @@ public final class ArrayAssignment extends Assignment {
             return null;
         }
         int numDimensions = numArrayDimensions - numIndexes;
-        ArrayDimensions dimensions = null;
         PrimitiveType primType = declaration.getType().getPrimitiveType();
-        if (numDimensions > 0) {
-            dimensions = new ArrayDimensions();
-            for (int i = 0; i < numDimensions - 1; i++) dimensions.addNewDimension();
-        }
-        return new Type(primType, dimensions);
+        return Type.getArray(primType, numDimensions);
     }
 
     @Override
