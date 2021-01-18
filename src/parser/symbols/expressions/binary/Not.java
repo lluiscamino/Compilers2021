@@ -3,7 +3,6 @@ package parser.symbols.expressions.binary;
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
-import symboltable.SymbolTable;
 
 public final class Not extends Expression {
     private final Expression expression;
@@ -14,13 +13,13 @@ public final class Not extends Expression {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
         //mirar si la expresion es booleana
         if (!expression.getType().isBoolean()) {
             addSemanticError("No se puede hacer una operación lógica con un tipo que no sea booleano");
         }
 
-        expression.validate(symbolTable);
+        expression.validate();
     }
 
     @Override

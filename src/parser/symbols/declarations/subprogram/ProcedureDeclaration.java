@@ -5,6 +5,7 @@ import parser.symbols.Argument;
 import parser.symbols.SymbolList;
 import parser.symbols.statements.Statement;
 import symboltable.SymbolTable;
+import main.Compiler;
 
 public class ProcedureDeclaration extends SubprogramDeclaration {
     
@@ -13,7 +14,8 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
         if (!symbolTable.isInInitialScope() && !symbolTable.put(this)) {
             addSemanticError("Procedimiento " + identifier + " ya definido");
         }

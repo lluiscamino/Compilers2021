@@ -1,7 +1,6 @@
 package parser.symbols.statements;
 
 import parser.symbols.Call;
-import symboltable.SymbolTable;
 
 public final class CallStatement extends Statement {
     private final Call call;
@@ -11,8 +10,8 @@ public final class CallStatement extends Statement {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
-        call.validate(symbolTable);
+    public void validate() {
+        call.validate();
     }
 
     @Override

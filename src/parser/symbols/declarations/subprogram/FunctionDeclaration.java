@@ -7,6 +7,7 @@ import parser.symbols.statements.Return;
 import parser.symbols.statements.Statement;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
+import main.Compiler;
 
 public final class FunctionDeclaration extends SubprogramDeclaration {
     private final Type type;
@@ -23,14 +24,15 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
         if (!symbolTable.isInInitialScope() && !symbolTable.put(this)) {
             addSemanticError("Función " + identifier + " ya definida");
         }
         symbolTable.enterBlock();
         validateArguments(symbolTable);
         validateStatements(symbolTable);
-        returnStatement.validate(symbolTable);
+        returnStatement.validate();
         validateReturnType();
         symbolTable.exitBlock();
     }

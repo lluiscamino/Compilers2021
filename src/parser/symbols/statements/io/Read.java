@@ -5,6 +5,7 @@ import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.statements.Statement;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
+import main.Compiler;
 
 public final class Read extends Statement {
     
@@ -15,7 +16,8 @@ public final class Read extends Statement {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
         CVADeclaration declaration = symbolTable.getCVA(identifier);
         if (declaration == null) {
             addSemanticError("No existe ninguna variable llamada " + identifier);

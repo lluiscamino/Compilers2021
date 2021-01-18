@@ -71,8 +71,7 @@ public final class Type extends ParserSymbol {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
-        
+    public void validate() {
     }
 
     @Override

@@ -4,6 +4,7 @@ import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.DeclarationMode;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
+import main.Compiler;
 
 public abstract class CVADeclaration extends Declaration {
     protected final Type type;
@@ -24,7 +25,8 @@ public abstract class CVADeclaration extends Declaration {
     }
     
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
         if (!symbolTable.isInInitialScope() && !symbolTable.put(this)) {
             addSemanticError("Variable " + identifier + " ya definida");
         }

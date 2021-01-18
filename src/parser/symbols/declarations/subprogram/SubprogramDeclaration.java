@@ -20,13 +20,13 @@ public abstract class SubprogramDeclaration extends Declaration {
     
     protected final void validateArguments(SymbolTable symbolTable) {
         if (arguments != null) {
-            arguments.validate(symbolTable);
+            arguments.validate();
         }
     }
     
     protected final void validateStatements(SymbolTable symbolTable) {
         if (statements != null) {
-            statements.validate(symbolTable);
+            statements.validate();
         }
     }
     

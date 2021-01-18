@@ -4,7 +4,7 @@ import dot.DotNode;
 import parser.symbols.ArrayIndexes;
 import parser.symbols.declarations.cva.CVADeclaration;
 import symboltable.SymbolTable;
-
+import main.Compiler;
 
 public final class ArrayIdentifierReference extends IdentifierReference {
     private final ArrayIndexes indexes;
@@ -15,7 +15,8 @@ public final class ArrayIdentifierReference extends IdentifierReference {
     }
     
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
         CVADeclaration decl = symbolTable.getCVA(identifierName);
         if (decl == null) {
             addSemanticError("No existe ninguna variable llamada " + identifierName);
@@ -24,7 +25,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
             addSemanticError("El tipo no es un array.");
         }
         
-        indexes.validate(symbolTable);
+        indexes.validate();
     }
 
     @Override

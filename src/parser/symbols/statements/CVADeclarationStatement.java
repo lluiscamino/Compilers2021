@@ -1,7 +1,6 @@
 package parser.symbols.statements;
 
 import parser.symbols.declarations.cva.CVADeclaration;
-import symboltable.SymbolTable;
 
 public final class CVADeclarationStatement extends Statement {
     private final CVADeclaration declaration;
@@ -11,8 +10,8 @@ public final class CVADeclarationStatement extends Statement {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
-        declaration.validate(symbolTable);
+    public void validate() {
+        declaration.validate();
     }
 
     @Override

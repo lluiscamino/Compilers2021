@@ -24,7 +24,8 @@ public class IdentifierReference extends Expression {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
         //mirar la tabla de simbolos
         CVADeclaration decl = symbolTable.getCVA(identifierName);
         if (decl == null) {

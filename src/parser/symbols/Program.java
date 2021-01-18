@@ -4,6 +4,7 @@ import dot.DotNode;
 import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.subprogram.MainDeclaration;
 import symboltable.SymbolTable;
+import main.Compiler;
 
 public final class Program extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "PROGRAM";
@@ -18,16 +19,17 @@ public final class Program extends ParserSymbol {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
         if (declarations != null) {
+            SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
             for (Declaration decl : declarations.toArrayList()) {
                 if (!symbolTable.put(decl)) {
                     addSemanticError("Declaración " + decl.getIdentifier() + " ya definida");
                 }
             }
-            declarations.validate(symbolTable);
+            declarations.validate();
         }
-        main.validate(symbolTable);
+        main.validate();
     }
 
     @Override

@@ -5,7 +5,6 @@ import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
 import parser.symbols.types.Type;
-import symboltable.SymbolTable;
 
 public class If extends Statement {
     protected final Expression condition;
@@ -17,12 +16,12 @@ public class If extends Statement {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
         if (!condition.getType().isBoolean()) {
             addSemanticError("La condición del bucle debe ser de tipo " + Type.getBoolean());
         }
         if (statements != null) {
-            statements.validate(symbolTable);
+            statements.validate();
         }
     }
 

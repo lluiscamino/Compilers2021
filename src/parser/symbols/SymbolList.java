@@ -56,10 +56,10 @@ public final class SymbolList<T extends ParserSymbol> extends ParserSymbol {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
         SymbolList<T> node = this;
         while (node != null && node.element != null) {
-            node.element.validate(symbolTable);
+            node.element.validate();
             node = node.next;
         }
     }

@@ -2,8 +2,6 @@ package parser.symbols.expressions;
 
 import parser.symbols.Call;
 import parser.symbols.types.Type;
-import symboltable.SymbolTable;
-
 
 public final class CallExpression extends Expression {
     private final Call call;
@@ -19,8 +17,8 @@ public final class CallExpression extends Expression {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
-        call.validate(symbolTable);
+    public void validate() {
+        call.validate();
     }
 
     @Override

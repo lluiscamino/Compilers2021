@@ -5,6 +5,7 @@ import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
 import symboltable.SymbolTable;
+import main.Compiler;
 
 public class Assignment extends Statement {
 
@@ -17,8 +18,9 @@ public class Assignment extends Statement {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
         try {
+            SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
             CVADeclaration declaration = symbolTable.getCVA(identifier);
             if (declaration == null) {
                 addSemanticError("No existe ninguna variable llamada " + identifier);
@@ -32,7 +34,7 @@ public class Assignment extends Statement {
                 addSemanticError("No se puede asignar un valor de tipo " + expression.getType() + " a una variable de tipo " + declaration.getType());
             }
         } finally {
-            expression.validate(symbolTable);
+            expression.validate();
         }
 
     }

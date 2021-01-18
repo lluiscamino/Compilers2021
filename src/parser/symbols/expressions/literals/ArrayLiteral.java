@@ -6,7 +6,6 @@ import java.util.Stack;
 import parser.symbols.SymbolList;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
-import symboltable.SymbolTable;
 
 public final class ArrayLiteral extends Literal {
     
@@ -59,7 +58,7 @@ public final class ArrayLiteral extends Literal {
     }
     
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
         //pasar los elementos a una lista
         if (getValue() == null || getValue().size() <= 1) return;
         List<Literal> elements = getValue().toArrayList();
@@ -71,7 +70,7 @@ public final class ArrayLiteral extends Literal {
                 return;
             }
             if (l.getType().isArray()) { // Si el elemento es también un array, validarlo también
-                l.validate(symbolTable);
+                l.validate();
             }
         }
     }

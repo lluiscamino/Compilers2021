@@ -4,7 +4,6 @@ import dot.DOTizable;
 import errors.SemanticError;
 import main.Compiler;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
-import symboltable.SymbolTable;
 
 public abstract class ParserSymbol extends ComplexSymbol implements DOTizable {
     
@@ -12,7 +11,7 @@ public abstract class ParserSymbol extends ComplexSymbol implements DOTizable {
         super(name, 0);
     }
     
-    public abstract void validate(SymbolTable symbolTable);
+    public abstract void validate();
     
     @Override
     public abstract void toDot();

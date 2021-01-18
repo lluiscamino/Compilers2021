@@ -1,7 +1,6 @@
 package parser.symbols.expressions;
 
 import dot.DotNode;
-import symboltable.SymbolTable;
 
 public final class Priority extends Expression {
     private final Expression expression;
@@ -12,8 +11,8 @@ public final class Priority extends Expression {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
-        expression.validate(symbolTable);
+    public void validate() {
+        expression.validate();
     }
 
     @Override

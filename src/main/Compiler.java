@@ -68,7 +68,7 @@ public final class Compiler {
         writeTokenList();
         program = (Program) parser.parse().value; // Sintáctico
         writeTree();
-        program.validate(symbolTable); // Semántico
+        program.validate(); // Semántico
         writeErrors();
     }
 

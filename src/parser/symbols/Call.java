@@ -36,7 +36,8 @@ public final class Call extends ParserSymbol {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
         //buscar el identificador en la tabla de simbolos
         SubprogramDeclaration decl = symbolTable.getSubprogram(subProgramIdentifier);
         if (decl == null) {
@@ -66,7 +67,7 @@ public final class Call extends ParserSymbol {
         }
         
         if (arguments != null) {
-            arguments.validate(symbolTable);
+            arguments.validate();
         }
     }
 

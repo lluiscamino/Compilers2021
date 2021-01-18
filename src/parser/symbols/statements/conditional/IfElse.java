@@ -4,7 +4,6 @@ import dot.DotNode;
 import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
-import symboltable.SymbolTable;
 
 public final class IfElse extends If {
 
@@ -16,10 +15,10 @@ public final class IfElse extends If {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
-        super.validate(symbolTable);
+    public void validate() {
+        super.validate();
         if (elseStatements != null) {
-            elseStatements.validate(symbolTable);
+            elseStatements.validate();
         }
     }
 

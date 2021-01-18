@@ -9,6 +9,7 @@ import parser.symbols.expressions.Expression;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
+import main.Compiler;
 
 public final class ArrayAssignment extends Assignment {
 
@@ -20,8 +21,9 @@ public final class ArrayAssignment extends Assignment {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
+    public void validate() {
         try {
+            SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
             CVADeclaration declaration = symbolTable.getCVA(identifier);
             if (declaration == null) {
                 addSemanticError("No existe ninguna variable llamada " + identifier);
@@ -42,8 +44,8 @@ public final class ArrayAssignment extends Assignment {
                 addSemanticError("No se puede asignar un valor de tipo " + expression.getType() + " a una variable de tipo " + expectedType);
             }
         } finally {
-            indexes.validate(symbolTable);
-            expression.validate(symbolTable);
+            indexes.validate();
+            expression.validate();
         }
     }
     

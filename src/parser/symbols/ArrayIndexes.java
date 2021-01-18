@@ -2,7 +2,6 @@ package parser.symbols;
 
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
-import symboltable.SymbolTable;
 
 public final class ArrayIndexes extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "ARR_INDEX";
@@ -24,8 +23,8 @@ public final class ArrayIndexes extends ParserSymbol {
     }
 
     @Override
-    public void validate(SymbolTable symbolTable) {
-        indexes.validate(symbolTable);
+    public void validate() {
+        indexes.validate();
         for (Expression index : indexes.toArrayList()) {
             if (!index.getType().isInteger()) {
                 addSemanticError("Los índices de un array deben ser de tipo " + Type.getInteger() + ", no de tipo " + index.getType());

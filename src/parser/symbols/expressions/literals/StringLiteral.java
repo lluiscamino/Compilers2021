@@ -2,7 +2,6 @@ package parser.symbols.expressions.literals;
 
 import dot.DotNode;
 import parser.symbols.types.Type;
-import symboltable.SymbolTable;
 
 public class StringLiteral extends Literal {
     
@@ -13,10 +12,6 @@ public class StringLiteral extends Literal {
     @Override
     public String getValue() {
         return (String) literalValue;
-    }
-
-    @Override
-    public void validate(SymbolTable symbolTable) {
     }
 
     @Override

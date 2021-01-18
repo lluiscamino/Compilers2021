@@ -13,4 +13,8 @@ public abstract class Literal extends Expression {
     }
     
     public abstract Object getValue();
+    
+    @Override
+    public void validate() {
+    }
 }
