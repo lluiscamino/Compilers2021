@@ -99,4 +99,4 @@ comment     = "//"[^\r\n]*[\r\n] | "/*"([^*]|\*[^/])*"*/"
 {boollit}   { return symbol(ParserSym.BOOL_LIT, Boolean.parseBoolean(yytext())); }
 {strlit}    { return symbol(ParserSym.STR_LIT, yytext()); }
 {ident}     { return symbol(ParserSym.IDENT, yytext()); }
-.           { Compiler.getCompiler().getErrorsList().add(new LexicalError("Invalid sequence '" + yytext() + "'", getLeftLocation(), getRightLocation())); }
+.           { Compiler.getCompiler().getErrorsList().add(new LexicalError("Invalid sequence '" + yytext() + "'", getLeftLocation())); }

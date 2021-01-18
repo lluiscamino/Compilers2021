@@ -88,7 +88,7 @@ precedence left                             MUL, DIV, MOD;
 
 start with PROGRAM;
 
-PROGRAM     ::= DECL_LIST:l MAIN_DECL:m                             {: RESULT = new Program(l, m); :}
+PROGRAM     ::= DECL_LIST:l MAIN_DECL:m                             {: RESULT = new Program(l, m, lxleft); :}
               ;
 
 DECL        ::= CVA_DECL:d                                          {: RESULT = d; :}
@@ -109,12 +109,12 @@ PRIM_DECL   ::= DECL_MODE:m PRIM_TYPE:pt IDENT:i EOL                {: RESULT = 
 ARR_DECL    ::= DECL_MODE:m ARRAY PRIM_TYPE:p ARR_DIM:d IDENT:i EOL {: RESULT = new ArrayDeclaration(m, p, d, i); :}
               ;
 
-DECL_MODE   ::= CONST                                               {: RESULT = DeclarationMode.getConstant(); :}
-              | VAR                                                 {: RESULT = DeclarationMode.getVariable(); :}
+DECL_MODE   ::= CONST:c                                             {: RESULT = DeclarationMode.getConstant(cxleft); :}
+              | VAR:v                                               {: RESULT = DeclarationMode.getVariable(vxleft); :}
               ;
 
-TYPE        ::= PRIM_TYPE:pt                                        {: RESULT = new Type(pt); :}
-              | PRIM_TYPE:pt ARR_DIM:d                              {: RESULT = new Type(pt, d); :}
+TYPE        ::= PRIM_TYPE:pt                                        {: RESULT = new Type(pt, ptxleft); :}
+              | PRIM_TYPE:pt ARR_DIM:d                              {: RESULT = new Type(pt, d, ptxleft); :}
               ;
 
 ARR_DIM     ::= L_BOX R_BOX ARR_DIM:d                               {: d.addNewDimension(); RESULT = d; :}                         
@@ -129,18 +129,19 @@ SUBPRG_DECL ::= FUNC_DECL:f                                         {: RESULT = 
               | PROC_DECL:p                                         {: RESULT = p; :}
               ;
 
-FUNC_DECL   ::= FUNCTION IDENT:i TYPE:t L_PAR ARG_LIST:al R_PAR 
-                L_BRK STMT_LIST:sl RETURN_STMT:r R_BRK              {: RESULT = new FunctionDeclaration(i, t, al, sl, r); :}
+FUNC_DECL   ::= FUNCTION:f IDENT:i TYPE:t L_PAR ARG_LIST:al R_PAR 
+                L_BRK STMT_LIST:sl RETURN_STMT:r R_BRK              {: RESULT = new FunctionDeclaration(i, t, al, sl, r, fxleft); :}
               ;
 
 RETURN_STMT ::= RETURN EXPR:e EOL                                   {: RESULT = new Return(e); :}
               ;
 
-PROC_DECL   ::= PROCEDURE IDENT:i L_PAR ARG_LIST:al R_PAR 
-                L_BRK STMT_LIST:sl R_BRK                            {: RESULT = new ProcedureDeclaration(i, al, sl); :}
+PROC_DECL   ::= PROCEDURE:p IDENT:i L_PAR ARG_LIST:al R_PAR 
+                L_BRK STMT_LIST:sl R_BRK                            {: RESULT = new ProcedureDeclaration(i, al, sl, pxleft); :}
               ;
 
-MAIN_DECL   ::= MAIN L_PAR ARG_LIST:a R_PAR L_BRK STMT_LIST:s R_BRK {: RESULT = new MainDeclaration(a, s); :}
+MAIN_DECL   ::= MAIN:m L_PAR ARG_LIST:a R_PAR L_BRK STMT_LIST:s R_BRK
+                                                                    {: RESULT = new MainDeclaration(a, s, mxleft); :}
               ;
 
 ARG         ::= TYPE:t IDENT:i                                      {: RESULT = new Argument(t, i); :}
@@ -171,7 +172,7 @@ ASGN        ::= IDENT:i EQUALS EXPR:e EOL                           {: RESULT = 
               | IDENT:i ARR_INDEX:arrin EQUALS EXPR:e EOL           {: RESULT = new ArrayAssignment(i, arrin, e); :}
               ;
 
-READ_STMT   ::= IDENT:i EQUALS READ EOL                             {: RESULT = new Read(i); :}
+READ_STMT   ::= IDENT:i EQUALS READ EOL                             {: RESULT = new Read(i, ixleft); :}
               ;
 
 PRINT_STMT  ::= PRINT L_PAR EXPR:e R_PAR EOL                        {: RESULT = new Print(e); :}
@@ -186,8 +187,8 @@ IF_STMT     ::= IF L_PAR EXPR:c R_PAR L_BRK STMT_LIST:l R_BRK       {: RESULT = 
               ;
 
 EXPR        ::= LIT:l                                               {: RESULT = l; :}
-              | IDENT:i                                             {: RESULT = new IdentifierReference(i); :}
-              | IDENT:i ARR_INDEX:ai                                {: RESULT = new ArrayIdentifierReference(i, ai); :}
+              | IDENT:i                                             {: RESULT = new IdentifierReference(i, ixleft); :}
+              | IDENT:i ARR_INDEX:ai                                {: RESULT = new ArrayIdentifierReference(i, ai, ixleft); :}
               | L_PAR EXPR:e R_PAR                                  {: RESULT = new Priority(e); :}
               | CALL:c                                              {: RESULT = new CallExpression(c); :}
               | SUB EXPR:e                                          {: RESULT = new Negative(e); :}
@@ -210,9 +211,9 @@ EXPR_TAIL   ::= COMMA EXPR:e EXPR_TAIL:et                           {: RESULT = 
               |                                                     {: RESULT = new SymbolList<>(); :}
               ;
 
-LIT         ::= INT_LIT:v                                           {: RESULT = new IntegerLiteral(v); :}
-              | BOOL_LIT:v                                          {: RESULT = new BooleanLiteral(v); :}
-              | STR_LIT:v                                           {: RESULT = new StringLiteral(v); :}
+LIT         ::= INT_LIT:v                                           {: RESULT = new IntegerLiteral(v, vxleft); :}
+              | BOOL_LIT:v                                          {: RESULT = new BooleanLiteral(v, vxleft); :}
+              | STR_LIT:v                                           {: RESULT = new StringLiteral(v, vxleft); :}
               | ARR_LIT:l                                           {: RESULT = l; :}
               ;
 
@@ -224,8 +225,8 @@ LIT_TAIL    ::= COMMA LIT:l LIT_TAIL:lt                             {: RESULT = 
               |                                                     {: RESULT = new SymbolList<>(); :} 
               ;
 
-ARR_LIT     ::= L_BRK LIT_LIST:ll R_BRK                             {: RESULT = new ArrayLiteral(ll); :}
+ARR_LIT     ::= L_BRK:b LIT_LIST:ll R_BRK                           {: RESULT = new ArrayLiteral(ll, bxleft); :}
               ;
 
-CALL        ::= IDENT:i L_PAR EXPR_LIST:el R_PAR                    {: RESULT = new Call(i, el); :}
+CALL        ::= IDENT:i L_PAR EXPR_LIST:el R_PAR                    {: RESULT = new Call(i, el, ixleft); :}
              ;

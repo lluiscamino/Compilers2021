@@ -1,9 +1,9 @@
 package parser.symbols.types;
 
 import dot.DotNode;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.ArrayDimensions;
 import parser.symbols.ParserSymbol;
-import symboltable.SymbolTable;
 
 public final class Type extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "TYPE";
@@ -19,6 +19,18 @@ public final class Type extends ParserSymbol {
 
     public Type(PrimitiveType primitiveType, ArrayDimensions dimensions) {
         super(STRING_IDENTIFIER);
+        this.primitiveType = primitiveType;
+        this.dimensions = dimensions;
+    }
+    
+    public Type(PrimitiveType primitiveType, Location location) {
+        super(STRING_IDENTIFIER, location);
+        this.primitiveType = primitiveType;
+        this.dimensions = null;
+    }
+
+    public Type(PrimitiveType primitiveType, ArrayDimensions dimensions, Location location) {
+        super(STRING_IDENTIFIER, location);
         this.primitiveType = primitiveType;
         this.dimensions = dimensions;
     }

@@ -9,6 +9,7 @@ public abstract class Loop extends Statement {
     protected final SymbolList<Statement> statements;
 
     public Loop(Expression condition, SymbolList<Statement> statements) {
+        super(condition.xleft);
         this.condition = condition;
         this.statements = statements;
     }

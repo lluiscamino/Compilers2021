@@ -9,7 +9,7 @@ public final class Negative extends Expression {
     private final Expression expression;
 
     public Negative(Expression expression) {
-        super(Type.getInteger(), Mode.RESULT);
+        super(Type.getInteger(), Mode.RESULT, expression.xleft);
         this.expression = expression;
     }
 

@@ -1,6 +1,7 @@
 package parser.symbols.declarations.subprogram;
 
 import dot.DotNode;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.Argument;
 import parser.symbols.SymbolList;
 import parser.symbols.statements.Return;
@@ -13,8 +14,9 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
     private final Type type;
     private final Return returnStatement;
     
-    public FunctionDeclaration(String identifier, Type type, SymbolList<Argument> arguments, SymbolList<Statement> statements, Return returnStatement) {
-        super(identifier, arguments, statements);
+    public FunctionDeclaration(String identifier, Type type, SymbolList<Argument> arguments, 
+            SymbolList<Statement> statements, Return returnStatement, Location location) {
+        super(identifier, arguments, statements, location);
         this.type = type;
         this.returnStatement = returnStatement;
     }

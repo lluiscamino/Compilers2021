@@ -9,9 +9,8 @@ public final class Relational extends Expression {
     private final Expression leftExpression, rightExpression;
     private final RelationalOperatorType operator;
 
-    public Relational(Expression leftExpression, 
-            RelationalOperatorType operator, Expression rightExpression) {
-        super(Type.getBoolean(), Mode.RESULT);
+    public Relational(Expression leftExpression, RelationalOperatorType operator, Expression rightExpression) {
+        super(Type.getBoolean(), Mode.RESULT, leftExpression.xleft);
         this.leftExpression = leftExpression;
         this.operator = operator;
         this.rightExpression = rightExpression;
@@ -21,7 +20,7 @@ public final class Relational extends Expression {
     public void validate() {
         //mirar si las dos expresiones son del mismo tipo
         if (!(leftExpression.getType().equals(rightExpression.getType()))) {
-            addSemanticError("No se puede hacer una operación lógica con un tipo que no sea booleano");
+            addSemanticError("No se puede hacer una operación lógica con un tipo que no sea " + Type.getBoolean());
         }
 
         leftExpression.validate();

@@ -6,7 +6,7 @@ public final class Priority extends Expression {
     private final Expression expression;
     
     public Priority(Expression expression) {
-        super(expression.getType(), expression.getMode());
+        super(expression.getType(), expression.getMode(), expression.xleft);
         this.expression = expression;
     }
 

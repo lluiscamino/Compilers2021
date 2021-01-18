@@ -13,6 +13,7 @@ public class Assignment extends Statement {
     protected final Expression expression;
 
     public Assignment(String identifier, Expression expression) {
+        super(expression.xleft);
         this.identifier = identifier;
         this.expression = expression;
     }

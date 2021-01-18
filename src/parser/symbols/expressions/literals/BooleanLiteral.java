@@ -1,12 +1,13 @@
 package parser.symbols.expressions.literals;
 
 import dot.DotNode;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.types.Type;
 
 public class BooleanLiteral extends Literal {
     
-    public BooleanLiteral(boolean value) {
-        super(value, Type.getBoolean());
+    public BooleanLiteral(boolean value, Location location) {
+        super(value, Type.getBoolean(), location);
     }
     
     @Override

@@ -17,6 +17,7 @@ public final class WhileLoop extends Loop {
         if (!condition.getType().isBoolean()) {
             addSemanticError("La condición del bucle debe ser de tipo " + Type.getBoolean() + ", no de tipo " + condition.getType());
         }
+        condition.validate();
         if (statements != null) {
             statements.validate();
         }

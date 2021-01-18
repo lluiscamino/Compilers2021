@@ -11,6 +11,7 @@ public class If extends Statement {
     protected final SymbolList<Statement> statements;
 
     public If(Expression condition, SymbolList<Statement> statements) {
+        super(condition.xleft);
         this.condition = condition;
         this.statements = statements;
     }
@@ -20,6 +21,7 @@ public class If extends Statement {
         if (!condition.getType().isBoolean()) {
             addSemanticError("La condición del bucle debe ser de tipo " + Type.getBoolean());
         }
+        condition.validate();
         if (statements != null) {
             statements.validate();
         }

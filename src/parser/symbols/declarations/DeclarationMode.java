@@ -1,6 +1,7 @@
 package parser.symbols.declarations;
 
 import dot.DotNode;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.ParserSymbol;
 
 public final class DeclarationMode extends ParserSymbol {
@@ -14,6 +15,11 @@ public final class DeclarationMode extends ParserSymbol {
     
     private DeclarationMode(Mode mode) {
         super(STRING_IDENTIFIER);
+        this.mode = mode;
+    }
+    
+    private DeclarationMode(Mode mode, Location location) {
+        super(STRING_IDENTIFIER, location);
         this.mode = mode;
     }
     
@@ -40,6 +46,14 @@ public final class DeclarationMode extends ParserSymbol {
     
     public static DeclarationMode getVariable() {
         return new DeclarationMode(Mode.VAR);
+    }
+    
+    public static DeclarationMode getConstant(Location location) {
+        return new DeclarationMode(Mode.CONST, location);
+    }
+    
+    public static DeclarationMode getVariable(Location location) {
+        return new DeclarationMode(Mode.VAR, location);
     }
     
 }

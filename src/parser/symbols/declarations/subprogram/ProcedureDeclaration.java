@@ -1,6 +1,7 @@
 package parser.symbols.declarations.subprogram;
 
 import dot.DotNode;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.Argument;
 import parser.symbols.SymbolList;
 import parser.symbols.statements.Statement;
@@ -9,8 +10,9 @@ import main.Compiler;
 
 public class ProcedureDeclaration extends SubprogramDeclaration {
     
-    public ProcedureDeclaration(String identifier, SymbolList<Argument> arguments, SymbolList<Statement> statements) {
-        super(identifier, arguments, statements);
+    public ProcedureDeclaration(String identifier, SymbolList<Argument> arguments, 
+            SymbolList<Statement> statements, Location location) {
+        super(identifier, arguments, statements, location);
     }
 
     @Override

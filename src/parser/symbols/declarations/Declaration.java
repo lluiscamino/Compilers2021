@@ -1,5 +1,6 @@
 package parser.symbols.declarations;
 
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.ParserSymbol;
 
 public abstract class Declaration extends ParserSymbol {
@@ -7,8 +8,8 @@ public abstract class Declaration extends ParserSymbol {
     
     protected final String identifier;
     
-    public Declaration(String identifier) {
-        super(STRING_IDENTIFIER);
+    public Declaration(String identifier, Location location) {
+        super(STRING_IDENTIFIER, location);
         this.identifier = identifier;
     }
     

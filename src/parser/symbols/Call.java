@@ -3,6 +3,7 @@ package parser.symbols;
 import dot.DotNode;
 import java.util.ArrayList;
 import java.util.List;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.declarations.subprogram.SubprogramDeclaration;
 import parser.symbols.expressions.*;
 import parser.symbols.types.Type;
@@ -16,8 +17,8 @@ public final class Call extends ParserSymbol {
     private final String subProgramIdentifier;
     private final SymbolList<Expression> arguments;
     
-    public Call(String subProgramIdentifier, SymbolList<Expression> arguments) {
-        super(STRING_IDENTIFIER);
+    public Call(String subProgramIdentifier, SymbolList<Expression> arguments, Location location) {
+        super(STRING_IDENTIFIER, location);
         this.subProgramIdentifier = subProgramIdentifier;
         this.arguments = arguments;
     }

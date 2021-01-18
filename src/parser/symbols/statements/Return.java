@@ -8,6 +8,7 @@ public final class Return extends Statement {
     private final Expression expression;
     
     public Return(Expression expression) {
+        super(expression.xleft);
         this.expression = expression;
     }
     

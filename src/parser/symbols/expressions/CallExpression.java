@@ -7,7 +7,7 @@ public final class CallExpression extends Expression {
     private final Call call;
     
     public CallExpression(Call call) {
-        super(Type.getUnknown(), Mode.RESULT);
+        super(Type.getUnknown(), Mode.RESULT, call.xleft);
         this.call = call;
     }
     

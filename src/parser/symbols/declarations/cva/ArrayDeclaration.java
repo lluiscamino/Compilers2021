@@ -9,7 +9,8 @@ import parser.symbols.types.Type;
 public final class ArrayDeclaration extends CVADeclaration {
     private final ArrayDimensions dimensions;
 
-    public ArrayDeclaration(DeclarationMode mode, PrimitiveType primitiveType, ArrayDimensions dimensions, String identifier) {
+    public ArrayDeclaration(DeclarationMode mode, PrimitiveType primitiveType, 
+            ArrayDimensions dimensions, String identifier) {
         super(mode, new Type(primitiveType, dimensions), identifier);
         this.dimensions = dimensions;
     }

@@ -24,7 +24,7 @@ main() {
     if (3 + 2 > 5) {
         print("alwaysfalse");
     }
-    if (!loremIpsum(loremImpsum(3+7>=5)) || false) {
+    if (!loremIpsum(loremIpsum(3+7>=5)) || false) {
         print("aadad");
     }
     if (conditions[0][3] == true) {

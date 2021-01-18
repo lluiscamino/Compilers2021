@@ -3,18 +3,19 @@ package parser.symbols.expressions.literals;
 import dot.DotNode;
 import java.util.List;
 import java.util.Stack;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.SymbolList;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 
 public final class ArrayLiteral extends Literal {
     
-    public ArrayLiteral(SymbolList<Literal> literalsList) {
-        super(literalsList, Type.getArray(getPrimitiveType(literalsList), getNumDimensions(literalsList)));
+    public ArrayLiteral(SymbolList<Literal> literalsList, Location location) {
+        super(literalsList, Type.getArray(getPrimitiveType(literalsList), getNumDimensions(literalsList)), location);
     }
     
     private ArrayLiteral() {
-        super(null, null);
+        super(null, null, null);
     }
     
     private static PrimitiveType getPrimitiveType(SymbolList<Literal> literalsList) {

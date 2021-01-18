@@ -7,7 +7,7 @@ public abstract class BinaryOperation extends Expression {
     protected final Expression leftExpression, rightExpression;
     
     public BinaryOperation(Expression leftExpression, Expression rightExpression) {
-        super(Type.getBoolean(), Mode.RESULT);
+        super(Type.getBoolean(), Mode.RESULT, leftExpression.xleft);
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
     }

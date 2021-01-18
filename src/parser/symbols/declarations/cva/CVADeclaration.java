@@ -11,7 +11,7 @@ public abstract class CVADeclaration extends Declaration {
     protected final DeclarationMode mode;
 
     public CVADeclaration(DeclarationMode mode, Type type, String identifier) {
-        super(identifier);
+        super(identifier, mode.xleft);
         this.mode = mode;
         this.type = type;
     }

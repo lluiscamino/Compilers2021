@@ -1,6 +1,7 @@
 package parser.symbols.expressions.reference;
 
 import dot.DotNode;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
@@ -11,8 +12,8 @@ public class IdentifierReference extends Expression {
 
     protected final String identifierName;
 
-    public IdentifierReference(String identifierName) {
-        super(Type.getUnknown(), Mode.UNKNOWN);
+    public IdentifierReference(String identifierName, Location location) {
+        super(Type.getUnknown(), Mode.UNKNOWN, location);
         this.identifierName = identifierName;
     }
     

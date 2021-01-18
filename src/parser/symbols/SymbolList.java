@@ -18,7 +18,7 @@ public final class SymbolList<T extends ParserSymbol> extends ParserSymbol {
     }
     
     public SymbolList(SymbolList<T> list, T element) {
-        super(STRING_IDENTIFIER);
+        super(STRING_IDENTIFIER, element.xleft);
         this.next = list;
         this.element = element;
     }

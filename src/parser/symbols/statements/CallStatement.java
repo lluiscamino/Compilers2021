@@ -6,6 +6,7 @@ public final class CallStatement extends Statement {
     private final Call call;
     
     public CallStatement(Call call) {
+        super(call.xleft);
         this.call = call;
     }
 

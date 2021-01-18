@@ -1,6 +1,7 @@
 package parser.symbols.statements.io;
 
 import dot.DotNode;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.statements.Statement;
 import parser.symbols.types.Type;
@@ -11,7 +12,8 @@ public final class Read extends Statement {
     
     private final String identifier;
     
-    public Read(String identifier) {
+    public Read(String identifier, Location location) {
+        super(location);
         this.identifier = identifier;
     }
 

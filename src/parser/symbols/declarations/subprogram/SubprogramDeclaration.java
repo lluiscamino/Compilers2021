@@ -2,6 +2,7 @@ package parser.symbols.declarations.subprogram;
 
 import java.util.ArrayList;
 import java.util.List;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.Argument;
 import parser.symbols.SymbolList;
 import parser.symbols.declarations.Declaration;
@@ -12,8 +13,9 @@ public abstract class SubprogramDeclaration extends Declaration {
     protected final SymbolList<Argument> arguments;
     protected final SymbolList<Statement> statements;
 
-    public SubprogramDeclaration(String identifier, SymbolList<Argument> arguments, SymbolList<Statement> statements) {
-        super(identifier);
+    public SubprogramDeclaration(String identifier, SymbolList<Argument> arguments, 
+            SymbolList<Statement> statements, Location location) {
+        super(identifier, location);
         this.arguments = arguments;
         this.statements = statements;
     }

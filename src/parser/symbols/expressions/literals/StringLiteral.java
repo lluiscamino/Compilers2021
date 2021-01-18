@@ -1,12 +1,13 @@
 package parser.symbols.expressions.literals;
 
 import dot.DotNode;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.types.Type;
 
 public class StringLiteral extends Literal {
     
-    public StringLiteral(String value) {
-        super(value, Type.getString());
+    public StringLiteral(String value, Location location) {
+        super(value, Type.getString(), location);
     }
     
     @Override

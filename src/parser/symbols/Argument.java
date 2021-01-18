@@ -15,7 +15,7 @@ public final class Argument extends ParserSymbol {
     private final String identifier;
 
     public Argument(Type type, String identifier) {
-        super(STRING_IDENTIFIER);
+        super(STRING_IDENTIFIER, type.xleft);
         this.type = type;
         this.identifier = identifier;
     }

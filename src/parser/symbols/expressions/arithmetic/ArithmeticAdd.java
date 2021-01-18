@@ -2,7 +2,6 @@ package parser.symbols.expressions.arithmetic;
 
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
-import symboltable.SymbolTable;
 
 public final class ArithmeticAdd extends ArithmeticOperation {
 

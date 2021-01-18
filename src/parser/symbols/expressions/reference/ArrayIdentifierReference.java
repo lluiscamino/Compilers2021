@@ -1,6 +1,7 @@
 package parser.symbols.expressions.reference;
 
 import dot.DotNode;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.ArrayIndexes;
 import parser.symbols.declarations.cva.CVADeclaration;
 import symboltable.SymbolTable;
@@ -9,8 +10,8 @@ import main.Compiler;
 public final class ArrayIdentifierReference extends IdentifierReference {
     private final ArrayIndexes indexes;
     
-    public ArrayIdentifierReference(String identifierName, ArrayIndexes indexes) {
-        super(identifierName);
+    public ArrayIdentifierReference(String identifierName, ArrayIndexes indexes, Location location) {
+        super(identifierName, location);
         this.indexes = indexes;
     }
     

@@ -7,7 +7,7 @@ public abstract class ArithmeticOperation extends Expression {
     protected final Expression leftExpression, rightExpression;
     
     public ArithmeticOperation(Expression leftExpression, Expression rightExpression) {
-        super(Type.getInteger(), Mode.RESULT);
+        super(Type.getInteger(), Mode.RESULT, leftExpression.xleft);
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
     }

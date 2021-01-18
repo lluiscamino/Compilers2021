@@ -9,7 +9,7 @@ public final class ArrayIndexes extends ParserSymbol {
     private SymbolList<Expression> indexes;
 
     public ArrayIndexes(Expression lastIndex) {
-        super(STRING_IDENTIFIER);
+        super(STRING_IDENTIFIER, lastIndex.xleft);
         this.indexes = new SymbolList<>();
         this.indexes = new SymbolList<>(indexes, lastIndex);
     }

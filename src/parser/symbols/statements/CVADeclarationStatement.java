@@ -6,6 +6,7 @@ public final class CVADeclarationStatement extends Statement {
     private final CVADeclaration declaration;
 
     public CVADeclarationStatement(CVADeclaration declaration) {
+        super(declaration.xleft);
         this.declaration = declaration;
     }
 

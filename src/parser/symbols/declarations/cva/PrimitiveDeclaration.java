@@ -8,7 +8,8 @@ import parser.symbols.types.Type;
 
 public final class PrimitiveDeclaration extends CVADeclaration {
 
-    public PrimitiveDeclaration(DeclarationMode mode, PrimitiveType primitiveType, String identifier) {
+    public PrimitiveDeclaration(DeclarationMode mode, PrimitiveType primitiveType,
+            String identifier) {
         super(mode, new Type(primitiveType), identifier);
     }
 
