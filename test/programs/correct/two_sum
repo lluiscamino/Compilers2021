@@ -1,10 +1,10 @@
-function twoSum int[](int[] nums, int n, int target) {
+function twoSum int[](int[] nums, int target) {
     var array int[] result;
     var int i = 0;
     var boolean res = false;
-    while (i < n && !res) {
+    while (i < length(nums) && !res) {
         var int j = 0;
-        while (j < n) {
+        while (j < length(nums)) {
             if (nums[i] == target - nums[i]) {
                 result = numToArray(i, j);
                 res = true;
@@ -27,6 +27,5 @@ function numToArray int[](int a, int b) {
 
 main() {
     const array int[] nums = {3, 4, 5};
-    const int n = 3;
-    print(twoSum(nums, n, 9));
+    print(twoSum(nums, 9));
 }

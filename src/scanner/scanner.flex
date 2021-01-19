@@ -83,6 +83,7 @@ comment     = "//"[^\r\n]*[\r\n] | "/*"([^*]|\*[^/])*"*/"
 {eol}       { return symbol(ParserSym.EOL); }
 "read()"    { return symbol(ParserSym.READ); }
 "print"     { return symbol(ParserSym.PRINT); }
+"length"    { return symbol(ParserSym.LENGTH); }
 "="         { return symbol(ParserSym.EQUALS); }
 "+"         { return symbol(ParserSym.ADD); }
 "-"         { return symbol(ParserSym.SUB); }
