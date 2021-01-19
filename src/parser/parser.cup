@@ -75,8 +75,6 @@ non terminal  Return                        RETURN_STMT;
 non terminal  SymbolList<Expression>        EXPR_TAIL;
 non terminal  SymbolList<Expression>        EXPR_LIST;
 non terminal  Expression                    EXPR;
-non terminal  SymbolList<Literal>           LIT_TAIL;
-non terminal  SymbolList<Literal>           LIT_LIST;
 non terminal  Literal                       LIT;
 non terminal  ArrayLiteral                  ARR_LIT;
 
@@ -220,15 +218,7 @@ LIT         ::= INT_LIT:v                                           {: RESULT = 
               | ARR_LIT:l                                           {: RESULT = l; :}
               ;
 
-LIT_LIST    ::= LIT:l LIT_TAIL:lt                                   {: RESULT = new SymbolList<>(lt, l); :} 
-              |                                                     {: RESULT = new SymbolList<>(); :} 
-              ;
-
-LIT_TAIL    ::= COMMA LIT:l LIT_TAIL:lt                             {: RESULT = new SymbolList<>(lt, l); :} 
-              |                                                     {: RESULT = new SymbolList<>(); :} 
-              ;
-
-ARR_LIT     ::= L_BRK:b LIT_LIST:ll R_BRK                           {: RESULT = new ArrayLiteral(ll, bxleft); :}
+ARR_LIT     ::= L_BRK:b EXPR_LIST:ll R_BRK                           {: RESULT = new ArrayLiteral(ll, bxleft); :}
               ;
 
 CALL        ::= IDENT:i L_PAR EXPR_LIST:el R_PAR                    {: RESULT = new Call(i, el, ixleft); :}

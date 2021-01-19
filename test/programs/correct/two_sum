@@ -14,16 +14,14 @@ function twoSum int[](int[] nums, int n, int target) {
         i = i + 1;
     }
     if (!res) {
-        result = numToArray(-1, -1);
+        result = {-1, -1};
         print("No solution");
     }
     return result; 
 }
 
 function numToArray int[](int a, int b) {
-    var array int[] result = {0, 0};
-    result[0] = a;
-    result[1] = b;
+    var array int[] result = {a, b};
     return result;
 }
 
