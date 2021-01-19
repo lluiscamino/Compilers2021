@@ -190,6 +190,7 @@ IF_STMT     ::= IF L_PAR EXPR:c R_PAR L_BRK STMT_LIST:l R_BRK       {: RESULT = 
 EXPR        ::= LIT:l                                               {: RESULT = l; :}
               | IDENT:i                                             {: RESULT = new IdentifierReference(i, ixleft); :}
               | IDENT:i ARR_INDEX:ai                                {: RESULT = new ArrayIdentifierReference(i, ai, ixleft); :}
+              | ARRAY L_PAR PRIM_TYPE:pt ARR_INDEX:ai R_PAR         {: RESULT = new ArrayInstance(pt, ai); :} 
               | LENGTH:l L_PAR EXPR:e R_PAR                         {: RESULT = new Length(e); :}
               | L_PAR EXPR:e R_PAR                                  {: RESULT = new Priority(e); :}
               | CALL:c                                              {: RESULT = new CallExpression(c); :}
