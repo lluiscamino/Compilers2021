@@ -37,9 +37,6 @@ public abstract class CVADeclaration extends Declaration {
     @Override
     public void validate() {
         SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
-        if (!symbolTable.isInInitialScope() && !symbolTable.put(this)) {
-            addSemanticError(identifier + " ya ha sido definido previamente");
-        }
         if (mode.isConstant() && expression == null) {
             addSemanticError("La declaración de la constante " + identifier + " no tiene ningun valor asociado");
         }
@@ -48,6 +45,9 @@ public abstract class CVADeclaration extends Declaration {
                 addSemanticError("No se puede asignar un valor de tipo " + expression.getType() + " a una variable de tipo " + type);
             }
             expression.validate();
+        }
+        if (!symbolTable.isInInitialScope() && !symbolTable.put(this)) {
+            addSemanticError(identifier + " ya ha sido definido previamente");
         }
     }
 }
