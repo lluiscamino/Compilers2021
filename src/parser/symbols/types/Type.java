@@ -43,10 +43,6 @@ public final class Type extends ParserSymbol {
         return dimensions;
     }
     
-    public boolean isVoid() {
-        return primitiveType == null;
-    }
-    
     public boolean isInteger() {
         return !isArray() && primitiveType == PrimitiveType.INT;
     }

@@ -1,0 +1,18 @@
+main() {
+    if (3 == 2 + 1) {
+        print("Yes!");
+    }
+    const array string[] strings = {"Hola", "Adios"};
+    if ("Hola" == strings[0]) {
+        print("Hola!");
+    }
+    if (3 < 2 && (true == !false) && {2, 1, 3} == {2, 1, 3}) {
+        print("kjadadh");
+    }
+    var string h;
+    var int a = 0 + 1;
+    h = read();
+    while (h == strings[a]) {
+        a = a + 1;
+    }
+}

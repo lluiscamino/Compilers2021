@@ -18,13 +18,25 @@ public final class Relational extends Expression {
 
     @Override
     public void validate() {
-        //mirar si las dos expresiones son del mismo tipo
-        if (!(leftExpression.getType().equals(rightExpression.getType()))) {
-            addSemanticError("No se puede hacer una operación lógica con un tipo que no sea " + Type.getBoolean());
+        Type leftExprType = leftExpression.getType();
+        Type rightExprType = rightExpression.getType();
+        if (!(leftExprType.equals(rightExprType))) {
+            addSemanticError("No se pueden comparar tipos diferentes (" + leftExprType + " y " + rightExprType + ")");
         }
-
+        if (!validType(leftExprType)) {
+            addSemanticError("No se pueden comparar expresiones de tipo " + leftExprType);
+        }
         leftExpression.validate();
         rightExpression.validate();
+    }
+    
+    private boolean validType(Type type) {
+        if (type.isInteger()) return true;
+        if (type.isBoolean() || type.isString() || type.isArray()) {
+            return operator == RelationalOperatorType.EQUAL ||
+                    operator == RelationalOperatorType.DIFF;
+        }
+        return false;
     }
 
     @Override

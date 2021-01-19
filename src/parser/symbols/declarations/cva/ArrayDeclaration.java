@@ -32,7 +32,10 @@ public final class ArrayDeclaration extends CVADeclaration {
         
         dotNode.addEdge(mode, "mode");
         dotNode.addEdge(type, "type");
-        dotNode.addEdgeIfNotNull(expression);
+        dotNode.addEdge(() -> {
+            new DotNode(identifier, "plaintext", "filled", "");
+        }, "ident");
+        dotNode.addEdgeIfNotNull(expression, "value");
     }
     
 }

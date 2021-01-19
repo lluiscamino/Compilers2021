@@ -28,7 +28,7 @@ public final class PrimitiveDeclaration extends CVADeclaration {
         dotNode.addEdge(() -> {
             new DotNode(identifier, "plaintext", "filled", "");
         }, "ident");
-        dotNode.addEdgeIfNotNull(expression);
+        dotNode.addEdgeIfNotNull(expression, "value");
     }
     
 }
