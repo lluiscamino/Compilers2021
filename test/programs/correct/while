@@ -12,10 +12,8 @@ main() {
         doSomething(true);
         doSomething(false);
     }
-    var boolean condition;
-    var int counter;
-    condition = true;
-    counter = 0;
+    var boolean condition = true;
+    var int counter = 0;
 
     while (condition == true) {
         counter = counter + 1;

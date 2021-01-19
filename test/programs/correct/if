@@ -3,9 +3,8 @@ function loremIpsum boolean(boolean c) {
 }
 
 main() {
-    var boolean condition;
-    const array boolean[][] conditions;
-    condition = false;
+    const boolean condition = false;
+    const array boolean[][] conditions = {{true, false}, {true}, {false}};
 
     if (loremIpsum(true)) {
         if (true) {

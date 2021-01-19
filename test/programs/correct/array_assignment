@@ -1,6 +1,7 @@
 main() {
+    const array int[] b = {3, 2};
     var array int[] unidimensional;
-    var array int[][] bidimensional;
+    var array int[][] bidimensional = {{3,2},{3,4},{5,7}};
     var array int[][][] tridimensional;
 
     unidimensional = {3, 7, 8};

@@ -1,17 +1,13 @@
 function bubbleSort int[](int[] arr, int n) {
-    var int i;
-    var boolean swapped;
-    i = 0;
-    swapped = false;
+    var int i = 0;
+    var boolean swapped = false;
     while (i < n && !swapped) {
         swapped = true;
-        var int j;
-        j = 0;
+        var int j = 0;
         while (j < n) {
             if (arr[j] > arr[j + 1]) {
                 swapped = false;
-                var int aux;
-                aux = arr[j];
+                var int aux = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = aux;
             }

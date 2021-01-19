@@ -1,4 +1,4 @@
-// Compile: java -jar libs/java-cup-11b.jar parser.cup
+// Compile: java -jar libs/java-cup-11b.jar -locations parser.cup
 
 package parser;
 import parser.symbols.*;
@@ -103,10 +103,13 @@ CVA_DECL    ::= PRIM_DECL:d                                         {: RESULT = 
               | ARR_DECL:d                                          {: RESULT = d; :}
               ;
 
-PRIM_DECL   ::= DECL_MODE:m PRIM_TYPE:pt IDENT:i EOL                {: RESULT = new PrimitiveDeclaration(m, pt, i); :}   
+PRIM_DECL   ::= DECL_MODE:m PRIM_TYPE:pt IDENT:i EOL                {: RESULT = new PrimitiveDeclaration(m, pt, i); :}
+              | DECL_MODE:m PRIM_TYPE:pt IDENT:i EQUALS EXPR:e EOL  {: RESULT = new PrimitiveDeclaration(m, pt, i, e); :}
               ;
 
 ARR_DECL    ::= DECL_MODE:m ARRAY PRIM_TYPE:p ARR_DIM:d IDENT:i EOL {: RESULT = new ArrayDeclaration(m, p, d, i); :}
+              | DECL_MODE:m ARRAY PRIM_TYPE:p ARR_DIM:d IDENT:i EQUALS EXPR:e EOL
+                                                                    {: RESULT = new ArrayDeclaration(m, p, d, i, e); :}
               ;
 
 DECL_MODE   ::= CONST:c                                             {: RESULT = DeclarationMode.getConstant(cxleft); :}

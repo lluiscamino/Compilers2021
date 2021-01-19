@@ -1,5 +1,5 @@
 main() {
-    const array int[] unidimensional;
-    const array int[][] bidimensional;
+    const array int[] unidimensional = {3, 2, 5};
+    const array int[][] bidimensional = {{7, 2, 3},{7,1,2}};
     var array int[][][] tridimensional;
 }

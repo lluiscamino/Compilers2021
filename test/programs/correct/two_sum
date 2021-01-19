@@ -1,18 +1,15 @@
 function twoSum int[](int[] nums, int n, int target) {
     var array int[] result;
-    var int i;
-    var int j;
-    var boolean res;
-    res = false;
-    i = 0;
+    var int i = 0;
+    var boolean res = false;
     while (i < n && !res) {
-        j = 0;
+        var int j = 0;
         while (j < n) {
             if (nums[i] == target - nums[i]) {
                 result = numToArray(i, j);
                 res = true;
             }
-            j = j+1;
+            j = j + 1;
         }
         i = i + 1;
     }
@@ -24,17 +21,14 @@ function twoSum int[](int[] nums, int n, int target) {
 }
 
 function numToArray int[](int a, int b) {
-    var array int[] result;
-    result = {0, 0};
+    var array int[] result = {0, 0};
     result[0] = a;
     result[1] = b;
     return result;
 }
 
 main() {
-    var array int[] nums;
-    var int n;
-    nums = {3, 4, 5};
-    n = 3;
+    const array int[] nums = {3, 4, 5};
+    const int n = 3;
     print(twoSum(nums, n, 9));
 }
