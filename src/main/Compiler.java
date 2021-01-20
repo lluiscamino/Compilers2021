@@ -24,7 +24,7 @@ public final class Compiler {
     private final String inputPath;
     private final Scanner scanner;
     private final Parser parser;
-    private final PrintWriter tokensWriter, treeWriter, errorsWriter;
+    private final PrintWriter tokensWriter, symbolTableWriter, treeWriter, errorsWriter;
     
     private Program program;
     private final SymbolTable symbolTable = new SymbolTable();
@@ -36,7 +36,7 @@ public final class Compiler {
         return instance;
     }
 
-    public Compiler(String inputPath, String tokensPath, String treePath, String errorsPath) throws FileNotFoundException {
+    public Compiler(String inputPath, String tokensPath, String symbolTablePath, String treePath, String errorsPath) throws FileNotFoundException {
         instance = this;
         SymbolFactory symbolFactory = new ComplexSymbolFactory();
         this.inputPath = inputPath;
@@ -44,6 +44,7 @@ public final class Compiler {
         scanner = new Scanner(input);
         parser = new Parser(scanner, symbolFactory);
         tokensWriter = new PrintWriter(tokensPath);
+        symbolTableWriter = new PrintWriter(symbolTablePath);
         treeWriter = new PrintWriter(treePath);
         errorsWriter = new PrintWriter(errorsPath);
     }
@@ -66,9 +67,14 @@ public final class Compiler {
 
     public void compile() throws Exception {
         writeTokenList();
-        program = (Program) parser.parse().value; // Sintáctico
-        writeTree();
-        program.validate(); // Semántico
+        Symbol parseResult = parser.parse();
+        if (parseResult != null && parseResult.value != null
+                && parseResult.value instanceof Program) {
+            program = (Program) parseResult.value; // Sintáctico
+            program.validate(); // Semántico
+            writeSymbolTable();
+            writeTree();
+        }
         writeErrors();
     }
 
@@ -83,6 +89,11 @@ public final class Compiler {
         tokensWriter.print(buffer.toString());
         tokensWriter.close();
         scanner.yyreset(new FileReader(inputPath));
+    }
+    
+    private void writeSymbolTable() {
+        symbolTableWriter.write(symbolTable.toString());
+        symbolTableWriter.close();
     }
 
     private void writeTree() {

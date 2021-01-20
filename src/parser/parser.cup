@@ -1,6 +1,11 @@
+
 // Compile: java -jar libs/java-cup-11b.jar -locations parser.cup
 
 package parser;
+import errors.*;
+import java.util.List;
+import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
+import main.Compiler;
 import parser.symbols.*;
 import parser.symbols.statements.*;
 import parser.symbols.expressions.*;
@@ -19,8 +24,49 @@ import parser.symbols.expressions.binary.Relational;
 import parser.symbols.expressions.reference.*;
 import parser.symbols.expressions.arithmetic.*;
 import parser.symbols.expressions.binary.*;
+import java_cup.runtime.ComplexSymbolFactory.Location;
+import java_cup.runtime.Symbol;
 
 class Parser;
+
+parser code {:
+             
+    private final List<ProgramError> errorsList = Compiler.getCompiler().getErrorsList();
+    private Symbol errToken;
+
+    @Override
+    public void unrecovered_syntax_error(Symbol cur_token) throws Exception {
+        //System.out.println("No se esperaba el token " + ParserSym.terminalNames[cur_token.sym]);
+      	//syntax_error(cur_token);
+        done_parsing();        
+    }
+
+    @Override
+    public void syntax_error(Symbol cur_token) {
+        errToken = cur_token;
+        //report_error("No se esperaba el token " + ParserSym.terminalNames[cur_token.sym], cur_token);
+    }
+
+    @Override
+    public void report_error(String message, Object info) {
+        /*if ((info != null) && (info instanceof Symbol)) {
+            //ComplexSymbol token = (ComplexSymbol) info;
+            //Location location = token.getLeft();
+            //List expected = expected_token_ids();
+            //if (expected.size() > 0) message += ". Expected: " + expected;
+            SyntaxError error = new SyntaxError(message, null);
+            errorsList.add(error);
+        }*/
+    }
+
+    @Override
+    public void report_fatal_error(String message, Object info) throws Exception {
+        //System.out.println("Error fatal: " + message + "");
+        //report_error("Error fatal: " + message + "", info);
+        done_parsing();
+    }
+
+:}
 
 terminal                                CONST, VAR, ARRAY, FUNCTION, PROCEDURE, MAIN, RETURN, WHILE, IF, ELSE;
 terminal                                L_PAR, R_PAR, L_BOX, R_BOX, L_BRK, R_BRK, COMMA, EOL;
@@ -91,6 +137,7 @@ PROGRAM     ::= DECL_LIST:l MAIN_DECL:m                             {: RESULT = 
 
 DECL        ::= CVA_DECL:d                                          {: RESULT = d; :}
               | SUBPRG_DECL:d                                       {: RESULT = d; :}
+              | error:e                                             {: RESULT = new ErrorDeclaration(errToken, exleft); :}
               ;
 
 DECL_LIST   ::= DECL:d DECL_LIST: l                                 {: RESULT = new SymbolList<>(l, d); :}
@@ -163,6 +210,7 @@ STMT        ::= CVA_DECL:d                                          {: RESULT = 
               | LOOP:l                                              {: RESULT = l; :}
               | IF_STMT:i                                           {: RESULT = i; :}
               | CALL:c EOL                                          {: RESULT = new CallStatement(c); :}
+              | error:e                                             {: RESULT = new ErrorStatement(errToken, exleft); :}
               ;
 
 STMT_LIST   ::= STMT:s STMT_LIST:l                                  {: RESULT = new SymbolList<>(l, s); :}                                      
@@ -204,6 +252,7 @@ EXPR        ::= LIT:l                                               {: RESULT = 
               | NOT EXPR:e                                          {: RESULT = new Not(e); :}
               | EXPR:e1 AND EXPR:e2                                 {: RESULT = new BinaryAnd(e1, e2); :}
               | EXPR:e1 OR EXPR:e2                                  {: RESULT = new BinaryOr(e1, e2); :}
+              | error:e                                             {: RESULT = new ErrorExpression(errToken, exleft); :}
               ;
 
 EXPR_LIST   ::= EXPR:e EXPR_TAIL:et                                 {: RESULT = new SymbolList<>(et, e); :}
