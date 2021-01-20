@@ -6,6 +6,7 @@ public class ProgramsTest {
 
     private static final String PROGRAMS_PATH = "test/programs/correct/";
     private static final String TOKENS_PATH = PROGRAMS_PATH + "tokens/";
+    private static final String SYMBOL_TABLE_PATH = PROGRAMS_PATH + "symbtables/";
     private static final String TREE_PATH = PROGRAMS_PATH + "trees/";
     private static final String ERRORS_PATH = PROGRAMS_PATH + "errors/";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -14,6 +15,7 @@ public class ProgramsTest {
         File path = new File(PROGRAMS_PATH);
         File[] programs = path.listFiles();
         new File(TOKENS_PATH).mkdirs();
+        new File(SYMBOL_TABLE_PATH).mkdirs();
         new File(TREE_PATH).mkdirs();
         new File(ERRORS_PATH).mkdirs();
         int passedTests = 0, totalTests = 0;
@@ -21,10 +23,11 @@ public class ProgramsTest {
             if (program.isDirectory()) continue;
             String name = program.getName();
             String tokensPath = TOKENS_PATH + name + ".txt";
+            String symbolTablePath = SYMBOL_TABLE_PATH + name + ".txt";
             String treePath = TREE_PATH + name + ".dot";
             String errorsPath = ERRORS_PATH + name + ".log";
             try {
-                Compiler compiler = new Compiler(program.getAbsolutePath(), tokensPath, treePath, errorsPath);
+                Compiler compiler = new Compiler(program.getAbsolutePath(), tokensPath, symbolTablePath, treePath, errorsPath);
                 compiler.compile();
                 if (Compiler.getCompiler().getErrorsList().isEmpty()) {
                     passedTests++;
