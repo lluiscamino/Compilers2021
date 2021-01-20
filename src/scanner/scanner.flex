@@ -93,7 +93,6 @@ comment     = "//"[^\r\n]*[\r\n] | "/*"([^*]|\*[^/])*"*/"
 "&&"        { return symbol(ParserSym.AND); }
 "||"        { return symbol(ParserSym.OR); }
 "!"         { return symbol(ParserSym.NOT); }
-"!"         { return symbol(ParserSym.NOT); }
 {rel}       { return relationalSymbol(this.yytext()); }
 {primtype}  { return primitiveTypeSymbol(yytext()); }
 {intlit}    { return symbol(ParserSym.INT_LIT, Integer.parseInt(yytext())); }
