@@ -59,4 +59,10 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
         dotNode.addEdge(returnStatement, "return");
     }
     
+    public String toString() {
+        int lineNum = xleft != null ? xleft.getLine() : -1;
+        int numArgs = arguments != null ? arguments.size() : 0;
+        return lineNum + ": function " + identifier + " " + type + " (" + numArgs + " args)";
+    }
+    
 }

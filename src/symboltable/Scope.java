@@ -1,5 +1,6 @@
 package symboltable;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import parser.symbols.declarations.Declaration;
@@ -8,26 +9,33 @@ public class Scope {
 
     private final Map<String, Identifier> map;
     private final Scope previous;
+    private final int indentation;
     private final int number;
 
     public Scope() {
         this.map = new HashMap<>();
         this.previous = null;
+        this.indentation = 0;
         this.number = 0;
     }
 
-    public Scope(Scope previous) {
-        this.previous = previous;
-        this.number = previous.number + 1;
+    public Scope(Scope previous, int indentation) {
         this.map = new HashMap<>();
+        this.previous = previous;
+        this.indentation = indentation;
+        this.number = previous.number + 1;
     }
 
     public Scope getPrevious() {
         return previous;
     }
 
-    public int getNumber() {
-        return number;
+    public int getIndentation() {
+        return indentation;
+    }
+    
+    public Collection<Identifier> getIdentifiers() {
+        return map.values();
     }
 
     public boolean put(Declaration declaration) {
@@ -49,17 +57,6 @@ public class Scope {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder buffer = new StringBuilder();
-        for (String name : map.keySet()) {
-            Declaration decl = map.get(name).getDeclaration();
-            buffer.append(name).append(" ");
-        }
-        buffer.append("\n");
-        return buffer.toString();
     }
 
     private Identifier getIdentifier(String identifierName) {

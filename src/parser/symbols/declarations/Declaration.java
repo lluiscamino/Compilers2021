@@ -17,4 +17,7 @@ public abstract class Declaration extends ParserSymbol {
         return identifier;
     }
     
+    @Override
+    public abstract String toString();
+    
 }

@@ -27,9 +27,10 @@ public final class Argument extends ParserSymbol {
     @Override
     public void validate() {
         SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        DeclarationMode declMode = DeclarationMode.getVariable(type.xleft);
         Declaration declaration = type.isArray() ?
-                new ArrayDeclaration(DeclarationMode.getVariable(), type.getPrimitiveType(), type.getDimensions(), identifier) :
-                new PrimitiveDeclaration(DeclarationMode.getVariable(), type.getPrimitiveType(), identifier);
+                new ArrayDeclaration(declMode, type.getPrimitiveType(), type.getDimensions(), identifier) :
+                new PrimitiveDeclaration(declMode, type.getPrimitiveType(), identifier);
         if (!symbolTable.put(declaration)) {
             addSemanticError("Variable " + identifier + " ya definida");
         }

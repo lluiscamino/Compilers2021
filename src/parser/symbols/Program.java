@@ -21,8 +21,8 @@ public final class Program extends ParserSymbol {
 
     @Override
     public void validate() {
-        if (declarations != null) { // TODO: set actual location
-            SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        if (declarations != null) {
             for (Declaration decl : declarations.toArrayList()) {
                 if (!symbolTable.put(decl)) {
                     addSemanticError("Declaración " + decl.getIdentifier() + " ya definida");
@@ -30,6 +30,7 @@ public final class Program extends ParserSymbol {
             }
             declarations.validate();
         }
+        symbolTable.put(main);
         main.validate();
     }
 

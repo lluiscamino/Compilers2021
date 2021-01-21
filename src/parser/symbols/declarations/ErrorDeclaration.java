@@ -34,4 +34,9 @@ public final class ErrorDeclaration extends Declaration {
         
     }
     
+    @Override
+    public String toString() {
+        return "";
+    }
+    
 }

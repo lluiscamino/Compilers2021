@@ -50,4 +50,10 @@ public abstract class CVADeclaration extends Declaration {
             addSemanticError(identifier + " ya ha sido definido previamente");
         }
     }
+    
+    @Override
+    public String toString() {
+        int lineNum = xleft != null ? xleft.getLine() : -1;
+        return lineNum + ": " + mode + " " + type + " " + identifier;
+    }
 }

@@ -40,6 +40,11 @@ public final class DeclarationMode extends ParserSymbol {
         new DotNode(mode.toString(), "", "filled", "");
     }
     
+    @Override
+    public String toString() {
+        return isConstant() ? "const" : "var";
+    }
+    
     public static DeclarationMode getConstant() {
         return new DeclarationMode(Mode.CONST);
     }
