@@ -14,6 +14,7 @@ import java_cup.runtime.ComplexSymbolFactory;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.SymbolFactory;
 import parser.Parser;
+import parser.ParserSym;
 import parser.symbols.Program;
 import scanner.Scanner;
 import symboltable.SymbolTable;
@@ -82,7 +83,7 @@ public final class Compiler {
         StringBuilder buffer = new StringBuilder();
         Symbol tk = scanner.next_token();
         while (tk != null) {
-            buffer.append(tk.toString().substring(8));
+            buffer.append(ParserSym.terminalNames[tk.sym]);
             buffer.append("\n");
             tk = scanner.next_token();
         }
