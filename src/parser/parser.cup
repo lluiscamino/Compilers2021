@@ -40,13 +40,13 @@ parser code {:
     @Override
     public void unrecovered_syntax_error(Symbol cur_token) throws Exception {
         String tokenName = cur_token != null ? ParserSym.terminalNames[cur_token.sym] : "";
-        report_fatal_error("No se esperaba el token " + tokenName, cur_token);
+        report_fatal_error("No se esperaba el token " + tokenName, errToken);
     }
     
     @Override
     public void report_fatal_error(String message, Object info) throws Exception {
         report_error(message, info);
-        System.out.println("Encontrado error fatal en la entrada, no se puede seguir con el parseo ni construir el árbol sintáctico");
+        System.out.println("Encontrado error fatal en la entrada, no se puede seguir con el parseo.\nNo se pudo construir el árbol sintáctico ni realizar la validación semántica.\nMás información sobre el error en el fichero de errores.");
         done_parsing();
     }
 
