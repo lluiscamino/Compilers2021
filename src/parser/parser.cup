@@ -30,42 +30,37 @@ import java_cup.runtime.Symbol;
 class Parser;
 
 parser code {:
-             
-    private final List<ProgramError> errorsList = Compiler.getCompiler().getErrorsList();
     private Symbol errToken;
-
-    @Override
-    public void unrecovered_syntax_error(Symbol cur_token) throws Exception {
-        //System.out.println("No se esperaba el token " + ParserSym.terminalNames[cur_token.sym]);
-      	//syntax_error(cur_token);
-        done_parsing();        
-    }
 
     @Override
     public void syntax_error(Symbol cur_token) {
         errToken = cur_token;
-        //report_error("No se esperaba el token " + ParserSym.terminalNames[cur_token.sym], cur_token);
+    }
+
+    @Override
+    public void unrecovered_syntax_error(Symbol cur_token) throws Exception {
+        String tokenName = cur_token != null ? ParserSym.terminalNames[cur_token.sym] : "";
+        report_fatal_error("No se esperaba el token " + tokenName, cur_token);
+    }
+    
+    @Override
+    public void report_fatal_error(String message, Object info) throws Exception {
+        report_error(message, info);
+        System.out.println("Encontrado error fatal en la entrada, no se puede seguir con el parseo ni construir el árbol sintáctico");
+        done_parsing();
     }
 
     @Override
     public void report_error(String message, Object info) {
-        /*if ((info != null) && (info instanceof Symbol)) {
-            //ComplexSymbol token = (ComplexSymbol) info;
-            //Location location = token.getLeft();
-            //List expected = expected_token_ids();
-            //if (expected.size() > 0) message += ". Expected: " + expected;
-            SyntaxError error = new SyntaxError(message, null);
-            errorsList.add(error);
-        }*/
-    }
+        List<ProgramError> errorsList = Compiler.getCompiler().getErrorsList();
+        Location location = null;
 
-    @Override
-    public void report_fatal_error(String message, Object info) throws Exception {
-        //System.out.println("Error fatal: " + message + "");
-        //report_error("Error fatal: " + message + "", info);
-        done_parsing();
+        if (info != null && info instanceof ComplexSymbol) {
+            location = ((ComplexSymbol) info).getLeft();
+        }
+        SyntaxError error = new SyntaxError(message, location);
+        errorsList.add(error);
     }
-
 :}
 
 terminal                                CONST, VAR, ARRAY, FUNCTION, PROCEDURE, MAIN, RETURN, WHILE, IF, ELSE;
@@ -195,11 +190,11 @@ MAIN_DECL   ::= MAIN:m L_PAR ARG_LIST:a R_PAR L_BRK STMT_LIST:s R_BRK
 ARG         ::= TYPE:t IDENT:i                                      {: RESULT = new Argument(t, i); :}
               ;
 
-ARG_LIST    ::= ARG:a ARG_TAIL:t                                    {: RESULT = new SymbolList<>(t, a); :}                                        
-              |                                                     {: RESULT = new SymbolList<>(); :}                                        
+ARG_LIST    ::= ARG:a ARG_TAIL:t                                    {: RESULT = new SymbolList<>(t, a); :}                          
+              |                                                     {: RESULT = new SymbolList<>(); :}                    
               ;
 
-ARG_TAIL    ::= COMMA ARG:a ARG_TAIL:t                              {: RESULT = new SymbolList<>(t, a); :}                                  
+ARG_TAIL    ::= COMMA ARG:a ARG_TAIL:t                              {: RESULT = new SymbolList<>(t, a); :}                            
               |                                                     {: RESULT = new SymbolList<>(); :}
               ;
 
