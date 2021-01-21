@@ -37,7 +37,7 @@ public final class Argument extends ParserSymbol {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode(STRING_IDENTIFIER, "box", "filled", "");
+        DotNode dotNode = new DotNode(STRING_IDENTIFIER, "box", "filled", "#F1F1F1");
         dotNode.addEdge(type, "type");
         dotNode.addEdge(() -> {
             new DotNode(identifier, "plaintext", "", "");

@@ -17,7 +17,7 @@ public class StringLiteral extends Literal {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("STR_LIT", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("STR_LIT", "box", "filled", "#f2ad46");
         
         dotNode.addEdge(() -> {
             new DotNode(getValue(), "plaintext", "", "");

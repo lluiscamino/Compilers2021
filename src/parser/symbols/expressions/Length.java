@@ -22,7 +22,7 @@ public final class Length extends Expression {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("LENGTH", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("LENGTH", "box", "filled", "#9077bf");
         
         dotNode.addEdge(expression, "expr");
     }

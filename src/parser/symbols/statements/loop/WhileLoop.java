@@ -25,7 +25,7 @@ public final class WhileLoop extends Loop {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("WHILE", "box", "filled", "");
+        DotNode dotNode = new DotNode("WHILE", "box", "filled", "#5280d6");
         dotNode.addEdge(condition, "cond");
         dotNode.addEdgeIfNotNull(statements, "stmts");
     }

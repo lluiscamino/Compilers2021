@@ -17,7 +17,7 @@ public final class Priority extends Expression {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("EXPR_PRIO", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("EXPR_PRIO", "box", "filled", "#9077bf");
         
         dotNode.addEdge(() -> {
             new DotNode("expr", "plaintext", "", "");

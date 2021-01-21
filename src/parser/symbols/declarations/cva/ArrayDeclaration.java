@@ -28,7 +28,7 @@ public final class ArrayDeclaration extends CVADeclaration {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("ARR_DECL", "box", "filled", "");
+        DotNode dotNode = new DotNode("ARR_DECL", "box", "filled", "#5280d6");
         
         dotNode.addEdge(mode, "mode");
         dotNode.addEdge(type, "type");

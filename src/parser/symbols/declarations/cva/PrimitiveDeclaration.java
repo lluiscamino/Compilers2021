@@ -21,7 +21,7 @@ public final class PrimitiveDeclaration extends CVADeclaration {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("DECL", "box", "filled", "");
+        DotNode dotNode = new DotNode("DECL", "box", "filled", "#5280d6");
         
         dotNode.addEdge(mode, "mode");
         dotNode.addEdge(type, "type");

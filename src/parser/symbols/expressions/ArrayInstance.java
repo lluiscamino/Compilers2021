@@ -21,7 +21,7 @@ public final class ArrayInstance extends Expression {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("ARR_INSTANCE", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("ARR_INSTANCE", "box", "filled", "#9077bf");
         
         dotNode.addEdge(getType(), "type");
         dotNode.addEdge(indexes, "indexes");

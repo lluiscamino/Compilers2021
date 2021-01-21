@@ -25,7 +25,7 @@ public final class ArrayDimensions extends ParserSymbol {
 
     @Override
     public void toDot() {
-        new DotNode(String.valueOf(numDimensions), "", "filled", "#ffffff");
+        new DotNode(String.valueOf(numDimensions), "", "filled", "");
     }
     
 }

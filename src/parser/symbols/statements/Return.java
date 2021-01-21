@@ -23,7 +23,7 @@ public final class Return extends Statement {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("RETURN", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("RETURN", "", "filled", "#5280d6");
         dotNode.addEdge(expression);
     }
     

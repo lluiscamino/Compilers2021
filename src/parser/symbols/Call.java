@@ -74,7 +74,7 @@ public final class Call extends ParserSymbol {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("CALL", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("CALL", "box", "filled", "#dbae91");
         
         dotNode.addEdge(() -> {
             new DotNode(subProgramIdentifier, "plaintext", "", "");

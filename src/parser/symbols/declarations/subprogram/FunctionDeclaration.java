@@ -48,7 +48,7 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("FUNCTION", "", "filled", "#0077ff");
+        DotNode dotNode = new DotNode("FUNCTION", "", "filled", "#005cc5");
         
         dotNode.addEdge(() -> {
             new DotNode(identifier, "plaintext", "filled", "");

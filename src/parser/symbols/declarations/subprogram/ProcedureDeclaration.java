@@ -29,7 +29,7 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("PROCEDURE", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("PROCEDURE", "", "filled", "#005cc5");
         
         dotNode.addEdge(() -> {
             new DotNode(identifier, "plaintext", "", "");

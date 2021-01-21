@@ -2,7 +2,6 @@ package parser.symbols.expressions.binary;
 
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
-import symboltable.SymbolTable;
 
 public final class BinaryAnd extends BinaryOperation {
     
@@ -12,7 +11,7 @@ public final class BinaryAnd extends BinaryOperation {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("AND", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("AND", "box", "filled", "#9077bf");
         
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(rightExpression);

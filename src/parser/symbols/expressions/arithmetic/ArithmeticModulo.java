@@ -12,7 +12,7 @@ public final class ArithmeticModulo extends ArithmeticOperation {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("MOD", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("MOD", "box", "filled", "#9077bf");
         
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(rightExpression);

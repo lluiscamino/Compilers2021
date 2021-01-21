@@ -17,7 +17,7 @@ public final class IntegerLiteral extends Literal {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("INT_LIT", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("INT_LIT", "box", "filled", "#f2ad46");
         
         dotNode.addEdge(() -> {
              new DotNode(Integer.toString(getValue()), "plaintext", "", "");

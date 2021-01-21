@@ -24,7 +24,7 @@ public final class Not extends Expression {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("NOT_EXPR", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("NOT_EXPR", "box", "filled", "#9077bf");
         
         dotNode.addEdgeIfNotNull(expression, "expr");
     }

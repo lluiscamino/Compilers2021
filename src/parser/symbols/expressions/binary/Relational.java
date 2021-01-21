@@ -41,7 +41,7 @@ public final class Relational extends Expression {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("RELATIONAL", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("RELATIONAL", "box", "filled", "#9077bf");
         
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(operator, "operator");

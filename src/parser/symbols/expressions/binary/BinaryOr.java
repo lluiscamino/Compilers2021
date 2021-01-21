@@ -12,7 +12,7 @@ public final class BinaryOr extends BinaryOperation {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("OR", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("OR", "box", "filled", "#9077bf");
         
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(rightExpression);

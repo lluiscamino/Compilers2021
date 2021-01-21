@@ -20,7 +20,7 @@ public final class Print extends Statement {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("PRINT", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("PRINT", "", "filled", "#5280d6");
         dotNode.addEdge(expression, "expr");
     }
     

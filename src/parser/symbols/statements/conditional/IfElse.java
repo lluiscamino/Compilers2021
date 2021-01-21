@@ -24,7 +24,7 @@ public final class IfElse extends If {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("IF", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("IF", "", "filled", "#5280d6");
         
         dotNode.addEdge(condition, "cond");
         dotNode.addEdgeIfNotNull(statements, "stmts");

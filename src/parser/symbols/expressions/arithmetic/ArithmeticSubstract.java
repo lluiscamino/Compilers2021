@@ -12,7 +12,7 @@ public final class ArithmeticSubstract extends ArithmeticOperation {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("SUB", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("SUB", "box", "filled", "#9077bf");
         
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(rightExpression);

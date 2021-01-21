@@ -11,7 +11,7 @@ public final class ArithmeticAdd extends ArithmeticOperation {
 
     @Override
     public void toDot() {
-        DotNode dotNode = new DotNode("ADD", "", "filled", "#00a2ff");
+        DotNode dotNode = new DotNode("ADD", "box", "filled", "#9077bf");
 
         dotNode.addEdgeIfNotNull(leftExpression);
         dotNode.addEdgeIfNotNull(rightExpression);
