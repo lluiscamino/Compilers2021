@@ -18,7 +18,8 @@ public class If extends Statement {
 
     @Override
     public void validate() {
-        if (!condition.getType().isBoolean()) {
+        Type condType = condition.getType();
+        if (!condType.isUnknown() && !condType.isBoolean()) {
             addSemanticError("La condición del bucle debe ser de tipo " + Type.getBoolean());
         }
         condition.validate();

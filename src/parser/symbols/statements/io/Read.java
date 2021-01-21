@@ -25,7 +25,7 @@ public final class Read extends Statement {
             addSemanticError("No existe ninguna variable llamada " + identifier);
         } else if (declaration.getMode().isConstant()) {
             addSemanticError(identifier + " es constante, no se puede variar su valor");
-        } else if (!declaration.getType().isString()) {
+        } else if (!declaration.getType().isUnknown() && !declaration.getType().isString()) {
             addSemanticError("No se puede asignar el resultado de una operación read() a una variable de tipo " + declaration.getType() + " (la variable debe ser de tipo " + Type.getString() + ")");
         }
     }

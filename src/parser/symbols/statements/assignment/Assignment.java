@@ -6,6 +6,7 @@ import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
 import symboltable.SymbolTable;
 import main.Compiler;
+import parser.symbols.types.Type;
 
 public class Assignment extends Statement {
 
@@ -31,8 +32,10 @@ public class Assignment extends Statement {
                 addSemanticError(identifier + " es constante, no se puede variar su valor");
                 return;
             }
-            if (!declaration.getType().equals(expression.getType())) {
-                addSemanticError("No se puede asignar un valor de tipo " + expression.getType() + " a una variable de tipo " + declaration.getType());
+            Type declType = declaration.getType();
+            Type exprType = expression.getType();
+            if (!declType.isUnknown() && !exprType.isUnknown() && !declType.equals(exprType)) {
+                addSemanticError("No se puede asignar un valor de tipo " + exprType + " a una variable de tipo " + declaration.getType());
             }
         } finally {
             expression.validate();

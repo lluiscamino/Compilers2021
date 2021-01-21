@@ -41,8 +41,9 @@ public abstract class CVADeclaration extends Declaration {
             addSemanticError("La declaración de la constante " + identifier + " no tiene ningun valor asociado");
         }
         if (expression != null) {
-            if (!type.equals(expression.getType())) {
-                addSemanticError("No se puede asignar un valor de tipo " + expression.getType() + " a una variable de tipo " + type);
+            Type exprType = expression.getType();
+            if (!type.isUnknown() && !exprType.isUnknown() && !type.equals(exprType)) {
+                addSemanticError("No se puede asignar un valor de tipo " + exprType + " a una variable de tipo " + type);
             }
             expression.validate();
         }

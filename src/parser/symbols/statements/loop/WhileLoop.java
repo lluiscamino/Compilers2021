@@ -14,7 +14,8 @@ public final class WhileLoop extends Loop {
 
     @Override
     public void validate() {
-        if (!condition.getType().isBoolean()) {
+        Type condType = condition.getType();
+        if (!condType.isUnknown() && !condType.isBoolean()) {
             addSemanticError("La condición del bucle debe ser de tipo " + Type.getBoolean() + ", no de tipo " + condition.getType());
         }
         condition.validate();

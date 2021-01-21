@@ -38,10 +38,11 @@ public final class ArrayAssignment extends Assignment {
                 return;
             }
             Type expectedType = getExpectedType((ArrayDeclaration) declaration);
+            Type exprType = expression.getType();
             if (expectedType == null) {
                 addSemanticError("El array " + identifier + " no tiene tantas dimensiones");
-            } else if (!(expression.getType().equals(expectedType))) {
-                addSemanticError("No se puede asignar un valor de tipo " + expression.getType() + " a una variable de tipo " + expectedType);
+            } else if (!exprType.isUnknown() && !expectedType.isUnknown() && !(exprType.equals(expectedType))) {
+                addSemanticError("No se puede asignar un valor de tipo " + exprType + " a una variable de tipo " + expectedType);
             }
         } finally {
             indexes.validate();

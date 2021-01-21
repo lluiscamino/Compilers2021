@@ -62,18 +62,17 @@ public final class ArrayLiteral extends Literal {
     @Override
     public void validate() {
         //pasar los elementos a una lista
-        if (getValue() == null || getValue().size() <= 1) return;
+        if (getValue() == null || getValue().size() <= 0) return;
         List<Expression> elements = getValue().toArrayList();
         //mirar si algun elemento es de otro tipo
-        Type firstElementType = elements.get(0).getType();
+        Type firstElType = elements.get(0).getType();
         for (Expression expr : elements) {
-            if (!(expr.getType().equals(firstElementType))) {
-                addSemanticError("Los elementos de un array tienen que ser del mismo tipo. Se encontró un elemento de tipo " + expr.getType() + " en un array de " + firstElementType);
+            Type exprType = expr.getType();
+            if (!firstElType.isUnknown() && !exprType.isUnknown() && !exprType.equals(firstElType)) {
+                addSemanticError("Los elementos de un array tienen que ser del mismo tipo. Se encontró un elemento de tipo " + exprType + " en un array de " + firstElType);
                 return;
             }
-            if (expr.getType().isArray()) { // Si el elemento es también un array, validarlo también
-                expr.validate();
-            }
+            expr.validate();
         }
     }
 

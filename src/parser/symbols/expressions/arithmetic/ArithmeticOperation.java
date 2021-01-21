@@ -14,11 +14,11 @@ public abstract class ArithmeticOperation extends Expression {
     
     @Override
     public final void validate() {
-        //mirar si las dos expresiones son enteros
-        if (!(leftExpression.getType().isInteger() && rightExpression.getType().isInteger())) {
+        Type leftType = leftExpression.getType();
+        Type rightType = rightExpression.getType();
+        if ((!leftType.isUnknown() && !leftType.isInteger()) || (!rightType.isUnknown() && !rightType.isInteger())) {
             addSemanticError("No se puede hacer una operación aritmética con un tipo que no sea " + Type.getInteger());
         }
-
         leftExpression.validate();
         rightExpression.validate();
     }

@@ -14,8 +14,8 @@ public final class Not extends Expression {
 
     @Override
     public void validate() {
-        //mirar si la expresion es booleana
-        if (!expression.getType().isBoolean()) {
+        Type exprType = expression.getType();
+        if (!exprType.isUnknown() && !exprType.isBoolean()) {
             addSemanticError("No se puede hacer una operación lógica con un tipo que no sea " + Type.getBoolean());
         }
 

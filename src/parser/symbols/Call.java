@@ -61,7 +61,7 @@ public final class Call extends ParserSymbol {
         for (int i = 0; i < actualArgs.size(); i++) {
             Type expectedType = args.get(i).getType();
             Type actualType = actualArgs.get(i).getType();
-            if (!actualType.equals(expectedType)) {
+            if (!actualType.isUnknown() && !actualType.equals(expectedType)) {
                 this.addSemanticError("El tipo del argumento num. " + (i + 1) + " en la llamada al subprograma " 
                         + subProgramIdentifier + " tiene que ser de tipo " + expectedType + ", no de " + actualType);
             }
