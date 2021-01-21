@@ -6,7 +6,7 @@ function twoSum int[](int[] nums, int target) {
         var int j = 0;
         while (j < length(nums)) {
             if (nums[i] == target - nums[i]) {
-                result = numToArray(i, j);
+                result = {i, j};
                 res = true;
             }
             j = j + 1;
@@ -18,11 +18,6 @@ function twoSum int[](int[] nums, int target) {
         print("No solution");
     }
     return result; 
-}
-
-function numToArray int[](int a, int b) {
-    var array int[] result = {a, b};
-    return result;
 }
 
 main() {
