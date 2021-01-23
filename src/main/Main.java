@@ -1,18 +1,30 @@
 package main;
 
-import java.io.FileNotFoundException;
-
 public final class Main {
-    private static final String INPUT_PATH = "C:\\Users\\lluis\\Desktop\\program.txt";
-    private static final String TOKENS_PATH = "C:\\Users\\lluis\\Desktop\\tokens.dot";
-    private static final String SYMBOL_TABLE_PATH = "C:\\Users\\lluis\\Desktop\\symbol_table.dot";
-    private static final String TREE_PATH = "C:\\Users\\lluis\\Desktop\\tree.dot";
-    private static final String ERRORS_PATH = "C:\\Users\\lluis\\Desktop\\errors.log";
+    private static String[] args;
     
     private Main() {}
     
-    public static void main(String[] args) throws FileNotFoundException, Exception {
-        Compiler compiler = new Compiler(INPUT_PATH, TOKENS_PATH, SYMBOL_TABLE_PATH, TREE_PATH, ERRORS_PATH);
-        compiler.compile();
+    public static void main(String[] args) {
+        try {
+            Main.args = args;
+            Compiler compiler = new Compiler(
+                    getArg(0),
+                    getArg(1),
+                    getArg(2),
+                    getArg(3),
+                    getArg(4)
+            );
+            compiler.compile();
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+    
+    private static String getArg(int pos) throws Exception {
+        if (args.length <= pos) {
+            throw new Exception("Formato incorrecto!\nFormato esperado: java -jar Compiladores.jar <PROGRAMA> <TOKENS> <TABLA_SIMBOLOS> <ARBOL> <ERRORES>");
+        }
+        return args[pos];
     }
 }
