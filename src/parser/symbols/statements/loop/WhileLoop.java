@@ -5,6 +5,8 @@ import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
 import parser.symbols.types.Type;
+import main.Compiler;
+import symboltable.SymbolTable;
 
 public final class WhileLoop extends Loop {
 
@@ -14,14 +16,17 @@ public final class WhileLoop extends Loop {
 
     @Override
     public void validate() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
         Type condType = condition.getType();
         if (!condType.isUnknown() && !condType.isBoolean()) {
             addSemanticError("La condición del bucle debe ser de tipo " + Type.getBoolean() + ", no de tipo " + condition.getType());
         }
+        symbolTable.enterBlock();
         condition.validate();
         if (statements != null) {
             statements.validate();
         }
+        symbolTable.exitBlock();
     }
 
     @Override

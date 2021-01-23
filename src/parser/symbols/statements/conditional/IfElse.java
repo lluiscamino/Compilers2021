@@ -4,6 +4,8 @@ import dot.DotNode;
 import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
+import symboltable.SymbolTable;
+import main.Compiler;
 
 public final class IfElse extends If {
 
@@ -17,9 +19,12 @@ public final class IfElse extends If {
     @Override
     public void validate() {
         super.validate();
+        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        symbolTable.enterBlock();
         if (elseStatements != null) {
             elseStatements.validate();
         }
+        symbolTable.exitBlock();
     }
 
     @Override
