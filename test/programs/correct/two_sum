@@ -1,5 +1,14 @@
+const array int[] noResult = {-1, -1};
+
+/*
+ * Dado un array de enteros `nums` y un entero `target`, devuelve los
+ * índices de dos enteros tal que su suma sea igual a `target`.
+ * Ejemplo:
+ * - Datos:     nums = {2,7,11,15}, target = 9
+ * - Resultado: {0, 1} (nums[0] + nums[1] = 9)
+ */
 function twoSum int[](int[] nums, int target) {
-    var array int[] result;
+    var array int[] result = noResult;
     var int i = 0;
     var boolean res = false;
     while (i < length(nums) && !res) {
@@ -13,14 +22,15 @@ function twoSum int[](int[] nums, int target) {
         }
         i = i + 1;
     }
-    if (!res) {
-        result = {-1, -1};
-        print("No solution");
-    }
     return result; 
 }
 
 main() {
-    const array int[] nums = {3, 4, 5};
-    print(twoSum(nums, 9));
+    const array int[] result = twoSum({3, 2, 4}, 6);
+    if (result != noResult) {
+        print("Resultado: ");
+        print(result);
+    } else {
+        print("Sin resultado");
+    }
 }

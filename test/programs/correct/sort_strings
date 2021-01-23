@@ -1,0 +1,40 @@
+// Ordena un array de strings de forma ascendente según su longitud
+// Algoritmo: Bubble sort
+function bubbleSort string[](string[] arr) {
+    var int n = length(arr);
+    var int i = 0;
+    var boolean swapped = false;
+    while (i < n && !swapped) {
+        swapped = true;
+        var int j = 0;
+        while (j < n) {
+            if (length(arr[j]) > length(arr[j + 1])) {
+                swapped = false;
+                var string aux = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = aux;
+            }
+            j = j + 1;
+        }
+        i = i + 1;
+    }
+    return arr;
+}
+
+function readStringArray string[](int len) {
+    var array string[] arr = array(string[len]);
+    var string str;
+    var int i = 0;
+    while (i < len) {
+        print("String: ");
+        str = read();
+        arr[i] = str;
+        i = i + 1;
+    }
+    return arr;
+}
+
+main(int arrLength) {
+    const array string[] input = readStringArray(arrLength);
+    print(bubbleSort(input));
+}
