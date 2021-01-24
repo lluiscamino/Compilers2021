@@ -63,7 +63,7 @@ parser code {:
     }
 :}
 
-terminal                                CONST, VAR, ARRAY, FUNCTION, PROCEDURE, MAIN, RETURN, WHILE, IF, ELSE;
+terminal                                CONST, VAR, ARRAY, FUNCTION, PROCEDURE, MAIN, RETURN, WHILE, FOR, IF, ELSE;
 terminal                                L_PAR, R_PAR, L_BOX, R_BOX, L_BRK, R_BRK, COMMA, EOL;
 terminal                                LENGTH, READ, PRINT;
 terminal                                EQUALS;
@@ -108,6 +108,10 @@ non terminal  Assignment                    ASGN;
 non terminal  Read                          READ_STMT;
 non terminal  Print                         PRINT_STMT;
 non terminal  Loop                          LOOP;
+non terminal  SymbolList<Declaration>       L_DECL_LIST;
+non terminal  SymbolList<Declaration>       L_DECL_TAIL;
+non terminal  SymbolList<Assignment>        L_ASGN_LIST;
+non terminal  SymbolList<Assignment>        L_ASGN_TAIL;
 non terminal  If                            IF_STMT;
 non terminal  Call                          CALL;
 non terminal  Return                        RETURN_STMT;
@@ -130,7 +134,7 @@ start with PROGRAM;
 PROGRAM     ::= DECL_LIST:l MAIN_DECL:m                             {: RESULT = new Program(l, m, lxleft); :}
               ;
 
-DECL        ::= CVA_DECL:d                                          {: RESULT = d; :}
+DECL        ::= CVA_DECL:d EOL                                      {: RESULT = d; :}
               | SUBPRG_DECL:d                                       {: RESULT = d; :}
               | error:e                                             {: RESULT = new ErrorDeclaration(errToken, exleft); :}
               ;
@@ -143,12 +147,12 @@ CVA_DECL    ::= PRIM_DECL:d                                         {: RESULT = 
               | ARR_DECL:d                                          {: RESULT = d; :}
               ;
 
-PRIM_DECL   ::= DECL_MODE:m PRIM_TYPE:pt IDENT:i EOL                {: RESULT = new PrimitiveDeclaration(m, pt, i); :}
-              | DECL_MODE:m PRIM_TYPE:pt IDENT:i EQUALS EXPR:e EOL  {: RESULT = new PrimitiveDeclaration(m, pt, i, e); :}
+PRIM_DECL   ::= DECL_MODE:m PRIM_TYPE:pt IDENT:i                    {: RESULT = new PrimitiveDeclaration(m, pt, i); :}
+              | DECL_MODE:m PRIM_TYPE:pt IDENT:i EQUALS EXPR:e      {: RESULT = new PrimitiveDeclaration(m, pt, i, e); :}
               ;
 
-ARR_DECL    ::= DECL_MODE:m ARRAY PRIM_TYPE:p ARR_DIM:d IDENT:i EOL {: RESULT = new ArrayDeclaration(m, p, d, i); :}
-              | DECL_MODE:m ARRAY PRIM_TYPE:p ARR_DIM:d IDENT:i EQUALS EXPR:e EOL
+ARR_DECL    ::= DECL_MODE:m ARRAY PRIM_TYPE:p ARR_DIM:d IDENT:i     {: RESULT = new ArrayDeclaration(m, p, d, i); :}
+              | DECL_MODE:m ARRAY PRIM_TYPE:p ARR_DIM:d IDENT:i EQUALS EXPR:e
                                                                     {: RESULT = new ArrayDeclaration(m, p, d, i, e); :}
               ;
 
@@ -198,8 +202,8 @@ ARG_TAIL    ::= COMMA ARG:a ARG_TAIL:t                              {: RESULT = 
               |                                                     {: RESULT = new SymbolList<>(); :}
               ;
 
-STMT        ::= CVA_DECL:d                                          {: RESULT = new CVADeclarationStatement(d); :}
-              | ASGN:a                                              {: RESULT = a; :}        
+STMT        ::= CVA_DECL:d EOL                                      {: RESULT = new CVADeclarationStatement(d); :}
+              | ASGN:a EOL                                          {: RESULT = a; :}        
               | READ_STMT:r                                         {: RESULT = r; :}
               | PRINT_STMT:p                                        {: RESULT = p; :}
               | LOOP:l                                              {: RESULT = l; :}
@@ -212,8 +216,8 @@ STMT_LIST   ::= STMT:s STMT_LIST:l                                  {: RESULT = 
               |                                                     {: RESULT = new SymbolList<>(); :}
               ;
 
-ASGN        ::= IDENT:i EQUALS EXPR:e EOL                           {: RESULT = new Assignment(i, e); :} 
-              | IDENT:i ARR_INDEX:arrin EQUALS EXPR:e EOL           {: RESULT = new ArrayAssignment(i, arrin, e); :}
+ASGN        ::= IDENT:i EQUALS EXPR:e                               {: RESULT = new Assignment(i, e); :} 
+              | IDENT:i ARR_INDEX:arrin EQUALS EXPR:e               {: RESULT = new ArrayAssignment(i, arrin, e); :}
               ;
 
 READ_STMT   ::= IDENT:i EQUALS READ EOL                             {: RESULT = new Read(i, ixleft); :}
@@ -223,6 +227,24 @@ PRINT_STMT  ::= PRINT L_PAR EXPR:e R_PAR EOL                        {: RESULT = 
               ;
 
 LOOP        ::= WHILE L_PAR EXPR:c R_PAR L_BRK STMT_LIST:l R_BRK    {: RESULT = new WhileLoop(c, l); :}
+              | FOR L_PAR L_DECL_LIST:dl EOL EXPR:c EOL L_ASGN_LIST:al R_PAR L_BRK STMT_LIST:sl R_BRK
+                                                                    {: //RESULT = new ForLoop(dl, c, al, sl); :}
+              ;
+
+L_DECL_LIST ::= CVA_DECL:d L_DECL_TAIL:dt                           {: RESULT = new SymbolList<>(dt, d); :}
+              |                                                     {: RESULT = new SymbolList<>(); :}
+              ;
+
+L_DECL_TAIL ::= COMMA CVA_DECL:d L_DECL_TAIL:dt                     {: RESULT = new SymbolList<>(dt, d); :}
+              |                                                     {: RESULT = new SymbolList<>(); :}
+              ;
+
+L_ASGN_LIST ::= ASGN:a L_ASGN_TAIL:at                               {: RESULT = new SymbolList<>(at, a); :}
+              |                                                     {: RESULT = new SymbolList<>(); :}
+              ;
+
+L_ASGN_TAIL ::= COMMA ASGN:a L_ASGN_TAIL:at                         {: RESULT = new SymbolList<>(at, a); :}
+              |                                                     {: RESULT = new SymbolList<>(); :}
               ;
 
 IF_STMT     ::= IF L_PAR EXPR:c R_PAR L_BRK STMT_LIST:l R_BRK       {: RESULT = new If(c, l); :}
