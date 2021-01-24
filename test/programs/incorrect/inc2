@@ -1,0 +1,16 @@
+function compareArrays int(boolean[] a, boolean[] b) {
+    if (true = 1) {
+	print("hello");
+    }
+    return {true, false};
+}
+
+main() {
+    var array boolean[] first = {true, false};
+    var array boolean[][] second = {{false, true}, {true,true}};
+    var int i = compareArrays(first, second);
+    var array int[][] arr = {1, 2, 3};
+    const int i = 0;
+    i = 1;
+dddddd
+}

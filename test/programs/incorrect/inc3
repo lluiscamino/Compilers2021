@@ -1,0 +1,16 @@
+function returnFirst(int[] arr) {
+    return arr[1];
+}
+
+main() {
+    int i = returnFirst({4,5,6,7});
+    var int i = true;
+    var int a = 1;
+    var int b = 2;
+    var int c = 3;
+    while (i) {
+	returnFirst({a, b, c});
+    }
+    var array int[] ints = {1, 2, true, 4};
+}
+    

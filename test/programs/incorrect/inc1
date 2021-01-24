@@ -1,0 +1,21 @@
+function incorrectCompare boolean(boolean b, string s) {
+    var boolean correct;
+    if (b == s) {
+	correct = true;
+    } else {
+	correct = false;
+    }
+    return correct;
+}
+
+
+
+main() {
+    var boolean bool;
+    var string s;
+    var int i;
+    var int res = incorrectCompare(b, s, i);
+    print("hello world");
+    print;
+    print(hello world);
+}
