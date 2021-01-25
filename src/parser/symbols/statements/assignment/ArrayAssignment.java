@@ -9,9 +9,8 @@ import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 import main.Compiler;
-import parser.symbols.ArrayDimensions;
 
-public final class ArrayAssignment extends Assignment {
+public class ArrayAssignment extends Assignment {
 
     private final ArrayIndexes indexes;
 
@@ -25,32 +24,36 @@ public final class ArrayAssignment extends Assignment {
         try {
             SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
             CVADeclaration declaration = symbolTable.getCVA(identifier);
-            if (declaration == null) {
-                addSemanticError("No existe ninguna variable llamada " + identifier);
-                return;
-            }
-            if (declaration.getMode().isConstant()) {
-                addSemanticError(identifier + " es constante, no se puede variar su valor");
-                return;
-            }
-            if (!(declaration instanceof ArrayDeclaration)) {
-                addSemanticError(identifier + " no es un ARRAY");
-                return;
-            }
-            Type expectedType = getExpectedType((ArrayDeclaration) declaration);
-            Type exprType = expression.getType();
-            if (expectedType == null) {
-                addSemanticError("El array " + identifier + " no tiene tantas dimensiones");
-            } else if (!exprType.isUnknown() && !expectedType.isUnknown() && !(exprType.equals(expectedType))) {
-                addSemanticError("No se puede asignar un valor de tipo " + exprType + " a una variable de tipo " + expectedType);
-            }
+            checkDeclarationExists(declaration);
+            checkDeclarationIsVariable(declaration);
+            checkDeclarationIsArray(declaration);
+            checkTypesAreEqual(declaration);
+        } catch (Exception ex) {
+            addSemanticError(ex.getMessage());
         } finally {
             indexes.validate();
             expression.validate();
         }
     }
-    
-    private Type getExpectedType(ArrayDeclaration declaration) {
+
+    protected void checkDeclarationIsArray(CVADeclaration declaration) throws Exception {
+        if (!(declaration instanceof ArrayDeclaration)) {
+            throw new Exception(identifier + " no es un ARRAY");
+        }
+    }
+
+    @Override
+    protected void checkTypesAreEqual(CVADeclaration declaration) throws Exception {
+        Type expectedType = getExpectedType((ArrayDeclaration) declaration);
+        Type exprType = expression.getType();
+        if (expectedType == null) {
+            throw new Exception("El array " + identifier + " no tiene tantas dimensiones");
+        } else if (!exprType.isUnknown() && !expectedType.isUnknown() && !(exprType.equals(expectedType))) {
+            throw new Exception("No se puede asignar un valor de tipo " + exprType + " a una variable de tipo " + expectedType);
+        }
+    }
+
+    protected Type getExpectedType(ArrayDeclaration declaration) {
         int numIndexes = indexes.numIndexes();
         int numArrayDimensions = declaration.getDimensions().size();
         if (numIndexes > numArrayDimensions) {

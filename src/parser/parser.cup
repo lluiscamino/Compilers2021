@@ -13,6 +13,7 @@ import parser.symbols.declarations.*;
 import parser.symbols.types.*;
 import parser.symbols.expressions.literals.*;
 import parser.symbols.statements.assignment.*;
+import parser.symbols.statements.assignment.operationassignment.*;
 import parser.symbols.statements.conditional.*;
 import parser.symbols.statements.io.*;
 import parser.symbols.statements.loop.*;
@@ -24,8 +25,8 @@ import parser.symbols.expressions.binary.Relational;
 import parser.symbols.expressions.reference.*;
 import parser.symbols.expressions.arithmetic.*;
 import parser.symbols.expressions.binary.*;
-import java_cup.runtime.ComplexSymbolFactory.Location;
 import java_cup.runtime.Symbol;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 
 class Parser;
 
@@ -217,7 +218,11 @@ STMT_LIST   ::= STMT:s STMT_LIST:l                                  {: RESULT = 
               ;
 
 ASGN        ::= IDENT:i EQUALS EXPR:e                               {: RESULT = new Assignment(i, e); :} 
-              | IDENT:i ARR_INDEX:arrin EQUALS EXPR:e               {: RESULT = new ArrayAssignment(i, arrin, e); :}
+              | IDENT:i ARR_INDEX:ai EQUALS EXPR:e                  {: RESULT = new ArrayAssignment(i, ai, e); :}
+              | IDENT:i ADD EQUALS EXPR:e                           {: RESULT = new AddAssignment(i, e); :}
+              | IDENT:i SUB EQUALS EXPR:e                           {: RESULT = new SubstractAssignment(i, e); :}
+              | IDENT:i ARR_INDEX:ai ADD EQUALS EXPR:e              {: RESULT = new ArrayAddAssignment(i, ai, e); :}
+              | IDENT:i ARR_INDEX:ai SUB EQUALS EXPR:e              {: RESULT = new ArraySubstractAssignment(i, ai, e); :}
               ;
 
 READ_STMT   ::= IDENT:i EQUALS READ EOL                             {: RESULT = new Read(i, ixleft); :}
