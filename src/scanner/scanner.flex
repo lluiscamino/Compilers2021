@@ -74,6 +74,8 @@ comment     = "//"[^\r\n]*[\r\n] | "/*"([^*]|\*[^/])*"*/"
 "for"       { return symbol(ParserSym.FOR); }
 "if"        { return symbol(ParserSym.IF); }
 "else"      { return symbol(ParserSym.ELSE); }
+":"         { return symbol(ParserSym.COL); }
+"?"         { return symbol(ParserSym.QUESTION); }
 "("         { return symbol(ParserSym.L_PAR); }
 ")"         { return symbol(ParserSym.R_PAR); }
 "["         { return symbol(ParserSym.L_BOX); }

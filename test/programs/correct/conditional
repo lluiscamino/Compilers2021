@@ -1,0 +1,22 @@
+function f int(boolean a, boolean c, boolean d) {
+    var int e = a ? 2 : 3;
+    const boolean b = c || a && d;
+    var string h = a && b || c ? "jkda" : "aldhs";
+    h = max(c ? 3 : 2, d ? (a ? 2 : -7 + 2) : (-1 > e ? 8 : 24 + e)) == 3 ? "jad" : "";
+    return h == (d ? "ad" : "") ? 24 : e + 3;
+}
+
+function max int(int a, int b) {
+    return a > b ? a : b;
+}
+
+function Int2Bool boolean(int val) {
+    return val == 0 ? false : true;
+}
+
+main() {
+    var int f = f(true,
+                  3 > 2 ? true : false, 
+                  f(false, true, false) == 7 ? (f(true, false, true) == 0 ? false : !true) : 7 > 4);
+    print(Int2Bool(f) ? "kajdah" : (f >= 3? "lkjad" : "ldaj"));
+}
