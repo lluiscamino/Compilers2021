@@ -13,6 +13,6 @@ main() {
     var int a = 0 + 1;
     h = read();
     while (h == strings[a]) {
-        a = a + 1;
+        a += 1;
     }
 }

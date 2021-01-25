@@ -18,9 +18,9 @@ function twoSum int[](int[] nums, int target) {
                 result = {i, j};
                 res = true;
             }
-            j = j + 1;
+            j +=  1;
         }
-        i = i + 1;
+        i += 1;
     }
     return result; 
 }
