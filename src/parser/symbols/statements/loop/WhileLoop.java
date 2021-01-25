@@ -19,7 +19,7 @@ public final class WhileLoop extends Loop {
         SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
         Type condType = condition.getType();
         if (!condType.isUnknown() && !condType.isBoolean()) {
-            addSemanticError("La condición del bucle debe ser de tipo " + Type.getBoolean() + ", no de tipo " + condition.getType());
+            addSemanticError("La condición del bucle debe ser de tipo " + Type.getBoolean() + ", no de tipo " + condType);
         }
         symbolTable.enterBlock();
         condition.validate();
