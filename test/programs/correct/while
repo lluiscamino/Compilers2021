@@ -1,10 +1,7 @@
 procedure doSomething(boolean val) {
-    while (val) {
-        val = false;
-    }
-    while (!val) {
+    while (val) val = false;
+    while (!val)
         val = true;
-    }
 }
 
 main() {

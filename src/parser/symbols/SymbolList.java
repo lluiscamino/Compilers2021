@@ -3,7 +3,6 @@ package parser.symbols;
 import dot.DotNode;
 import java.util.ArrayList;
 import java.util.List;
-import symboltable.SymbolTable;
 
 public final class SymbolList<T extends ParserSymbol> extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "LIST";
@@ -15,6 +14,12 @@ public final class SymbolList<T extends ParserSymbol> extends ParserSymbol {
         super(STRING_IDENTIFIER);
         next = null;
         element = null;
+    }
+    
+    public SymbolList(T element) {
+        super(STRING_IDENTIFIER, element.xleft);
+        this.next = null;
+        this.element = element;
     }
     
     public SymbolList(SymbolList<T> list, T element) {

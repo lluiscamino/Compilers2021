@@ -9,24 +9,28 @@ main() {
     if (loremIpsum(true)) {
         if (true) {
             print("alwaystrue");
+        } else if (false) {
+            print("ladjdak");
+        } else {
+            print("lol");
+            if (3 == 2) {}
+            else if (3 > 2) {
+                print("aldk");
+            }
         }
     }
-    if (condition) {
+    if (condition)
         print("alwaysfalse");
-    }
-    if (condition && false) {
+    else if (condition && false)
         print("alwaysfalse");
-    }
+
     if (condition || false) {
         print("maybetrue");
-    }
-    if (3 + 2 > 5) {
+    } else if (3 + 2 > 5) {
         print("alwaysfalse");
     }
+
     if (!loremIpsum(loremIpsum(3+7>=5)) || false) {
         print("aadad");
-    }
-    if (conditions[0][3] == true) {
-        print("hjakda");
-    }
+    } else if (conditions[0][3] == true) print("hjakda");
 }
