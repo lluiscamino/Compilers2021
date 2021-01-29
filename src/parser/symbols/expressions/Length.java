@@ -14,7 +14,7 @@ public final class Length extends Expression {
     @Override
     public void validate() {
         Type type = expression.getType();
-        if (!type.isArray() && !type.isString()) {
+        if (!type.isUnknown() && !type.isArray() && !type.isString()) {
             addSemanticError("No se puede aplicar LENGTH a un valor de tipo " + type);
         }
         expression.validate();

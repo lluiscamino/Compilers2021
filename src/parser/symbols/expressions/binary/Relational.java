@@ -20,10 +20,11 @@ public final class Relational extends Expression {
     public void validate() {
         Type leftExprType = leftExpression.getType();
         Type rightExprType = rightExpression.getType();
-        if (!(leftExprType.equals(rightExprType))) {
+        boolean unknownType = leftExprType.isUnknown() || rightExprType.isUnknown();
+        if (!unknownType && !(leftExprType.equals(rightExprType))) {
             addSemanticError("No se pueden comparar tipos diferentes (" + leftExprType + " y " + rightExprType + ")");
         }
-        if (!validType(leftExprType)) {
+        if (!unknownType && !validType(leftExprType)) {
             addSemanticError("No se pueden comparar expresiones de tipo " + leftExprType);
         }
         leftExpression.validate();
