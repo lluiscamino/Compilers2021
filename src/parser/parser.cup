@@ -24,6 +24,7 @@ import parser.symbols.expressions.binary.Relational;
 import parser.symbols.expressions.reference.*;
 import parser.symbols.expressions.arithmetic.*;
 import parser.symbols.expressions.binary.*;
+import parser.symbols.expressions.io.*;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 
@@ -106,7 +107,6 @@ non terminal  SymbolList<Statement>         STMT_BLOCK;
 non terminal  SymbolList<Statement>         STMT_LIST;
 non terminal  Statement                     STMT;
 non terminal  Assignment                    ASGN;
-non terminal  Read                          READ_STMT;
 non terminal  Print                         PRINT_STMT;
 non terminal  Loop                          LOOP;
 non terminal  SymbolList<Declaration>       L_DECL_LIST;
@@ -209,8 +209,7 @@ ARG_TAIL    ::= COMMA ARG:a ARG_TAIL:t                              {: RESULT = 
 
 STMT        ::= CVA_DECL:d EOL                                      {: RESULT = new CVADeclarationStatement(d); :}
               | ASGN:a EOL                                          {: RESULT = a; :}        
-              | READ_STMT:r                                         {: RESULT = r; :}
-              | PRINT_STMT:p                                        {: RESULT = p; :}
+              | PRINT_STMT:p EOL                                    {: RESULT = p; :}
               | LOOP:l                                              {: RESULT = l; :}
               | IF_STMT:i                                           {: RESULT = i; :}
               | CALL:c EOL                                          {: RESULT = new CallStatement(c); :}
@@ -233,10 +232,7 @@ ASGN        ::= IDENT:i EQUALS EXPR:e                               {: RESULT = 
               | IDENT:i ARR_INDEX:ai SUB EQUALS EXPR:e              {: RESULT = new ArraySubstractAssignment(i, ai, e); :}
               ;
 
-READ_STMT   ::= IDENT:i EQUALS READ EOL                             {: RESULT = new Read(i, ixleft); :}
-              ;
-
-PRINT_STMT  ::= PRINT L_PAR EXPR:e R_PAR EOL                        {: RESULT = new Print(e); :}
+PRINT_STMT  ::= PRINT L_PAR EXPR:e R_PAR                            {: RESULT = new Print(e); :}
               ;
 
 LOOP        ::= WHILE L_PAR EXPR:c R_PAR STMT_BLOCK:b               {: RESULT = new WhileLoop(c, b); :}
@@ -269,6 +265,7 @@ IF_STMT     ::= IF L_PAR EXPR:c R_PAR STMT_BLOCK:b                  {: RESULT = 
 EXPR        ::= LIT:l                                               {: RESULT = l; :}
               | IDENT:i                                             {: RESULT = new IdentifierReference(i, ixleft); :}
               | IDENT:i ARR_INDEX:ai                                {: RESULT = new ArrayIdentifierReference(i, ai, ixleft); :}
+              | READ:r                                              {: RESULT = new Read(rxleft); :}
               | ARRAY L_PAR PRIM_TYPE:pt ARR_INDEX:ai R_PAR         {: RESULT = new ArrayInstance(pt, ai); :} 
               | LENGTH:l L_PAR EXPR:e R_PAR                         {: RESULT = new Length(e); :}
               | L_PAR EXPR:e R_PAR                                  {: RESULT = new Priority(e); :}

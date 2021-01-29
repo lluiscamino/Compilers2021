@@ -9,9 +9,8 @@ main() {
     if (3 < 2 && (true == !false) && {2, 1, 3} == {2, 1, 3}) {
         print("kjadadh");
     }
-    var string h;
+    var string h = read();
     var int a = 0 + 1;
-    h = read();
     while (h == strings[a]) {
         a += 1;
     }

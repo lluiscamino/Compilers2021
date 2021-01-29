@@ -23,11 +23,10 @@ function bubbleSort string[](string[] arr) {
 
 function readStringArray string[](int len) {
     var array string[] arr = array(string[len]);
-    var string str;
     var int i = 0;
     while (i < len) {
         print("String: ");
-        str = read();
+        var string str = read();
         arr[i] = str;
         i += 1;
     }
