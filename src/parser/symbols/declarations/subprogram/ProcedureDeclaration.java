@@ -38,9 +38,11 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
         dotNode.addEdgeIfNotNull(statements, "stmts");
     }
     
+    @Override
     public String toString() {
         int lineNum = xleft != null ? xleft.getLine() : -1;
-        return lineNum + ": procedure " + identifier;
+        int numArgs = arguments != null ? arguments.size() : 0;
+        return lineNum + ": procedure " + identifier + " (" + numArgs + " args)";
     }
     
 }
