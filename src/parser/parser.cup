@@ -237,8 +237,8 @@ PRINT_STMT  ::= PRINT L_PAR EXPR:e R_PAR                            {: RESULT = 
 
 LOOP        ::= WHILE L_PAR EXPR:c R_PAR STMT_BLOCK:b               {: RESULT = new WhileLoop(c, b); :}
               | FOR L_PAR L_DECL_LIST:dl EOL EXPR:c EOL L_ASGN_LIST:al R_PAR STMT_BLOCK:b
-                                                                    {: //RESULT = new ForLoop(dl, c, al, b); :}
-              | FOR L_PAR CVA_DECL:d COL EXPR:e R_PAR STMT_BLOCK:b  {: // RESULT = new ForeachLoop(d, e, b); :}
+                                                                    {: RESULT = new ForLoop(dl, c, al, b); :}
+              | FOR L_PAR CVA_DECL:d COL EXPR:e R_PAR STMT_BLOCK:b  {: RESULT = new ForeachLoop(d, e, b); :}
               ;
 
 L_DECL_LIST ::= CVA_DECL:d L_DECL_TAIL:dt                           {: RESULT = new SymbolList<>(dt, d); :}

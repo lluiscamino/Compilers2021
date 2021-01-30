@@ -49,8 +49,8 @@ public class ForLoop extends Loop {
     @Override
     public void toDot() {
             DotNode dotNode = new DotNode("FOR", "box", "filled", "#5280d6");
-            dotNode.addEdge(condition, "cond");
             dotNode.addEdgeIfNotNull(declarations, "decls");
+            dotNode.addEdge(condition, "cond");
             dotNode.addEdgeIfNotNull(assignments, "assigns");
             dotNode.addEdgeIfNotNull(statements, "stmts");
     }

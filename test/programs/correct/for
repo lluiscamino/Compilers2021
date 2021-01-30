@@ -1,0 +1,29 @@
+procedure loopForever() {
+    for (;true;) {}
+}
+
+main() {
+    var array int[] arr = array(int[500]);
+    for (var int i = 0; i < length(arr); i += 1) {
+        arr[i] = i % 8;
+    }
+    for (var int i = 0; i < 500; i = i + 1) {
+        arr[i] = i % 8;
+    }
+    for (var int i = 0; i < 500;) {
+        arr[i] = i % 8;
+        i += 1;
+    }
+    var int i = 0;
+    var boolean repeat = true;
+    for (; repeat;) {
+        arr[i] = i % 8;
+        i += 1;
+        if (i == length(arr))
+            repeat = false;
+    }
+    for (var int i = 0, var int j = length(arr) - 1; i < j; i += 1, j -= 1) {
+        print(arr[i]);
+        print(arr[j]);
+    }
+}

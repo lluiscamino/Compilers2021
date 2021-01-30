@@ -1329,7 +1329,7 @@ class CUP$Parser$actions {
 		Location bxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location bxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		SymbolList<Statement> b = (SymbolList<Statement>)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 //RESULT = new ForLoop(dl, c, al, b); 
+		 RESULT = new ForLoop(dl, c, al, b); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("LOOP",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1347,7 +1347,7 @@ class CUP$Parser$actions {
 		Location bxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location bxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		SymbolList<Statement> b = (SymbolList<Statement>)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 // RESULT = new ForeachLoop(d, e, b); 
+		 RESULT = new ForeachLoop(d, e, b); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("LOOP",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
