@@ -2,55 +2,72 @@ package parser.symbols.statements.loop;
 
 import dot.DotNode;
 import parser.symbols.SymbolList;
-import parser.symbols.declarations.Declaration;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
 import symboltable.SymbolTable;
 import main.Compiler;
 import parser.symbols.declarations.cva.CVADeclaration;
+import parser.symbols.expressions.MockExpression;
+import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 
 public class ForeachLoop extends Loop {
 
-    private final Declaration declaration;
+    private final CVADeclaration declaration;
+    private final Expression array;
 
-    public ForeachLoop(Declaration declaration, Expression condition, SymbolList<Statement> statements) {
-        super(condition, statements);
+    public ForeachLoop(CVADeclaration declaration, Expression array, SymbolList<Statement> statements) {
+        super(array, statements);
         this.declaration = declaration;
+        this.array = array;
     }
 
     @Override
     public void validate() {
         SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
-        //mirar que el objeto a iterar sea un array
-        if (!this.condition.getType().isArray()) {
-            this.addSemanticError(condition.getName() + " no es un tipo array.");
+        try {
+            //mirar que el objeto a iterar sea un array
+            if (!array.getType().isArray()) {
+                addSemanticError("La expresión a iterar debe ser de tipo ARRAY.");
+                return;
+            }
+            if (declaration.hasAssociatedValue()) {
+                addSemanticError("La declaración en un bucle FOREACH no puede tener un valor asociado");
+                return;
+            }
+            Type declType = declaration.getType();
+
+            //mirar si el tipo de la declaracion corresponde con el tipo del array
+            Type expectedType = getExpectedDeclarationType();
+            String declMode = declaration.getMode().isConstant() ? "constante" : "variable";
+            if (!declType.isUnknown() && !expectedType.isUnknown() && !declType.equals(expectedType)) {
+                addSemanticError("No se puede asignar un valor de tipo " + expectedType + " a una " + declMode + " de tipo " + declType);
+            }
+        } finally {
+            symbolTable.enterBlock();
+            declaration.setAssociatedValue(new MockExpression(declaration.xleft));
+            declaration.validate();
+            array.validate();
+            if (statements != null) {
+                statements.validate();
+            }
+            symbolTable.exitBlock();
         }
-        //mirar si la declaracion es un tipo cva
-        if (!(declaration instanceof CVADeclaration)) {
-            this.addSemanticError("Se debe declarar un tipo variable, no un subprograma.");
-        }
-        Type type = symbolTable.getCVA(declaration.getIdentifier()).getType();
-            
-        //mirar si el tipo de la declaracion corresponde con el tipo del array    
-        if (!type.equals(condition.getType())) {
-            this.addSemanticError("Se esperaba un array de tipo " + type.getName());
-        }
-        symbolTable.enterBlock();
-        declaration.validate();
-        condition.validate();
-        if (statements != null) {
-            statements.validate();
-        }
-        symbolTable.exitBlock();
-        
+    }
+    
+    private Type getExpectedDeclarationType() {
+        Type type = array.getType();
+        PrimitiveType primType = type.getPrimitiveType();
+        int numDimensions = type.getDimensions().size();
+        return Type.getArray(primType, numDimensions - 1);
     }
 
     @Override
     public void toDot() {
         DotNode dotNode = new DotNode("FOREACH", "box", "filled", "#5280d6");
+        declaration.setAssociatedValue(null);
         dotNode.addEdgeIfNotNull(declaration, "decl");
-        dotNode.addEdge(condition, "cond");
+        dotNode.addEdge(array, "array");
         dotNode.addEdgeIfNotNull(statements, "stmts");
     }
 

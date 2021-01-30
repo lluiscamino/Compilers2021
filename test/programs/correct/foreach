@@ -1,0 +1,21 @@
+main() {
+    const array string[] cities = {"Madrid", "Paris", "Barcelona", "NY", "Berlin"};
+    const string city = cities[2];
+    for (const string city : cities) {
+        print(city);
+    }
+    for (var string city : cities) {
+        print(city);
+    }
+    for (const string country : {"USA", "Canada", "France"}) {
+        print(country);
+    }
+    for (const int num : array(int [350])) {
+        print(num + 1);
+    }
+    for (const array boolean[] arr : array(boolean [10][10])) {
+        for (const boolean val : arr) {
+            print(arr);
+        }
+    }
+}

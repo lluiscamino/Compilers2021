@@ -28,4 +28,10 @@ main() {
 
     unidimensional[1 + a] += a;
     tridimensional[0][0][0] -= bidimensional[1][4];
+
+    for (var int i = 0; i < length(bidimensional); i += 1) {
+        for (var int j = 0; j < length(bidimensional[i]); i += 1) {
+            bidimensional[i][j] = i * j;
+        }
+    }
 }

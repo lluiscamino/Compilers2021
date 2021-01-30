@@ -10,7 +10,7 @@ import parser.symbols.expressions.Expression;
 public abstract class CVADeclaration extends Declaration {
     protected final Type type;
     protected final DeclarationMode mode;
-    protected final Expression expression;
+    protected Expression expression;
     
     public CVADeclaration(DeclarationMode mode, Type type, String identifier) {
         super(identifier, mode.xleft);
@@ -32,6 +32,14 @@ public abstract class CVADeclaration extends Declaration {
 
     public DeclarationMode getMode() {
         return mode;
+    }
+    
+    public boolean hasAssociatedValue() {
+        return expression != null;
+    }
+    
+    public void setAssociatedValue(Expression expression) {
+        this.expression = expression;
     }
     
     @Override
