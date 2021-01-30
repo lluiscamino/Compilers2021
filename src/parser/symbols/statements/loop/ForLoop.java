@@ -25,10 +25,12 @@ public class ForLoop extends Loop {
     @Override
     public void validate() {
         SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        //mirar que el tipo sea booleano
         Type condType = condition.getType();
         if (!condType.isUnknown() && !condType.isBoolean()) {
             addSemanticError("La condición del bucle debe ser de tipo " + Type.getBoolean() + ", no de tipo " + condType);
         }
+        //crear nuevo bloque y validar los atributos
         symbolTable.enterBlock();
         if (declarations != null) {
             declarations.validate();
