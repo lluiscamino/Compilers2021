@@ -7,7 +7,8 @@ import errors.ProgramError;
 import parser.symbols.Program;
 
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +17,17 @@ public final class Compiler {
 
     private final LexicalAnalyzer scanner;
     private final SyntacticAnalyzer parser;
-    private final String symbolTablePath, treePath;
-    private final PrintWriter errorsWriter;
+    private final Writer symbolTableWriter, treeWriter, errorsWriter;
     private final List<ProgramError> errorsList = new ArrayList<>();
     private SemanticAnalyzer semanticAnalyzer;
 
-    public Compiler(String inputPath, String tokensPath, String symbolTablePath, String treePath, String errorsPath) throws FileNotFoundException {
+    public Compiler(String inputPath, Writer tokensWriter, Writer symbolTableWriter, Writer treeWriter, Writer errorsWriter) throws FileNotFoundException {
         instance = this;
-        this.scanner = new LexicalAnalyzer(inputPath, tokensPath);
+        this.scanner = new LexicalAnalyzer(inputPath, tokensWriter);
         this.parser = new SyntacticAnalyzer(scanner);
-        this.symbolTablePath = symbolTablePath;
-        this.treePath = treePath;
-        this.errorsWriter = new PrintWriter(errorsPath);
+        this.symbolTableWriter = symbolTableWriter;
+        this.treeWriter = treeWriter;
+        this.errorsWriter = errorsWriter;
     }
 
     public static Compiler getCompiler() {
@@ -50,7 +50,7 @@ public final class Compiler {
         scanner.writeTokenList();
         Program program = parser.getSyntaxTree();
         if (program != null) {
-            semanticAnalyzer = new SemanticAnalyzer(program, symbolTablePath, treePath);
+            semanticAnalyzer = new SemanticAnalyzer(program, symbolTableWriter, treeWriter);
             semanticAnalyzer.validate();
             semanticAnalyzer.writeSymbolTable();
             semanticAnalyzer.writeTree();
@@ -58,7 +58,7 @@ public final class Compiler {
         writeErrors();
     }
 
-    private void writeErrors() {
+    private void writeErrors() throws IOException {
         StringBuilder buffer = new StringBuilder();
         for (ProgramError error : errorsList) {
             buffer.append(error.getMessage()).append("\n");

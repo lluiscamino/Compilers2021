@@ -7,16 +7,16 @@ import scanner.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.Writer;
 
 public final class LexicalAnalyzer extends Scanner {
     private final String inputPath;
-    private final PrintWriter tokensWriter;
+    private final Writer tokensWriter;
 
-    public LexicalAnalyzer(String inputPath, String tokensPath) throws FileNotFoundException {
+    public LexicalAnalyzer(String inputPath, Writer tokensWriter) throws FileNotFoundException {
         super(new FileReader(inputPath));
         this.inputPath = inputPath;
-        this.tokensWriter = new PrintWriter(tokensPath);
+        this.tokensWriter = tokensWriter;
     }
 
     public void writeTokenList() throws IOException {
@@ -27,7 +27,7 @@ public final class LexicalAnalyzer extends Scanner {
             buffer.append("\n");
             tk = next_token();
         }
-        tokensWriter.print(buffer.toString());
+        tokensWriter.write(buffer.toString());
         tokensWriter.close();
         yyreset(new FileReader(inputPath));
     }

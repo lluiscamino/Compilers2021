@@ -13,4 +13,13 @@ public abstract class ProgramError extends Exception {
     
     @Override
     public abstract String getMessage();
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof ProgramError)) return false;
+        ProgramError error = (ProgramError) object;
+        return getClass().equals(error.getClass())
+                && message.equals(error.message)
+                && location.getLine() == error.location.getLine();
+    }
 }
