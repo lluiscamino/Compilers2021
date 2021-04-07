@@ -78,7 +78,7 @@ public final class Compiler {
         writeErrors();
     }
 
-    private void writeTokenList() throws IOException, LexicalError {
+    private void writeTokenList() throws IOException {
         StringBuilder buffer = new StringBuilder();
         Symbol tk = scanner.next_token();
         while (tk != null) {
