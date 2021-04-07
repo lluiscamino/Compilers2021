@@ -46,11 +46,6 @@ public class DotNode {
         node.toDot();
     }
     
-    public void print(PrintWriter out) {
-        StringBuilder buffer = Compiler.getCompiler().getSemanticAnalyzer().getTreeBuffer();
-        out.print(buffer.toString());
-    }
-    
     private void addLabel() {
         StringBuilder buffer = Compiler.getCompiler().getSemanticAnalyzer().getTreeBuffer();
         buffer.append(id);
