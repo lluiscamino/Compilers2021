@@ -24,7 +24,7 @@ public class ForLoop extends Loop {
 
     @Override
     public void validate() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         //mirar que el tipo sea booleano
         Type condType = condition.getType();
         if (!condType.isUnknown() && !condType.isBoolean()) {

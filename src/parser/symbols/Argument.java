@@ -26,7 +26,7 @@ public final class Argument extends ParserSymbol {
     
     @Override
     public void validate() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         DeclarationMode declMode = DeclarationMode.getVariable(type.xleft);
         Declaration declaration = type.isArray() ?
                 new ArrayDeclaration(declMode, type.getPrimitiveType(), type.getDimensions(), identifier) :

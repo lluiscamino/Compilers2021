@@ -16,7 +16,7 @@ public abstract class ArrayOperationAssignment extends ArrayAssignment {
     @Override
     public void validate() {
         try {
-            SymbolTable symbolTable = main.Compiler.getCompiler().getSymbolTable();
+            SymbolTable symbolTable = main.Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
             CVADeclaration declaration = symbolTable.getCVA(identifier);
             checkDeclarationExists(declaration);
             checkDeclarationIsVariable(declaration);

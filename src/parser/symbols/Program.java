@@ -21,7 +21,7 @@ public final class Program extends ParserSymbol {
 
     @Override
     public void validate() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         if (declarations != null) {
             for (Declaration decl : declarations.toArrayList()) {
                 if (!symbolTable.put(decl)) {

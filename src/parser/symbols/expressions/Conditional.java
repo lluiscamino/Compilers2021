@@ -7,10 +7,15 @@ public final class Conditional extends Expression {
     private final Expression condition, leftExpression, rightExpression;
     
     public Conditional(Expression condition, Expression leftExpression, Expression rightExpression) {
-        super(leftExpression.getType(), Mode.RESULT, condition.xleft);
+        super(Type.getUnknown(), Mode.RESULT, condition.xleft);
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.condition = condition;
+    }
+
+    @Override
+    public Type getType() {
+        return leftExpression.getType();
     }
 
     @Override

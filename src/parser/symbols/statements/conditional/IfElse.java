@@ -19,7 +19,7 @@ public final class IfElse extends If {
     @Override
     public void validate() {
         super.validate();
-        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         symbolTable.enterBlock();
         if (elseStatements != null) {
             elseStatements.validate();

@@ -24,7 +24,7 @@ public class ForeachLoop extends Loop {
 
     @Override
     public void validate() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         try {
             //mirar que el objeto a iterar sea un array
             if (!array.getType().isArray()) {

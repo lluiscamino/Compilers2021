@@ -19,14 +19,14 @@ public class IdentifierReference extends Expression {
     
     @Override
     public Type getType() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         CVADeclaration decl = symbolTable.getCVA(identifierName);
         return decl != null ? decl.getType(): Type.getUnknown();
     }
 
     @Override
     public void validate() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         //mirar la tabla de simbolos
         CVADeclaration decl = symbolTable.getCVA(identifierName);
         if (decl == null) {

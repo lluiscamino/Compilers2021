@@ -1,110 +1,61 @@
 package main;
 
-import dot.DotIdGenerator;
-import errors.LexicalError;
+import analyzers.LexicalAnalyzer;
+import analyzers.SemanticAnalyzer;
+import analyzers.SyntacticAnalyzer;
 import errors.ProgramError;
+import parser.symbols.Program;
+
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
-import java_cup.runtime.ComplexSymbolFactory;
-import java_cup.runtime.Symbol;
-import java_cup.runtime.SymbolFactory;
-import parser.Parser;
-import parser.ParserSym;
-import parser.symbols.Program;
-import scanner.Scanner;
-import symboltable.SymbolTable;
 
 public final class Compiler {
     private static Compiler instance;
-    
-    private final String inputPath;
-    private final Scanner scanner;
-    private final Parser parser;
-    private final PrintWriter tokensWriter, symbolTableWriter, treeWriter, errorsWriter;
-    
-    private Program program;
-    private final SymbolTable symbolTable = new SymbolTable();
+
+    private final LexicalAnalyzer scanner;
+    private final SyntacticAnalyzer parser;
+    private final String symbolTablePath, treePath;
+    private final PrintWriter errorsWriter;
     private final List<ProgramError> errorsList = new ArrayList<>();
-    private final DotIdGenerator dotIdGenerator = new DotIdGenerator();
-    private final StringBuilder treeBuffer = new StringBuilder();
-    
+    private SemanticAnalyzer semanticAnalyzer;
+
+    public Compiler(String inputPath, String tokensPath, String symbolTablePath, String treePath, String errorsPath) throws FileNotFoundException {
+        instance = this;
+        this.scanner = new LexicalAnalyzer(inputPath, tokensPath);
+        this.parser = new SyntacticAnalyzer(scanner);
+        this.symbolTablePath = symbolTablePath;
+        this.treePath = treePath;
+        this.errorsWriter = new PrintWriter(errorsPath);
+    }
+
     public static Compiler getCompiler() {
         return instance;
     }
 
-    public Compiler(String inputPath, String tokensPath, String symbolTablePath, String treePath, String errorsPath) throws FileNotFoundException {
-        instance = this;
-        SymbolFactory symbolFactory = new ComplexSymbolFactory();
-        this.inputPath = inputPath;
-        Reader input = new FileReader(inputPath);
-        scanner = new Scanner(input);
-        parser = new Parser(scanner, symbolFactory);
-        tokensWriter = new PrintWriter(tokensPath);
-        symbolTableWriter = new PrintWriter(symbolTablePath);
-        treeWriter = new PrintWriter(treePath);
-        errorsWriter = new PrintWriter(errorsPath);
+    public SyntacticAnalyzer getParser() {
+        return parser;
     }
 
-    public SymbolTable getSymbolTable() {
-        return symbolTable;
+    public SemanticAnalyzer getSemanticAnalyzer() {
+        return semanticAnalyzer;
     }
 
     public List<ProgramError> getErrorsList() {
         return errorsList;
     }
 
-    public DotIdGenerator getDotIdGenerator() {
-        return dotIdGenerator;
-    }
-
-    public StringBuilder getTreeBuffer() {
-        return treeBuffer;
-    }
-
     public void compile() throws Exception {
-        writeTokenList();
-        Symbol parseResult = parser.parse();
-        if (parseResult != null && parseResult.value instanceof Program) {
-            program = (Program) parseResult.value; // Sintáctico
-            program.validate(); // Semántico
-            writeSymbolTable();
-            writeTree();
+        scanner.writeTokenList();
+        Program program = parser.getSyntaxTree();
+        if (program != null) {
+            semanticAnalyzer = new SemanticAnalyzer(program, symbolTablePath, treePath);
+            semanticAnalyzer.validate();
+            semanticAnalyzer.writeSymbolTable();
+            semanticAnalyzer.writeTree();
         }
         writeErrors();
-    }
-
-    private void writeTokenList() throws IOException {
-        StringBuilder buffer = new StringBuilder();
-        Symbol tk = scanner.next_token();
-        while (tk != null) {
-            buffer.append(ParserSym.terminalNames[tk.sym]);
-            buffer.append("\n");
-            tk = scanner.next_token();
-        }
-        tokensWriter.print(buffer.toString());
-        tokensWriter.close();
-        scanner.yyreset(new FileReader(inputPath));
-    }
-    
-    private void writeSymbolTable() {
-        symbolTableWriter.write(symbolTable.toString());
-        symbolTableWriter.close();
-    }
-
-    private void writeTree() {
-        if (program == null) {
-            return;
-        }
-        treeBuffer.append("strict digraph {\n");
-        program.toDot();
-        treeBuffer.append("}");
-        treeWriter.write(treeBuffer.toString());
-        treeWriter.close();
     }
 
     private void writeErrors() {

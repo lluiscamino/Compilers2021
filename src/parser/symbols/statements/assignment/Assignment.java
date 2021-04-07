@@ -22,7 +22,7 @@ public class Assignment extends Statement {
     @Override
     public void validate() {
         try {
-            SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+            SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
             CVADeclaration declaration = symbolTable.getCVA(identifier);
             checkDeclarationExists(declaration);
             checkDeclarationIsVariable(declaration);

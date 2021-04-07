@@ -24,7 +24,7 @@ public final class Call extends ParserSymbol {
     }
     
     public Type getReturnType() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         SubprogramDeclaration decl = symbolTable.getSubprogram(subProgramIdentifier);
         
         if (decl == null) {
@@ -38,7 +38,7 @@ public final class Call extends ParserSymbol {
 
     @Override
     public void validate() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         //buscar el identificador en la tabla de simbolos
         SubprogramDeclaration decl = symbolTable.getSubprogram(subProgramIdentifier);
         if (decl == null) {

@@ -20,7 +20,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
 
     @Override
     public Type getType() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         CVADeclaration decl = symbolTable.getCVA(identifierName);
         if (decl == null || !(decl instanceof ArrayDeclaration)) {
             return Type.getUnknown();
@@ -39,7 +39,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
     @Override
     public void validate() {
         try {
-            SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+            SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
             CVADeclaration decl = symbolTable.getCVA(identifierName);
             if (decl == null) {
                 addSemanticError("No existe ninguna variable llamada " + identifierName);

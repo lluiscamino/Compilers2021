@@ -44,7 +44,7 @@ public abstract class CVADeclaration extends Declaration {
     
     @Override
     public void validate() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSymbolTable();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         if (mode.isConstant() && expression == null) {
             addSemanticError("La declaración de la constante " + identifier + " no tiene ningun valor asociado");
         }

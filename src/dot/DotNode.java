@@ -8,7 +8,7 @@ public class DotNode {
     private final String label, shape, style, fillColor;
 
     public DotNode(String label, String shape, String style, String fillColor) {
-        DotIdGenerator dotIdGenerator = Compiler.getCompiler().getDotIdGenerator();
+        DotIdGenerator dotIdGenerator = Compiler.getCompiler().getSemanticAnalyzer().getDotIdGenerator();
         this.id = dotIdGenerator.get();
         this.label = label.replaceAll("\"", "\\\\\"");
         this.shape = shape.length() > 0 ? shape : "none";
@@ -34,8 +34,8 @@ public class DotNode {
     }
     
     public void addEdge(DOTizable node, String label) {
-        StringBuilder buffer = Compiler.getCompiler().getTreeBuffer();
-        DotIdGenerator dotIdGenerator = Compiler.getCompiler().getDotIdGenerator();
+        StringBuilder buffer = Compiler.getCompiler().getSemanticAnalyzer().getTreeBuffer();
+        DotIdGenerator dotIdGenerator = Compiler.getCompiler().getSemanticAnalyzer().getDotIdGenerator();
         buffer.append("\t");
         buffer.append(id);
         buffer.append("->");
@@ -47,12 +47,12 @@ public class DotNode {
     }
     
     public void print(PrintWriter out) {
-        StringBuilder buffer = Compiler.getCompiler().getTreeBuffer();
+        StringBuilder buffer = Compiler.getCompiler().getSemanticAnalyzer().getTreeBuffer();
         out.print(buffer.toString());
     }
     
     private void addLabel() {
-        StringBuilder buffer = Compiler.getCompiler().getTreeBuffer();
+        StringBuilder buffer = Compiler.getCompiler().getSemanticAnalyzer().getTreeBuffer();
         buffer.append(id);
         buffer.append("\t[label=\"");
         buffer.append(label);
