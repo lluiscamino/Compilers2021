@@ -34,7 +34,7 @@ public class SymbolTable {
 
     public CVADeclaration getCVA(String name) {
         Declaration decl = scope.get(name);
-        if (decl == null || !(decl instanceof CVADeclaration)) {
+        if (!(decl instanceof CVADeclaration)) {
             return null;
         }
         return (CVADeclaration) decl;
@@ -42,7 +42,7 @@ public class SymbolTable {
 
     public SubprogramDeclaration getSubprogram(String name) {
         Declaration decl = scope.get(name);
-        if (decl == null || !(decl instanceof SubprogramDeclaration)) {
+        if (!(decl instanceof SubprogramDeclaration)) {
             return null;
         }
         return (SubprogramDeclaration) decl;
