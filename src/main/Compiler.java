@@ -69,8 +69,7 @@ public final class Compiler {
     public void compile() throws Exception {
         writeTokenList();
         Symbol parseResult = parser.parse();
-        if (parseResult != null && parseResult.value != null
-                && parseResult.value instanceof Program) {
+        if (parseResult != null && parseResult.value instanceof Program) {
             program = (Program) parseResult.value; // Sintáctico
             program.validate(); // Semántico
             writeSymbolTable();
