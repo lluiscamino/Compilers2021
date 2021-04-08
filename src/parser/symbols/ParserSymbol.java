@@ -25,4 +25,8 @@ public abstract class ParserSymbol extends ComplexSymbol implements DOTizable {
     public void addSemanticError(String message) {
         Compiler.getCompiler().getErrorsList().add(new SemanticError(message, xleft));
     }
+
+    public void addSemanticError(String message, Location location) {
+        Compiler.getCompiler().getErrorsList().add(new SemanticError(message, location));
+    }
 }

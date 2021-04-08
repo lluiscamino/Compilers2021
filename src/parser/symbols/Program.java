@@ -25,7 +25,7 @@ public final class Program extends ParserSymbol {
         if (declarations != null) {
             for (Declaration decl : declarations.toArrayList()) {
                 if (!symbolTable.put(decl)) {
-                    addSemanticError("Declaración " + decl.getIdentifier() + " ya definida");
+                    addSemanticError("Declaración " + decl.getIdentifier() + " ya definida", decl.xleft);
                 }
             }
             declarations.validate();
