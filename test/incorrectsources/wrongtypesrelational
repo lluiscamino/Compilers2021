@@ -1,0 +1,9 @@
+main() {
+    if ("aa" > "bb") {
+        print("aa > bb");
+    } else if (true <= false) {
+        print("true <= false");
+    } else if ({3} < {7}) {
+        print("{3} < {7}");
+    }
+}

@@ -1,0 +1,5 @@
+main() {
+    const boolean a = 1 || false;
+    const boolean b = 7 && true;
+    const boolean c = (3 + 2) == 0 && (2 * 7 % 2);
+}

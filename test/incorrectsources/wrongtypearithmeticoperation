@@ -1,0 +1,5 @@
+main() {
+    const int a = 3 * false;
+    const int b = (3 % 2) / "7";
+    const int c = "3" - false;
+}

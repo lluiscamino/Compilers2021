@@ -1,0 +1,12 @@
+main() {
+    var int number;
+    var string text;
+
+    number = "Hello";
+    number = true;
+    number = {{1}, {2, 3}};
+
+    text = -1;
+    text = false;
+    text = {{"Hello"}};
+}

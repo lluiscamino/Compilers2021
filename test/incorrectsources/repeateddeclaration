@@ -1,0 +1,20 @@
+const int repeated = 3;
+
+procedure repeated() {
+    print("Do a");
+}
+
+procedure repeated() {
+    print("Do b");
+}
+
+procedure repeated(int a, int b) {
+    print("Do c");
+}
+
+function repeated int(int c) {
+    print("Do d");
+    return c;
+}
+
+main() {}

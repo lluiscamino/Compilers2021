@@ -1,0 +1,4 @@
+function notmain int(int number) {
+    print("This is not main");
+    return number;
+}

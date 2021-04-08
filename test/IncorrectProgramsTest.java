@@ -54,7 +54,102 @@ public final class IncorrectProgramsTest {
         testProgram("inc3", expectedErrors);
     }
 
-    private Location getLocation(int line) {
+    @Test
+    public void testMissingMain() throws Exception {
+        final ProgramError[] expectedErrors = {
+                new SyntaxError("No se esperaba el token EOF", null),
+        };
+        testProgram("missingmain", expectedErrors);
+    }
+
+    @Test
+    public void testNonBooleanWhile() throws Exception {
+        final ProgramError[] expectedErrors = {
+                new SemanticError("La condición del bucle debe ser de tipo BOOLEAN, no de tipo INT", getLocation(3)),
+                new SemanticError("La condición del bucle debe ser de tipo BOOLEAN, no de tipo INT", getLocation(6)),
+                new SemanticError("La condición del bucle debe ser de tipo BOOLEAN, no de tipo STRING", getLocation(9)),
+                new SemanticError("La condición del bucle debe ser de tipo BOOLEAN, " +
+                        "no de tipo BOOLEAN_ARR Dimensions:1", getLocation(12))
+        };
+        testProgram("nonbooleanwhile", expectedErrors);
+    }
+
+    @Test
+    public void testWrongTypeAssignment() throws Exception {
+        final ProgramError[] expectedErrors = {
+                new SemanticError("No se puede asignar un valor de tipo STRING a una variable de tipo INT", getLocation(5)),
+                new SemanticError("No se puede asignar un valor de tipo BOOLEAN a una variable de tipo INT", getLocation(6)),
+                new SemanticError("No se puede asignar un valor de tipo INT_ARR Dimensions:2 a una variable de tipo INT", getLocation(7)),
+                new SemanticError("No se puede asignar un valor de tipo INT a una variable de tipo STRING", getLocation(9)),
+                new SemanticError("No se puede asignar un valor de tipo BOOLEAN a una variable de tipo STRING", getLocation(10)),
+                new SemanticError("No se puede asignar un valor de tipo STRING_ARR Dimensions:2 a una variable de tipo STRING", getLocation(11))
+        };
+        testProgram("wrongtypeassignment", expectedErrors);
+    }
+
+    @Test
+    public void testWrongTypesRelational() throws Exception {
+        final ProgramError[] expectedErrors = {
+                new SemanticError("No se pueden comparar expresiones de tipo STRING", getLocation(2)),
+                new SemanticError("No se pueden comparar expresiones de tipo BOOLEAN", getLocation(4)),
+                new SemanticError("No se pueden comparar expresiones de tipo INT_ARR Dimensions:1", getLocation(6)),
+        };
+        testProgram("wrongtypesrelational", expectedErrors);
+    }
+
+    @Test
+    public void testWrongTypeNegative() throws Exception {
+        final ProgramError[] expectedErrors = {
+                new SemanticError("No se puede hacer una operación aritmética con un tipo que no sea INT", getLocation(2)),
+                new SemanticError("No se puede hacer una operación aritmética con un tipo que no sea INT", getLocation(3)),
+                new SemanticError("No se puede hacer una operación aritmética con un tipo que no sea INT", getLocation(4)),
+        };
+        testProgram("wrongtypenegative", expectedErrors);
+    }
+
+    @Test
+    public void testWrongTypeArithmeticOperation() throws Exception {
+        final ProgramError[] expectedErrors = {
+                new SemanticError("No se puede hacer una operación aritmética con un tipo que no sea INT", getLocation(2)),
+                new SemanticError("No se puede hacer una operación aritmética con un tipo que no sea INT", getLocation(3)),
+                new SemanticError("No se puede hacer una operación aritmética con un tipo que no sea INT", getLocation(4)),
+        };
+        testProgram("wrongtypearithmeticoperation", expectedErrors);
+    }
+
+    @Test
+    public void testWrongTypeBinaryOperation() throws Exception {
+        final ProgramError[] expectedErrors = {
+                new SemanticError("No se puede hacer una operación lógica con un tipo que no sea BOOLEAN", getLocation(2)),
+                new SemanticError("No se puede hacer una operación lógica con un tipo que no sea BOOLEAN", getLocation(3)),
+                new SemanticError("No se puede hacer una operación lógica con un tipo que no sea BOOLEAN", getLocation(4)),
+        };
+        testProgram("wrongtypebinaryoperation", expectedErrors);
+    }
+
+    @Test
+    public void testWrongTypeNot() throws Exception {
+        final ProgramError[] expectedErrors = {
+                new SemanticError("No se puede hacer una operación lógica con un tipo que no sea BOOLEAN", getLocation(2)),
+                new SemanticError("No se puede hacer una operación lógica con un tipo que no sea BOOLEAN", getLocation(3)),
+                new SemanticError("No se puede hacer una operación lógica con un tipo que no sea BOOLEAN", getLocation(6)),
+                new SemanticError("No se puede hacer una operación lógica con un tipo que no sea BOOLEAN", getLocation(7))
+        };
+        testProgram("wrongtypenot", expectedErrors);
+    }
+
+    @Test
+    public void testRepeatedDeclaration() throws Exception {
+        final ProgramError[] expectedErrors = {
+                new SemanticError("Declaración repeated ya definida", getLocation(3)),
+                new SemanticError("Declaración repeated ya definida", getLocation(7)),
+                new SemanticError("Declaración repeated ya definida", getLocation(11)),
+                new SemanticError("Declaración repeated ya definida", getLocation(15))
+        };
+        testProgram("repeateddeclaration", expectedErrors);
+    }
+
+    private Location getLocation(final int line) {
         return new Location(line, 0);
     }
 

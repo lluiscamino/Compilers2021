@@ -1,0 +1,8 @@
+main() {
+    const boolean a = !3;
+    if (!"Hello") {
+        print("Hello");
+    }
+    const boolean c = !true || !(9 + 2);
+    const boolean d = !{false};
+}
