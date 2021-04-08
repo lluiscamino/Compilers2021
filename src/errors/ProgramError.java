@@ -18,8 +18,7 @@ public abstract class ProgramError extends Exception {
     public boolean equals(Object object) {
         if (!(object instanceof ProgramError)) return false;
         ProgramError error = (ProgramError) object;
-        return getClass().equals(error.getClass())
-                && message.equals(error.message)
-                && location.getLine() == error.location.getLine();
+        return getClass().equals(error.getClass()) && message.equals(error.message)
+                && (location == error.location || location.getLine() == error.location.getLine());
     }
 }
