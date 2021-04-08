@@ -17,7 +17,7 @@ public final class Negative extends Expression {
     public void validate() {
         Type exprType = expression.getType();
         if (!exprType.isUnknown() && !exprType.isInteger()) {
-            addSemanticError("No se puede hacer una operación aritmética con un tipo que no sea entero");
+            addSemanticError("No se puede hacer una operación aritmética con un tipo que no sea " + Type.getInteger());
         }
         expression.validate();
     }
