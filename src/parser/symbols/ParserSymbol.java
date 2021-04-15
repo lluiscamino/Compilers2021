@@ -5,8 +5,9 @@ import errors.SemanticError;
 import main.Compiler;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 import java_cup.runtime.ComplexSymbolFactory.Location;
+import tac.TACizable;
 
-public abstract class ParserSymbol extends ComplexSymbol implements DOTizable {
+public abstract class ParserSymbol extends ComplexSymbol implements DOTizable, TACizable {
     
     public ParserSymbol(String name) {
         super(name, 0);
@@ -21,6 +22,9 @@ public abstract class ParserSymbol extends ComplexSymbol implements DOTizable {
     
     @Override
     public abstract void toDot();
+
+    @Override
+    public abstract void toTac();
     
     public void addSemanticError(String message) {
         Compiler.getCompiler().getErrorsList().add(new SemanticError(message, xleft));
