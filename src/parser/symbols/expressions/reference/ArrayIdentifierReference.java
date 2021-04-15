@@ -22,7 +22,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
     public Type getType() {
         SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         CVADeclaration decl = symbolTable.getCVA(identifierName);
-        if (decl == null || !(decl instanceof ArrayDeclaration)) {
+        if (!(decl instanceof ArrayDeclaration)) {
             return Type.getUnknown();
         }
         ArrayDeclaration arrDecl = (ArrayDeclaration) decl;
