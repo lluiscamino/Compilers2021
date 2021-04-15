@@ -39,4 +39,9 @@ public class If extends Statement {
         dotNode.addEdge(condition, "cond");
         dotNode.addEdgeIfNotNull(statements, "stmts");
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

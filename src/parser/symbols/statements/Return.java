@@ -26,5 +26,9 @@ public final class Return extends Statement {
         DotNode dotNode = new DotNode("RETURN", "", "filled", "#5280d6");
         dotNode.addEdge(expression);
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -21,5 +21,9 @@ public final class Priority extends Expression {
         
         dotNode.addEdgeIfNotNull(expression, "expr");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

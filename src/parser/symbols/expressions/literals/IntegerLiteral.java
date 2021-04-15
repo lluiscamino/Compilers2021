@@ -23,5 +23,9 @@ public final class IntegerLiteral extends Literal {
              new DotNode(Integer.toString(getValue()), "plaintext", "", "");
         }, "value");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

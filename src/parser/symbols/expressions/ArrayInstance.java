@@ -26,5 +26,9 @@ public final class ArrayInstance extends Expression {
         dotNode.addEdge(getType(), "type");
         dotNode.addEdge(indexes, "indexes");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

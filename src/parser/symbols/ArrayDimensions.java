@@ -27,5 +27,9 @@ public final class ArrayDimensions extends ParserSymbol {
     public void toDot() {
         new DotNode(String.valueOf(numDimensions), "", "filled", "");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

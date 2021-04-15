@@ -29,4 +29,8 @@ public final class Negative extends Expression {
         dotNode.addEdgeIfNotNull(expression);
     }
 
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

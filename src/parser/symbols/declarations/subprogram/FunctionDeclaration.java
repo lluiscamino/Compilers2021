@@ -58,6 +58,11 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
         dotNode.addEdgeIfNotNull(statements, "stmts");
         dotNode.addEdge(returnStatement, "return");
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
     @Override
     public String toString() {

@@ -37,5 +37,9 @@ public final class ArrayIndexes extends ParserSymbol {
     public void toDot() {
         indexes.toDot();
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -23,5 +23,9 @@ public class StringLiteral extends Literal {
             new DotNode(getValue(), "plaintext", "", "");
         }, "value");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

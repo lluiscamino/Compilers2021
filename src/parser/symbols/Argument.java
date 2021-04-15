@@ -44,5 +44,9 @@ public final class Argument extends ParserSymbol {
             new DotNode(identifier, "plaintext", "", "");
         }, "ident");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

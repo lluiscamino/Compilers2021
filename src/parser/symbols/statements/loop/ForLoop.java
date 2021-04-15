@@ -54,5 +54,9 @@ public class ForLoop extends Loop {
             dotNode.addEdgeIfNotNull(assignments, "assigns");
             dotNode.addEdgeIfNotNull(statements, "stmts");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

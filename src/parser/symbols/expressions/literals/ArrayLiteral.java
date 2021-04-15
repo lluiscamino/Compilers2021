@@ -82,4 +82,9 @@ public final class ArrayLiteral extends Literal {
         
         dotNode.addEdgeIfNotNull(getValue(), "literals");
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

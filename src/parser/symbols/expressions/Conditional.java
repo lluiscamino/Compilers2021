@@ -43,5 +43,9 @@ public final class Conditional extends Expression {
         dotNode.addEdge(leftExpression);
         dotNode.addEdge(rightExpression);
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

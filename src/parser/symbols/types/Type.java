@@ -95,6 +95,11 @@ public final class Type extends ParserSymbol {
             dotNode.addEdge(dimensions, "dimensions");
         }
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
     @Override
     public String toString() {

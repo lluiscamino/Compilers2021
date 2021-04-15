@@ -37,6 +37,11 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
         dotNode.addEdgeIfNotNull(arguments, "args");
         dotNode.addEdgeIfNotNull(statements, "stmts");
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
     @Override
     public String toString() {

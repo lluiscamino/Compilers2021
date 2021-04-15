@@ -81,5 +81,9 @@ public final class Call extends ParserSymbol {
         }, "ident");
         dotNode.addEdgeIfNotNull(arguments, "args");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

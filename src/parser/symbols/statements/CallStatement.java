@@ -19,4 +19,9 @@ public final class CallStatement extends Statement {
     public void toDot() {
         call.toDot();
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -70,4 +70,8 @@ public final class ArrayIdentifierReference extends IdentifierReference {
         dotNode.addEdgeIfNotNull(indexes, "indexes");
     }
 
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

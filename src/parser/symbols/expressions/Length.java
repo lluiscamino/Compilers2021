@@ -26,5 +26,9 @@ public final class Length extends Expression {
         
         dotNode.addEdge(expression, "expr");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

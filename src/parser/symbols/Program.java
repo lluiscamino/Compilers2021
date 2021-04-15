@@ -41,4 +41,9 @@ public final class Program extends ParserSymbol {
         dotNode.addEdgeIfNotNull(declarations);
         dotNode.addEdge(main);
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

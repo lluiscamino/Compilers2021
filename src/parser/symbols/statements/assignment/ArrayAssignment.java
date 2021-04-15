@@ -73,4 +73,9 @@ public class ArrayAssignment extends Assignment {
         dotNode.addEdge(indexes, "indexes");
         dotNode.addEdge(expression, "expr");
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

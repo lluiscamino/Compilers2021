@@ -39,6 +39,11 @@ public final class DeclarationMode extends ParserSymbol {
     public void toDot() {
         new DotNode(mode.toString(), "", "filled", "");
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
     @Override
     public String toString() {

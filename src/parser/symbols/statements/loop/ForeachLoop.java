@@ -71,4 +71,8 @@ public class ForeachLoop extends Loop {
         dotNode.addEdgeIfNotNull(statements, "stmts");
     }
 
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

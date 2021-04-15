@@ -19,5 +19,9 @@ public final class CVADeclarationStatement extends Statement {
     public void toDot() {
         declaration.toDot();
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

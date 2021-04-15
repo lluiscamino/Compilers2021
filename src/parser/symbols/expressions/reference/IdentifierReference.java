@@ -43,4 +43,8 @@ public class IdentifierReference extends Expression {
         }, "ident");
     }
 
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

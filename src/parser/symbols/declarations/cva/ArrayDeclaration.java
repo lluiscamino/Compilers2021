@@ -37,5 +37,9 @@ public final class ArrayDeclaration extends CVADeclaration {
         }, "ident");
         dotNode.addEdgeIfNotNull(expression, "value");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

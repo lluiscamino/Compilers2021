@@ -28,5 +28,9 @@ public final class Not extends Expression {
         
         dotNode.addEdgeIfNotNull(expression, "expr");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

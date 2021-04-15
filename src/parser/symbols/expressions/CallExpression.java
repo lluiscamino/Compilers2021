@@ -25,5 +25,9 @@ public final class CallExpression extends Expression {
     public void toDot() {
         call.toDot();
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

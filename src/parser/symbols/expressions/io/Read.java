@@ -20,5 +20,9 @@ public final class Read extends Expression {
     public void toDot() {
         new DotNode("READ", "box", "filled", "#8b7888");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -16,4 +16,9 @@ public final class MockExpression extends Expression {
     @Override
     public void toDot() {
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

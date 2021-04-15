@@ -76,4 +76,9 @@ public final class SymbolList<T extends ParserSymbol> extends ParserSymbol {
         dotNode.addEdgeIfNotNull(element);
         dotNode.addEdgeIfNotNull(next);
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

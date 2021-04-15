@@ -48,4 +48,9 @@ public final class Relational extends Expression {
         dotNode.addEdgeIfNotNull(operator, "operator");
         dotNode.addEdgeIfNotNull(rightExpression);
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

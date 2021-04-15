@@ -35,5 +35,9 @@ public final class WhileLoop extends Loop {
         dotNode.addEdge(condition, "cond");
         dotNode.addEdgeIfNotNull(statements, "stmts");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

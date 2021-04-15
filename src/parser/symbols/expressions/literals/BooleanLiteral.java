@@ -23,5 +23,9 @@ public class BooleanLiteral extends Literal {
             new DotNode(String.valueOf(getValue()), "plaintext", "", "");
         }, "value");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -35,4 +35,9 @@ public final class IfElse extends If {
         dotNode.addEdgeIfNotNull(statements, "stmts");
         dotNode.addEdgeIfNotNull(elseStatements, "else-stmts");
     }
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

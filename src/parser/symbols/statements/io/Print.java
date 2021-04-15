@@ -23,5 +23,9 @@ public final class Print extends Statement {
         DotNode dotNode = new DotNode("PRINT", "", "filled", "#5280d6");
         dotNode.addEdge(expression, "expr");
     }
-    
+
+    @Override
+    public void toTac() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
