@@ -54,6 +54,7 @@ public final class Compiler {
             semanticAnalyzer.validate();
             semanticAnalyzer.writeSymbolTable();
             semanticAnalyzer.writeTree();
+            semanticAnalyzer.generateTAC();
         }
         writeErrors();
     }

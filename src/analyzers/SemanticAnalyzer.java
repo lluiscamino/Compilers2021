@@ -3,15 +3,22 @@ package analyzers;
 import dot.DotIdGenerator;
 import parser.symbols.Program;
 import symboltable.SymbolTable;
+import tac.generators.TACTagGenerator;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.TACInstruction;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class SemanticAnalyzer {
     private final Program program;
     private final SymbolTable symbolTable;
     private final DotIdGenerator dotIdGenerator;
+    private final TACVariableGenerator tacVariableGenerator;
+    private final TACTagGenerator tacTagGenerator;
+    private final List<TACInstruction> tacInstructionList;
     private final Writer symbolTableWriter, treeWriter;
     private final StringBuilder treeBuffer;
 
@@ -19,6 +26,9 @@ public final class SemanticAnalyzer {
         this.program = program;
         this.symbolTable = new SymbolTable();
         this.dotIdGenerator = new DotIdGenerator();
+        this.tacVariableGenerator = new TACVariableGenerator();
+        this.tacTagGenerator = new TACTagGenerator();
+        this.tacInstructionList = new ArrayList<>();
         this.symbolTableWriter = symbolTableWriter;
         this.treeWriter = treeWriter;
         this.treeBuffer = new StringBuilder();
@@ -32,12 +42,28 @@ public final class SemanticAnalyzer {
         return dotIdGenerator;
     }
 
+    public TACVariableGenerator getTacVariableGenerator() {
+        return tacVariableGenerator;
+    }
+
+    public TACTagGenerator getTacTagGenerator() {
+        return tacTagGenerator;
+    }
+
+    public List<TACInstruction> getTacInstructionList() {
+        return tacInstructionList;
+    }
+
     public StringBuilder getTreeBuffer() {
         return treeBuffer;
     }
 
     public void validate() {
         program.validate();
+    }
+
+    public void generateTAC() {
+        program.toTac();
     }
 
     public void writeSymbolTable() throws IOException {
