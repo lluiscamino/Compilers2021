@@ -73,7 +73,7 @@ public final class Relational extends Expression {
         addTACInstruction(new SkipInstruction(e1));         // genera( e1 : skip );
         addTACInstruction(new CopyInstruction(t, -1));      // genera( t = -1 );
         addTACInstruction(new SkipInstruction(e2));         // genera( e2 : skip );
-        leftExpression.setTacVariable(t);                   // E0.r = t;
+        tacVariable = t;                                    // E0.r = t;
 
         leftExpression.toTac();
         rightExpression.toTac();
