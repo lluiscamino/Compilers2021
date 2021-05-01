@@ -22,6 +22,6 @@ public final class CallStatement extends Statement {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        call.toTac();
     }
 }
