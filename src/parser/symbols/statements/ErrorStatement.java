@@ -33,7 +33,5 @@ public final class ErrorStatement extends Statement {
     public void toDot() {}
 
     @Override
-    public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void toTac() {}
 }
