@@ -33,9 +33,7 @@ public final class ErrorDeclaration extends Declaration {
     public void toDot() {}
 
     @Override
-    public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void toTac() {}
     
     @Override
     public String toString() {
