@@ -7,6 +7,7 @@ import tac.generators.TACSubprogramGenerator;
 import tac.generators.TACTagGenerator;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.TACInstruction;
+import tac.tables.SubprogramsTable;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -21,6 +22,7 @@ public final class SemanticAnalyzer {
     private final TACSubprogramGenerator tacSubprogramGenerator;
     private final TACTagGenerator tacTagGenerator;
     private final List<TACInstruction> tacInstructionList;
+    private final SubprogramsTable subprogramsTable;
     private final Writer symbolTableWriter, treeWriter;
     private final StringBuilder treeBuffer;
 
@@ -32,6 +34,7 @@ public final class SemanticAnalyzer {
         this.tacSubprogramGenerator = new TACSubprogramGenerator();
         this.tacTagGenerator = new TACTagGenerator();
         this.tacInstructionList = new ArrayList<>();
+        this.subprogramsTable = new SubprogramsTable();
         this.symbolTableWriter = symbolTableWriter;
         this.treeWriter = treeWriter;
         this.treeBuffer = new StringBuilder();
@@ -59,6 +62,10 @@ public final class SemanticAnalyzer {
 
     public List<TACInstruction> getTacInstructionList() {
         return tacInstructionList;
+    }
+
+    public SubprogramsTable getSubprogramsTable() {
+        return subprogramsTable;
     }
 
     public StringBuilder getTreeBuffer() {
