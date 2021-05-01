@@ -79,6 +79,10 @@ public final class SymbolList<T extends ParserSymbol> extends ParserSymbol {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        SymbolList<T> node = this;
+        while (node != null && node.element != null) {
+            node.element.toTac();
+            node = node.next;
+        }
     }
 }
