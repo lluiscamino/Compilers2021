@@ -1,12 +1,16 @@
 package parser.symbols.statements.conditional;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
-import main.Compiler;
+import tac.generators.TACTagGenerator;
+import tac.instructions.bifurcation.SkipInstruction;
+import tac.instructions.bifurcation.ifs.IfEqual;
+import tac.references.TACTag;
 
 public class If extends Statement {
     protected final Expression condition;
@@ -42,6 +46,13 @@ public class If extends Statement {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TACTagGenerator tagGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacTagGenerator();
+        condition.toTac();
+        TACTag tag = tagGenerator.generate();
+        addTACInstruction(new IfEqual(condition.getTacVariable(), 0, tag));
+        if (statements != null) {
+            statements.toTac();
+        }
+        addTACInstruction(new SkipInstruction(tag));
     }
 }
