@@ -29,16 +29,16 @@ public abstract class ParserSymbol extends ComplexSymbol implements DOTizable, T
     @Override
     public abstract void toTac();
 
-    public void addTACInstruction(TACInstruction instruction) {
+    protected void addTACInstruction(TACInstruction instruction) {
         List<TACInstruction> instructionList = Compiler.getCompiler().getSemanticAnalyzer().getTacInstructionList();
         instructionList.add(instruction);
     }
     
-    public void addSemanticError(String message) {
+    protected void addSemanticError(String message) {
         Compiler.getCompiler().getErrorsList().add(new SemanticError(message, xleft));
     }
 
-    public void addSemanticError(String message, Location location) {
+    protected void addSemanticError(String message, Location location) {
         Compiler.getCompiler().getErrorsList().add(new SemanticError(message, location));
     }
 }
