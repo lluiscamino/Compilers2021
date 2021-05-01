@@ -44,6 +44,14 @@ public final class Program extends ParserSymbol {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
+        if (declarations != null) {
+            for (Declaration decl : declarations.toArrayList()) {
+                symbolTable.put(decl);
+                declarations.toTac();
+            }
+        }
+        symbolTable.put(main);
+        main.toTac();
     }
 }
