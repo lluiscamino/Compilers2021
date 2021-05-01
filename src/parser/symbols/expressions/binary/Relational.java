@@ -1,9 +1,18 @@
 package parser.symbols.expressions.binary;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.RelationalOperatorType;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
+import tac.generators.TACTagGenerator;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.CopyInstruction;
+import tac.instructions.bifurcation.GotoInstruction;
+import tac.instructions.bifurcation.SkipInstruction;
+import tac.instructions.bifurcation.ifs.*;
+import tac.references.TACTag;
+import tac.references.TACVariable;
 
 public final class Relational extends Expression {
     private final Expression leftExpression, rightExpression;
@@ -51,6 +60,33 @@ public final class Relational extends Expression {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+        TACTagGenerator tacTagGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacTagGenerator();
+
+        TACVariable t = tacVariableGenerator.generate();    // t = novavar;
+        TACTag e1 = tacTagGenerator.generate();             // e1 = novaetiqueta;
+        TACTag e2 = tacTagGenerator.generate();             // e2 = novaetiqueta;
+
+        addTACInstruction(getIfInstruction(e1));            // genera( if E1.r R E2.r goto e1);
+        addTACInstruction(new CopyInstruction(t, 0));       // genera( t = 0 );
+        addTACInstruction(new GotoInstruction(e2));         // genera( goto e2 );
+        addTACInstruction(new SkipInstruction(e1));         // genera( e1 : skip );
+        addTACInstruction(new CopyInstruction(t, -1));      // genera( t = -1 );
+        addTACInstruction(new SkipInstruction(e2));         // genera( e2 : skip );
+        leftExpression.setTacVariable(t);                   // E0.r = t;
+
+        leftExpression.toTac();
+        rightExpression.toTac();
+    }
+
+    private IfInstruction getIfInstruction(TACTag e1) {
+        return switch (operator) {
+            case LESS -> new IfLess(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1);
+            case GREATER -> new IfGreater(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1);
+            case LEQ -> new IfLEQ(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1);
+            case GEQ -> new IfGEQ(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1);
+            case EQUAL -> new IfEqual(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1);
+            case DIFF -> new IfDiff(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1);
+        };
     }
 }
