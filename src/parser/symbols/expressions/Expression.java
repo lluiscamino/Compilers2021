@@ -34,4 +34,8 @@ public abstract class Expression extends ParserSymbol {
     public TACVariable getTacVariable() {
         return tacVariable;
     }
+
+    public void setTacVariable(TACVariable tacVariable) {
+        this.tacVariable = tacVariable;
+    }
 }
