@@ -9,6 +9,11 @@ import parser.symbols.statements.assignment.Assignment;
 import main.Compiler;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
+import tac.generators.TACTagGenerator;
+import tac.instructions.bifurcation.GotoInstruction;
+import tac.instructions.bifurcation.SkipInstruction;
+import tac.instructions.bifurcation.ifs.IfEqual;
+import tac.references.TACTag;
 
 public class ForLoop extends Loop {
 
@@ -57,6 +62,22 @@ public class ForLoop extends Loop {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TACTagGenerator tagGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacTagGenerator();
+        if (declarations != null) {
+            declarations.toTac();
+        }
+        TACTag startTag = tagGenerator.generate();
+        addTACInstruction(new SkipInstruction(startTag));
+        condition.toTac();
+        TACTag endTag = tagGenerator.generate();
+        addTACInstruction(new IfEqual(condition.getTacVariable(), 0, endTag));
+        if (statements != null) {
+            statements.toTac();
+        }
+        if (assignments != null) {
+            assignments.toTac();
+        }
+        addTACInstruction(new GotoInstruction(startTag));
+        addTACInstruction(new SkipInstruction(endTag));
     }
 }
