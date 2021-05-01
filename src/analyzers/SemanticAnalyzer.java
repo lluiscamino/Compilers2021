@@ -3,6 +3,7 @@ package analyzers;
 import dot.DotIdGenerator;
 import parser.symbols.Program;
 import symboltable.SymbolTable;
+import tac.generators.TACSubprogramGenerator;
 import tac.generators.TACTagGenerator;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.TACInstruction;
@@ -17,6 +18,7 @@ public final class SemanticAnalyzer {
     private final SymbolTable symbolTable;
     private final DotIdGenerator dotIdGenerator;
     private final TACVariableGenerator tacVariableGenerator;
+    private final TACSubprogramGenerator tacSubprogramGenerator;
     private final TACTagGenerator tacTagGenerator;
     private final List<TACInstruction> tacInstructionList;
     private final Writer symbolTableWriter, treeWriter;
@@ -27,6 +29,7 @@ public final class SemanticAnalyzer {
         this.symbolTable = new SymbolTable();
         this.dotIdGenerator = new DotIdGenerator();
         this.tacVariableGenerator = new TACVariableGenerator();
+        this.tacSubprogramGenerator = new TACSubprogramGenerator();
         this.tacTagGenerator = new TACTagGenerator();
         this.tacInstructionList = new ArrayList<>();
         this.symbolTableWriter = symbolTableWriter;
@@ -44,6 +47,10 @@ public final class SemanticAnalyzer {
 
     public TACVariableGenerator getTacVariableGenerator() {
         return tacVariableGenerator;
+    }
+
+    public TACSubprogramGenerator getTacSubprogramGenerator() {
+        return tacSubprogramGenerator;
     }
 
     public TACTagGenerator getTacTagGenerator() {

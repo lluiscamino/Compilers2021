@@ -1,10 +1,10 @@
 package tac.instructions.subprogram;
 
-import tac.references.TACTag;
+import tac.references.TACSubprogram;
 
 public final class PreambleInstruction extends SubprogramInstruction {
-    public PreambleInstruction(TACTag tag) {
-        super(tag);
+    public PreambleInstruction(TACSubprogram subprogram) {
+        super(subprogram);
     }
 
     @Override

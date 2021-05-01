@@ -1,10 +1,10 @@
 package tac.instructions.subprogram;
 
-import tac.references.TACTag;
+import tac.references.TACSubprogram;
 
 public final class ReturnInstruction extends SubprogramInstruction {
-    public ReturnInstruction(TACTag tag) {
-        super(tag);
+    public ReturnInstruction(TACSubprogram subprogram) {
+        super(subprogram);
     }
 
     @Override
