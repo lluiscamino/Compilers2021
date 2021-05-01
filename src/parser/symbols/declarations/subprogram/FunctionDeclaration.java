@@ -67,8 +67,7 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
     @Override
     public String toString() {
         int lineNum = xleft != null ? xleft.getLine() : -1;
-        int numArgs = arguments != null ? arguments.size() : 0;
-        return lineNum + ": function " + identifier + " " + type + " (" + numArgs + " args)";
+        return lineNum + ": function " + identifier + " " + type + " (" + numArguments() + " args)";
     }
     
 }

@@ -46,8 +46,7 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
     @Override
     public String toString() {
         int lineNum = xleft != null ? xleft.getLine() : -1;
-        int numArgs = arguments != null ? arguments.size() : 0;
-        return lineNum + ": procedure " + identifier + " (" + numArgs + " args)";
+        return lineNum + ": procedure " + identifier + " (" + numArguments() + " args)";
     }
     
 }

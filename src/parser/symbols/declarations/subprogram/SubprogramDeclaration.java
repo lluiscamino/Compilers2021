@@ -31,6 +31,10 @@ public abstract class SubprogramDeclaration extends Declaration {
             statements.validate();
         }
     }
+
+    protected final int numArguments() {
+        return arguments != null ? arguments.size() : 0;
+    }
     
     public final List<Argument> toArrayListArguments() {
         if (arguments == null) return new ArrayList<>();
