@@ -60,7 +60,7 @@ public class SymbolTable {
 
     public void exitBlock() {
         if (scope.getPrevious() == null) {
-            //gestionar el error
+            throw new RuntimeException("Cannot exit initial scope");
         }
         indentLevel--;
         scope = scope.getPrevious();
