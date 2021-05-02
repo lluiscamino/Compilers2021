@@ -77,6 +77,7 @@ public final class SemanticAnalyzer {
     }
 
     public void generateTAC() {
+        symbolTable.clear();
         program.toTac();
     }
 

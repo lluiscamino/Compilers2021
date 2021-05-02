@@ -46,13 +46,16 @@ public class If extends Statement {
 
     @Override
     public void toTac() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         TACTagGenerator tagGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacTagGenerator();
+        symbolTable.enterBlock();
         condition.toTac();
         TACTag tag = tagGenerator.generate();
         addTACInstruction(new IfEqual(condition.getTacVariable(), 0, tag));
         if (statements != null) {
             statements.toTac();
         }
+        symbolTable.exitBlock();
         addTACInstruction(new SkipInstruction(tag));
     }
 }

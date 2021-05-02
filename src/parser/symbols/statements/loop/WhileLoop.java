@@ -43,15 +43,18 @@ public final class WhileLoop extends Loop {
 
     @Override
     public void toTac() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         TACTagGenerator tagGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacTagGenerator();
         TACTag startTag = tagGenerator.generate();
         addTACInstruction(new SkipInstruction(startTag));
+        symbolTable.enterBlock();
         condition.toTac();
         TACTag endTag = tagGenerator.generate();
         addTACInstruction(new IfEqual(condition.getTacVariable(), 0, endTag));
         if (statements != null) {
             statements.toTac();
         }
+        symbolTable.exitBlock();
         addTACInstruction(new GotoInstruction(startTag));
         addTACInstruction(new SkipInstruction(endTag));
     }

@@ -50,6 +50,7 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
     @Override
     public void toTac() {
         SemanticAnalyzer semanticAnalyzer = Compiler.getCompiler().getSemanticAnalyzer();
+        SymbolTable symbolTable = semanticAnalyzer.getSymbolTable();
         TACSubprogramGenerator subprogramGenerator = semanticAnalyzer.getTacSubprogramGenerator();
         TACTagGenerator tagGenerator = semanticAnalyzer.getTacTagGenerator();
         SubprogramsTable subprogramsTable = semanticAnalyzer.getSubprogramsTable();
@@ -59,9 +60,11 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
         subprogramsTable.add(subprogram, startTag, numArguments());
         addTACInstruction(new SkipInstruction(startTag));
         addTACInstruction(new PreambleInstruction(subprogram));
+        symbolTable.enterBlock();
         if (statements != null) {
             statements.toTac();
         }
+        symbolTable.exitBlock();
         addTACInstruction(new ReturnInstruction(subprogram));
     }
     

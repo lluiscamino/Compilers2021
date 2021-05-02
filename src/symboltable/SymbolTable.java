@@ -13,7 +13,7 @@ public class SymbolTable {
     private final List<Scope> scopes;
     private int indentLevel;
 
-    private final Scope initialScope;
+    private Scope initialScope;
     private Scope scope;
 
     public SymbolTable() {
@@ -64,6 +64,14 @@ public class SymbolTable {
 
     public boolean isInInitialScope() {
         return scope == initialScope;
+    }
+
+    public void clear() {
+        scopes.clear();
+        indentLevel = 0;
+        initialScope = new Scope();
+        scope = initialScope;
+        scopes.add(scope);
     }
 
     @Override

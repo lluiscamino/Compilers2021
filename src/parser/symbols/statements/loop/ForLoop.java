@@ -62,7 +62,9 @@ public class ForLoop extends Loop {
 
     @Override
     public void toTac() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         TACTagGenerator tagGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacTagGenerator();
+        symbolTable.enterBlock();
         if (declarations != null) {
             declarations.toTac();
         }
@@ -77,6 +79,7 @@ public class ForLoop extends Loop {
         if (assignments != null) {
             assignments.toTac();
         }
+        symbolTable.exitBlock();
         addTACInstruction(new GotoInstruction(startTag));
         addTACInstruction(new SkipInstruction(endTag));
     }
