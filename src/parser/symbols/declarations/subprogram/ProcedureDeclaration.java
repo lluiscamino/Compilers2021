@@ -27,9 +27,6 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
     @Override
     public void validate() {
         SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
-        if (!symbolTable.isInInitialScope() && !symbolTable.put(this)) {
-            addSemanticError("Procedimiento " + identifier + " ya definido");
-        }
         symbolTable.enterBlock();
         validateArguments(symbolTable);
         validateStatements(symbolTable);
