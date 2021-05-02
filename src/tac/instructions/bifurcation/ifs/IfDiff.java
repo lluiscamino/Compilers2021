@@ -1,11 +1,11 @@
 package tac.instructions.bifurcation.ifs;
 
+import tac.references.TACReference;
 import tac.references.TACTag;
-import tac.references.TACVariable;
 
 public final class IfDiff extends IfInstruction {
-    public IfDiff(TACVariable firstVariable, TACVariable secondVariable, TACTag tag) {
-        super(firstVariable, secondVariable, tag);
+    public IfDiff(TACReference firstReference, TACReference secondReference, TACTag tag) {
+        super(firstReference, secondReference, tag);
     }
 
     @Override

@@ -1,11 +1,11 @@
 package tac.instructions.bifurcation.ifs;
 
+import tac.references.TACReference;
 import tac.references.TACTag;
-import tac.references.TACVariable;
 
 public final class IfLess extends IfInstruction {
-    public IfLess(TACVariable firstVariable, TACVariable secondVariable, TACTag tag) {
-        super(firstVariable, secondVariable, tag);
+    public IfLess(TACReference firstReference, TACReference secondReference, TACTag tag) {
+        super(firstReference, secondReference, tag);
     }
 
     @Override
