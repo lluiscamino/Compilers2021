@@ -10,6 +10,6 @@ public final class IfGEQ extends IfInstruction {
 
     @Override
     public String toString() {
-        return "if" + firstReference + " >= " + secondReference + " goto " + thirdReference;
+        return "if " + firstReference + " >= " + secondReference + " goto " + thirdReference;
     }
 }
