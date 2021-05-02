@@ -7,6 +7,9 @@ import parser.symbols.statements.Statement;
 import symboltable.SymbolTable;
 import main.Compiler;
 import parser.symbols.types.Type;
+import tac.instructions.arithmetic.CopyInstruction;
+import tac.references.TACVariable;
+import tac.tables.VariablesTable;
 
 public class Assignment extends Statement {
 
@@ -66,6 +69,9 @@ public class Assignment extends Statement {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
+        TACVariable variable = variablesTable.get(identifier).getTacVariable();
+        expression.toTac();
+        addTACInstruction(new CopyInstruction(variable, expression.getTacVariable()));
     }
 }
