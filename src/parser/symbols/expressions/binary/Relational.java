@@ -11,6 +11,7 @@ import tac.instructions.arithmetic.CopyInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.*;
+import tac.references.TACLiteral;
 import tac.references.TACTag;
 import tac.references.TACVariable;
 
@@ -63,17 +64,17 @@ public final class Relational extends Expression {
         TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
         TACTagGenerator tacTagGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacTagGenerator();
 
-        TACVariable t = tacVariableGenerator.generate();    // t = novavar;
-        TACTag e1 = tacTagGenerator.generate();             // e1 = novaetiqueta;
-        TACTag e2 = tacTagGenerator.generate();             // e2 = novaetiqueta;
+        TACVariable t = tacVariableGenerator.generate();
+        TACTag e1 = tacTagGenerator.generate();
+        TACTag e2 = tacTagGenerator.generate();
 
-        addTACInstruction(getIfInstruction(e1));            // genera( if E1.r R E2.r goto e1);
-        addTACInstruction(new CopyInstruction(t, 0));       // genera( t = 0 );
-        addTACInstruction(new GotoInstruction(e2));         // genera( goto e2 );
-        addTACInstruction(new SkipInstruction(e1));         // genera( e1 : skip );
-        addTACInstruction(new CopyInstruction(t, -1));      // genera( t = -1 );
-        addTACInstruction(new SkipInstruction(e2));         // genera( e2 : skip );
-        tacVariable = t;                                    // E0.r = t;
+        addTACInstruction(getIfInstruction(e1));
+        addTACInstruction(new CopyInstruction(t, new TACLiteral(0)));
+        addTACInstruction(new GotoInstruction(e2));
+        addTACInstruction(new SkipInstruction(e1));
+        addTACInstruction(new CopyInstruction(t, new TACLiteral(-1)));
+        addTACInstruction(new SkipInstruction(e2));
+        tacVariable = t;
 
         leftExpression.toTac();
         rightExpression.toTac();

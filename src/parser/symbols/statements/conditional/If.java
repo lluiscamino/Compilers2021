@@ -10,6 +10,7 @@ import symboltable.SymbolTable;
 import tac.generators.TACTagGenerator;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.IfEqual;
+import tac.references.TACLiteral;
 import tac.references.TACTag;
 
 public class If extends Statement {
@@ -51,7 +52,7 @@ public class If extends Statement {
         symbolTable.enterBlock();
         condition.toTac();
         TACTag tag = tagGenerator.generate();
-        addTACInstruction(new IfEqual(condition.getTacVariable(), 0, tag));
+        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(0), tag));
         if (statements != null) {
             statements.toTac();
         }
