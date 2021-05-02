@@ -24,6 +24,10 @@ public class SymbolTable {
         scopes.add(scope);
     }
 
+    public Scope getScope() {
+        return scope;
+    }
+
     public boolean put(Declaration declaration) {
         return scope.put(declaration);
     }
