@@ -78,8 +78,7 @@ public final class Type extends ParserSymbol {
     public boolean equals(Type t) {
         if (primitiveType != t.primitiveType) return false;
         if (isArray() != t.isArray()) return false;
-        if (isArray() && dimensions.size() != t.dimensions.size()) return false;
-        return true;
+        return !isArray() || dimensions.size() == t.dimensions.size();
     }
 
     @Override
