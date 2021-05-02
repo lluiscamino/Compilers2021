@@ -52,9 +52,11 @@ public final class Compiler {
         if (program != null) {
             semanticAnalyzer = new SemanticAnalyzer(program, symbolTableWriter, treeWriter);
             semanticAnalyzer.validate();
-            semanticAnalyzer.writeSymbolTable();
-            semanticAnalyzer.writeTree();
-            semanticAnalyzer.generateTAC();
+            if (errorsList.isEmpty()) {
+                semanticAnalyzer.writeSymbolTable();
+                semanticAnalyzer.writeTree();
+                semanticAnalyzer.generateTAC();
+            }
         }
         writeErrors();
     }
