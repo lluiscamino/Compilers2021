@@ -67,13 +67,13 @@ public final class VariablesTable {
     private final ArrayList<VariableInfo> variablesList = new ArrayList<>();
 
     public VariableInfo get(String name) {
-        Scope currentScope = currentScope();
-        for (VariableInfo variableInfo : variablesList) {
-            if (variableInfo.getName().equals(name) && variableInfo.getScope() == currentScope) {
-                return variableInfo;
-            }
+        Scope scope = currentScope();
+        VariableInfo variable = null;
+        while (scope != null && variable == null) {
+            variable = getVariableInScope(name, scope);
+            scope = scope.getPrevious();
         }
-        return null;
+        return variable;
     }
 
     public void add(String name, TACVariable tacVariable, TACSubprogram tacSubprogram, boolean subprogramArgument) {
@@ -87,5 +87,14 @@ public final class VariablesTable {
 
     private Scope currentScope() {
         return Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable().getScope();
+    }
+
+    private VariableInfo getVariableInScope(String variableName, Scope scope) {
+        for (VariableInfo variableInfo : variablesList) {
+            if (variableInfo.getName().equals(variableName) && variableInfo.getScope() == scope) {
+                return variableInfo;
+            }
+        }
+        return null;
     }
 }
