@@ -2,10 +2,12 @@ package parser.symbols;
 
 import dot.DotNode;
 import java_cup.runtime.ComplexSymbolFactory.Location;
-import parser.symbols.declarations.Declaration;
-import parser.symbols.declarations.subprogram.MainDeclaration;
-import symboltable.SymbolTable;
 import main.Compiler;
+import parser.symbols.declarations.Declaration;
+import parser.symbols.declarations.cva.CVADeclaration;
+import parser.symbols.declarations.subprogram.MainDeclaration;
+import parser.symbols.declarations.subprogram.SubprogramDeclaration;
+import symboltable.SymbolTable;
 
 public final class Program extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "PROGRAM";
@@ -46,12 +48,36 @@ public final class Program extends ParserSymbol {
     public void toTac() {
         SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         if (declarations != null) {
-            for (Declaration decl : declarations.toArrayList()) {
-                symbolTable.put(decl);
-                declarations.toTac();
-            }
+            addSubprogramsToSymbolTable(); // Primero, añadimos todos los subprogramas a la tabla de símbolos para que se puedan llamar entre ellos, independientemente del orden de declaración.
+            generateCVAsTAC(); // Luego, generamos el TAC de todos los CVAs para que puedan ser accedidos desde cualquier subprograma, independientemente del orden de definición.
+            generateSubprogramsTAC(); // Finalmente, se genera el TAC de los subprogramas (se genera el TAC de todas las instrucciones).
         }
         symbolTable.put(main);
         main.toTac();
+    }
+
+    private void addSubprogramsToSymbolTable() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
+        for (Declaration decl : declarations.toArrayList()) {
+            if (decl instanceof  SubprogramDeclaration) {
+                symbolTable.put(decl);
+            }
+        }
+    }
+
+    private void generateCVAsTAC() {
+        for (Declaration decl : declarations.toArrayList()) {
+            if (decl instanceof CVADeclaration) {
+                decl.toTac();
+            }
+        }
+    }
+
+    private void generateSubprogramsTAC() {
+        for (Declaration decl : declarations.toArrayList()) {
+            if (decl instanceof SubprogramDeclaration) {
+                decl.toTac();
+            }
+        }
     }
 }
