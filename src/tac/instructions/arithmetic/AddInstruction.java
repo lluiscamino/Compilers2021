@@ -9,6 +9,6 @@ public final class AddInstruction extends ArithmeticInstruction {
 
     @Override
     public String toString() {
-        return firstReference + " = " + secondReference + " - " + thirdReference;
+        return firstReference + " = " + secondReference + " + " + thirdReference;
     }
 }
