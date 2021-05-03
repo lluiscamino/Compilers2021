@@ -1,10 +1,17 @@
 package parser.symbols.declarations.cva;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.declarations.DeclarationMode;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
+import symboltable.SymbolTable;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.CopyInstruction;
+import tac.references.TACLiteral;
+import tac.references.TACVariable;
+import tac.tables.VariablesTable;
 
 
 public final class PrimitiveDeclaration extends CVADeclaration {
@@ -33,6 +40,18 @@ public final class PrimitiveDeclaration extends CVADeclaration {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
+        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
+        TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        symbolTable.put(this);
+        TACVariable variable = variableGenerator.generate();
+        variablesTable.add(identifier, variable, null, false);
+        if (expression != null) {
+            expression.toTac();
+            addTACInstruction(new CopyInstruction(variable, expression.getTacVariable()));
+        } else {
+            addTACInstruction(new CopyInstruction(variable, new TACLiteral(type.getPrimitiveType().defaultValue())));
+        }
     }
 }

@@ -19,6 +19,14 @@ public enum PrimitiveType implements DOTizable {
         return UNKNOWN;
     }
 
+    public Object defaultValue() {
+        return switch (this) {
+            case INT, UNKNOWN -> 0;
+            case BOOLEAN -> false;
+            case STRING -> "";
+        };
+    }
+
     @Override
     public void toDot() {
         new DotNode(toString(), "", "filled", "");
