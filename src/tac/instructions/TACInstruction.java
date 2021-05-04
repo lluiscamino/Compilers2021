@@ -1,5 +1,6 @@
 package tac.instructions;
 
+import assembly.AssemblyCodeGenerator;
 import tac.references.TACReference;
 
 public abstract class TACInstruction {
@@ -10,6 +11,8 @@ public abstract class TACInstruction {
         this.secondReference = secondReference;
         this.thirdReference = thirdReference;
     }
+
+    public abstract String toAssemblyCode(AssemblyCodeGenerator codeGenerator);
 
     @Override
     public abstract String toString();

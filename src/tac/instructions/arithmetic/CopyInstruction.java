@@ -1,11 +1,16 @@
 package tac.instructions.arithmetic;
 
+import assembly.AssemblyCodeGenerator;
 import tac.references.TACReference;
 import tac.references.TACVariable;
 
 public final class CopyInstruction extends ArithmeticInstruction {
     public CopyInstruction(TACVariable firstVariable, TACReference secondReference) {
         super(firstVariable, secondReference);
+    }
+
+    public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {
+        return codeGenerator.generate(this);
     }
 
     @Override
