@@ -12,6 +12,18 @@ public abstract class TACInstruction {
         this.thirdReference = thirdReference;
     }
 
+    public TACReference getFirstReference() {
+        return firstReference;
+    }
+
+    public TACReference getSecondReference() {
+        return secondReference;
+    }
+
+    public TACReference getThirdReference() {
+        return thirdReference;
+    }
+
     public abstract String toAssemblyCode(AssemblyCodeGenerator codeGenerator);
 
     @Override

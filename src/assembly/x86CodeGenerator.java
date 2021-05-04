@@ -14,102 +14,211 @@ import tac.instructions.subprogram.*;
 public class x86CodeGenerator implements AssemblyCodeGenerator {
     @Override
     public String generate(AddInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        addl %%ebx, %%eax
+                        ST %%eax, %s
+                        """,
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference(),
+                tacInstruction.getFirstReference()
+        );
     }
 
     @Override
     public String generate(CopyInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        LD %s, %%eax
+                        ST %%eax, %s
+                        """,
+                tacInstruction.getSecondReference(),
+                tacInstruction.getFirstReference()
+        );
     }
 
     @Override
     public String generate(DivideInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        LD %s, %%eax
+                        movl %%eax, %%edx
+                        sarl $31, %%edx
+                        LD %s, %%ebx
+                        idivl %%ebx
+                        ST %%eax, %s
+                        """,
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference(),
+                tacInstruction.getFirstReference()
+        );
     }
 
     @Override
     public String generate(ModuloInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        LD %s, %%eax
+                        movl %%eax, %%edx
+                        sarl $31, %%edx
+                        LD %s, %%ebx
+                        idivl %%ebx
+                        ST %%edx, %s
+                        """,
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference(),
+                tacInstruction.getFirstReference()
+        );
     }
 
     @Override
     public String generate(NegativeInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        xorl %%eax, %%eax
+                        LD %s, %%ebx
+                        subl %%ebx, %%eax
+                        ST %%eax, %s
+                        """,
+                tacInstruction.getSecondReference(),
+                tacInstruction.getFirstReference()
+        );
     }
 
     @Override
     public String generate(ProductInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        imull %%ebx, %%eax
+                        ST %%ebx, %s
+                        """,
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference(),
+                tacInstruction.getFirstReference()
+        );
     }
 
     @Override
     public String generate(SubtractInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        subl %%ebx, %%eax
+                        ST %%eax, %s
+                        """,
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference(),
+                tacInstruction.getFirstReference()
+        );
     }
 
     @Override
     public String generate(IfDiff tacInstruction) {
-        return null;
+        return generateIfInstruction(tacInstruction, "je");
     }
 
     @Override
     public String generate(IfEqual tacInstruction) {
-        return null;
+        return generateIfInstruction(tacInstruction, "jne");
     }
 
     @Override
     public String generate(IfGEQ tacInstruction) {
-        return null;
+        return generateIfInstruction(tacInstruction, "jl");
     }
 
     @Override
     public String generate(IfGreater tacInstruction) {
-        return null;
+        return generateIfInstruction(tacInstruction, "jle");
     }
 
     @Override
     public String generate(IfLEQ tacInstruction) {
-        return null;
+        return generateIfInstruction(tacInstruction, "jgt");
     }
 
     @Override
     public String generate(IfLess tacInstruction) {
-        return null;
+        return generateIfInstruction(tacInstruction, "jge");
     }
 
     @Override
     public String generate(GotoInstruction tacInstruction) {
-        return null;
+        return "jmp " + tacInstruction.getFirstReference();
     }
 
     @Override
     public String generate(SkipInstruction tacInstruction) {
-        return null;
+        return tacInstruction.getFirstReference() + " : nop";
     }
 
     @Override
     public String generate(AndInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        andl %%ebx, %%eax
+                        ST %%eax, %s
+                        """,
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference(),
+                tacInstruction.getFirstReference()
+        );
     }
 
     @Override
     public String generate(NotInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        xorl %%eax, %%eax
+                        LD %s, %%ebx
+                        notl %%ebx, %%eax
+                        ST %%eax, %s
+                        """,
+                tacInstruction.getSecondReference(),
+                tacInstruction.getFirstReference()
+        );
     }
 
     @Override
     public String generate(OrInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        orl %%ebx, %%eax
+                        ST %%eax, %s
+                        """,
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference(),
+                tacInstruction.getFirstReference()
+        );
     }
 
     @Override
     public String generate(IndexAssignmentInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        addl %%ebx, %%eax
+                        LD %s, %%ebx
+                        ST %%ebx, (%%eax)
+                        """,
+                tacInstruction.getFirstReference(),
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference()
+        );
     }
 
     @Override
     public String generate(IndexedValueInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        addl %%ebx, %%eax
+                        movl (%%eax), %%eax
+                        ST %%eax, %s
+                        """,
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference(),
+                tacInstruction.getFirstReference()
+        );
     }
 
     @Override
@@ -135,5 +244,21 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     @Override
     public String generate(SimpleParameterInstruction tacInstruction) {
         return null;
+    }
+
+    private String generateIfInstruction(IfInstruction tacInstruction, String comparisonCode) {
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        cmpl %%eax, %%ebx
+                        %s ne
+                        jmp %s
+                        ne: nop
+                        """,
+                tacInstruction.getFirstReference(),
+                tacInstruction.getSecondReference(),
+                comparisonCode,
+                tacInstruction.getThirdReference()
+        );
     }
 }
