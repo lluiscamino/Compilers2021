@@ -9,6 +9,9 @@ import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 import main.Compiler;
+import tac.instructions.indexation.IndexAssignmentInstruction;
+import tac.references.TACVariable;
+import tac.tables.VariablesTable;
 
 public class ArrayAssignment extends Assignment {
 
@@ -76,6 +79,10 @@ public class ArrayAssignment extends Assignment {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
+        TACVariable variable = variablesTable.get(identifier).getTacVariable();
+        indexes.toTac();
+        expression.toTac();
+        addTACInstruction(new IndexAssignmentInstruction(variable, indexes.getOffset(), expression.getTacVariable()));
     }
 }
