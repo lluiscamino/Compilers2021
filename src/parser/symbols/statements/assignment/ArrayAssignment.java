@@ -1,6 +1,7 @@
 package parser.symbols.statements.assignment;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.ArrayIndexes;
 import parser.symbols.declarations.cva.ArrayDeclaration;
 import parser.symbols.declarations.cva.CVADeclaration;
@@ -8,14 +9,13 @@ import parser.symbols.expressions.Expression;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
-import main.Compiler;
 import tac.instructions.indexation.IndexAssignmentInstruction;
 import tac.references.TACVariable;
 import tac.tables.VariablesTable;
 
 public class ArrayAssignment extends Assignment {
 
-    private final ArrayIndexes indexes;
+    protected final ArrayIndexes indexes;
 
     public ArrayAssignment(String identifier, ArrayIndexes indexes, Expression expression) {
         super(identifier, expression);
