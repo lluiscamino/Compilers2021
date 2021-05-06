@@ -50,30 +50,7 @@ public class IdentifierReference extends Expression {
 
     @Override
     public void toTac() {
-        TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
-        VariablesTable vt = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
-        
-        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
-        CVADeclaration d = symbolTable.getCVA(identifierName);
-        if (d.getMode().isVariable()) {
-            tacVariable = vt.get(identifierName).getTacVariable();
-        } else {
-            TACVariable t = tacVariableGenerator.generate();
-            addTACInstruction(new CopyInstruction(t, new TACLiteral(d.getName())));
-            tacVariable = t;
-        }
-        tacVariable = null;
-
-
-
-            // d = consulta(ts, id.id);
-            // if d.td = dvar  {
-            //     R.r = d.nv;
-            // } else {
-            //     t = novavar;
-            //     genera(t = d.valor);
-            //     R.r = t;
-            // }
-            // R.d = nul_val;
+        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
+        tacVariable = variablesTable.get(identifierName).getTacVariable();
     }
 }
