@@ -9,6 +9,11 @@ public final class IfGreater extends IfInstruction {
         super(firstReference, secondReference, tag);
     }
 
+    @Override
+    public IfInstruction oppositeInstruction(TACReference firstReference, TACReference secondReference, TACTag tag) {
+        return new IfLEQ(firstReference, secondReference, tag);
+    }
+
     public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {
         return codeGenerator.generate(this);
     }

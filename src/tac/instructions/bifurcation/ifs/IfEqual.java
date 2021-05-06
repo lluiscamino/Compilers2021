@@ -9,6 +9,11 @@ public final class IfEqual extends IfInstruction {
         super(firstReference, secondReference, tag);
     }
 
+    @Override
+    public IfInstruction oppositeInstruction(TACReference firstReference, TACReference secondReference, TACTag tag) {
+        return new IfDiff(firstReference, secondReference, tag);
+    }
+
     public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {
         return codeGenerator.generate(this);
     }

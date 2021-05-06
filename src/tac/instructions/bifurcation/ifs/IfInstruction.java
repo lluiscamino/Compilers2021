@@ -8,4 +8,6 @@ public abstract class IfInstruction extends BifurcationInstruction {
     public IfInstruction(TACReference firstReference, TACReference secondReference, TACTag tag) {
         super(firstReference, secondReference, tag);
     }
+
+    public abstract IfInstruction oppositeInstruction(TACReference firstReference, TACReference secondReference, TACTag tag);
 }
