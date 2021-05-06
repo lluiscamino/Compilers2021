@@ -9,6 +9,10 @@ import main.Compiler;
 import parser.symbols.declarations.cva.ArrayDeclaration;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.indexation.IndexAssignmentInstruction;
+import tac.references.TACVariable;
+import tac.tables.VariablesTable;
 
 public final class ArrayIdentifierReference extends IdentifierReference {
     private final ArrayIndexes indexes;
