@@ -24,6 +24,7 @@ public final class Priority extends Expression {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        expression.toTac();
+        tacVariable = expression.tacVariable;
     }
 }
