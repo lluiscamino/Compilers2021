@@ -1,7 +1,11 @@
 package parser.symbols.expressions.arithmetic;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.expressions.Expression;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.AddInstruction;
+import tac.references.TACVariable;
 
 public final class ArithmeticAdd extends ArithmeticOperation {
 

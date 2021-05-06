@@ -3,6 +3,10 @@ package parser.symbols.expressions.literals;
 import dot.DotNode;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.types.Type;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.CopyInstruction;
+import tac.references.TACLiteral;
+import tac.references.TACVariable;
 
 public final class IntegerLiteral extends Literal {
     

@@ -8,6 +8,10 @@ import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.CopyInstruction;
+import tac.references.TACLiteral;
+import tac.references.TACVariable;
 
 public final class ArrayLiteral extends Literal {
     

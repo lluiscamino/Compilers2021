@@ -1,7 +1,11 @@
 package parser.symbols.expressions.arithmetic;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.expressions.Expression;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.ProductInstruction;
+import tac.references.TACVariable;
 
 public final class ArithmeticMultiply extends ArithmeticOperation {
     

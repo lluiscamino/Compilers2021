@@ -3,6 +3,9 @@ package parser.symbols.expressions.binary;
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.binary.NotInstruction;
+import tac.references.TACVariable;
 
 public final class Not extends Expression {
     private final Expression expression;

@@ -1,8 +1,11 @@
 package parser.symbols.expressions.arithmetic;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.expressions.Expression;
-import symboltable.SymbolTable;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.SubtractInstruction;
+import tac.references.TACVariable;
 
 public final class ArithmeticSubstract extends ArithmeticOperation {
     

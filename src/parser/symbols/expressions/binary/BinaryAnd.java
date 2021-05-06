@@ -2,6 +2,9 @@ package parser.symbols.expressions.binary;
 
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.binary.AndInstruction;
+import tac.references.TACVariable;
 
 public final class BinaryAnd extends BinaryOperation {
     

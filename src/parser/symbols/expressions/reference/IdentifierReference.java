@@ -7,6 +7,11 @@ import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 import main.Compiler;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.CopyInstruction;
+import tac.references.TACLiteral;
+import tac.references.TACVariable;
+import tac.tables.VariablesTable;
 
 public class IdentifierReference extends Expression {
 
