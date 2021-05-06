@@ -26,6 +26,10 @@ public class BooleanLiteral extends Literal {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TACVariableGenerator tacVariableGenerator = main.Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        TACVariable t = tacVariableGenerator.generate();  // t = novavar
+        addTACInstruction(new CopyInstruction(t, new TACLiteral(value)));  //genera(t = lit)
+        tacVariable = t;  //E0.r = t;
     }
 }
