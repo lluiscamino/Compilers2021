@@ -38,9 +38,8 @@ public final class Negative extends Expression {
         TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
         expression.toTac();
-        
-        TACVariable t = tacVariableGenerator.generate();  // t = novavar
-        addTACInstruction(new NegativeInstruction(t, expression.getTacVariable()));  //genera(t = -E1.r)
-        tacVariable = t;  //E0.r = t;
+
+        tacVariable = tacVariableGenerator.generate();  // t = novavar
+        addTACInstruction(new NegativeInstruction(tacVariable, expression.getTacVariable()));  //genera(t = -E1.r)
     }
 }

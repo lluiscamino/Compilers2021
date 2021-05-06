@@ -79,8 +79,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
         TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
 
-        TACVariable t = tacVariableGenerator.generate();
-        addTACInstruction(new IndexAssignmentInstruction(t, variablesTable.get(identifierName).getTacVariable(), indexes.getOffset()));
-        tacVariable = t;
+        tacVariable = tacVariableGenerator.generate();
+        addTACInstruction(new IndexAssignmentInstruction(tacVariable, variablesTable.get(identifierName).getTacVariable(), indexes.getOffset()));
     }
 }

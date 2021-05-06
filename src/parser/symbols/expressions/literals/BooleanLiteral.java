@@ -32,8 +32,7 @@ public class BooleanLiteral extends Literal {
     public void toTac() {
         TACVariableGenerator tacVariableGenerator = main.Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
-        TACVariable t = tacVariableGenerator.generate();  // t = novavar
-        addTACInstruction(new CopyInstruction(t, new TACLiteral(getValue())));  //genera(t = lit)
-        tacVariable = t;  //E0.r = t;
+        tacVariable = tacVariableGenerator.generate();  // t = novavar
+        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(getValue())));  //genera(t = lit)
     }
 }

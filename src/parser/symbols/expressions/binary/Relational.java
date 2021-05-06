@@ -67,17 +67,16 @@ public final class Relational extends Expression {
         leftExpression.toTac();
         rightExpression.toTac();
 
-        TACVariable t = tacVariableGenerator.generate();
+        tacVariable = tacVariableGenerator.generate();
         TACTag e1 = tacTagGenerator.generate();
         TACTag e2 = tacTagGenerator.generate();
 
         addTACInstruction(getIfInstruction(e1));
-        addTACInstruction(new CopyInstruction(t, new TACLiteral(0)));
+        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(0)));
         addTACInstruction(new GotoInstruction(e2));
         addTACInstruction(new SkipInstruction(e1));
-        addTACInstruction(new CopyInstruction(t, new TACLiteral(-1)));
+        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(-1)));
         addTACInstruction(new SkipInstruction(e2));
-        tacVariable = t;
     }
 
     private IfInstruction getIfInstruction(TACTag e1) {

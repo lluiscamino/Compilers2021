@@ -26,9 +26,8 @@ public final class BinaryAnd extends BinaryOperation {
 
         leftExpression.toTac();
         rightExpression.toTac();
-        
-        TACVariable t = tacVariableGenerator.generate();  // t = novavar
-        addTACInstruction(new AndInstruction(t, leftExpression.getTacVariable(), rightExpression.getTacVariable()));  //genera(t = E1.r && E2.r)
-        tacVariable = t;  //E0.r = t;
+
+        tacVariable = tacVariableGenerator.generate();  // t = novavar
+        addTACInstruction(new AndInstruction(tacVariable, leftExpression.getTacVariable(), rightExpression.getTacVariable()));  //genera(t = E1.r && E2.r)
     }
 }

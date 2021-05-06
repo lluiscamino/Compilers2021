@@ -28,8 +28,7 @@ public final class ArithmeticAdd extends ArithmeticOperation {
         leftExpression.toTac();
         rightExpression.toTac();
 
-        TACVariable t = tacVariableGenerator.generate();  // t = novavar
-        addTACInstruction(new AddInstruction(t, leftExpression.getTacVariable(), rightExpression.getTacVariable()));  //genera(t = E1.r + E2.r)
-        tacVariable = t;  //E0.r = t;
+        tacVariable = tacVariableGenerator.generate();  // t = novavar
+        addTACInstruction(new AddInstruction(tacVariable, leftExpression.getTacVariable(), rightExpression.getTacVariable()));  //genera(t = E1.r + E2.r)
     }
 }
