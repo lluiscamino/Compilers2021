@@ -24,6 +24,9 @@ public final class ArithmeticModulo extends ArithmeticOperation {
     @Override
     public void toTac() {
         TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        leftExpression.toTac();
+        rightExpression.toTac();
         
         TACVariable t = tacVariableGenerator.generate();  // t = novavar
         addTACInstruction(new ModuloInstruction(t, leftExpression.getTacVariable(), rightExpression.getTacVariable()));  //genera(t = E1.r mod E2.r)

@@ -36,6 +36,8 @@ public final class Not extends Expression {
     public void toTac() {
         TACVariableGenerator tacVariableGenerator = main.Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
+        expression.toTac();
+
         TACVariable t = tacVariableGenerator.generate();  // t = novavar
         addTACInstruction(new NotInstruction(t, expression.getTacVariable()));  //genera(t = !E1.r)
         tacVariable = t;  //E0.r = t;

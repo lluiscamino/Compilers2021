@@ -36,6 +36,8 @@ public final class Negative extends Expression {
     @Override
     public void toTac() {
         TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        expression.toTac();
         
         TACVariable t = tacVariableGenerator.generate();  // t = novavar
         addTACInstruction(new NegativeInstruction(t, expression.getTacVariable()));  //genera(t = -E1.r)

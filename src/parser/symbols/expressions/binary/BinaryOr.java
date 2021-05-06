@@ -25,6 +25,9 @@ public final class BinaryOr extends BinaryOperation {
     public void toTac() {
         TACVariableGenerator tacVariableGenerator = main.Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
+        leftExpression.toTac();
+        rightExpression.toTac();
+
         TACVariable t = tacVariableGenerator.generate();  // t = novavar
         addTACInstruction(new OrInstruction(t, leftExpression.getTacVariable(), rightExpression.getTacVariable()));  //genera(t = E1.r || E2.r)
         tacVariable = t;  //E0.r = t;    

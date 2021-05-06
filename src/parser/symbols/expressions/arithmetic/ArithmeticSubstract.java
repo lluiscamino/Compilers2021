@@ -24,6 +24,9 @@ public final class ArithmeticSubstract extends ArithmeticOperation {
     @Override
     public void toTac() {
         TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        leftExpression.toTac();
+        rightExpression.toTac();
         
         TACVariable t = tacVariableGenerator.generate();  // t = novavar
         addTACInstruction(new SubtractInstruction(t, leftExpression.getTacVariable(), rightExpression.getTacVariable()));  //genera(t = E1.r - E2.r)

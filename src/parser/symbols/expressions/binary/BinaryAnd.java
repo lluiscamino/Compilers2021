@@ -23,6 +23,9 @@ public final class BinaryAnd extends BinaryOperation {
     @Override
     public void toTac() {
         TACVariableGenerator tacVariableGenerator = main.Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        leftExpression.toTac();
+        rightExpression.toTac();
         
         TACVariable t = tacVariableGenerator.generate();  // t = novavar
         addTACInstruction(new AndInstruction(t, leftExpression.getTacVariable(), rightExpression.getTacVariable()));  //genera(t = E1.r && E2.r)

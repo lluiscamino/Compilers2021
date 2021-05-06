@@ -64,6 +64,9 @@ public final class Relational extends Expression {
         TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
         TACTagGenerator tacTagGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacTagGenerator();
 
+        leftExpression.toTac();
+        rightExpression.toTac();
+
         TACVariable t = tacVariableGenerator.generate();
         TACTag e1 = tacTagGenerator.generate();
         TACTag e2 = tacTagGenerator.generate();
@@ -75,9 +78,6 @@ public final class Relational extends Expression {
         addTACInstruction(new CopyInstruction(t, new TACLiteral(-1)));
         addTACInstruction(new SkipInstruction(e2));
         tacVariable = t;
-
-        leftExpression.toTac();
-        rightExpression.toTac();
     }
 
     private IfInstruction getIfInstruction(TACTag e1) {
