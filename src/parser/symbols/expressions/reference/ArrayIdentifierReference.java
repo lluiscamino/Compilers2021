@@ -79,7 +79,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
             tacVariable = vt.get(identifierName).getTacVariable();
         } else {
             TACVariable t = tacVariableGenerator.generate();
-            addTACInstruction(new CopyInstruction(t, new IndexedValueInstruction(/* */)));
+            addTACInstruction(new IndexAssignmentInstruction(t, vt.get(identifierName).getTacVariable(), indexes.getOffset()));
             tacVariable = t;
         }
         
