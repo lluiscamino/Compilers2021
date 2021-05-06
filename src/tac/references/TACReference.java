@@ -12,5 +12,8 @@ public abstract class TACReference {
     }
 
     @Override
+    public abstract boolean equals(Object obj);
+
+    @Override
     public abstract String toString();
 }

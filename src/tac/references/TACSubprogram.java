@@ -6,6 +6,14 @@ public class TACSubprogram extends TACReference {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof TACSubprogram)) {
+            return false;
+        }
+        return ((TACSubprogram) obj).id == id;
+    }
+
+    @Override
     public String toString() {
         return "s" + id;
     }
