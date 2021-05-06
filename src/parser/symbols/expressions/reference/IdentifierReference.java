@@ -45,6 +45,28 @@ public class IdentifierReference extends Expression {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
+        CVADeclaration d = symbolTable.getCVA(identifierName);
+        if (d.getMode().isVariable()) {
+            tacVariable = new TACVariable(/*get nv*/);
+        } else {
+            TACVariable t = tacVariableGenerator.generate();
+            addTACInstruction(new CopyInstruction(t, new TACLiteral(d.getName())));
+            tacVariable = t;
+        }
+        tacVariable = /*nul_val*/;
+
+
+
+            // d = consulta(ts, id.id);
+            // if d.td = dvar  {
+            //     R.r = d.nv;
+            // } else {
+            //     t = novavar;
+            //     genera(t = d.valor);
+            //     R.r = t;
+            // }
+            // R.d = nul_val;
     }
 }
