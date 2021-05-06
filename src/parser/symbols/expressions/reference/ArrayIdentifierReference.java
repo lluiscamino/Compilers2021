@@ -72,6 +72,23 @@ public final class ArrayIdentifierReference extends IdentifierReference {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        if (indexes.getOffset() == /*nul_val*/) {
+            tacVariable = new TACVariable(/*E.r*/);
+        } else {
+            TACVariable t = tacVariableGenerator.generate();
+            addTACInstruction(new CopyInstruction(t, new IndexedValueInstruction(/* */)));
+            tacVarible = t;
+        }
+        
+        
+        //if R.d = nul_val  {
+        //    E.r = R.r;
+        //} else {
+        //    t = novavar;
+        //    genera(t = R.r[R.d]);
+        //    E.r = t;
+        //}
     }
 }
