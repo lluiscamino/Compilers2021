@@ -96,9 +96,7 @@ public final class Type extends ParserSymbol {
     }
 
     @Override
-    public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void toTac() {}
     
     @Override
     public String toString() {
