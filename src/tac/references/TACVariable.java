@@ -1,8 +1,16 @@
 package tac.references;
 
 public final class TACVariable extends TACReference {
+    private final String identifier;
+
     public TACVariable(int id) {
         super(id);
+        this.identifier = null;
+    }
+
+    public TACVariable(int id, String identifier) {
+        super(id);
+        this.identifier = identifier;
     }
 
     @Override
@@ -15,6 +23,6 @@ public final class TACVariable extends TACReference {
 
     @Override
     public String toString() {
-        return "t" + id;
+        return identifier != null ? identifier : "t" + id;
     }
 }

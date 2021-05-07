@@ -6,65 +6,10 @@ import tac.references.TACSubprogram;
 import tac.references.TACVariable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class VariablesTable {
-    public static final class VariableInfo {
-        private String name;
-        private TACVariable tacVariable;
-        private TACSubprogram tacSubprogram;
-        private Scope scope;
-        private boolean subprogramArgument;
-
-        public VariableInfo(String name, TACVariable tacVariable, TACSubprogram tacSubprogram, Scope scope, boolean subprogramArgument) {
-            this.name = name;
-            this.tacVariable = tacVariable;
-            this.tacSubprogram = tacSubprogram;
-            this.scope = scope;
-            this.subprogramArgument = subprogramArgument;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public TACVariable getTacVariable() {
-            return tacVariable;
-        }
-
-        public void setTacVariable(TACVariable tacVariable) {
-            this.tacVariable = tacVariable;
-        }
-
-        public TACSubprogram getTacSubprogram() {
-            return tacSubprogram;
-        }
-
-        public void setTacSubprogram(TACSubprogram tacSubprogram) {
-            this.tacSubprogram = tacSubprogram;
-        }
-
-        public Scope getScope() {
-            return scope;
-        }
-
-        public void setScope(Scope scope) {
-            this.scope = scope;
-        }
-
-        public boolean isSubprogramArgument() {
-            return subprogramArgument;
-        }
-
-        public void setSubprogramArgument(boolean subprogramArgument) {
-            this.subprogramArgument = subprogramArgument;
-        }
-    }
-
-    private final ArrayList<VariableInfo> variablesList = new ArrayList<>();
+    private final List<VariableInfo> variablesList = new ArrayList<>();
 
     public VariableInfo get(String name) {
         Scope scope = currentScope();
@@ -76,9 +21,8 @@ public final class VariablesTable {
         return variable;
     }
 
-    public void add(String name, TACVariable tacVariable, boolean subprogramArgument) {
-        variablesList.add(tacVariable.getId(),
-                new VariableInfo(name, tacVariable, currentSubprogram(), currentScope(), subprogramArgument));
+    public void add(TACVariable tacVariable, boolean subprogramArgument) {
+        variablesList.add(new VariableInfo(tacVariable, currentSubprogram(), currentScope(), subprogramArgument));
     }
 
     public int size() {
@@ -88,10 +32,9 @@ public final class VariablesTable {
     @Override
     public String toString() {
         StringBuilder buffer = new StringBuilder();
-        buffer.append("Código\tNombre\tSubprograma\tProfundidad\tParámetro\n");
+        buffer.append("Nombre\tSubprograma\tProfundidad\tParámetro\n");
         for (VariableInfo variableInfo : variablesList) {
             buffer.append(variableInfo.getTacVariable()).append("\t\t")
-                    .append(variableInfo.getName().equals(variableInfo.getTacVariable().toString()) ? "-" : variableInfo.getName()).append("\t\t")
                     .append(variableInfo.getTacSubprogram() != null ? variableInfo.getTacSubprogram() : "--").append("\t\t\t")
                     .append(variableInfo.getScope().getIndentation()).append("\t\t\t").
                     append(variableInfo.isSubprogramArgument() ? "Sí" : "No").append("\n");
@@ -109,10 +52,40 @@ public final class VariablesTable {
 
     private VariableInfo getVariableInScope(String variableName, Scope scope) {
         for (VariableInfo variableInfo : variablesList) {
-            if (variableInfo.getName().equals(variableName) && variableInfo.getScope() == scope) {
+            if (variableInfo.getTacVariable().toString().equals(variableName) && variableInfo.getScope() == scope) {
                 return variableInfo;
             }
         }
         return null;
+    }
+
+    public static final class VariableInfo {
+        private final TACVariable tacVariable;
+        private final TACSubprogram tacSubprogram;
+        private final Scope scope;
+        private final boolean subprogramArgument;
+
+        public VariableInfo(TACVariable tacVariable, TACSubprogram tacSubprogram, Scope scope, boolean subprogramArgument) {
+            this.tacVariable = tacVariable;
+            this.tacSubprogram = tacSubprogram;
+            this.scope = scope;
+            this.subprogramArgument = subprogramArgument;
+        }
+
+        public TACVariable getTacVariable() {
+            return tacVariable;
+        }
+
+        public TACSubprogram getTacSubprogram() {
+            return tacSubprogram;
+        }
+
+        public Scope getScope() {
+            return scope;
+        }
+
+        public boolean isSubprogramArgument() {
+            return subprogramArgument;
+        }
     }
 }
