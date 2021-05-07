@@ -3,67 +3,70 @@ package tac.tables;
 import tac.references.TACSubprogram;
 import tac.references.TACTag;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class SubprogramsTable {
-    public static final class SubprogramInfo {
-        private TACTag tag;
-        private int localVariablesSize;
-        private int numParameters;
+    private final Map<String, SubprogramInfo> subprogramsMap = new HashMap<>();
 
-        public SubprogramInfo(TACTag tag, int numParameters) {
-            this.tag = tag;
-            this.numParameters = numParameters;
-        }
-
-        public TACTag getTag() {
-            return tag;
-        }
-
-        public void setTag(TACTag tag) {
-            this.tag = tag;
-        }
-
-        public int getLocalVariablesSize() {
-            return localVariablesSize;
-        }
-
-        public void setLocalVariablesSize(int localVariablesSize) {
-            this.localVariablesSize = localVariablesSize;
-        }
-
-        public int getNumParameters() {
-            return numParameters;
-        }
-
-        public void setNumParameters(int numParameters) {
-            this.numParameters = numParameters;
-        }
+    public SubprogramInfo get(String identifier) {
+        return subprogramsMap.get(identifier);
     }
 
-    private final ArrayList<SubprogramInfo> subprogramsList = new ArrayList<>();
-
-    public SubprogramInfo get(TACSubprogram tacSubprogram) {
-        return subprogramsList.get(tacSubprogram.getId());
-    }
-
-    public void add(TACSubprogram tacSubprogram, TACTag tacTag, int numParameters) {
-        subprogramsList.add(tacSubprogram.getId(), new SubprogramInfo(tacTag, numParameters));
+    public void add(String identifier, TACSubprogram tacSubprogram, TACTag tacTag, int numParameters) {
+        SubprogramInfo subprogramInfo = new SubprogramInfo(identifier, tacSubprogram, tacTag, numParameters);
+        subprogramsMap.put(identifier, subprogramInfo);
     }
 
     public int size() {
-        return subprogramsList.size();
+        return subprogramsMap.size();
     }
 
     @Override
     public String toString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("Código\tTam. var. local\tNúm. params.\n");
-        for (SubprogramInfo subprogramInfo : subprogramsList) {
+        for (SubprogramInfo subprogramInfo : subprogramsMap.values()) {
             buffer.append(subprogramInfo.getTag()).append("\t\t")
                     .append(subprogramInfo.getLocalVariablesSize()).append("\t\t\t\t")
                     .append(subprogramInfo.getNumParameters()).append("\n");
         }
         return buffer.toString();
+    }
+
+    public static final class SubprogramInfo {
+        private final String identifier;
+        private final TACSubprogram tacSubprogram;
+        private final TACTag tag;
+        private final int localVariablesSize;
+        private final int numParameters;
+
+        public SubprogramInfo(String identifier, TACSubprogram tacSubprogram, TACTag tag, int numParameters) {
+            this.identifier = identifier;
+            this.tacSubprogram = tacSubprogram;
+            this.tag = tag;
+            this.localVariablesSize = 0;
+            this.numParameters = numParameters;
+        }
+
+        public String getIdentifier() {
+            return identifier;
+        }
+
+        public TACSubprogram getTacSubprogram() {
+            return tacSubprogram;
+        }
+
+        public TACTag getTag() {
+            return tag;
+        }
+
+        public int getLocalVariablesSize() {
+            return localVariablesSize;
+        }
+
+        public int getNumParameters() {
+            return numParameters;
+        }
     }
 }
