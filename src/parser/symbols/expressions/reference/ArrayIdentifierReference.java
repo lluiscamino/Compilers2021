@@ -10,8 +10,7 @@ import parser.symbols.declarations.cva.ArrayDeclaration;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
-import tac.instructions.indexation.IndexAssignmentInstruction;
-import tac.references.TACVariable;
+import tac.instructions.indexation.IndexedValueInstruction;
 import tac.tables.VariablesTable;
 
 public final class ArrayIdentifierReference extends IdentifierReference {
@@ -80,6 +79,6 @@ public final class ArrayIdentifierReference extends IdentifierReference {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
 
         tacVariable = tacVariableGenerator.generate();
-        addTACInstruction(new IndexAssignmentInstruction(tacVariable, variablesTable.get(identifierName).getTacVariable(), indexes.getOffset()));
+        addTACInstruction(new IndexedValueInstruction(tacVariable, variablesTable.get(identifierName).getTacVariable(), indexes.getOffset()));
     }
 }
