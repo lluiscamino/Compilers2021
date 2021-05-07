@@ -1,11 +1,11 @@
 package tac.instructions.subprogram;
 
 import assembly.AssemblyCodeGenerator;
-import tac.references.TACTag;
+import tac.references.TACSubprogram;
 
 public final class CallInstruction extends SubprogramInstruction {
-    public CallInstruction(TACTag tag) {
-        super(tag);
+    public CallInstruction(TACSubprogram subprogram) {
+        super(subprogram);
     }
 
     public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {

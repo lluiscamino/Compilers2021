@@ -14,11 +14,11 @@ public class TACVariableGenerator extends TACReferenceGenerator {
         return variable;
     }
 
-    public TACVariable generate(String identifier) {
+    public TACVariable generate(String identifier, boolean subprogramArgument) {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
 
         TACVariable variable = new TACVariable(nextId++);
-        variablesTable.add(identifier, variable, false);
+        variablesTable.add(identifier, variable, subprogramArgument);
         return variable;
     }
 }

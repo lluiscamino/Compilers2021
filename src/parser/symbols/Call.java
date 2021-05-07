@@ -10,6 +10,10 @@ import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 import main.Compiler;
 import parser.symbols.declarations.subprogram.FunctionDeclaration;
+import tac.instructions.subprogram.CallInstruction;
+import tac.instructions.subprogram.SimpleParameterInstruction;
+import tac.references.TACSubprogram;
+import tac.tables.SubprogramsTable;
 
 public final class Call extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "CALL";
@@ -84,6 +88,13 @@ public final class Call extends ParserSymbol {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
+        List<Expression> argumentsList = arguments != null ? arguments.toArrayList() : new ArrayList<>();
+        for (Expression expression : argumentsList) {
+            expression.toTac();
+            addTACInstruction(new SimpleParameterInstruction(expression.getTacVariable()));
+        }
+        TACSubprogram subprogram = subprogramsTable.get(subProgramIdentifier).getTacSubprogram();
+        addTACInstruction(new CallInstruction(subprogram));
     }
 }

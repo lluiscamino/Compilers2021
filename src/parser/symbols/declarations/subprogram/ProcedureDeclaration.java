@@ -54,10 +54,13 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
 
         TACSubprogram subprogram = subprogramGenerator.generate();
         TACTag startTag = tagGenerator.generate();
-        subprogramsTable.add(subprogram, startTag, numArguments());
+        subprogramsTable.add(identifier, subprogram, startTag, numArguments());
         addTACInstruction(new SkipInstruction(startTag));
         addTACInstruction(new PreambleInstruction(subprogram));
-        symbolTable.enterBlock();
+        symbolTable.enterBlock(subprogram);
+        if (arguments != null) {
+            arguments.toTac();
+        }
         if (statements != null) {
             statements.toTac();
         }

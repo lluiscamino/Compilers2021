@@ -8,6 +8,8 @@ import parser.symbols.declarations.cva.PrimitiveDeclaration;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 import main.Compiler;
+import tac.generators.TACVariableGenerator;
+import tac.references.TACVariable;
 
 public final class Argument extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "ARGUMENT";
@@ -47,6 +49,15 @@ public final class Argument extends ParserSymbol {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
+        TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        DeclarationMode declMode = DeclarationMode.getVariable(type.xleft);
+        Declaration declaration = type.isArray() ?
+                new ArrayDeclaration(declMode, type.getPrimitiveType(), type.getDimensions(), identifier) :
+                new PrimitiveDeclaration(declMode, type.getPrimitiveType(), identifier);
+        symbolTable.put(declaration);
+
+        TACVariable variable = variableGenerator.generate(identifier, true);
     }
 }

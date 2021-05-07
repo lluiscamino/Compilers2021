@@ -11,7 +11,6 @@ import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.CopyInstruction;
 import tac.references.TACLiteral;
 import tac.references.TACVariable;
-import tac.tables.VariablesTable;
 
 
 public final class PrimitiveDeclaration extends CVADeclaration {
@@ -44,7 +43,7 @@ public final class PrimitiveDeclaration extends CVADeclaration {
         TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
         symbolTable.put(this);
-        TACVariable variable = variableGenerator.generate(identifier);
+        TACVariable variable = variableGenerator.generate(identifier, false);
         if (expression != null) {
             expression.toTac();
             addTACInstruction(new CopyInstruction(variable, expression.getTacVariable()));
