@@ -54,4 +54,16 @@ public final class SubprogramsTable {
     public int size() {
         return subprogramsList.size();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("Código\tTam. var. local\tNúm. params.\n");
+        for (SubprogramInfo subprogramInfo : subprogramsList) {
+            buffer.append(subprogramInfo.getTag()).append("\t\t")
+                    .append(subprogramInfo.getLocalVariablesSize()).append("\t\t\t\t")
+                    .append(subprogramInfo.getNumParameters()).append("\n");
+        }
+        return buffer.toString();
+    }
 }
