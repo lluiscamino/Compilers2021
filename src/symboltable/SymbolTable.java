@@ -7,6 +7,7 @@ import java.util.List;
 import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.declarations.subprogram.SubprogramDeclaration;
+import tac.references.TACSubprogram;
 
 public class SymbolTable {
 
@@ -53,7 +54,13 @@ public class SymbolTable {
     }
 
     public void enterBlock() {
-        Scope newScope = new Scope(scope, ++indentLevel);
+        Scope newScope = new Scope(scope, ++indentLevel, scope.getTacSubprogram());
+        scopes.add(newScope);
+        scope = newScope;
+    }
+
+    public void enterBlock(TACSubprogram subprogram) {
+        Scope newScope = new Scope(scope, ++indentLevel, subprogram);
         scopes.add(newScope);
         scope = newScope;
     }

@@ -41,12 +41,10 @@ public final class PrimitiveDeclaration extends CVADeclaration {
     @Override
     public void toTac() {
         SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
-        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
         TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
         symbolTable.put(this);
-        TACVariable variable = variableGenerator.generate();
-        variablesTable.add(identifier, variable, null, false);
+        TACVariable variable = variableGenerator.generate(identifier);
         if (expression != null) {
             expression.toTac();
             addTACInstruction(new CopyInstruction(variable, expression.getTacVariable()));

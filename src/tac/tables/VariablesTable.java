@@ -76,13 +76,31 @@ public final class VariablesTable {
         return variable;
     }
 
-    public void add(String name, TACVariable tacVariable, TACSubprogram tacSubprogram, boolean subprogramArgument) {
+    public void add(String name, TACVariable tacVariable, boolean subprogramArgument) {
         variablesList.add(tacVariable.getId(),
-                new VariableInfo(name, tacVariable, tacSubprogram, currentScope(), subprogramArgument));
+                new VariableInfo(name, tacVariable, currentSubprogram(), currentScope(), subprogramArgument));
     }
 
     public int size() {
         return variablesList.size();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("Código\tNombre\tSubprograma\tProfundidad\tParámetro\n");
+        for (VariableInfo variableInfo : variablesList) {
+            buffer.append(variableInfo.getTacVariable()).append("\t\t")
+                    .append(variableInfo.getName().equals(variableInfo.getTacVariable().toString()) ? "-" : variableInfo.getName()).append("\t\t")
+                    .append(variableInfo.getTacSubprogram() != null ? variableInfo.getTacSubprogram() : "--").append("\t\t\t")
+                    .append(variableInfo.getScope().getIndentation()).append("\t\t\t").
+                    append(variableInfo.isSubprogramArgument() ? "Sí" : "No").append("\n");
+        }
+        return buffer.toString();
+    }
+
+    private TACSubprogram currentSubprogram() {
+        return currentScope().getTacSubprogram();
     }
 
     private Scope currentScope() {

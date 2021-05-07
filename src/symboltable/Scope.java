@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import parser.symbols.declarations.Declaration;
+import tac.references.TACSubprogram;
 
 public class Scope {
 
@@ -11,12 +12,14 @@ public class Scope {
     private final Scope previous;
     private final int indentation;
     private final int number;
+    private final TACSubprogram tacSubprogram;
 
     public Scope() {
         this.map = new HashMap<>();
         this.previous = null;
         this.indentation = 0;
         this.number = 0;
+        this.tacSubprogram = null;
     }
 
     public Scope(Scope previous, int indentation) {
@@ -24,6 +27,15 @@ public class Scope {
         this.previous = previous;
         this.indentation = indentation;
         this.number = previous.number + 1;
+        this.tacSubprogram = null;
+    }
+
+    public Scope(Scope previous, int indentation, TACSubprogram tacSubprogram) {
+        this.map = new HashMap<>();
+        this.previous = previous;
+        this.indentation = indentation;
+        this.number = previous.number + 1;
+        this.tacSubprogram = tacSubprogram;
     }
 
     public Scope getPrevious() {
@@ -36,6 +48,10 @@ public class Scope {
     
     public Collection<Identifier> getIdentifiers() {
         return map.values();
+    }
+
+    public TACSubprogram getTacSubprogram() {
+        return tacSubprogram;
     }
 
     public boolean put(Declaration declaration) {
