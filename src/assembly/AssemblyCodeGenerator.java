@@ -9,6 +9,8 @@ import tac.instructions.binary.NotInstruction;
 import tac.instructions.binary.OrInstruction;
 import tac.instructions.indexation.IndexAssignmentInstruction;
 import tac.instructions.indexation.IndexedValueInstruction;
+import tac.instructions.io.ReadInstruction;
+import tac.instructions.io.PrintInstruction;
 import tac.instructions.subprogram.*;
 
 public interface AssemblyCodeGenerator {
@@ -61,4 +63,8 @@ public interface AssemblyCodeGenerator {
     String generate(ReturnInstruction tacInstruction);
 
     String generate(SimpleParameterInstruction tacInstruction);
+
+    String generate(ReadInstruction tacInstruction);
+
+    String generate(PrintInstruction tacInstruction);
 }

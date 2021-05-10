@@ -9,6 +9,8 @@ import tac.instructions.binary.NotInstruction;
 import tac.instructions.binary.OrInstruction;
 import tac.instructions.indexation.IndexAssignmentInstruction;
 import tac.instructions.indexation.IndexedValueInstruction;
+import tac.instructions.io.ReadInstruction;
+import tac.instructions.io.PrintInstruction;
 import tac.instructions.subprogram.*;
 
 public class x86CodeGenerator implements AssemblyCodeGenerator {
@@ -243,6 +245,16 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(SimpleParameterInstruction tacInstruction) {
+        return null;
+    }
+
+    @Override
+    public String generate(ReadInstruction tacInstruction) {
+        return null;
+    }
+
+    @Override
+    public String generate(PrintInstruction tacInstruction) {
         return null;
     }
 

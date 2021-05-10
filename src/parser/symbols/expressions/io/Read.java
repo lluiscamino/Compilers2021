@@ -2,8 +2,11 @@ package parser.symbols.expressions.io;
 
 import dot.DotNode;
 import java_cup.runtime.ComplexSymbolFactory.Location;
+import main.Compiler;
 import parser.symbols.types.Type;
 import parser.symbols.expressions.Expression;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.io.ReadInstruction;
 
 public final class Read extends Expression {
     
@@ -23,6 +26,9 @@ public final class Read extends Expression {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        tacVariable = variableGenerator.generate();
+        addTACInstruction(new ReadInstruction(tacVariable));
     }
 }

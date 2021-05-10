@@ -3,6 +3,7 @@ package parser.symbols.statements.io;
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
+import tac.instructions.io.PrintInstruction;
 
 public final class Print extends Statement {
     
@@ -26,6 +27,8 @@ public final class Print extends Statement {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        expression.toTac();
+
+        addTACInstruction(new PrintInstruction(expression.getTacVariable()));
     }
 }
