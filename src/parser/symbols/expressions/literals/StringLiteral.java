@@ -33,6 +33,6 @@ public class StringLiteral extends Literal {
         TACVariableGenerator tacVariableGenerator = main.Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
         tacVariable = tacVariableGenerator.generate();  // t = novavar
-        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(value)));  //genera(t = lit)
+        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(getValue())));  //genera(t = lit)
     }
 }
