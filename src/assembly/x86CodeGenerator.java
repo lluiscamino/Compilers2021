@@ -1,6 +1,7 @@
 package assembly;
 
 import tac.instructions.arithmetic.*;
+import tac.instructions.array.ArrayLengthInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.*;
@@ -12,6 +13,8 @@ import tac.instructions.indexation.IndexedValueInstruction;
 import tac.instructions.io.ReadInstruction;
 import tac.instructions.io.PrintInstruction;
 import tac.instructions.subprogram.*;
+import tac.references.TACLiteral;
+import tac.references.TACReference;
 
 public class x86CodeGenerator implements AssemblyCodeGenerator {
     @Override
@@ -255,6 +258,11 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(PrintInstruction tacInstruction) {
+        return null;
+    }
+
+    @Override
+    public String generate(ArrayLengthInstruction tacInstruction) {
         return null;
     }
 

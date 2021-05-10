@@ -1,7 +1,10 @@
 package parser.symbols.expressions;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.types.Type;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.array.ArrayLengthInstruction;
 
 public final class Length extends Expression {
     private final Expression expression;
@@ -29,6 +32,11 @@ public final class Length extends Expression {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        expression.toTac();
+
+        tacVariable = variableGenerator.generate();
+        addTACInstruction(new ArrayLengthInstruction(tacVariable, expression.getTacVariable()));
     }
 }

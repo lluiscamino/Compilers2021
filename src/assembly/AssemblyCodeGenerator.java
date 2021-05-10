@@ -1,6 +1,7 @@
 package assembly;
 
 import tac.instructions.arithmetic.*;
+import tac.instructions.array.ArrayLengthInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.*;
@@ -67,4 +68,6 @@ public interface AssemblyCodeGenerator {
     String generate(ReadInstruction tacInstruction);
 
     String generate(PrintInstruction tacInstruction);
+
+    String generate(ArrayLengthInstruction tacInstruction);
 }
