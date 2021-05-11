@@ -1,5 +1,6 @@
 package parser.symbols.statements.loop;
 
+import analyzers.SemanticAnalyzer;
 import dot.DotNode;
 import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
@@ -10,6 +11,18 @@ import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.expressions.MockExpression;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
+import tac.generators.TACTagGenerator;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.CopyInstruction;
+import tac.instructions.array.ArrayLengthInstruction;
+import tac.instructions.bifurcation.GotoInstruction;
+import tac.instructions.bifurcation.SkipInstruction;
+import tac.instructions.bifurcation.ifs.IfEqual;
+import tac.instructions.indexation.IndexedValueInstruction;
+import tac.references.TACLiteral;
+import tac.references.TACTag;
+import tac.references.TACVariable;
+import tac.tables.VariablesTable;
 
 public class ForeachLoop extends Loop {
 
@@ -73,6 +86,32 @@ public class ForeachLoop extends Loop {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        SemanticAnalyzer semanticAnalyzer = Compiler.getCompiler().getSemanticAnalyzer();
+        SymbolTable symbolTable = semanticAnalyzer.getSymbolTable();
+        VariablesTable variablesTable = semanticAnalyzer.getVariablesTable();
+        TACVariableGenerator variableGenerator = semanticAnalyzer.getTacVariableGenerator();
+        TACTagGenerator tagGenerator = semanticAnalyzer.getTacTagGenerator();
+
+        symbolTable.enterBlock();
+        TACVariable arrayLength = variableGenerator.generate();
+        TACVariable index = variableGenerator.generate();
+        array.toTac();
+        addTACInstruction(new ArrayLengthInstruction(arrayLength, array.getTacVariable()));
+        addTACInstruction(new CopyInstruction(index, new TACLiteral(0)));
+        declaration.toTac();
+        TACVariable arrayItemVariable = variablesTable.get(declaration.getIdentifier()).getTacVariable();
+
+        TACTag startTag = tagGenerator.generate(), endTag = tagGenerator.generate();
+
+        addTACInstruction(new SkipInstruction(startTag));
+        addTACInstruction(new IfEqual(index, arrayLength, endTag));
+        addTACInstruction(new IndexedValueInstruction(arrayItemVariable, array.getTacVariable(), index));
+        if (statements != null) {
+            statements.toTac();
+        }
+
+        symbolTable.exitBlock();
+        addTACInstruction(new GotoInstruction(startTag));
+        addTACInstruction(new SkipInstruction(endTag));
     }
 }
