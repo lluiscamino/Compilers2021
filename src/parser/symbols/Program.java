@@ -46,14 +46,12 @@ public final class Program extends ParserSymbol {
 
     @Override
     public void toTac() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         if (declarations != null) {
             addSubprogramsToSymbolTable(); // Primero, añadimos todos los subprogramas a la tabla de símbolos para que se puedan llamar entre ellos, independientemente del orden de declaración.
+            addSubprogramsToSubprogramsTable();
             generateCVAsTAC(); // Luego, generamos el TAC de todos los CVAs para que puedan ser accedidos desde cualquier subprograma, independientemente del orden de definición.
             generateSubprogramsTAC(); // Finalmente, se genera el TAC de los subprogramas (se genera el TAC de todas las instrucciones).
         }
-        symbolTable.put(main);
-        main.toTac();
     }
 
     private void addSubprogramsToSymbolTable() {
@@ -63,6 +61,16 @@ public final class Program extends ParserSymbol {
                 symbolTable.put(decl);
             }
         }
+        symbolTable.put(main);
+    }
+
+    private void addSubprogramsToSubprogramsTable() {
+        for (Declaration decl : declarations.toArrayList()) {
+            if (decl instanceof  SubprogramDeclaration) {
+                ((SubprogramDeclaration) decl).addToSubprogramsTable();
+            }
+        }
+        main.addToSubprogramsTable();
     }
 
     private void generateCVAsTAC() {
@@ -79,5 +87,6 @@ public final class Program extends ParserSymbol {
                 decl.toTac();
             }
         }
+        main.toTac();
     }
 }

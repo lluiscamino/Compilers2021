@@ -24,6 +24,9 @@ public abstract class SubprogramDeclaration extends Declaration {
     protected final SymbolList<Argument> arguments;
     protected final SymbolList<Statement> statements;
 
+    private TACSubprogram tacSubprogram;
+    private TACTag tacStartTag;
+
     public SubprogramDeclaration(String identifier, SymbolList<Argument> arguments, 
             SymbolList<Statement> statements, Location location) {
         super(identifier, location);
@@ -31,20 +34,24 @@ public abstract class SubprogramDeclaration extends Declaration {
         this.statements = statements;
     }
 
-    @Override
-    public void toTac() {
+    public void addToSubprogramsTable() {
         SemanticAnalyzer semanticAnalyzer = Compiler.getCompiler().getSemanticAnalyzer();
-        SymbolTable symbolTable = semanticAnalyzer.getSymbolTable();
         TACSubprogramGenerator subprogramGenerator = semanticAnalyzer.getTacSubprogramGenerator();
         TACTagGenerator tagGenerator = semanticAnalyzer.getTacTagGenerator();
         SubprogramsTable subprogramsTable = semanticAnalyzer.getSubprogramsTable();
 
-        TACSubprogram subprogram = subprogramGenerator.generate();
-        TACTag startTag = tagGenerator.generate();
-        subprogramsTable.add(identifier, subprogram, startTag, numArguments());
-        addTACInstruction(new SkipInstruction(startTag));
-        addTACInstruction(new PreambleInstruction(subprogram));
-        symbolTable.enterBlock(subprogram);
+        tacSubprogram = subprogramGenerator.generate();
+        tacStartTag = tagGenerator.generate();
+        subprogramsTable.add(identifier, tacSubprogram, tacStartTag, numArguments());
+    }
+
+    @Override
+    public void toTac() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
+
+        addTACInstruction(new SkipInstruction(tacStartTag));
+        addTACInstruction(new PreambleInstruction(tacSubprogram));
+        symbolTable.enterBlock(tacSubprogram);
         if (arguments != null) {
             arguments.toTac();
         }
@@ -52,7 +59,7 @@ public abstract class SubprogramDeclaration extends Declaration {
             statements.toTac();
         }
         symbolTable.exitBlock();
-        addTACInstruction(new ReturnInstruction(subprogram));
+        addTACInstruction(new ReturnInstruction(tacSubprogram));
     }
     
     protected final void validateArguments(SymbolTable symbolTable) {
