@@ -1,21 +1,12 @@
 package parser.symbols.declarations.subprogram;
 
-import analyzers.SemanticAnalyzer;
 import dot.DotNode;
 import java_cup.runtime.ComplexSymbolFactory.Location;
+import main.Compiler;
 import parser.symbols.Argument;
 import parser.symbols.SymbolList;
 import parser.symbols.statements.Statement;
 import symboltable.SymbolTable;
-import main.Compiler;
-import tac.generators.TACSubprogramGenerator;
-import tac.generators.TACTagGenerator;
-import tac.instructions.bifurcation.SkipInstruction;
-import tac.instructions.subprogram.PreambleInstruction;
-import tac.instructions.subprogram.ReturnInstruction;
-import tac.references.TACSubprogram;
-import tac.references.TACTag;
-import tac.tables.SubprogramsTable;
 
 public class ProcedureDeclaration extends SubprogramDeclaration {
     
@@ -42,30 +33,6 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
         }, "ident");
         dotNode.addEdgeIfNotNull(arguments, "args");
         dotNode.addEdgeIfNotNull(statements, "stmts");
-    }
-
-    @Override
-    public void toTac() {
-        SemanticAnalyzer semanticAnalyzer = Compiler.getCompiler().getSemanticAnalyzer();
-        SymbolTable symbolTable = semanticAnalyzer.getSymbolTable();
-        TACSubprogramGenerator subprogramGenerator = semanticAnalyzer.getTacSubprogramGenerator();
-        TACTagGenerator tagGenerator = semanticAnalyzer.getTacTagGenerator();
-        SubprogramsTable subprogramsTable = semanticAnalyzer.getSubprogramsTable();
-
-        TACSubprogram subprogram = subprogramGenerator.generate();
-        TACTag startTag = tagGenerator.generate();
-        subprogramsTable.add(identifier, subprogram, startTag, numArguments());
-        addTACInstruction(new SkipInstruction(startTag));
-        addTACInstruction(new PreambleInstruction(subprogram));
-        symbolTable.enterBlock(subprogram);
-        if (arguments != null) {
-            arguments.toTac();
-        }
-        if (statements != null) {
-            statements.toTac();
-        }
-        symbolTable.exitBlock();
-        addTACInstruction(new ReturnInstruction(subprogram));
     }
     
     @Override
