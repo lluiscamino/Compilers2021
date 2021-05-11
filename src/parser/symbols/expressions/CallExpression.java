@@ -1,7 +1,12 @@
 package parser.symbols.expressions;
 
+import main.Compiler;
 import parser.symbols.Call;
 import parser.symbols.types.Type;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.subprogram.calls.FunctionCallInstruction;
+import tac.references.TACSubprogram;
+import tac.tables.SubprogramsTable;
 
 public final class CallExpression extends Expression {
     private final Call call;
@@ -28,6 +33,12 @@ public final class CallExpression extends Expression {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+        SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
+
+        tacVariable = variableGenerator.generate();
+        call.toTac();
+        TACSubprogram subprogram = subprogramsTable.get(call.getSubProgramIdentifier()).getTacSubprogram();
+        addTACInstruction(new FunctionCallInstruction(tacVariable, subprogram));
     }
 }

@@ -13,6 +13,8 @@ import tac.instructions.indexation.IndexedValueInstruction;
 import tac.instructions.io.ReadInstruction;
 import tac.instructions.io.PrintInstruction;
 import tac.instructions.subprogram.*;
+import tac.instructions.subprogram.calls.FunctionCallInstruction;
+import tac.instructions.subprogram.calls.ProcedureCallInstruction;
 
 public interface AssemblyCodeGenerator {
     String generate(AddInstruction tacInstruction);
@@ -55,7 +57,9 @@ public interface AssemblyCodeGenerator {
 
     String generate(IndexedValueInstruction tacInstruction);
 
-    String generate(CallInstruction tacInstruction);
+    String generate(ProcedureCallInstruction tacInstruction);
+
+    String generate(FunctionCallInstruction tacInstruction);
 
     String generate(ComplexParameterInstruction tacInstruction);
 

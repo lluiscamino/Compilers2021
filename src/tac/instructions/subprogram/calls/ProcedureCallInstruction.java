@@ -1,10 +1,10 @@
-package tac.instructions.subprogram;
+package tac.instructions.subprogram.calls;
 
 import assembly.AssemblyCodeGenerator;
 import tac.references.TACSubprogram;
 
-public final class CallInstruction extends SubprogramInstruction {
-    public CallInstruction(TACSubprogram subprogram) {
+public final class ProcedureCallInstruction extends CallInstruction {
+    public ProcedureCallInstruction(TACSubprogram subprogram) {
         super(subprogram);
     }
 
