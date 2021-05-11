@@ -23,7 +23,7 @@ public enum PrimitiveType implements DOTizable {
         return switch (this) {
             case INT, UNKNOWN -> 0;
             case BOOLEAN -> false;
-            case STRING -> "";
+            case STRING -> "\"\"";
         };
     }
 
