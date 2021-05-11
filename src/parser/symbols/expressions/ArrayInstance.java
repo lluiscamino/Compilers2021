@@ -1,9 +1,13 @@
 package parser.symbols.expressions;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.ArrayIndexes;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.CopyInstruction;
+import tac.references.TACLiteral;
 
 public final class ArrayInstance extends Expression {
     private final PrimitiveType primitiveType;
@@ -29,6 +33,9 @@ public final class ArrayInstance extends Expression {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        tacVariable = variableGenerator.generate();
+        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(primitiveType.defaultValue())));
     }
 }
