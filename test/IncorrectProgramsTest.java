@@ -45,6 +45,7 @@ public final class IncorrectProgramsTest {
                 new SyntaxError("No se esperaba el token PRIM_TYPE", getLocation(5)),
                 new SemanticError("No existe ninguna variable llamada i", getLocation(6)),
                 new SemanticError("No existe un subprograma llamado returnFirst", getLocation(6)),
+                new SemanticError("returnFirst no tiene un valor de retorno", getLocation(6)),
                 new SemanticError("No se puede asignar un valor de tipo BOOLEAN a una variable de tipo INT", getLocation(7)),
                 new SemanticError("La condición del bucle debe ser de tipo BOOLEAN, no de tipo INT", getLocation(11)),
                 new SemanticError("No existe un subprograma llamado returnFirst", getLocation(12)),
