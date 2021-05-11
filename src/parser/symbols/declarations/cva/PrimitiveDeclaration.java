@@ -36,19 +36,4 @@ public final class PrimitiveDeclaration extends CVADeclaration {
         }, "ident");
         dotNode.addEdgeIfNotNull(expression, "value");
     }
-
-    @Override
-    public void toTac() {
-        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
-        TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
-
-        symbolTable.put(this);
-        TACVariable variable = variableGenerator.generate(identifier, false);
-        if (expression != null) {
-            expression.toTac();
-            addTACInstruction(new CopyInstruction(variable, expression.getTacVariable()));
-        } else {
-            addTACInstruction(new CopyInstruction(variable, new TACLiteral(type.getPrimitiveType().defaultValue())));
-        }
-    }
 }

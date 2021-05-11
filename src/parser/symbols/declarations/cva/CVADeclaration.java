@@ -6,6 +6,10 @@ import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 import main.Compiler;
 import parser.symbols.expressions.Expression;
+import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.CopyInstruction;
+import tac.references.TACLiteral;
+import tac.references.TACVariable;
 
 public abstract class CVADeclaration extends Declaration {
     protected final Type type;
@@ -57,6 +61,22 @@ public abstract class CVADeclaration extends Declaration {
         }
         if (!symbolTable.isInInitialScope() && !symbolTable.put(this)) {
             addSemanticError(identifier + " ya ha sido definido previamente");
+        }
+    }
+
+
+    @Override
+    public void toTac() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
+        TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+
+        symbolTable.put(this);
+        TACVariable variable = variableGenerator.generate(identifier, false);
+        if (expression != null) {
+            expression.toTac();
+            addTACInstruction(new CopyInstruction(variable, expression.getTacVariable()));
+        } else {
+            addTACInstruction(new CopyInstruction(variable, new TACLiteral(type.getPrimitiveType().defaultValue())));
         }
     }
     
