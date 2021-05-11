@@ -24,6 +24,9 @@ public final class CallExpression extends Expression {
     @Override
     public void validate() {
         call.validate();
+        if (call.getReturnType().isUnknown()) {
+            addSemanticError(call.getSubProgramIdentifier() + " no tiene un valor de retorno");
+        }
     }
 
     @Override

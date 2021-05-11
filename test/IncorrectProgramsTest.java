@@ -149,6 +149,15 @@ public final class IncorrectProgramsTest {
         testProgram("repeateddeclaration", expectedErrors);
     }
 
+    @Test
+    public void testProcedureReturnValue() throws Exception {
+        final ProgramError[] expectedErrors = {
+                new SemanticError("doNothing no tiene un valor de retorno", getLocation(10)),
+                new SemanticError("doSomething no tiene un valor de retorno", getLocation(11)),
+        };
+        testProgram("procedurereturnvalue", expectedErrors);
+    }
+
     private Location getLocation(final int line) {
         return new Location(line, 0);
     }

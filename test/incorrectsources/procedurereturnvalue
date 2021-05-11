@@ -1,0 +1,12 @@
+procedure doNothing() {
+
+}
+
+procedure doSomething(int a) {
+    print(a);
+}
+
+main() {
+    print(doNothing());
+    const int val = doSomething(3);
+}
