@@ -41,7 +41,7 @@ public abstract class SubprogramDeclaration extends Declaration {
         SubprogramsTable subprogramsTable = semanticAnalyzer.getSubprogramsTable();
 
         tacSubprogram = subprogramGenerator.generate();
-        tacStartTag = tagGenerator.generate();
+        tacStartTag = tagGenerator.generate("t_" + identifier);
         subprogramsTable.add(identifier, tacSubprogram, tacStartTag, numArguments());
     }
 

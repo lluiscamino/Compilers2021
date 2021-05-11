@@ -25,9 +25,11 @@ public final class SubprogramsTable {
     @Override
     public String toString() {
         StringBuilder buffer = new StringBuilder();
-        buffer.append("Código\tTam. var. local\tNúm. params.\n");
+        buffer.append("Código\tNombre\tEtiqueta\tTam. var. local\tNúm. params.\n");
         for (SubprogramInfo subprogramInfo : subprogramsMap.values()) {
-            buffer.append(subprogramInfo.getTag()).append("\t\t")
+            buffer.append(subprogramInfo.getTacSubprogram()).append("\t\t")
+                    .append(subprogramInfo.getIdentifier()).append("\t\t")
+                    .append(subprogramInfo.getTag()).append("\t\t")
                     .append(subprogramInfo.getLocalVariablesSize()).append("\t\t\t\t")
                     .append(subprogramInfo.getNumParameters()).append("\n");
         }

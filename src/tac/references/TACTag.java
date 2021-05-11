@@ -1,8 +1,16 @@
 package tac.references;
 
 public final class TACTag extends TACReference {
+    private final String identifier;
+
     public TACTag(int id) {
         super(id);
+        this.identifier = null;
+    }
+
+    public TACTag(int id, String identifier) {
+        super(id);
+        this.identifier = identifier;
     }
 
     @Override
@@ -15,6 +23,6 @@ public final class TACTag extends TACReference {
 
     @Override
     public String toString() {
-        return "e" + id;
+        return identifier != null ? identifier : "e" + id;
     }
 }
