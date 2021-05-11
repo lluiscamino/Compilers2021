@@ -27,6 +27,15 @@ public enum PrimitiveType implements DOTizable {
         };
     }
 
+    public int sizeInBytes() {
+        return switch (this) {
+            case INT -> 4;
+            case BOOLEAN -> 1;
+            case STRING -> value.length() * INT.sizeInBytes();
+            case UNKNOWN -> 0;
+        };
+    }
+
     @Override
     public void toDot() {
         new DotNode(toString(), "", "filled", "");
