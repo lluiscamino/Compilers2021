@@ -9,7 +9,7 @@ public abstract class ArithmeticInstruction extends TACInstruction {
         super(firstVariable, secondReference, null);
     }
 
-    public ArithmeticInstruction(TACVariable firstVariable, TACVariable secondVariable, TACVariable thirdVariable) {
-        super(firstVariable, secondVariable, thirdVariable);
+    public ArithmeticInstruction(TACReference firstReference, TACReference secondReference, TACReference thirdReference) {
+        super(firstReference, secondReference, thirdReference);
     }
 }

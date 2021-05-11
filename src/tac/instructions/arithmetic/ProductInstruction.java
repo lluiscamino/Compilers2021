@@ -1,11 +1,12 @@
 package tac.instructions.arithmetic;
 
 import assembly.AssemblyCodeGenerator;
+import tac.references.TACReference;
 import tac.references.TACVariable;
 
 public final class ProductInstruction extends ArithmeticInstruction {
-    public ProductInstruction(TACVariable firstVariable, TACVariable secondVariable, TACVariable thirdVariable) {
-        super(firstVariable, secondVariable, thirdVariable);
+    public ProductInstruction(TACReference firstReference, TACReference secondReference, TACReference thirdReference) {
+        super(firstReference, secondReference, thirdReference);
     }
 
     public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {
