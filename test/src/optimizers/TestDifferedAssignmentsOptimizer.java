@@ -1,3 +1,5 @@
+package src.optimizers;
+
 import optimizers.DifferedAssignmentsOptimizer;
 import optimizers.TACOptimizer;
 import org.junit.Test;
@@ -12,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public final class TestDifferedAssignmentsOptimizer {
+public final class TestDifferedAssignmentsOptimizer extends TestOptimizer {
 
     @Test
     public void testUsedTemporalVariableIgnored() {
@@ -72,12 +74,5 @@ public final class TestDifferedAssignmentsOptimizer {
         TACOptimizer optimizer = new DifferedAssignmentsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
-    }
-
-    private void assertEqualTACInstructionLists(List<TACInstruction> list1, List<TACInstruction> list2) {
-        assert list1.size() == list2.size();
-        for (int i = 0; i < list1.size(); i++) {
-            assert list1.get(i).toString().equals(list2.get(i).toString());
-        }
     }
 }

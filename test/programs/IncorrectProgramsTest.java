@@ -1,3 +1,5 @@
+package programs;
+
 import errors.ProgramError;
 import errors.SemanticError;
 import errors.SyntaxError;
@@ -164,7 +166,7 @@ public final class IncorrectProgramsTest {
     }
 
     private void testProgram(final String programName, final ProgramError[] expectedErrors) throws Exception {
-        final String programPath = "test/incorrectsources/" + programName;
+        final String programPath = "test/programs/incorrectsources/" + programName;
         final StringWriter
                 tokensWriter = new StringWriter(),
                 symbolTableWriter = new StringWriter(),

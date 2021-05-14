@@ -1,3 +1,5 @@
+package src.optimizers;
+
 import optimizers.AdjacentBranchesOptimizer;
 import optimizers.TACOptimizer;
 import org.junit.Test;
@@ -14,7 +16,7 @@ import tac.references.TACVariable;
 import java.util.Arrays;
 import java.util.List;
 
-public final class TestAdjacentBranchesOptimizer {
+public final class TestAdjacentBranchesOptimizer extends TestOptimizer {
 
     @Test
     public void testNotAdjacentBranchesIgnored() {
@@ -70,12 +72,5 @@ public final class TestAdjacentBranchesOptimizer {
         TACOptimizer optimizer = new AdjacentBranchesOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
-    }
-
-    private void assertEqualTACInstructionLists(List<TACInstruction> list1, List<TACInstruction> list2) {
-        assert list1.size() == list2.size();
-        for (int i = 0; i < list1.size(); i++) {
-            assert list1.get(i).toString().equals(list2.get(i).toString());
-        }
     }
 }

@@ -1,3 +1,5 @@
+package src.assembly;
+
 import assembly.AssemblyCodeGenerator;
 import assembly.x86CodeGenerator;
 import org.junit.Test;

@@ -1,3 +1,5 @@
+package programs;
+
 import main.Compiler;
 import org.junit.Test;
 
@@ -226,7 +228,7 @@ public final class CorrectProgramsTest {
     }
 
     private void testProgram(final String programName, final String expectedSymbolTable) throws Exception {
-        final String programPath = "test/correctsources/" + programName;
+        final String programPath = "test/programs/correctsources/" + programName;
         final StringWriter
                 tokensWriter = new StringWriter(),
                 symbolTableWriter = new StringWriter(),
