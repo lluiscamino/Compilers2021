@@ -4,7 +4,8 @@ import dot.DotNode;
 import main.Compiler;
 import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
-import tac.instructions.array.ArrayLengthInstruction;
+import tac.instructions.indexation.IndexedValueInstruction;
+import tac.references.TACLiteral;
 
 public final class Length extends Expression {
     private final Expression expression;
@@ -37,6 +38,6 @@ public final class Length extends Expression {
         expression.toTac();
 
         tacVariable = variableGenerator.generate();
-        addTACInstruction(new ArrayLengthInstruction(tacVariable, expression.getTacVariable()));
+        addTACInstruction(new IndexedValueInstruction(tacVariable, expression.getTacVariable(), new TACLiteral(0)));
     }
 }

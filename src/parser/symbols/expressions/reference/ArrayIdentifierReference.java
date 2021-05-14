@@ -4,13 +4,17 @@ import dot.DotNode;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.ArrayIndexes;
 import parser.symbols.declarations.cva.CVADeclaration;
+import parser.symbols.expressions.Expression;
 import symboltable.SymbolTable;
 import main.Compiler;
 import parser.symbols.declarations.cva.ArrayDeclaration;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.AddInstruction;
 import tac.instructions.indexation.IndexedValueInstruction;
+import tac.references.TACLiteral;
+import tac.references.TACVariable;
 import tac.tables.VariablesTable;
 
 public final class ArrayIdentifierReference extends IdentifierReference {
@@ -75,11 +79,17 @@ public final class ArrayIdentifierReference extends IdentifierReference {
 
     @Override
     public void toTac() {
-        TACVariableGenerator tacVariableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+        TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
 
-        indexes.toTac();
-        tacVariable = tacVariableGenerator.generate();
-        addTACInstruction(new IndexedValueInstruction(tacVariable, variablesTable.get(identifierName).getTacVariable(), indexes.getOffset()));
+        TACVariable identifierVariable = variablesTable.get(identifierName).getTacVariable();
+        for (Expression index : indexes.getIndexes().toArrayList()) {
+            index.toTac();
+            tacVariable = variableGenerator.generate();
+            TACVariable indexVariable = index.getTacVariable();
+            addTACInstruction(new AddInstruction(indexVariable, indexVariable, new TACLiteral(1)));
+            addTACInstruction(new IndexedValueInstruction(tacVariable, identifierVariable, indexVariable));
+            identifierVariable = tacVariable;
+        }
     }
 }

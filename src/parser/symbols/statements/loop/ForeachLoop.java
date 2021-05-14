@@ -13,8 +13,8 @@ import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import tac.generators.TACTagGenerator;
 import tac.generators.TACVariableGenerator;
+import tac.instructions.arithmetic.AddInstruction;
 import tac.instructions.arithmetic.CopyInstruction;
-import tac.instructions.array.ArrayLengthInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.IfEqual;
@@ -93,11 +93,11 @@ public class ForeachLoop extends Loop {
         TACTagGenerator tagGenerator = semanticAnalyzer.getTacTagGenerator();
 
         symbolTable.enterBlock();
-        TACVariable arrayLength = variableGenerator.generate();
-        TACVariable index = variableGenerator.generate();
         array.toTac();
-        addTACInstruction(new ArrayLengthInstruction(arrayLength, array.getTacVariable()));
-        addTACInstruction(new CopyInstruction(index, new TACLiteral(0)));
+        TACVariable index = variableGenerator.generate();
+        addTACInstruction(new CopyInstruction(index, new TACLiteral(1)));
+        TACVariable arrayLength = variableGenerator.generate();
+        addTACInstruction(new IndexedValueInstruction(arrayLength, array.getTacVariable(), new TACLiteral(0)));
         declaration.toTac();
         TACVariable arrayItemVariable = variablesTable.get(declaration.getIdentifier()).getTacVariable();
 
@@ -109,7 +109,7 @@ public class ForeachLoop extends Loop {
         if (statements != null) {
             statements.toTac();
         }
-
+        addTACInstruction(new AddInstruction(index, index, new TACLiteral(1)));
         symbolTable.exitBlock();
         addTACInstruction(new GotoInstruction(startTag));
         addTACInstruction(new SkipInstruction(endTag));

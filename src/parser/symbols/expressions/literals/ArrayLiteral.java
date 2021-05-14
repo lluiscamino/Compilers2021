@@ -1,6 +1,8 @@
 package parser.symbols.expressions.literals;
 
 import dot.DotNode;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import java_cup.runtime.ComplexSymbolFactory.Location;
@@ -10,7 +12,9 @@ import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.CopyInstruction;
+import tac.instructions.indexation.IndexAssignmentInstruction;
 import tac.references.TACLiteral;
+import main.Compiler;
 import tac.references.TACVariable;
 
 public final class ArrayLiteral extends Literal {
@@ -89,9 +93,18 @@ public final class ArrayLiteral extends Literal {
 
     @Override
     public void toTac() {
-        TACVariableGenerator tacVariableGenerator = main.Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+        TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
-        tacVariable = tacVariableGenerator.generate();  // t = novavar
-        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(getValue())));  //genera(t = lit)
+        TACVariable arrayLength = variableGenerator.generate();
+        tacVariable = variableGenerator.generate();
+        List<Expression> items = getValue() != null ? getValue().toArrayList() : new ArrayList<>();
+        int counter = 1;
+
+        addTACInstruction(new CopyInstruction(arrayLength, new TACLiteral(items.size())));
+        addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(0), arrayLength));
+        for (Expression item : items) {
+            item.toTac();
+            addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(counter++), item.getTacVariable()));
+        }
     }
 }
