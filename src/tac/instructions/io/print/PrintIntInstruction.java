@@ -1,10 +1,10 @@
-package tac.instructions.io;
+package tac.instructions.io.print;
 
 import assembly.AssemblyCodeGenerator;
 import tac.references.TACReference;
 
-public final class PrintInstruction extends IOInstruction {
-    public PrintInstruction(TACReference reference) {
+public final class PrintIntInstruction extends PrintInstruction {
+    public PrintIntInstruction(TACReference reference) {
         super(reference);
     }
 
@@ -15,6 +15,6 @@ public final class PrintInstruction extends IOInstruction {
 
     @Override
     public String toString() {
-        return "print(" + firstReference + ")";
+        return "printInt(" + firstReference + ")";
     }
 }

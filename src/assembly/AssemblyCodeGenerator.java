@@ -1,7 +1,6 @@
 package assembly;
 
 import tac.instructions.arithmetic.*;
-import tac.instructions.array.ArrayLengthInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.*;
@@ -11,7 +10,7 @@ import tac.instructions.binary.OrInstruction;
 import tac.instructions.indexation.IndexAssignmentInstruction;
 import tac.instructions.indexation.IndexedValueInstruction;
 import tac.instructions.io.ReadInstruction;
-import tac.instructions.io.PrintInstruction;
+import tac.instructions.io.print.*;
 import tac.instructions.subprogram.*;
 import tac.instructions.subprogram.calls.FunctionCallInstruction;
 import tac.instructions.subprogram.calls.ProcedureCallInstruction;
@@ -71,7 +70,11 @@ public interface AssemblyCodeGenerator {
 
     String generate(ReadInstruction tacInstruction);
 
-    String generate(PrintInstruction tacInstruction);
+    String generate(PrintIntInstruction tacInstruction);
 
-    String generate(ArrayLengthInstruction tacInstruction);
+    String generate(PrintBooleanInstruction tacInstruction);
+
+    String generate(PrintStringInstruction tacInstruction);
+
+    String generate(PrintArrayInstruction tacInstruction);
 }

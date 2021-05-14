@@ -3,7 +3,7 @@ package parser.symbols.statements.io;
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
-import tac.instructions.io.PrintInstruction;
+import tac.instructions.io.print.PrintInstructionFactory;
 
 public final class Print extends Statement {
     
@@ -29,6 +29,7 @@ public final class Print extends Statement {
     public void toTac() {
         expression.toTac();
 
-        addTACInstruction(new PrintInstruction(expression.getTacVariable()));
+        PrintInstructionFactory printInstructionFactory = new PrintInstructionFactory();
+        addTACInstruction(printInstructionFactory.get(expression));
     }
 }
