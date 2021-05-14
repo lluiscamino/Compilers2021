@@ -1,6 +1,7 @@
 package tac.tables;
 
 import main.Compiler;
+import parser.symbols.expressions.Expression;
 import symboltable.Scope;
 import tac.references.TACSubprogram;
 import tac.references.TACVariable;
@@ -32,12 +33,14 @@ public final class VariablesTable {
     @Override
     public String toString() {
         StringBuilder buffer = new StringBuilder();
-        buffer.append("Nombre\tSubprograma\tProfundidad\tParámetro\n");
+        buffer.append("Nombre\tSubprograma\tProfundidad\tParámetro\tValor\n");
         for (VariableInfo variableInfo : variablesList) {
             buffer.append(variableInfo.getTacVariable()).append("\t\t")
                     .append(variableInfo.getTacSubprogram() != null ? variableInfo.getTacSubprogram() : "--").append("\t\t\t")
-                    .append(variableInfo.getScope().getIndentation()).append("\t\t\t").
-                    append(variableInfo.isSubprogramArgument() ? "Sí" : "No").append("\n");
+                    .append(variableInfo.getScope().getIndentation()).append("\t\t\t")
+                    .append(variableInfo.isSubprogramArgument() ? "Sí" : "No").append("\t\t\t")
+                    .append(variableInfo.getValue() != null ? variableInfo.getValue().getClass().getSimpleName() : "Desconocido")
+                    .append("\n");
         }
         return buffer.toString();
     }
@@ -64,6 +67,7 @@ public final class VariablesTable {
         private final TACSubprogram tacSubprogram;
         private final Scope scope;
         private final boolean subprogramArgument;
+        private Expression value;
 
         public VariableInfo(TACVariable tacVariable, TACSubprogram tacSubprogram, Scope scope, boolean subprogramArgument) {
             this.tacVariable = tacVariable;
@@ -86,6 +90,14 @@ public final class VariablesTable {
 
         public boolean isSubprogramArgument() {
             return subprogramArgument;
+        }
+
+        public Expression getValue() {
+            return value;
+        }
+
+        public void setValue(Expression value) {
+            this.value = value;
         }
     }
 }

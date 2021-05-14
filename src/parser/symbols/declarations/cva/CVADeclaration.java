@@ -8,8 +8,8 @@ import main.Compiler;
 import parser.symbols.expressions.Expression;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.CopyInstruction;
-import tac.references.TACLiteral;
 import tac.references.TACVariable;
+import tac.tables.VariablesTable;
 
 public abstract class CVADeclaration extends Declaration {
     protected final Type type;
@@ -69,15 +69,17 @@ public abstract class CVADeclaration extends Declaration {
     public void toTac() {
         SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
         TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
+        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
 
         symbolTable.put(this);
         TACVariable variable = variableGenerator.generate(identifier, false);
-        if (expression != null) {
-            expression.toTac();
-            addTACInstruction(new CopyInstruction(variable, expression.getTacVariable()));
-        } else {
-            addTACInstruction(new CopyInstruction(variable, new TACLiteral(type.getPrimitiveType().defaultValue())));
+        VariablesTable.VariableInfo variableInfo = variablesTable.get(identifier);
+        if (expression == null) {
+            expression = type.defaultExpression();
         }
+        expression.toTac();
+        addTACInstruction(new CopyInstruction(variable, expression.getTacVariable()));
+        variableInfo.setValue(expression);
     }
     
     @Override

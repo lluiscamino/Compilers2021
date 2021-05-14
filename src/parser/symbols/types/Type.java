@@ -4,6 +4,9 @@ import dot.DotNode;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import parser.symbols.ArrayDimensions;
 import parser.symbols.ParserSymbol;
+import parser.symbols.SymbolList;
+import parser.symbols.expressions.Expression;
+import parser.symbols.expressions.literals.ArrayLiteral;
 
 public final class Type extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "TYPE";
@@ -73,6 +76,24 @@ public final class Type extends ParserSymbol {
     
     public boolean isArray() {
         return dimensions != null;
+    }
+
+    public Object defaultValue() {
+        if (!isArray()) {
+            return primitiveType.defaultValue();
+        }
+        return switch (primitiveType) {
+            case INT, UNKNOWN -> new int[]{};
+            case BOOLEAN -> new boolean[]{};
+            case STRING -> new String[]{};
+        };
+    }
+
+    public Expression defaultExpression() {
+        if (!isArray()) {
+            return primitiveType.defaultExpression();
+        }
+        return new ArrayLiteral(new SymbolList<>(), null);
     }
     
     public boolean equals(Type t) {

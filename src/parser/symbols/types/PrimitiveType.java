@@ -2,6 +2,10 @@ package parser.symbols.types;
 
 import dot.DOTizable;
 import dot.DotNode;
+import parser.symbols.expressions.Expression;
+import parser.symbols.expressions.literals.BooleanLiteral;
+import parser.symbols.expressions.literals.IntegerLiteral;
+import parser.symbols.expressions.literals.StringLiteral;
 
 public enum PrimitiveType implements DOTizable {
     INT("int"), BOOLEAN("boolean"), STRING("string"), UNKNOWN("UNKNOWN");
@@ -24,6 +28,14 @@ public enum PrimitiveType implements DOTizable {
             case INT, UNKNOWN -> 0;
             case BOOLEAN -> false;
             case STRING -> "\"\"";
+        };
+    }
+
+    public Expression defaultExpression() {
+        return switch (this) {
+            case INT, UNKNOWN -> new IntegerLiteral(0, null);
+            case BOOLEAN -> new BooleanLiteral(false, null);
+            case STRING -> new StringLiteral("", null);
         };
     }
 
