@@ -273,7 +273,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     @Override
-    public String generate(ArrayLengthInstruction tacInstruction) {
+    public String generate(PrintStringInstruction tacInstruction) {
+        return null;
+    }
+
+    @Override
+    public String generate(PrintArrayInstruction tacInstruction) {
         return null;
     }
 
