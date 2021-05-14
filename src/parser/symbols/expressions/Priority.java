@@ -25,6 +25,6 @@ public final class Priority extends Expression {
     @Override
     public void toTac() {
         expression.toTac();
-        tacVariable = expression.tacVariable;
+        tacVariable = expression.getTacVariable();
     }
 }
