@@ -4,7 +4,7 @@ import assembly.AssemblyCodeGenerator;
 import tac.references.TACReference;
 
 public abstract class TACInstruction {
-    protected final TACReference firstReference, secondReference, thirdReference;
+    protected TACReference firstReference, secondReference, thirdReference;
 
     public TACInstruction(TACReference firstReference, TACReference secondReference, TACReference thirdReference) {
         this.firstReference = firstReference;
@@ -22,6 +22,18 @@ public abstract class TACInstruction {
 
     public TACReference getThirdReference() {
         return thirdReference;
+    }
+
+    public void setFirstReference(TACReference firstReference) {
+        this.firstReference = firstReference;
+    }
+
+    public void setSecondReference(TACReference secondReference) {
+        this.secondReference = secondReference;
+    }
+
+    public void setThirdReference(TACReference thirdReference) {
+        this.thirdReference = thirdReference;
     }
 
     public abstract String toAssemblyCode(AssemblyCodeGenerator codeGenerator);
