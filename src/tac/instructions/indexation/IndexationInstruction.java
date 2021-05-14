@@ -1,10 +1,10 @@
 package tac.instructions.indexation;
 
 import tac.instructions.TACInstruction;
-import tac.references.TACVariable;
+import tac.references.TACReference;
 
 public abstract class IndexationInstruction extends TACInstruction {
-    public IndexationInstruction(TACVariable firstVariable, TACVariable secondVariable, TACVariable thirdVariable) {
-        super(firstVariable, secondVariable, thirdVariable);
+    public IndexationInstruction(TACReference firstReference, TACReference secondVariable, TACReference thirdReference) {
+        super(firstReference, secondVariable, thirdReference);
     }
 }
