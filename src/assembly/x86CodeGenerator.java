@@ -349,18 +349,6 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(PrintArrayInstruction tacInstruction) {
         return null;
     }
-    private String generateLoadInstruction(TACReference reference, String register) {
-        String assembly = "";
-        if (reference instanceof TACLiteral) {
-            assembly = String.format("movl $%s, %s", reference, register);
-        }
-        assembly += String.format("LD %s, %s", reference, register);
-        return assembly;
-    }
-
-    private String generateStoreInstruction(String register, TACReference reference) {
-        return null;
-    }
 
     private String loadInstruction(TACReference reference, String register) {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
