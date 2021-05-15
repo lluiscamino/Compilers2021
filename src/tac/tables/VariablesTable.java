@@ -1,16 +1,23 @@
 package tac.tables;
 
 import main.Compiler;
-import parser.symbols.expressions.Expression;
+import parser.symbols.types.Type;
 import symboltable.Scope;
 import tac.references.TACSubprogram;
 import tac.references.TACVariable;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public final class VariablesTable {
     private final List<VariableInfo> variablesList = new ArrayList<>();
+
+    public List<VariableInfo> getVariablesList() {
+        return variablesList;
+    }
 
     public VariableInfo get(String name) {
         Scope scope = currentScope();
@@ -22,8 +29,26 @@ public final class VariablesTable {
         return variable;
     }
 
-    public void add(TACVariable tacVariable, boolean subprogramArgument) {
-        variablesList.add(new VariableInfo(tacVariable, currentSubprogram(), currentScope(), subprogramArgument));
+    public VariableInfo get(TACVariable tacVariable) {
+        for (VariableInfo variableInfo : variablesList) {
+            if (variableInfo.getTacVariable() == tacVariable) {
+                return variableInfo;
+            }
+        }
+        return null;
+    }
+
+    public void add(TACVariable tacVariable, Type type, int size, boolean subprogramArgument) {
+        variablesList.add(new VariableInfo(tacVariable, type, currentSubprogram(), currentScope(), size, subprogramArgument));
+    }
+
+    public void remove(VariableInfo removedVariableInfo) {
+        for (VariableInfo variableInfo : variablesList) {
+            if (variableInfo == removedVariableInfo) {
+                variablesList.remove(removedVariableInfo);
+                return;
+            }
+        }
     }
 
     public int size() {
@@ -32,17 +57,29 @@ public final class VariablesTable {
 
     @Override
     public String toString() {
-        StringBuilder buffer = new StringBuilder();
-        buffer.append("Nombre\tSubprograma\tProfundidad\tParámetro\tValor\n");
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+
+        Optional<VariableInfo> longestVariable = variablesList.stream()
+                .reduce((variable1, variable2)
+                        -> variable1.getTacVariable().toString().length() > variable2.getTacVariable().toString().length()
+                        ? variable1 : variable2);
+        int longestVariableName = Math.max(longestVariable.map(info -> info.getTacVariable().toString().length()).orElse(0), 10);
+        String format = "%" + longestVariableName + "s%12s%12s%10s%10s%10s%16s\n";
+
+        printWriter.format(format, "Nombre", "Subprograma", "Profundidad", "Parámetro", "Tipo", "Tamaño", "Desplazamiento");
         for (VariableInfo variableInfo : variablesList) {
-            buffer.append(variableInfo.getTacVariable()).append("\t\t")
-                    .append(variableInfo.getTacSubprogram() != null ? variableInfo.getTacSubprogram() : "--").append("\t\t\t")
-                    .append(variableInfo.getScope().getIndentation()).append("\t\t\t")
-                    .append(variableInfo.isSubprogramArgument() ? "Sí" : "No").append("\t\t\t")
-                    .append(variableInfo.getValue() != null ? variableInfo.getValue().getClass().getSimpleName() : "Desconocido")
-                    .append("\n");
+            printWriter.format(format,
+                    variableInfo.getTacVariable(),
+                    variableInfo.getTacSubprogram() != null ? variableInfo.getTacSubprogram() : "--",
+                    variableInfo.getScope().getIndentation(),
+                    variableInfo.isSubprogramArgument() ? "Sí" : "No",
+                    variableInfo.getType(),
+                    variableInfo.getSize() + "B",
+                    variableInfo.getOffset()
+            );
         }
-        return buffer.toString();
+        return stringWriter.toString();
     }
 
     private TACSubprogram currentSubprogram() {
@@ -64,20 +101,28 @@ public final class VariablesTable {
 
     public static final class VariableInfo {
         private final TACVariable tacVariable;
+        private final Type type;
         private final TACSubprogram tacSubprogram;
         private final Scope scope;
         private final boolean subprogramArgument;
-        private Expression value;
+        private final int size;
+        private int offset;
 
-        public VariableInfo(TACVariable tacVariable, TACSubprogram tacSubprogram, Scope scope, boolean subprogramArgument) {
+        public VariableInfo(TACVariable tacVariable, Type type, TACSubprogram tacSubprogram, Scope scope, int size, boolean subprogramArgument) {
             this.tacVariable = tacVariable;
+            this.type = type;
             this.tacSubprogram = tacSubprogram;
             this.scope = scope;
+            this.size = size;
             this.subprogramArgument = subprogramArgument;
         }
 
         public TACVariable getTacVariable() {
             return tacVariable;
+        }
+
+        public Type getType() {
+            return type;
         }
 
         public TACSubprogram getTacSubprogram() {
@@ -92,12 +137,16 @@ public final class VariablesTable {
             return subprogramArgument;
         }
 
-        public Expression getValue() {
-            return value;
+        public int getSize() {
+            return size;
         }
 
-        public void setValue(Expression value) {
-            this.value = value;
+        public int getOffset() {
+            return offset;
+        }
+
+        public void setOffset(int offset) {
+            this.offset = offset;
         }
     }
 }
