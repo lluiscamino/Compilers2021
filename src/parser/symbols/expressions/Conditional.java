@@ -60,7 +60,7 @@ public final class Conditional extends Expression {
 
         condition.toTac();
 
-        tacVariable = tacVariableGenerator.generate();
+        tacVariable = tacVariableGenerator.generate(leftExpression.getType());
         TACTag e1 = tacTagGenerator.generate();
         TACTag e2 = tacTagGenerator.generate();
 

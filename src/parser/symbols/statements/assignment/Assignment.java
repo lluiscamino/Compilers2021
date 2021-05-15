@@ -73,6 +73,5 @@ public class Assignment extends Statement {
         TACVariable variable = variablesTable.get(identifier).getTacVariable();
         expression.toTac();
         addTACInstruction(new CopyInstruction(variable, expression.getTacVariable()));
-        variablesTable.get(identifier).setValue(expression);
     }
 }

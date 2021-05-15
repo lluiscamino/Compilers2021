@@ -72,14 +72,13 @@ public abstract class CVADeclaration extends Declaration {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
 
         symbolTable.put(this);
-        TACVariable variable = variableGenerator.generate(identifier, false);
+        TACVariable variable = variableGenerator.generate(identifier, type, false);
         VariablesTable.VariableInfo variableInfo = variablesTable.get(identifier);
         if (expression == null) {
             expression = type.defaultExpression();
         }
         expression.toTac();
         addTACInstruction(new CopyInstruction(variable, expression.getTacVariable()));
-        variableInfo.setValue(expression);
     }
     
     @Override

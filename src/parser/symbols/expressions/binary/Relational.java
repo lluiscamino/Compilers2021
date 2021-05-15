@@ -67,7 +67,7 @@ public final class Relational extends Expression {
         leftExpression.toTac();
         rightExpression.toTac();
 
-        tacVariable = tacVariableGenerator.generate();
+        tacVariable = tacVariableGenerator.generate(Type.getBoolean());
         TACTag e1 = tacTagGenerator.generate();
         TACTag e2 = tacTagGenerator.generate();
 

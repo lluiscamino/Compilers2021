@@ -38,7 +38,7 @@ public final class Not extends Expression {
 
         expression.toTac();
 
-        tacVariable = tacVariableGenerator.generate();  // t = novavar
+        tacVariable = tacVariableGenerator.generate(Type.getBoolean());  // t = novavar
         addTACInstruction(new NotInstruction(tacVariable, expression.getTacVariable()));  //genera(t = !E1.r)
     }
 }

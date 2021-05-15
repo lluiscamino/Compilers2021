@@ -2,6 +2,7 @@ package parser.symbols.expressions.binary;
 
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
+import parser.symbols.types.Type;
 import symboltable.SymbolTable;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.binary.OrInstruction;
@@ -28,7 +29,7 @@ public final class BinaryOr extends BinaryOperation {
         leftExpression.toTac();
         rightExpression.toTac();
 
-        tacVariable = tacVariableGenerator.generate();  // t = novavar
+        tacVariable = tacVariableGenerator.generate(Type.getBoolean());  // t = novavar
         addTACInstruction(new OrInstruction(tacVariable, leftExpression.getTacVariable(), rightExpression.getTacVariable()));  //genera(t = E1.r || E2.r)
     }
 }

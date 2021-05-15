@@ -95,8 +95,8 @@ public final class ArrayLiteral extends Literal {
     public void toTac() {
         TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
-        TACVariable arrayLength = variableGenerator.generate();
-        tacVariable = variableGenerator.generate();
+        TACVariable arrayLength = variableGenerator.generate(Type.getInteger());
+        tacVariable = variableGenerator.generate(getType());
         List<Expression> items = getValue() != null ? getValue().toArrayList() : new ArrayList<>();
         int counter = 1;
 

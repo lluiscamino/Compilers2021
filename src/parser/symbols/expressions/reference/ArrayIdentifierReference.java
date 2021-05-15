@@ -85,8 +85,8 @@ public final class ArrayIdentifierReference extends IdentifierReference {
         TACVariable identifierVariable = variablesTable.get(identifierName).getTacVariable();
         for (Expression index : indexes.getIndexes().toArrayList()) {
             index.toTac();
-            TACVariable newIndexVariable = variableGenerator.generate();
-            tacVariable = variableGenerator.generate();
+            TACVariable newIndexVariable = variableGenerator.generate(Type.getInteger());
+            tacVariable = variableGenerator.generate(getType());
             TACVariable indexVariable = index.getTacVariable();
             addTACInstruction(new AddInstruction(newIndexVariable, indexVariable, new TACLiteral(1)));
             addTACInstruction(new IndexedValueInstruction(tacVariable, identifierVariable, newIndexVariable));

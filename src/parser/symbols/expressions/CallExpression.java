@@ -39,7 +39,7 @@ public final class CallExpression extends Expression {
         TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
         SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
 
-        tacVariable = variableGenerator.generate();
+        tacVariable = variableGenerator.generate(call.getReturnType());
         call.toTac();
         TACSubprogram subprogram = subprogramsTable.get(call.getSubProgramIdentifier()).getTacSubprogram();
         addTACInstruction(new FunctionCallInstruction(tacVariable, subprogram));

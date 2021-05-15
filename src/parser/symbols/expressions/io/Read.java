@@ -28,7 +28,7 @@ public final class Read extends Expression {
     public void toTac() {
         TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
-        tacVariable = variableGenerator.generate();
+        tacVariable = variableGenerator.generate(Type.getString());
         addTACInstruction(new ReadInstruction(tacVariable));
     }
 }

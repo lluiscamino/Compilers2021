@@ -37,7 +37,7 @@ public final class Length extends Expression {
 
         expression.toTac();
 
-        tacVariable = variableGenerator.generate();
+        tacVariable = variableGenerator.generate(Type.getInteger());
         addTACInstruction(new IndexedValueInstruction(tacVariable, expression.getTacVariable(), new TACLiteral(0)));
     }
 }

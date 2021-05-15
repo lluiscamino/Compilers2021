@@ -39,7 +39,7 @@ public final class Negative extends Expression {
 
         expression.toTac();
 
-        tacVariable = tacVariableGenerator.generate();  // t = novavar
+        tacVariable = tacVariableGenerator.generate(Type.getInteger());  // t = novavar
         addTACInstruction(new NegativeInstruction(tacVariable, expression.getTacVariable()));  //genera(t = -E1.r)
     }
 }

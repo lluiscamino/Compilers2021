@@ -4,6 +4,7 @@ import dot.DotNode;
 import main.Compiler;
 import parser.symbols.ArrayIndexes;
 import parser.symbols.expressions.Expression;
+import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.SubtractInstruction;
 import tac.instructions.indexation.IndexAssignmentInstruction;
@@ -33,7 +34,7 @@ public final class ArraySubstractAssignment extends ArrayOperationAssignment {
         expression.toTac();
 
         TACVariable arrayReference = variablesTable.get(identifier).getTacVariable();
-        TACVariable temp = variableGenerator.generate();
+        TACVariable temp = variableGenerator.generate(Type.getUnknown());
         TACVariable offset = indexes.getOffset();
 
         addTACInstruction(new IndexAssignmentInstruction(temp, arrayReference, offset));

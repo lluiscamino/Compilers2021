@@ -3,9 +3,9 @@ package parser.symbols.expressions.arithmetic;
 import dot.DotNode;
 import main.Compiler;
 import parser.symbols.expressions.Expression;
+import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.DivideInstruction;
-import tac.references.TACVariable;
 
 public final class ArithmeticDivide extends ArithmeticOperation {
 
@@ -28,7 +28,7 @@ public final class ArithmeticDivide extends ArithmeticOperation {
         leftExpression.toTac();
         rightExpression.toTac();
         
-        tacVariable = tacVariableGenerator.generate();  // t = novavar
+        tacVariable = tacVariableGenerator.generate(Type.getInteger());  // t = novavar
         addTACInstruction(new DivideInstruction(tacVariable, leftExpression.getTacVariable(), rightExpression.getTacVariable()));  //genera(t = E1.r / E2.r)
     }
 }

@@ -94,9 +94,9 @@ public class ForeachLoop extends Loop {
 
         symbolTable.enterBlock();
         array.toTac();
-        TACVariable index = variableGenerator.generate();
+        TACVariable index = variableGenerator.generate(Type.getInteger());
         addTACInstruction(new CopyInstruction(index, new TACLiteral(1)));
-        TACVariable arrayLength = variableGenerator.generate();
+        TACVariable arrayLength = variableGenerator.generate(Type.getInteger());
         addTACInstruction(new IndexedValueInstruction(arrayLength, array.getTacVariable(), new TACLiteral(0)));
         declaration.toTac();
         TACVariable arrayItemVariable = variablesTable.get(declaration.getIdentifier()).getTacVariable();
