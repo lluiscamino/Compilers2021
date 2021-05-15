@@ -50,6 +50,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                     lea   -1(%rsp), %rsi
                     movb  $'\\n', (%rsi)
                     mov    $10, %ecx
+                    movl %edi, %ebx
+                    testl %edi, %edi
+                    jns .print_uint64_positive
+                    neg %edi
+                    
+                .print_uint64_positive:
                     mov    %rdi, %rax
                     
                 .Ltoascii_digit:
@@ -60,6 +66,16 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                     mov    %dl, (%rsi)  
                     test   %rax, %rax
                     jnz  .Ltoascii_digit
+                    testl %ebx, %ebx
+                    jns .print_uint64_end
+                    xor    %edx, %edx
+                    div    %rcx
+                    add    $'-', %edx
+                    dec    %rsi
+                    mov    %dl, (%rsi)  
+                    test   %rax, %rax
+                    
+                .print_uint64_end:
                     mov   $0x02000004, %eax
                     mov   $1, %edi
                     mov   %rsp, %rdx
@@ -198,7 +214,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(IfLEQ tacInstruction) {
-        return generateIfInstruction(tacInstruction, "jgt");
+        return generateIfInstruction(tacInstruction, "ja");
     }
 
     @Override
@@ -264,7 +280,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         addl %%ebx, %%eax
                         %s
-                        ST %%ebx, (%%eax)
+                        movl %%ebx, (%%eax)
                         """,
                 loadInstruction(tacInstruction.getFirstReference(), "%eax"),
                 loadInstruction(tacInstruction.getSecondReference(), "%ebx"),
