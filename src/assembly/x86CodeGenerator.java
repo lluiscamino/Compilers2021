@@ -116,94 +116,34 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         );
     }
 
-   @Override
+    @Override
     public String generate(IfDiff tacInstruction) {
-        return String.format("""
-                        LD %s, %%eax
-                        LD %s, %%ebx
-                        cmpl %%eax, %%ebx
-                        %s ne
-                        jne %s
-                        ne: nop
-                             """,
-                tacInstruction.getFirstReference(),
-                tacInstruction.getSecondReference(),
-                tacInstruction.getThirdReference());
+        return generateIfInstruction(tacInstruction, "je");
     }
 
     @Override
     public String generate(IfEqual tacInstruction) {
-        return String.format("""
-                        LD %s, %%eax
-                        LD %s, %%ebx
-                        cmpl %%eax, %%ebx
-                        %s ne
-                        je %s
-                        ne: nop
-                             """,
-                tacInstruction.getFirstReference(),
-                tacInstruction.getSecondReference(),
-                tacInstruction.getThirdReference());
+        return generateIfInstruction(tacInstruction, "jne");
     }
 
     @Override
     public String generate(IfGEQ tacInstruction) {
-        return String.format("""
-                        LD %s, %%eax
-                        LD %s, %%ebx
-                        cmpl %%eax, %%ebx
-                        %s ne
-                        jge %s
-                        ne: nop
-                             """,
-                tacInstruction.getFirstReference(),
-                tacInstruction.getSecondReference(),
-                tacInstruction.getThirdReference());
+        return generateIfInstruction(tacInstruction, "jl");
     }
 
     @Override
     public String generate(IfGreater tacInstruction) {
-        return String.format("""
-                        LD %s, %%eax
-                        LD %s, %%ebx
-                        cmpl %%eax, %%ebx
-                        %s ne
-                        jg %s
-                        ne: nop
-                             """,
-                tacInstruction.getFirstReference(),
-                tacInstruction.getSecondReference(),
-                tacInstruction.getThirdReference());
+        return generateIfInstruction(tacInstruction, "jle");
     }
 
     @Override
     public String generate(IfLEQ tacInstruction) {
-        return String.format("""
-                        LD %s, %%eax
-                        LD %s, %%ebx
-                        cmpl %%eax, %%ebx
-                        %s ne
-                        jle %s
-                        ne: nop
-                             """,
-                tacInstruction.getFirstReference(),
-                tacInstruction.getSecondReference(),
-                tacInstruction.getThirdReference());
+        return generateIfInstruction(tacInstruction, "jgt");
     }
 
     @Override
     public String generate(IfLess tacInstruction) {
-        return String.format("""
-                        LD %s, %%eax
-                        LD %s, %%ebx
-                        cmpl %%eax, %%ebx
-                        %s ne
-                        jl %s
-                        ne: nop
-                             """,
-                tacInstruction.getFirstReference(),
-                tacInstruction.getSecondReference(),
-                tacInstruction.getThirdReference());
+        return generateIfInstruction(tacInstruction, "jge");
     }
 
     @Override
@@ -339,6 +279,18 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(PrintArrayInstruction tacInstruction) {
+        return null;
+    }
+    private String generateLoadInstruction(TACReference reference, String register) {
+        String assembly = "";
+        if (reference instanceof TACLiteral) {
+            assembly = String.format("movl $%s, %s", reference, register);
+        }
+        assembly += String.format("LD %s, %s", reference, register);
+        return assembly;
+    }
+
+    private String generateStoreInstruction(String register, TACReference reference) {
         return null;
     }
 
