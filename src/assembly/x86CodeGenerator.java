@@ -116,34 +116,94 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         );
     }
 
-    @Override
+   @Override
     public String generate(IfDiff tacInstruction) {
-        return generateIfInstruction(tacInstruction, "je");
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        cmpl %%eax, %%ebx
+                        %s ne
+                        jne %s
+                        ne: nop
+                             """,
+                tacInstruction.getFirstReference(),
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference());
     }
 
     @Override
     public String generate(IfEqual tacInstruction) {
-        return generateIfInstruction(tacInstruction, "jne");
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        cmpl %%eax, %%ebx
+                        %s ne
+                        je %s
+                        ne: nop
+                             """,
+                tacInstruction.getFirstReference(),
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference());
     }
 
     @Override
     public String generate(IfGEQ tacInstruction) {
-        return generateIfInstruction(tacInstruction, "jl");
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        cmpl %%eax, %%ebx
+                        %s ne
+                        jge %s
+                        ne: nop
+                             """,
+                tacInstruction.getFirstReference(),
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference());
     }
 
     @Override
     public String generate(IfGreater tacInstruction) {
-        return generateIfInstruction(tacInstruction, "jle");
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        cmpl %%eax, %%ebx
+                        %s ne
+                        jg %s
+                        ne: nop
+                             """,
+                tacInstruction.getFirstReference(),
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference());
     }
 
     @Override
     public String generate(IfLEQ tacInstruction) {
-        return generateIfInstruction(tacInstruction, "jgt");
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        cmpl %%eax, %%ebx
+                        %s ne
+                        jle %s
+                        ne: nop
+                             """,
+                tacInstruction.getFirstReference(),
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference());
     }
 
     @Override
     public String generate(IfLess tacInstruction) {
-        return generateIfInstruction(tacInstruction, "jge");
+        return String.format("""
+                        LD %s, %%eax
+                        LD %s, %%ebx
+                        cmpl %%eax, %%ebx
+                        %s ne
+                        jl %s
+                        ne: nop
+                             """,
+                tacInstruction.getFirstReference(),
+                tacInstruction.getSecondReference(),
+                tacInstruction.getThirdReference());
     }
 
     @Override
