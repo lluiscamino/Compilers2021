@@ -16,6 +16,10 @@ import tac.instructions.subprogram.calls.FunctionCallInstruction;
 import tac.instructions.subprogram.calls.ProcedureCallInstruction;
 
 public interface AssemblyCodeGenerator {
+    String preamble();
+
+    String epilogue();
+
     String generate(AddInstruction tacInstruction);
 
     String generate(CopyInstruction tacInstruction);
