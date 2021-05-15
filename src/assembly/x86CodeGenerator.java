@@ -158,7 +158,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%eax"),
                 loadInstruction(tacInstruction.getThirdReference(), "%ebx"),
-                storeInstruction("%ebx", tacInstruction.getFirstReference())
+                storeInstruction("%eax", tacInstruction.getFirstReference())
         );
     }
 
