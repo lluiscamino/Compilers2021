@@ -23,6 +23,7 @@ import tac.instructions.subprogram.calls.FunctionCallInstruction;
 import tac.instructions.subprogram.calls.ProcedureCallInstruction;
 import tac.references.TACLiteral;
 import tac.references.TACReference;
+import tac.references.TACSubprogram;
 import tac.references.TACVariable;
 import tac.tables.SubprogramsTable;
 import tac.tables.VariablesTable;
@@ -32,14 +33,25 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String preamble() {
         SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
         return String.format("""
+                        .section __DATA, __data
+                        true_str:
+                          .asciz "true\\n"
+                        false_str:
+                          .asciz "false\\n"
                         .section __TEXT, __text
                         .globl _main
                         .globl print_uint64
+                        .globl print_boolean
+                        .globl print_char
+                        %s
+                        %s
                         %s
                         _main:
                         jmp %s
                         """,
                 printIntegerFunction(),
+                printBooleanFunction(),
+                printCharFunction(),
                 subprogramsTable.get("main").getTag()
         );
     }
@@ -80,6 +92,37 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                     mov   $1, %edi
                     mov   %rsp, %rdx
                     sub   %rsi, %rdx
+                    syscall
+                    ret
+                """;
+    }
+
+    private String printBooleanFunction() {
+        return """
+                print_boolean:
+                    mov   $0x02000004, %rax
+                    mov   $1, %rdi
+                    testl %ebx, %ebx
+                    jnz   .print_boolean_true
+                    movq  false_str@GOTPCREL(%rip), %rsi
+                    mov   $6, %rdx
+                    jmp   .print_boolean_end
+                .print_boolean_true:
+                    movq  true_str@GOTPCREL(%rip), %rsi
+                    mov   $5, %rdx
+                .print_boolean_end:
+                    syscall
+                    ret
+                """;
+    }
+
+    private String printCharFunction() {
+        return """
+                print_char:
+                    mov   $0x02000004, %eax
+                    mov   $1, %edi
+                    mov   $1, %rdx
+                    mov   $'H', %rsi
                     syscall
                     ret
                 """;
@@ -278,11 +321,11 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                         %s
                         %s
-                        addl %%ebx, %%eax
+                        add %%rbx, %%rcx
                         %s
-                        movl %%ebx, (%%eax)
+                        movl %%ebx, (%%rcx)
                         """,
-                loadInstruction(tacInstruction.getFirstReference(), "%eax"),
+                loadAddressInstruction(tacInstruction.getFirstReference(), "%rcx"),
                 loadInstruction(tacInstruction.getSecondReference(), "%ebx"),
                 loadInstruction(tacInstruction.getThirdReference(), "%ebx")
         );
@@ -297,15 +340,17 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         movl (%%eax), %%eax
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%eax"),
-                loadInstruction(tacInstruction.getThirdReference(), "%ebx"),
+                loadAddressInstruction(tacInstruction.getSecondReference(), "%eax"),
+                loadAddressInstruction(tacInstruction.getThirdReference(), "%ebx"),
                 storeInstruction("%eax", tacInstruction.getFirstReference())
         );
     }
 
     @Override
     public String generate(ProcedureCallInstruction tacInstruction) {
-        return null;
+        SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
+        SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getFirstReference());
+        return "call " + subprogramInfo.getTag() + "\n";
     }
 
     @Override
@@ -320,20 +365,36 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(PreambleInstruction tacInstruction) {
-        return """
-                push %rbp
-                /*mov %rsp, %rbp*/
-                """;
+        SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
+        SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getFirstReference());
+        return String.format("""
+                push %%rbp
+                mov %%rsp, %%rbp
+                /*addq $%s, %%rbp*/
+                subq $%s, %%rsp
+                """,
+                0,
+                subprogramInfo.getLocalVariablesSize()
+        );
     }
 
     @Override
     public String generate(ReturnInstruction tacInstruction) {
-        return null;
+        return """
+                movq %rbp, %rsp
+                popq %rbp
+                ret
+                """;
     }
 
     @Override
     public String generate(SimpleParameterInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                %s
+                push %%eax
+                """,
+                loadInstruction(tacInstruction.getFirstReference(), "%eax")
+        );
     }
 
     @Override
@@ -348,17 +409,22 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 call print_uint64
                 """,
                 loadInstruction(tacInstruction.getFirstReference(), "%edi")
-                );
+        );
     }
 
     @Override
     public String generate(PrintBooleanInstruction tacInstruction) {
-        return null;
+        return String.format("""
+                %s
+                call print_boolean
+                """,
+                loadInstruction(tacInstruction.getFirstReference(), "%ebx")
+        );
     }
 
     @Override
     public String generate(PrintStringInstruction tacInstruction) {
-        return null;
+        return "call print_char\n";
     }
 
     @Override
@@ -409,6 +475,27 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             assembly += "movl $DISP, %esi\n";
             assembly += String.format("movl %s(%%esi), %%edi\n", variableInfo.getScope().getIndentation());
             assembly += String.format("movl %s, %s(%%edi)", register, variableInfo.getOffset());
+            return assembly;
+        }
+        return assembly;
+    }
+
+    private String loadAddressInstruction(TACReference reference, String register) {
+        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
+        VariablesTable.VariableInfo variableInfo = variablesTable.get((TACVariable) reference);
+        String assembly = "";
+        if (variableInfo.getScope().getIndentation() >= 1 && !variableInfo.isSubprogramArgument()) { // local variable
+            assembly += String.format("lea %s(%%rbp), %s", variableInfo.getOffset(), register);
+            return assembly;
+        }
+        if (variableInfo.getScope().getIndentation() >= 1 && variableInfo.isSubprogramArgument()) { // local argument
+            assembly += String.format("movl %s(%%rbp), %s", variableInfo.getOffset(), register);
+            return assembly;
+        }
+        if (variableInfo.getScope().getIndentation() < 1 && !variableInfo.isSubprogramArgument()) {
+            assembly += "movl $DISP, %esi\n";
+            assembly += String.format("movl %s(%%esi), %%esi\n", variableInfo.getScope().getIndentation());
+            assembly += String.format("movl %s(%%esi), %s", variableInfo.getOffset(), register);
             return assembly;
         }
         return assembly;
