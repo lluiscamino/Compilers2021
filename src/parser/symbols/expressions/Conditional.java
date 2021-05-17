@@ -8,7 +8,7 @@ import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.CopyInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
-import tac.instructions.bifurcation.ifs.IfDiff;
+import tac.instructions.bifurcation.ifs.IfEqual;
 import tac.references.TACLiteral;
 import tac.references.TACTag;
 
@@ -64,7 +64,7 @@ public final class Conditional extends Expression {
         TACTag e1 = tacTagGenerator.generate();
         TACTag e2 = tacTagGenerator.generate();
 
-        addTACInstruction(new IfDiff(condition.getTacVariable(), new TACLiteral(0), e1));
+        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(0), e1));
         leftExpression.toTac();
         addTACInstruction(new CopyInstruction(tacVariable, leftExpression.getTacVariable()));
         addTACInstruction(new GotoInstruction(e2));
