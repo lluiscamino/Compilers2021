@@ -46,13 +46,14 @@ public final class SubprogramsTable {
         int longestSubprogramName = Math.max(longestSubprogram.map(info -> info.getTacSubprogram().toString().length()).orElse(0), 10);
         String format = "%12s%" + longestSubprogramName + "s%" + (longestSubprogramName + 3) + "s%8s%10s\n";
 
-        printWriter.format(format, "Código", "Nombre", "Etiqueta", "TamVL", "Nº param");
+        printWriter.format(format, "Código", "Nombre", "Etiqueta", "TamVL", "TamPar", "Nº param");
         for (SubprogramInfo subprogramInfo : subprogramsMap.values()) {
             printWriter.format(format,
                     subprogramInfo.getTacSubprogram(),
                     subprogramInfo.getIdentifier(),
                     subprogramInfo.getTag(),
                     subprogramInfo.getLocalVariablesSize() + "B",
+                    subprogramInfo.getLocalParametersSize() + "B",
                     subprogramInfo.getNumParameters()
             );
         }
@@ -63,6 +64,7 @@ public final class SubprogramsTable {
         private final String identifier;
         private final TACSubprogram tacSubprogram;
         private final TACTag tag;
+        private int localParametersSize;
         private int localVariablesSize;
         private final int numParameters;
 
@@ -70,6 +72,7 @@ public final class SubprogramsTable {
             this.identifier = identifier;
             this.tacSubprogram = tacSubprogram;
             this.tag = tag;
+            this.localParametersSize = 0;
             this.localVariablesSize = 0;
             this.numParameters = numParameters;
         }
@@ -84,6 +87,14 @@ public final class SubprogramsTable {
 
         public TACTag getTag() {
             return tag;
+        }
+
+        public int getLocalParametersSize() {
+            return localParametersSize;
+        }
+
+        public void setLocalParametersSize(int localParametersSize) {
+            this.localParametersSize = localParametersSize;
         }
 
         public int getLocalVariablesSize() {
