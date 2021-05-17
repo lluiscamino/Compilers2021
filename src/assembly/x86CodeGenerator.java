@@ -107,11 +107,11 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 \tmov \t$1, %rdi
                 \ttestl\t%ebx, %ebx
                 \tjnz \t.print_boolean_true
-                \tmovq\tdecl_2@GOTPCREL(%rip), %rsi
+                \tmovq\tdecl_1@GOTPCREL(%rip), %rsi
                 \tmov \t$6, %rdx
                 \tjmp \t.print_boolean_end
                 .print_boolean_true:
-                \tmovq\tdecl_1@GOTPCREL(%rip), %rsi
+                \tmovq\tdecl_0@GOTPCREL(%rip), %rsi
                 \tmov \t$5, %rdx
                 .print_boolean_end:
                 \tsyscall
@@ -150,7 +150,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                        %s
                        %s
-                       \taddl\t%%ebx, %%eax
+                       \taddq\t%%rbx, %%rax
                        %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax"),
@@ -174,10 +174,10 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(DivideInstruction tacInstruction) {
         return String.format("""
                         %s
-                        \tmovl\t%%eax, %%edx
-                        \tsarl\t$31, %%edx
+                        \tmovq\t%%rax, %%rdx
+                        \tsarq\t$31, %%rdx
                         %s
-                        \tidivl\t%%ebx
+                        \tidivq\t%%rbx
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax"),
@@ -190,10 +190,10 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(ModuloInstruction tacInstruction) {
         return String.format("""
                         %s
-                        \tmovl\t%%eax, %%edx
-                        \tsarl\t$31, %%edx
+                        \tmovq\t%%rax, %%rdx
+                        \tsarq\t$31, %%rdx
                         %s
-                        \tidivl\t%%ebx
+                        \tidivq\t%%rbx
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax"),
@@ -205,9 +205,9 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     @Override
     public String generate(NegativeInstruction tacInstruction) {
         return String.format("""
-                        \txorl \t%%eax, %%eax
+                        \txorq \t%%rax, %%rax
                         %s
-                        \tsubl\t%%ebx, %%eax
+                        \tsubq\t%%rbx, %%rax
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rbx"),
@@ -220,7 +220,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                         %s
                         %s
-                        \timull\t%%ebx, %%eax
+                        \timulq\t%%rbx, %%rax
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax"),
@@ -234,7 +234,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                         %s
                         %s
-                        \tsubl\t%%ebx, %%eax
+                        \tsubq\t%%rbx, %%rax
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax"),
@@ -288,7 +288,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                         %s
                         %s
-                        \tandl\t%%ebx, %%eax
+                        \tandq\t%%rbx, %%rax
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax"),
@@ -300,9 +300,9 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     @Override
     public String generate(NotInstruction tacInstruction) {
         return String.format("""
-                        \txorl\t%%eax, %%eax
+                        \txorq\t%%rax, %%rax
                         %s
-                        \tnotl\t%%ebx, %%eax
+                        \tnotq\t%%ebx, %%rax
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rbx"),
@@ -315,7 +315,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                         %s
                         %s
-                        \torl\t%%ebx, %%eax
+                        \torq\t%%rbx, %%rax
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax"),
@@ -344,8 +344,8 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                         %s
                         %s
-                        \taddl\t%%ebx, %%eax
-                        \tmovl\t(%%eax), %%eax
+                        \taddq\t%%rbx, %%rax
+                        \tmovq\t(%%rax), %%rax
                         %s
                         """,
                 loadAddressInstruction(tacInstruction.getSecondReference(), "%rax"),
@@ -430,7 +430,10 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(PrintStringInstruction tacInstruction) {
-        return "\tcall\tprint_char\n";
+        return String.format("""
+                %s
+                \tcall\t_printf
+                """, loadInstruction(tacInstruction.getFirstReference(), "%rdi"));
     }
 
     @Override
@@ -442,6 +445,9 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
         String assembly = "";
         if (reference instanceof TACLiteral) {
+            if (((TACLiteral) reference).type().isString()) {
+                return loadAddressInstruction(reference, "%rdi");
+            }
             assembly += String.format("\tmovq\t$%s, %s", reference, register);
             return assembly;
         }
@@ -491,7 +497,8 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         String assembly = "";
         if (reference instanceof TACLiteral) {
             String declarationName = "decl_" + constantDeclarations.size();
-            constantDeclarations.add(declarationName + ": .int " + reference.toString() + "\n");
+            String type = ((TACLiteral) reference).type().isString() ? "ascii" : "int";
+            constantDeclarations.add(declarationName + ": ." + type + " " + reference.toString() + "\n");
             assembly += String.format("\tmovq\t%s, %s", declarationName + "@GOTPCREL(%rip)", register);
             return assembly;
         }
@@ -517,7 +524,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                         %s
                         %s
-                        \tcmpl\t%%ebx, %%eax
+                        \tcmpq\t%%rbx, %%rax
                         \t%s \t1f
                         \tjmp\t%s
                         1:
