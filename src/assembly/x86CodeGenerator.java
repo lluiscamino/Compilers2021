@@ -50,7 +50,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         %s
                         _main:
-                        \tjmp \t%s\n
+                        \tcall\t%s\n
                         """,
                 printIntegerFunction(),
                 printBooleanFunction(),
