@@ -300,9 +300,8 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     @Override
     public String generate(NotInstruction tacInstruction) {
         return String.format("""
-                        \txorq\t%%rax, %%rax
                         %s
-                        \tnotq\t%%ebx, %%rax
+                        \tnotq\t%%rbx
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rbx"),
@@ -479,7 +478,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             return assembly;
         }
         if (variableInfo.getScope().getIndentation() >= 1 && variableInfo.isSubprogramArgument()) { // local argument
-            assembly += String.format("\tmovq\t%s(%%epb), %%rdi\n", variableInfo.getOffset());
+            assembly += String.format("\tmovq\t%s(%%ebp), %%rdi\n", variableInfo.getOffset());
             assembly += String.format("\tmovq\t%s, (%%rdi)", reference);
             return assembly;
         }
