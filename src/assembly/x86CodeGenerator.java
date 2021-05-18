@@ -46,6 +46,8 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         \t.globl\tprint_uint64
                         \t.globl\tprint_boolean
                         \t.globl\tprint_string
+                        \t.globl\tstring_length
+                        %s
                         %s
                         %s
                         %s
@@ -58,6 +60,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 printIntegerFunction(),
                 printBooleanFunction(),
                 printStringFunction(),
+                stringLengthFunction(),
                 subprogramsTable.get("main").getTag()
         );
     }
@@ -114,11 +117,9 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 \ttestl\t%ebx, %ebx
                 \tjnz \t.print_boolean_true
                 \tmovq\tdecl_1@GOTPCREL(%rip), %rsi
-                \tmov \t$6, %rdx
                 \tjmp \t.print_boolean_end
                 \t.print_boolean_true:
                 \t\tmovq\tdecl_0@GOTPCREL(%rip), %rsi
-                \t\tmov \t$5, %rdx
                 \t.print_boolean_end:
                 \t\tcall \tprint_string
                 \t\tret
@@ -134,9 +135,29 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                  * - %rsi: String address
                  */
                 print_string:
+                \tcall\tstring_length
                 \tmov \t$0x02000004, %rax
                 \tmov \t$1, %rdi
                 \tsyscall
+                \tret
+                """;
+    }
+
+    private String stringLengthFunction() {
+        return """
+                /**
+                 * Returns a string's length (saves to %rdx)
+                 * Params:
+                 * - %rsi: String address
+                 * https://stackoverflow.com/questions/60482733/how-to-traverse-a-string-in-assembly-until-i-reach-null-strlen-loop
+                 */
+                string_length:
+                \tlea \t-1(%rsi), %rdx
+                \t.Lloop:
+                \t\tinc \t%rdx
+                \t\tcmpb\t$0, (%rdx)
+                \t\tjne \t.Lloop
+                \tsub \t%rsi, %rdx
                 \tret
                 """;
     }
@@ -437,7 +458,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                 %s
                 \tcall\tprint_string
-                """, loadInstruction(tacInstruction.getFirstReference(), "%rsi", "%rdx"));
+                """, loadInstruction(tacInstruction.getFirstReference(), "%rsi"));
     }
 
     @Override
@@ -446,15 +467,11 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     private String loadInstruction(TACReference reference, String register) {
-        return loadInstruction(reference, register, null);
-    }
-
-    private String loadInstruction(TACReference reference, String register, String lengthRegister) {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
         String assembly = "";
         if (reference instanceof TACLiteral) {
             if (((TACLiteral) reference).type().isString()) {
-                return loadAddressInstruction(reference, register, lengthRegister);
+                return loadAddressInstruction(reference, register);
             }
             assembly += String.format("\tmovq\t$%s, %s", reference, register);
             return assembly;
@@ -501,27 +518,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     private String loadAddressInstruction(TACReference reference, String register) {
-        return loadAddressInstruction(reference, register, null);
-    }
-
-    private String loadAddressInstruction(TACReference reference, String register, String lengthRegister) {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
         String assembly = "";
         if (reference instanceof TACLiteral) {
             String declarationName = "decl_" + constantDeclarations.size();
-            if (((TACLiteral) reference).type().isString()) {
-                constantDeclarations.add(String.format("""
-                    %s: .ascii %s
-                    \t\t%s_end: %s_length = (%s_end - %s)
-                    """, declarationName, reference, declarationName, declarationName, declarationName, declarationName));
-            } else {
-                constantDeclarations.add(String.format("""
-                    %s: .quad %s
-                    """, declarationName, reference));
-            }
-            if (lengthRegister != null) {
-                assembly += String.format("\tmovq\t$%s_length, %s\n", declarationName, lengthRegister);
-            }
+            String type = ((TACLiteral) reference).type().isString() ? "asciz" : "quad";
+                constantDeclarations.add(String.format("%s: .%s %s\n", declarationName, type, reference));
             assembly += String.format("\tmovq\t%s, %s", declarationName + "@GOTPCREL(%rip)", register);
             return assembly;
         }
