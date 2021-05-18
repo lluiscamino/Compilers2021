@@ -509,11 +509,17 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         String assembly = "";
         if (reference instanceof TACLiteral) {
             String declarationName = "decl_" + constantDeclarations.size();
-            String type = ((TACLiteral) reference).type().isString() ? "ascii" : "int";
-            constantDeclarations.add(String.format("""
-                    %s: .%s %s
-                    \t%s_end: %s_length = (%s_end - %s)
-                    """, declarationName, type, reference, declarationName, declarationName, declarationName, declarationName));
+            if (((TACLiteral) reference).type().isString()) {
+                constantDeclarations.add(String.format("""
+                    %s: .ascii %s
+                    \t\t%s_end: %s_length = (%s_end - %s)
+                    """, declarationName, reference, declarationName, declarationName, declarationName, declarationName));
+            } else {
+                constantDeclarations.add(String.format("""
+                    %s: .int %s
+                    \t\t.int 0 /* fill 64 bits */
+                    """, declarationName, reference));
+            }
             if (lengthRegister != null) {
                 assembly += String.format("\tmovq\t$%s_length, %s\n", declarationName, lengthRegister);
             }
