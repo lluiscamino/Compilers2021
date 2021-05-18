@@ -516,8 +516,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                     """, declarationName, reference, declarationName, declarationName, declarationName, declarationName));
             } else {
                 constantDeclarations.add(String.format("""
-                    %s: .int %s
-                    \t\t.int 0 /* fill 64 bits */
+                    %s: .quad %s
                     """, declarationName, reference));
             }
             if (lengthRegister != null) {
