@@ -45,16 +45,19 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         \t.globl\t_main
                         \t.globl\tprint_uint64
                         \t.globl\tprint_boolean
-                        \t.globl\tprint_char
+                        \t.globl\tprint_string
                         %s
                         %s
                         %s
                         _main:
-                        \tcall\t%s\n
+                        \tcall\t%s
+                        \tmov \t$0x02000001, %%rax
+                        \txor \t$0, %%rdi
+                        \tsyscall
                         """,
                 printIntegerFunction(),
                 printBooleanFunction(),
-                printCharFunction(),
+                printStringFunction(),
                 subprogramsTable.get("main").getTag()
         );
     }
@@ -102,30 +105,37 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     private String printBooleanFunction() {
         return """
+                /**
+                 * Prints a boolean to stdout
+                 * Params:
+                 * - %rbx: Boolean value
+                 */
                 print_boolean:
-                \tmov \t$0x02000004, %rax
-                \tmov \t$1, %rdi
                 \ttestl\t%ebx, %ebx
                 \tjnz \t.print_boolean_true
                 \tmovq\tdecl_1@GOTPCREL(%rip), %rsi
                 \tmov \t$6, %rdx
                 \tjmp \t.print_boolean_end
-                .print_boolean_true:
-                \tmovq\tdecl_0@GOTPCREL(%rip), %rsi
-                \tmov \t$5, %rdx
-                .print_boolean_end:
-                \tsyscall
-                \tret
+                \t.print_boolean_true:
+                \t\tmovq\tdecl_0@GOTPCREL(%rip), %rsi
+                \t\tmov \t$5, %rdx
+                \t.print_boolean_end:
+                \t\tcall \tprint_string
+                \t\tret
                 """;
     }
 
-    private String printCharFunction() {
+    private String printStringFunction() {
         return """
-                print_char:
-                \tmov \t$0x02000004, %eax
-                \tmov \t$1, %edi
-                \tmov \t$1, %rdx
-                \tmov \t$'H', %rsi
+                /**
+                 * Prints a string to stdout
+                 * Params:
+                 * - %rdx: String length
+                 * - %rsi: String address
+                 */
+                print_string:
+                \tmov \t$0x02000004, %rax
+                \tmov \t$1, %rdi
                 \tsyscall
                 \tret
                 """;
@@ -133,16 +143,11 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String epilogue() {
-        String epiloque = """
-                \tmov    $0x02000001, %rax
-                \txor    $0, %rdi
-                \tsyscall\n
-                .section __DATA, __data
-                """;
+        StringBuilder epilogue = new StringBuilder(".section __DATA, __data\n");
         for (String declaration : constantDeclarations) {
-            epiloque += "\t" + declaration;
+            epilogue.append("\t").append(declaration);
         }
-        return epiloque;
+        return epilogue.toString();
     }
 
     @Override
@@ -431,8 +436,8 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(PrintStringInstruction tacInstruction) {
         return String.format("""
                 %s
-                \tcall\t_printf
-                """, loadInstruction(tacInstruction.getFirstReference(), "%rdi"));
+                \tcall\tprint_string
+                """, loadInstruction(tacInstruction.getFirstReference(), "%rsi", "%rdx"));
     }
 
     @Override
@@ -441,11 +446,15 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     private String loadInstruction(TACReference reference, String register) {
+        return loadInstruction(reference, register, null);
+    }
+
+    private String loadInstruction(TACReference reference, String register, String lengthRegister) {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
         String assembly = "";
         if (reference instanceof TACLiteral) {
             if (((TACLiteral) reference).type().isString()) {
-                return loadAddressInstruction(reference, "%rdi");
+                return loadAddressInstruction(reference, register, lengthRegister);
             }
             assembly += String.format("\tmovq\t$%s, %s", reference, register);
             return assembly;
@@ -492,12 +501,22 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     private String loadAddressInstruction(TACReference reference, String register) {
+        return loadAddressInstruction(reference, register, null);
+    }
+
+    private String loadAddressInstruction(TACReference reference, String register, String lengthRegister) {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
         String assembly = "";
         if (reference instanceof TACLiteral) {
             String declarationName = "decl_" + constantDeclarations.size();
             String type = ((TACLiteral) reference).type().isString() ? "ascii" : "int";
-            constantDeclarations.add(declarationName + ": ." + type + " " + reference.toString() + "\n");
+            constantDeclarations.add(String.format("""
+                    %s: .%s %s
+                    \t%s_end: %s_length = (%s_end - %s)
+                    """, declarationName, type, reference, declarationName, declarationName, declarationName, declarationName));
+            if (lengthRegister != null) {
+                assembly += String.format("\tmovq\t$%s_length, %s\n", declarationName, lengthRegister);
+            }
             assembly += String.format("\tmovq\t%s, %s", declarationName + "@GOTPCREL(%rip)", register);
             return assembly;
         }
