@@ -1,0 +1,13 @@
+procedure printMaxInteger(int a, int b, int c, int d) {
+    var int max = a > b ? a : b;
+    max = c > max ? c : max;
+    max = d > max ? d : max;
+    print(max);
+}
+
+main() {
+    printMaxInteger(4, 4 + 2, -3, false ? 4 : 9);
+    printMaxInteger(4, 4 + 2, -3, true ? 4 : 9);
+    printMaxInteger(-34, -45, -23, -27);
+    printMaxInteger(897137132, 1212, 12323, -23231);
+}
