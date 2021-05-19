@@ -111,7 +111,7 @@ public final class SemanticAnalyzer {
         AssemblyCodeGenerator codeGenerator = new x86CodeGenerator();
         assemblyBuffer.append(codeGenerator.preamble());
         for (TACInstruction instruction : optimizedInstructions) {
-            assemblyBuffer.append("/*").append(instruction).append("*/");
+            assemblyBuffer.append("/*").append(instruction).append("*/\n");
             String asm = instruction.toAssemblyCode(codeGenerator);
             assemblyBuffer.append(asm != null ? asm : "/*null*/\n");
         }
