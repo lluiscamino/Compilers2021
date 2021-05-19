@@ -1,0 +1,7 @@
+main() {
+    var int a = 16;
+    while (a >= 0) {
+        print(a);
+        a -= 3;
+    }
+}

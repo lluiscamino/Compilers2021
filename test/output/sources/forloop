@@ -1,0 +1,7 @@
+main() {
+    for (var int i = 0; i < 30; i += 1) {
+        if (i % 2 == 0) {
+            print(i);
+        }
+    }
+}
