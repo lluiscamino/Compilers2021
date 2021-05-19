@@ -37,8 +37,8 @@ public final class OutputTest {
                     try {
                         String fileName = filePath.getFileName().toString();
                         bashScriptWriter.append(String.format("as asm/%s -o asm/%s.o\n", fileName, fileName));
-                        bashScriptWriter.append(String.format("ld asm/%s.o -o asm/%s -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem\n", fileName, fileName));
-                        bashScriptWriter.append(String.format("./asm/%s > outputs/%s.txt\n", fileName, fileName));
+                        bashScriptWriter.append(String.format("ld asm/%s.o -o asm/%s-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem\n", fileName, fileName));
+                        bashScriptWriter.append(String.format("./asm/%s-exec > outputs/%s.txt\n", fileName, fileName));
                         bashScriptWriter.append(String.format("diff -y -q -w outputs/%s.txt expectedoutputs/%s.txt\n", fileName, fileName));
                     } catch (Exception e) {
                         e.printStackTrace();
