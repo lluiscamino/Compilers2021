@@ -480,82 +480,96 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     private String loadInstruction(TACReference reference, String register) {
-        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
-        String assembly = "";
         if (reference instanceof TACLiteral) {
             if (((TACLiteral) reference).type().isString()) {
                 return loadAddressInstruction(reference, register);
             }
-            assembly += String.format("\tmovq\t$%s, %s", reference, register);
-            return assembly;
+            return String.format("\tmovq\t$%s, %s", reference, register);
         }
-        VariablesTable.VariableInfo variableInfo = variablesTable.get((TACVariable) reference);
-        if (variableInfo.getScope().getIndentation() >= 1 && !variableInfo.isSubprogramArgument()) { // local variable
-            assembly += String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset(), register);
-            return assembly;
+        VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
+        if (isLocalVariable(variableInfo)) {
+            return String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset(), register);
+        } else if (isLocalArgument(variableInfo)) {
+            return String.format("""
+                    \tmovq\t%s(%%rbp), %%rsi
+                    \tmovq\t(%%rsi), %s
+                    """, variableInfo.getOffset() * 8, register);
+        } else if (isGlobalVariable(variableInfo)) {
+            return String.format("""
+                    \tmovl\t$DISP, %%esi
+                    \tmovl\t%s(%%esi), %%esi
+                    \tmovl\t%s(%%esi), %s
+                    """, variableInfo.getScope().getIndentation(), variableInfo.getOffset(), register);
+        } else {
+            throw new RuntimeException("Unidentifiable variable");
         }
-        if (variableInfo.getScope().getIndentation() >= 1 && variableInfo.isSubprogramArgument()) { // local argument
-            assembly += String.format("\tmovq\t%s(%%rbp), %%rsi\n", variableInfo.getOffset() + 8);
-            assembly += String.format("\tmovq\t(%%rsi), %s", register);
-            return assembly;
-        }
-        if (variableInfo.getScope().getIndentation() < 1 && !variableInfo.isSubprogramArgument()) {
-            assembly += "\tmovl\t$DISP, %esi\n";
-            assembly += String.format("\tmovl\t%s(%%esi), %%esi\n", variableInfo.getScope().getIndentation());
-            assembly += String.format("\tmovl\t%s(%%esi), %s", variableInfo.getOffset(), register);
-            return assembly;
-        }
-        return assembly;
     }
 
     private String storeInstruction(String register, TACReference reference) {
-        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
-        VariablesTable.VariableInfo variableInfo = variablesTable.get((TACVariable) reference);
-        String assembly = "";
-        if (variableInfo.getScope().getIndentation() >= 1 && !variableInfo.isSubprogramArgument()) { // local variable
-            assembly += String.format("\tmovq\t%s, %s(%%rbp)", register, variableInfo.getOffset());
-            return assembly;
+        VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
+        if (isLocalVariable(variableInfo)) {
+            return String.format("\tmovq\t%s, %s(%%rbp)", register, variableInfo.getOffset());
+        } else if (isLocalArgument(variableInfo)) {
+            return String.format("""
+                    \tmovq\t%s(%%ebp), %%rdi
+                    \tmovq\t%s, (%%rdi)
+                    """, variableInfo.getOffset(), reference);
+        } else if (isGlobalVariable(variableInfo)) {
+            return String.format("""
+                    \tmovl $DISP, %%esi
+                    \tmovq\t%s(%%esi), %%rdi
+                    \tmovq\t%s, %s(%%rdi)
+                    """, variableInfo.getScope().getIndentation(), register, variableInfo.getOffset());
+        } else {
+            throw new RuntimeException("Unidentifiable variable");
         }
-        if (variableInfo.getScope().getIndentation() >= 1 && variableInfo.isSubprogramArgument()) { // local argument
-            assembly += String.format("\tmovq\t%s(%%ebp), %%rdi\n", variableInfo.getOffset());
-            assembly += String.format("\tmovq\t%s, (%%rdi)", reference);
-            return assembly;
-        }
-        if (variableInfo.getScope().getIndentation() < 1 && !variableInfo.isSubprogramArgument()) {
-            assembly += "\tmovl $DISP, %esi\n";
-            assembly += String.format("\tmovq\t%s(%%esi), %%rdi\n", variableInfo.getScope().getIndentation());
-            assembly += String.format("\tmovq\t%s, %s(%%rdi)", register, variableInfo.getOffset());
-            return assembly;
-        }
-        return assembly;
     }
 
     private String loadAddressInstruction(TACReference reference, String register) {
-        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
-        String assembly = "";
         if (reference instanceof TACLiteral) {
             String declarationName = "decl_" + constantDeclarations.size();
             String type = ((TACLiteral) reference).type().isString() ? "asciz" : "quad";
                 constantDeclarations.add(String.format("%s: .%s %s\n", declarationName, type, reference));
-            assembly += String.format("\tmovq\t%s, %s", declarationName + "@GOTPCREL(%rip)", register);
-            return assembly;
+            return String.format("\tmovq\t%s, %s", declarationName + "@GOTPCREL(%rip)", register);
+        }
+        VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
+        if (isLocalVariable(variableInfo)) {
+            return String.format("\tlea \t%s(%%rbp), %s", variableInfo.getOffset(), register);
+        } else if (isLocalArgument(variableInfo)) {
+            return String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset(), register);
+        } else if (isGlobalVariable(variableInfo)) {
+            return String.format("""
+                    \tmovl $DISP, %%esi
+                    \tmovl\t%s(%%esi), %%esi
+                    \tmovl\t%s(%%esi), %s
+                    """, variableInfo.getScope().getIndentation(), variableInfo.getOffset(), register);
+        } else {
+            throw new RuntimeException("Unidentifiable variable");
+        }
+    }
+
+    private boolean isLocalVariable(VariablesTable.VariableInfo variableInfo) {
+        return variableInfo.getScope().getIndentation() >= 1 && !variableInfo.isSubprogramArgument();
+    }
+
+    private boolean isLocalArgument(VariablesTable.VariableInfo variableInfo) {
+        return variableInfo.getScope().getIndentation() >= 1 && variableInfo.isSubprogramArgument();
+    }
+
+    private boolean isGlobalVariable(VariablesTable.VariableInfo variableInfo) {
+        return variableInfo.getScope().getIndentation() < 1 && !variableInfo.isSubprogramArgument();
+    }
+
+    private VariablesTable.VariableInfo getVariableInfoOrThrowException(TACReference reference) {
+        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
+        if (!(reference instanceof TACVariable)) {
+            throw new RuntimeException(reference + " is not a TACVAriable");
         }
         VariablesTable.VariableInfo variableInfo = variablesTable.get((TACVariable) reference);
-        if (variableInfo.getScope().getIndentation() >= 1 && !variableInfo.isSubprogramArgument()) { // local variable
-            assembly += String.format("\tlea \t%s(%%rbp), %s", variableInfo.getOffset(), register);
-            return assembly;
+        if (variableInfo == null) {
+            throw new RuntimeException("Variable not stored in variables table");
         }
-        if (variableInfo.getScope().getIndentation() >= 1 && variableInfo.isSubprogramArgument()) { // local argument
-            assembly += String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset(), register);
-            return assembly;
-        }
-        if (variableInfo.getScope().getIndentation() < 1 && !variableInfo.isSubprogramArgument()) {
-            assembly += "\tmovl $DISP, %esi\n";
-            assembly += String.format("\tmovl\t%s(%%esi), %%esi\n", variableInfo.getScope().getIndentation());
-            assembly += String.format("\tmovl\t%s(%%esi), %s", variableInfo.getOffset(), register);
-            return assembly;
-        }
-        return assembly;
+        return variableInfo;
     }
 
     private String generateIfInstruction(IfInstruction tacInstruction, String comparisonCode) {
