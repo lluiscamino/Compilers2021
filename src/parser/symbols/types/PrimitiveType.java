@@ -40,14 +40,10 @@ public enum PrimitiveType implements DOTizable {
     }
 
     public int sizeInBytes() {
-        return sizeInBytes("1");
-    }
-
-    public int sizeInBytes(String str) {
         return switch (this) {
             case INT -> 8;
             case BOOLEAN -> 8;
-            case STRING -> str.length() * INT.sizeInBytes();
+            case STRING -> 8;
             case UNKNOWN -> 0;
         };
     }
