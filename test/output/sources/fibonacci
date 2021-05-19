@@ -1,0 +1,16 @@
+procedure fibonacci(int N) {
+    var int num1 = 0;
+    var int num2 = 1;
+    var int counter = 0;
+    while (counter < N) {
+        print(num1);
+        var int tmp = num2 + num1;
+        num1 = num2;
+        num2 = tmp;
+        counter += 1;
+    }
+}
+
+main() {
+    fibonacci(40);
+}

@@ -11,3 +11,7 @@ as asm/while.asm -o asm/while.asm.o
 ld asm/while.asm.o -o asm/while.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/while.asm-exec > outputs/while.asm.txt
 diff -y -q -w outputs/while.asm.txt expectedoutputs/while.asm.txt
+as asm/fibonacci.asm -o asm/fibonacci.asm.o
+ld asm/fibonacci.asm.o -o asm/fibonacci.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/fibonacci.asm-exec > outputs/fibonacci.asm.txt
+diff -y -q -w outputs/fibonacci.asm.txt expectedoutputs/fibonacci.asm.txt
