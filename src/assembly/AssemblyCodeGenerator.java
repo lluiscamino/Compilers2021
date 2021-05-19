@@ -11,6 +11,7 @@ import tac.instructions.indexation.IndexAssignmentInstruction;
 import tac.instructions.indexation.IndexedValueInstruction;
 import tac.instructions.io.ReadInstruction;
 import tac.instructions.io.print.*;
+import tac.instructions.length.StringLengthInstruction;
 import tac.instructions.subprogram.*;
 import tac.instructions.subprogram.calls.FunctionCallInstruction;
 import tac.instructions.subprogram.calls.ProcedureCallInstruction;
@@ -81,4 +82,6 @@ public interface AssemblyCodeGenerator {
     String generate(PrintStringInstruction tacInstruction);
 
     String generate(PrintArrayInstruction tacInstruction);
+
+    String generate(StringLengthInstruction tacInstruction);
 }

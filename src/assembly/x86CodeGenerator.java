@@ -15,6 +15,7 @@ import tac.instructions.io.print.PrintArrayInstruction;
 import tac.instructions.io.print.PrintBooleanInstruction;
 import tac.instructions.io.print.PrintIntInstruction;
 import tac.instructions.io.print.PrintStringInstruction;
+import tac.instructions.length.StringLengthInstruction;
 import tac.instructions.subprogram.ComplexParameterInstruction;
 import tac.instructions.subprogram.PreambleInstruction;
 import tac.instructions.subprogram.ReturnInstruction;
@@ -131,7 +132,6 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 /**
                  * Prints a string to stdout
                  * Params:
-                 * - %rdx: String length
                  * - %rsi: String address
                  */
                 print_string:
@@ -464,6 +464,19 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     @Override
     public String generate(PrintArrayInstruction tacInstruction) {
         return null;
+    }
+
+    @Override
+    public String generate(StringLengthInstruction tacInstruction) {
+        return String.format("""
+                %s
+                \tcall\tstring_length
+                \tsubq\t$1, %%rdx
+                %s
+                """,
+                loadInstruction(tacInstruction.getSecondReference(), "%rsi"),
+                storeInstruction("%rdx", tacInstruction.getFirstReference())
+            );
     }
 
     private String loadInstruction(TACReference reference, String register) {
