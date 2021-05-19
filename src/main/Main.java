@@ -16,7 +16,9 @@ public final class Main {
                     new FileWriter(getArg(1)),
                     new FileWriter(getArg(2)),
                     new FileWriter(getArg(3)),
-                    new FileWriter(getArg(4))
+                    new FileWriter(getArg(4)),
+                    new FileWriter(getArg(5)),
+                    new FileWriter(getArg(6))
             );
             compiler.compile();
         } catch (Exception ex) {

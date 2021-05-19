@@ -171,8 +171,10 @@ public final class IncorrectProgramsTest {
                 tokensWriter = new StringWriter(),
                 symbolTableWriter = new StringWriter(),
                 treeWriter = new StringWriter(),
+                tacWriter = new StringWriter(),
+                assemblyWriter = new StringWriter(),
                 errorsWriter = new StringWriter();
-        Compiler compiler = new Compiler(programPath, tokensWriter, symbolTableWriter, treeWriter, errorsWriter);
+        Compiler compiler = new Compiler(programPath, tokensWriter, symbolTableWriter, treeWriter, tacWriter, assemblyWriter, errorsWriter);
         compiler.compile();
         List<ProgramError> programErrors = Compiler.getCompiler().getErrorsList();
         assert programErrors.size() == expectedErrors.length;

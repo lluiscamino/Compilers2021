@@ -233,8 +233,10 @@ public final class CorrectProgramsTest {
                 tokensWriter = new StringWriter(),
                 symbolTableWriter = new StringWriter(),
                 treeWriter = new StringWriter(),
+                tacWriter = new StringWriter(),
+                assemblyWriter = new StringWriter(),
                 errorsWriter = new StringWriter();
-        Compiler compiler = new Compiler(programPath, tokensWriter, symbolTableWriter, treeWriter, errorsWriter);
+        Compiler compiler = new Compiler(programPath, tokensWriter, symbolTableWriter, treeWriter, tacWriter, assemblyWriter, errorsWriter);
         compiler.compile();
         assert compiler.getErrorsList().isEmpty();
         assert errorsWriter.toString().length() == 0;

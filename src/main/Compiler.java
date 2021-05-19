@@ -17,16 +17,18 @@ public final class Compiler {
 
     private final LexicalAnalyzer scanner;
     private final SyntacticAnalyzer parser;
-    private final Writer symbolTableWriter, treeWriter, errorsWriter;
+    private final Writer symbolTableWriter, treeWriter, tacWriter, assemblyWriter, errorsWriter;
     private final List<ProgramError> errorsList = new ArrayList<>();
     private SemanticAnalyzer semanticAnalyzer;
 
-    public Compiler(String inputPath, Writer tokensWriter, Writer symbolTableWriter, Writer treeWriter, Writer errorsWriter) throws FileNotFoundException {
+    public Compiler(String inputPath, Writer tokensWriter, Writer symbolTableWriter, Writer treeWriter, Writer tacWriter, Writer assemblyWriter, Writer errorsWriter) throws FileNotFoundException {
         instance = this;
         this.scanner = new LexicalAnalyzer(inputPath, tokensWriter);
         this.parser = new SyntacticAnalyzer(scanner);
         this.symbolTableWriter = symbolTableWriter;
         this.treeWriter = treeWriter;
+        this.tacWriter = tacWriter;
+        this.assemblyWriter = assemblyWriter;
         this.errorsWriter = errorsWriter;
     }
 
@@ -50,12 +52,13 @@ public final class Compiler {
         scanner.writeTokenList();
         Program program = parser.getSyntaxTree();
         if (program != null) {
-            semanticAnalyzer = new SemanticAnalyzer(program, symbolTableWriter, treeWriter);
+            semanticAnalyzer = new SemanticAnalyzer(program, symbolTableWriter, treeWriter, tacWriter, assemblyWriter);
             semanticAnalyzer.validate();
             if (errorsList.isEmpty()) {
                 semanticAnalyzer.writeSymbolTable();
                 semanticAnalyzer.writeTree();
                 semanticAnalyzer.generateTAC();
+                semanticAnalyzer.generateAssembly();
             }
         }
         writeErrors();
