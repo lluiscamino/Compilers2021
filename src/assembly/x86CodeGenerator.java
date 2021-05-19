@@ -482,7 +482,9 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     private String loadInstruction(TACReference reference, String register) {
         if (reference instanceof TACLiteral) {
             if (((TACLiteral) reference).type().isString()) {
-                return loadAddressInstruction(reference, register);
+                String declarationName = "decl_" + constantDeclarations.size();
+                constantDeclarations.add(String.format("%s: .asciz %s\n", declarationName, reference));
+                return String.format("\tmovq\t%s, %s", declarationName + "@GOTPCREL(%rip)", register);
             }
             return String.format("\tmovq\t$%s, %s", reference, register);
         }
@@ -527,10 +529,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     private String loadAddressInstruction(TACReference reference, String register) {
         if (reference instanceof TACLiteral) {
+            boolean isString = ((TACLiteral) reference).type().isString();
             String declarationName = "decl_" + constantDeclarations.size();
-            String type = ((TACLiteral) reference).type().isString() ? "asciz" : "quad";
+            String type = isString ? "asciz" : "quad";
                 constantDeclarations.add(String.format("%s: .%s %s\n", declarationName, type, reference));
-            return String.format("\tmovq\t%s, %s", declarationName + "@GOTPCREL(%rip)", register);
+            String moveOrLea = isString ? "lea" : "mov";
+            return String.format("\t%sq\t%s, %s", moveOrLea, declarationName + "@GOTPCREL(%rip)", register);
         }
         VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
         if (isLocalVariable(variableInfo)) {
