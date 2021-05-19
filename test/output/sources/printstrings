@@ -1,0 +1,15 @@
+procedure printString(string str) {
+    print(str);
+}
+
+main() {
+    const string constString = "Hi! 😀";
+    var string varString = "Hola";
+    print("Hello, world");
+    print(constString);
+    print(varString);
+    varString = "Adios";
+    print(varString);
+    printString("749");
+    printString(constString);
+}

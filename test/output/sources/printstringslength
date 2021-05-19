@@ -1,0 +1,6 @@
+main() {
+    print(length("Hello"));
+    print(length("Hello, world!"));
+    print(length(""));
+    print(length("-1"));
+}
