@@ -331,7 +331,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rbx"),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                storeInstruction("%rbx", tacInstruction.getFirstReference())
         );
     }
 
@@ -340,7 +340,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                         %s
                         %s
-                        \torq\t%%rbx, %%rax
+                        \torq \t%%rbx, %%rax
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax"),
