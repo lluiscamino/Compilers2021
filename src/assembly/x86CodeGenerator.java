@@ -493,7 +493,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             return String.format("""
                     \tmovq\t%s(%%rbp), %%rsi
                     \tmovq\t(%%rsi), %s
-                    """, variableInfo.getOffset() * 8, register);
+                    """, variableInfo.getOffset() + 8, register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
                     \tmovl\t$DISP, %%esi
