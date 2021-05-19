@@ -20,7 +20,10 @@ public final class OutputTest {
                         Writer assemblyWriter = new FileWriter("test/output/asm/" + filePath.getFileName() + ".asm"), mockWriter = new StringWriter();
                         Compiler compiler = new Compiler(filePath.toString(), mockWriter, mockWriter, mockWriter, mockWriter, assemblyWriter, mockWriter);
                         compiler.compile();
-                        System.out.println();
+                        if (!compiler.getErrorsList().isEmpty()) {
+                            System.out.println("Error(s) with program " + filePath.getFileName() + ":");
+                            compiler.getErrorsList().forEach(System.out::println);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -32,7 +35,7 @@ public final class OutputTest {
         bashScriptWriter.append("#! /bin/bash\n");
         Files.find(Paths.get("test/output/asm"),
                 Integer.MAX_VALUE,
-                (filePath, fileAttr) -> fileAttr.isRegularFile())
+                (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(".asm"))
                 .forEach(filePath -> {
                     try {
                         String fileName = filePath.getFileName().toString();
