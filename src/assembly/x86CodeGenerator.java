@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class x86CodeGenerator implements AssemblyCodeGenerator {
+    private static final int STRING_BUFFER_BYTES = 140;
+
     private final List<String> constantDeclarations;
 
     public x86CodeGenerator() {
@@ -47,7 +49,9 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         \t.globl\tprint_uint64
                         \t.globl\tprint_boolean
                         \t.globl\tprint_string
+                        \t.globl\tread_string
                         \t.globl\tstring_length
+                        %s
                         %s
                         %s
                         %s
@@ -61,6 +65,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 printIntegerFunction(),
                 printBooleanFunction(),
                 printStringFunction(),
+                readStringFunction(),
                 stringLengthFunction(),
                 subprogramsTable.get("main").getTag()
         );
@@ -141,6 +146,23 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 \tsyscall
                 \tret
                 """;
+    }
+
+    private String readStringFunction() {
+        return String.format("""
+                /**
+                 * Reads a string from stdin
+                 * Params:
+                 * - %%rsi: Address where the string will be saved
+                 */
+                read_string:
+                \tmov \t$0x02000003, %%rax
+                \tmov \t$0, %%rdi
+                \tmovq\t$%s, %%rdx
+                syscall
+                ret
+                """, STRING_BUFFER_BYTES
+        );
     }
 
     private String stringLengthFunction() {
@@ -430,7 +452,16 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(ReadInstruction tacInstruction) {
-        return null;
+        String bufferName = "buffer_" + constantDeclarations.size();
+        constantDeclarations.add(String.format("%s: .space %s\n", bufferName, STRING_BUFFER_BYTES));
+        return String.format("""
+                \tmovq\t%s@GOTPCREL(%%rip), %%rsi
+                \tcall \tread_string
+                %s
+                """,
+                bufferName,
+                storeInstruction("%rsi", tacInstruction.getFirstReference())
+        );
     }
 
     @Override
