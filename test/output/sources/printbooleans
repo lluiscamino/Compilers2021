@@ -1,0 +1,17 @@
+procedure printNot(boolean value) {
+    print(!value);
+}
+
+main() {
+    print(true);
+    print(false);
+    printNot(true);
+    printNot(false);
+    print(true && false);
+    print(true || false);
+    print(3 > 5 || 7 < 9);
+    print((!true) || (!false));
+    print(3 == 3);
+    print(3 == 6);
+    print(3 != 5 || 4 != 6);
+}
