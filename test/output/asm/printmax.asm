@@ -5,6 +5,7 @@
 	.globl	print_string
 	.globl	read_string
 	.globl	string_length
+	.globl	compare_strings
 print_uint64:
 	lea 	-1(%rsp), %rsi
 	movb	$'\n', (%rsi)
@@ -79,8 +80,8 @@ read_string:
 	mov 	$0x02000003, %rax
 	mov 	$0, %rdi
 	movq	$140, %rdx
-syscall
-ret
+	syscall
+	ret
 
 /**
  * Returns a string's length (saves to %rdx)
@@ -96,6 +97,34 @@ string_length:
 		jne 	.Lloop
 	sub 	%rsi, %rdx
 	ret
+
+/**
+ * Compares two strings (saves result to %rdx)
+ * Params:
+ * - %rsi: First string address
+ * - %rdi: Second string address
+ */
+compare_strings:
+	lea 	-1(%rsi), %rcx
+	lea 	-1(%rdi), %rdx
+	.Cloop:
+		inc 	%rcx
+		inc 	%rdx
+		cmpb	$0, (%rcx)
+		jne 	.compare_strings_continue
+		cmpb	$0, (%rdx)
+		je  	.compare_strings_true
+		.compare_strings_continue:
+			movb	(%rcx), %al
+			cmpb	%al, (%rdx)
+			je  	.Cloop
+	.compare_strings_false:
+		movq	$0, %rdx
+		jmp 	.compare_strings_end
+	.compare_strings_true:
+		movq	$-1, %rdx
+	.compare_strings_end:
+		ret
 
 _main:
 	call	t_main
