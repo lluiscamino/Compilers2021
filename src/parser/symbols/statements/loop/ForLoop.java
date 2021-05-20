@@ -16,6 +16,8 @@ import tac.instructions.bifurcation.ifs.IfEqual;
 import tac.references.TACLiteral;
 import tac.references.TACTag;
 
+import static assembly.AssemblyCodeGenerationConstants.FALSE;
+
 public class ForLoop extends Loop {
 
     private final SymbolList<Declaration> declarations;
@@ -73,7 +75,7 @@ public class ForLoop extends Loop {
         addTACInstruction(new SkipInstruction(startTag));
         condition.toTac();
         TACTag endTag = tagGenerator.generate();
-        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(0), endTag));
+        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(FALSE), endTag));
         if (statements != null) {
             statements.toTac();
         }

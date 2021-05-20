@@ -6,7 +6,9 @@ import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.CopyInstruction;
 import tac.references.TACLiteral;
-import tac.references.TACVariable;
+
+import static assembly.AssemblyCodeGenerationConstants.FALSE;
+import static assembly.AssemblyCodeGenerationConstants.TRUE;
 
 public class BooleanLiteral extends Literal {
     
@@ -33,6 +35,6 @@ public class BooleanLiteral extends Literal {
         TACVariableGenerator tacVariableGenerator = main.Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
         tacVariable = tacVariableGenerator.generate(Type.getBoolean());  // t = novavar
-        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(getValue() ? -1 : 0)));  //genera(t = lit)
+        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(getValue() ? TRUE : FALSE)));  //genera(t = lit)
     }
 }

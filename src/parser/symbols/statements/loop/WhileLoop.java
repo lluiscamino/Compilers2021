@@ -14,6 +14,8 @@ import tac.instructions.bifurcation.ifs.IfEqual;
 import tac.references.TACLiteral;
 import tac.references.TACTag;
 
+import static assembly.AssemblyCodeGenerationConstants.FALSE;
+
 public final class WhileLoop extends Loop {
 
     public WhileLoop(Expression condition, SymbolList<Statement> statements) {
@@ -51,7 +53,7 @@ public final class WhileLoop extends Loop {
         symbolTable.enterBlock();
         condition.toTac();
         TACTag endTag = tagGenerator.generate();
-        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(0), endTag));
+        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(FALSE), endTag));
         if (statements != null) {
             statements.toTac();
         }

@@ -31,9 +31,9 @@ import tac.tables.VariablesTable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class x86CodeGenerator implements AssemblyCodeGenerator {
-    private static final int STRING_BUFFER_BYTES = 140;
+import static assembly.AssemblyCodeGenerationConstants.*;
 
+public class x86CodeGenerator implements AssemblyCodeGenerator {
     private final List<String> constantDeclarations;
 
     public x86CodeGenerator() {
@@ -190,35 +190,38 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     private String compareStringsFunction() {
-        return """
+        return String.format("""
                 /**
-                 * Compares two strings (saves result to %rdx)
+                 * Compares two strings (saves result to %%rdx)
                  * Params:
-                 * - %rsi: First string address
-                 * - %rdi: Second string address
+                 * - %%rsi: First string address
+                 * - %%rdi: Second string address
                  */
                 compare_strings:
-                \tlea \t-1(%rsi), %rcx
-                \tlea \t-1(%rdi), %rdx
+                \tlea \t-1(%%rsi), %%rcx
+                \tlea \t-1(%%rdi), %%rdx
                 \t.Cloop:
-                \t\tinc \t%rcx
-                \t\tinc \t%rdx
-                \t\tcmpb\t$0, (%rcx)
+                \t\tinc \t%%rcx
+                \t\tinc \t%%rdx
+                \t\tcmpb\t$0, (%%rcx)
                 \t\tjne \t.compare_strings_continue
-                \t\tcmpb\t$0, (%rdx)
+                \t\tcmpb\t$0, (%%rdx)
                 \t\tje  \t.compare_strings_true
                 \t\t.compare_strings_continue:
-                \t\t\tmovb\t(%rcx), %al
-                \t\t\tcmpb\t%al, (%rdx)
+                \t\t\tmovb\t(%%rcx), %%al
+                \t\t\tcmpb\t%%al, (%%rdx)
                 \t\t\tje  \t.Cloop
                 \t.compare_strings_false:
-                \t\tmovq\t$0, %rdx
+                \t\tmovq\t$%s, %%rdx
                 \t\tjmp \t.compare_strings_end
                 \t.compare_strings_true:
-                \t\tmovq\t$-1, %rdx
+                \t\tmovq\t$%s, %%rdx
                 \t.compare_strings_end:
                 \t\tret
-                """;
+                """,
+                FALSE,
+                TRUE
+        );
     }
 
     @Override
@@ -364,11 +367,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         %s
                         \tcall \tcompare_strings
-                        \tcmpq\t$-1, %%rdx
+                        \tcmpq\t$%S, %%rdx
                         \tje  \t%s
                         """,
                 loadInstruction(tacInstruction.getFirstReference(), "%rsi"),
                 loadInstruction(tacInstruction.getSecondReference(), "%rdi"),
+                TRUE,
                 tacInstruction.getThirdReference()
         );
     }
@@ -379,11 +383,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         %s
                         \tcall \tcompare_strings
-                        \tcmpq\t$-1, %%rdx
+                        \tcmpq\t$%s, %%rdx
                         \tjne \t%s
                         """,
                 loadInstruction(tacInstruction.getFirstReference(), "%rsi"),
                 loadInstruction(tacInstruction.getSecondReference(), "%rdi"),
+                TRUE,
                 tacInstruction.getThirdReference()
         );
     }

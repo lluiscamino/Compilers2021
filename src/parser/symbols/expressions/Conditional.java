@@ -12,6 +12,8 @@ import tac.instructions.bifurcation.ifs.IfEqual;
 import tac.references.TACLiteral;
 import tac.references.TACTag;
 
+import static assembly.AssemblyCodeGenerationConstants.FALSE;
+
 public final class Conditional extends Expression {
     private final Expression condition, leftExpression, rightExpression;
     
@@ -64,7 +66,7 @@ public final class Conditional extends Expression {
         TACTag e1 = tacTagGenerator.generate();
         TACTag e2 = tacTagGenerator.generate();
 
-        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(0), e1));
+        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(FALSE), e1));
         leftExpression.toTac();
         addTACInstruction(new CopyInstruction(tacVariable, leftExpression.getTacVariable()));
         addTACInstruction(new GotoInstruction(e2));
