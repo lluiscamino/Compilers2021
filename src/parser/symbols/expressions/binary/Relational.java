@@ -11,9 +11,10 @@ import tac.instructions.arithmetic.CopyInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.*;
+import tac.instructions.bifurcation.ifs.specialtypes.IfDiffString;
+import tac.instructions.bifurcation.ifs.specialtypes.IfEqualString;
 import tac.references.TACLiteral;
 import tac.references.TACTag;
-import tac.references.TACVariable;
 
 public final class Relational extends Expression {
     private final Expression leftExpression, rightExpression;
@@ -80,6 +81,19 @@ public final class Relational extends Expression {
     }
 
     private IfInstruction getIfInstruction(TACTag e1) {
+        Type expressionsType = leftExpression.getType();
+        if (expressionsType.isString()) {
+            return operator == RelationalOperatorType.EQUAL
+                    ? new IfEqualString(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1)
+                    : new IfDiffString(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1);
+        } else if (expressionsType.isArray()) {
+            return null; // todo
+        } else {
+            return getNormalIfInstruction(e1);
+        }
+    }
+
+    private IfInstruction getNormalIfInstruction(TACTag e1) {
         return switch (operator) {
             case LESS -> new IfLess(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1);
             case GREATER -> new IfGreater(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1);

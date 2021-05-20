@@ -4,6 +4,8 @@ import tac.instructions.arithmetic.*;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.*;
+import tac.instructions.bifurcation.ifs.specialtypes.IfDiffString;
+import tac.instructions.bifurcation.ifs.specialtypes.IfEqualString;
 import tac.instructions.binary.AndInstruction;
 import tac.instructions.binary.NotInstruction;
 import tac.instructions.binary.OrInstruction;
@@ -46,6 +48,10 @@ public interface AssemblyCodeGenerator {
     String generate(IfLEQ tacInstruction);
 
     String generate(IfLess tacInstruction);
+
+    String generate(IfEqualString tacInstruction);
+
+    String generate(IfDiffString tacInstruction);
 
     String generate(GotoInstruction tacInstruction);
 

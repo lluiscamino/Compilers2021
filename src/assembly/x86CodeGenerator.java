@@ -5,6 +5,8 @@ import tac.instructions.arithmetic.*;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.*;
+import tac.instructions.bifurcation.ifs.specialtypes.IfDiffString;
+import tac.instructions.bifurcation.ifs.specialtypes.IfEqualString;
 import tac.instructions.binary.AndInstruction;
 import tac.instructions.binary.NotInstruction;
 import tac.instructions.binary.OrInstruction;
@@ -51,6 +53,8 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         \t.globl\tprint_string
                         \t.globl\tread_string
                         \t.globl\tstring_length
+                        \t.globl\tcompare_strings
+                        %s
                         %s
                         %s
                         %s
@@ -67,6 +71,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 printStringFunction(),
                 readStringFunction(),
                 stringLengthFunction(),
+                compareStringsFunction(),
                 subprogramsTable.get("main").getTag()
         );
     }
@@ -159,8 +164,8 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 \tmov \t$0x02000003, %%rax
                 \tmov \t$0, %%rdi
                 \tmovq\t$%s, %%rdx
-                syscall
-                ret
+                \tsyscall
+                \tret
                 """, STRING_BUFFER_BYTES
         );
     }
@@ -181,6 +186,38 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 \t\tjne \t.Lloop
                 \tsub \t%rsi, %rdx
                 \tret
+                """;
+    }
+
+    private String compareStringsFunction() {
+        return """
+                /**
+                 * Compares two strings (saves result to %rdx)
+                 * Params:
+                 * - %rsi: First string address
+                 * - %rdi: Second string address
+                 */
+                compare_strings:
+                \tlea \t-1(%rsi), %rcx
+                \tlea \t-1(%rdi), %rdx
+                \t.Cloop:
+                \t\tinc \t%rcx
+                \t\tinc \t%rdx
+                \t\tcmpb\t$0, (%rcx)
+                \t\tjne \t.compare_strings_continue
+                \t\tcmpb\t$0, (%rdx)
+                \t\tje  \t.compare_strings_true
+                \t\t.compare_strings_continue:
+                \t\t\tmovb\t(%rcx), %al
+                \t\t\tcmpb\t%al, (%rdx)
+                \t\t\tje  \t.Cloop
+                \t.compare_strings_false:
+                \t\tmovq\t$0, %rdx
+                \t\tjmp \t.compare_strings_end
+                \t.compare_strings_true:
+                \t\tmovq\t$-1, %rdx
+                \t.compare_strings_end:
+                \t\tret
                 """;
     }
 
@@ -319,6 +356,36 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     @Override
     public String generate(IfLess tacInstruction) {
         return generateIfInstruction(tacInstruction, "jge");
+    }
+
+    @Override
+    public String generate(IfEqualString tacInstruction) {
+        return String.format("""
+                        %s
+                        %s
+                        \tcall \tcompare_strings
+                        \tcmpq\t$-1, %%rdx
+                        \tje  \t%s
+                        """,
+                loadInstruction(tacInstruction.getFirstReference(), "%rsi"),
+                loadInstruction(tacInstruction.getSecondReference(), "%rdi"),
+                tacInstruction.getThirdReference()
+        );
+    }
+
+    @Override
+    public String generate(IfDiffString tacInstruction) {
+        return String.format("""
+                        %s
+                        %s
+                        \tcall \tcompare_strings
+                        \tcmpq\t$-1, %%rdx
+                        \tjne \t%s
+                        """,
+                loadInstruction(tacInstruction.getFirstReference(), "%rsi"),
+                loadInstruction(tacInstruction.getSecondReference(), "%rdi"),
+                tacInstruction.getThirdReference()
+        );
     }
 
     @Override
