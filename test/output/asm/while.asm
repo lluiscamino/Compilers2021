@@ -3,6 +3,7 @@
 	.globl	print_uint64
 	.globl	print_boolean
 	.globl	print_string
+	.globl	read_string
 	.globl	string_length
 print_uint64:
 	lea 	-1(%rsp), %rsi
@@ -70,6 +71,18 @@ print_string:
 	ret
 
 /**
+ * Reads a string from stdin
+ * Params:
+ * - %rsi: Address where the string will be saved
+ */
+read_string:
+	mov 	$0x02000003, %rax
+	mov 	$0, %rdi
+	movq	$140, %rdx
+syscall
+ret
+
+/**
  * Returns a string's length (saves to %rdx)
  * Params:
  * - %rsi: String address
@@ -89,41 +102,57 @@ _main:
 	mov 	$0x02000001, %rax
 	xor 	$0, %rdi
 	syscall
-/*t_main: skip*/t_main:
-/*pmb s0*/	push	%rbp
+/*t_main: skip*/
+t_main:
+/*pmb s0*/
+	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$16, %rsp
-/*a = 16*/	movq	$16, %rax
+/*a = 16*/
+	movq	$16, %rax
 	movq	%rax, -8(%rbp)
-/*e0: skip*/e0:
-/*if a >= 0 goto e1*/	movq	-8(%rbp), %rax
+/*e0: skip*/
+e0:
+/*if a >= 0 goto e1*/
+	movq	-8(%rbp), %rax
 	movq	$0, %rbx
 	cmpq	%rbx, %rax
 	jl 	1f
 	jmp	e1
 1:
-/*t2 = 0*/	movq	$0, %rax
+/*t2 = 0*/
+	movq	$0, %rax
 	movq	%rax, -16(%rbp)
-/*goto e2*/	jmp 	e2
-/*e1: skip*/e1:
-/*t2 = -1*/	movq	$-1, %rax
+/*goto e2*/
+	jmp 	e2
+/*e1: skip*/
+e1:
+/*t2 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -16(%rbp)
-/*e2: skip*/e2:
-/*if t2 = 0 goto e3*/	movq	-16(%rbp), %rax
+/*e2: skip*/
+e2:
+/*if t2 = 0 goto e3*/
+	movq	-16(%rbp), %rax
 	movq	$0, %rbx
 	cmpq	%rbx, %rax
 	jne 	1f
 	jmp	e3
 1:
-/*printInt(a)*/	movq	-8(%rbp), %rdi
+/*printInt(a)*/
+	movq	-8(%rbp), %rdi
 	call	print_uint64
-/*a = a - 3*/	movq	-8(%rbp), %rax
+/*a = a - 3*/
+	movq	-8(%rbp), %rax
 	movq	$3, %rbx
 	subq	%rbx, %rax
 	movq	%rax, -8(%rbp)
-/*goto e0*/	jmp 	e0
-/*e3: skip*/e3:
-/*rtn s0*/	movq	%rbp, %rsp
+/*goto e0*/
+	jmp 	e0
+/*e3: skip*/
+e3:
+/*rtn s0*/
+	movq	%rbp, %rsp
 	pop 	%rbp
 	ret
 

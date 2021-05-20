@@ -3,6 +3,7 @@
 	.globl	print_uint64
 	.globl	print_boolean
 	.globl	print_string
+	.globl	read_string
 	.globl	string_length
 print_uint64:
 	lea 	-1(%rsp), %rsi
@@ -68,6 +69,18 @@ print_string:
 	mov 	$1, %rdi
 	syscall
 	ret
+
+/**
+ * Reads a string from stdin
+ * Params:
+ * - %rsi: Address where the string will be saved
+ */
+read_string:
+	mov 	$0x02000003, %rax
+	mov 	$0, %rdi
+	movq	$140, %rdx
+syscall
+ret
 
 /**
  * Returns a string's length (saves to %rdx)
