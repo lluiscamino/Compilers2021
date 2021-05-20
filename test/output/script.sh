@@ -7,6 +7,10 @@ as asm/printmax.asm -o asm/printmax.asm.o
 ld asm/printmax.asm.o -o asm/printmax.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/printmax.asm-exec > outputs/printmax.asm.txt
 diff -y -q -w outputs/printmax.asm.txt expectedoutputs/printmax.asm.txt
+as asm/differentscopesmain.asm -o asm/differentscopesmain.asm.o
+ld asm/differentscopesmain.asm.o -o asm/differentscopesmain.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/differentscopesmain.asm-exec > outputs/differentscopesmain.asm.txt
+diff -y -q -w outputs/differentscopesmain.asm.txt expectedoutputs/differentscopesmain.asm.txt
 as asm/printstrings.asm -o asm/printstrings.asm.o
 ld asm/printstrings.asm.o -o asm/printstrings.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/printstrings.asm-exec > outputs/printstrings.asm.txt

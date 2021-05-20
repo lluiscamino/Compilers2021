@@ -1,0 +1,14 @@
+main() {
+   const int i = 1;
+   print(i);
+   for (var int i = 2; i <= 2; i += 1) {
+       print(i);
+       if (true) {
+           const int i = 3;
+           print(i);
+           print(i);
+       }
+       print(i);
+   }
+   print(i);
+}
