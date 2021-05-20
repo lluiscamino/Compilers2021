@@ -1,0 +1,14 @@
+main() {
+   print("Hello" == "Hello");
+   print("Hello" != "Hello");
+   print("hello" != "HeLl0");
+   print("hello" == "HeLl0");
+   const string str1 = "Hello, world!";
+   const string str2 = "Hello, world!";
+   print(str1 == str1);
+   print(str1 != str1);
+   print(str1 == str2);
+   print(str1 != str2);
+   print("😀" == "😀");
+   print("😀" != "😀");
+}

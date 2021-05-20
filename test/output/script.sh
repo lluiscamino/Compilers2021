@@ -15,6 +15,10 @@ as asm/while.asm -o asm/while.asm.o
 ld asm/while.asm.o -o asm/while.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/while.asm-exec > outputs/while.asm.txt
 diff -y -q -w outputs/while.asm.txt expectedoutputs/while.asm.txt
+as asm/comparestrings.asm -o asm/comparestrings.asm.o
+ld asm/comparestrings.asm.o -o asm/comparestrings.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/comparestrings.asm-exec > outputs/comparestrings.asm.txt
+diff -y -q -w outputs/comparestrings.asm.txt expectedoutputs/comparestrings.asm.txt
 as asm/printstringslength.asm -o asm/printstringslength.asm.o
 ld asm/printstringslength.asm.o -o asm/printstringslength.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/printstringslength.asm-exec > outputs/printstringslength.asm.txt
