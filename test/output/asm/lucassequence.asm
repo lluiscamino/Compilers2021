@@ -127,11 +127,16 @@ compare_strings:
 		ret
 
 _main:
+	push	%rbp
+	mov 	%rsp, %rbp
+	subq	$0, %rsp
+	movq	decl_2@GOTPCREL(%rip), %rsi
+	movq	%rbp, (%rsi)
+/*t_lucas: skip*/
 	call	t_main
 	mov 	$0x02000001, %rax
 	xor 	$0, %rdi
 	syscall
-/*t_lucas: skip*/
 t_lucas:
 /*pmb s0*/
 	push	%rbp
@@ -214,7 +219,7 @@ t_main:
 	mov 	%rsp, %rbp
 	subq	$0, %rsp
 /*param_s 25*/
-	movq	decl_2@GOTPCREL(%rip), %rax
+	movq	decl_3@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
 	call	t_lucas
@@ -226,4 +231,5 @@ t_main:
 .section __DATA, __data
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
-	decl_2: .quad 25
+	decl_2: .quad 0
+	decl_3: .quad 25

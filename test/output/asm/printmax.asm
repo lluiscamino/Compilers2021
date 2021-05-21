@@ -127,11 +127,16 @@ compare_strings:
 		ret
 
 _main:
+	push	%rbp
+	mov 	%rsp, %rbp
+	subq	$0, %rsp
+	movq	decl_2@GOTPCREL(%rip), %rsi
+	movq	%rbp, (%rsi)
+/*t_printMaxInteger: skip*/
 	call	t_main
 	mov 	$0x02000001, %rax
 	xor 	$0, %rdi
 	syscall
-/*t_printMaxInteger: skip*/
 t_printMaxInteger:
 /*pmb s0*/
 	push	%rbp
@@ -329,7 +334,7 @@ e13:
 	lea 	-24(%rbp), %rax
 	push	%rax
 /*param_s 4*/
-	movq	decl_2@GOTPCREL(%rip), %rax
+	movq	decl_3@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
 	call	t_printMaxInteger
@@ -372,7 +377,7 @@ e15:
 	lea 	-48(%rbp), %rax
 	push	%rax
 /*param_s 4*/
-	movq	decl_3@GOTPCREL(%rip), %rax
+	movq	decl_4@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
 	call	t_printMaxInteger
@@ -419,13 +424,13 @@ e15:
 	lea 	-88(%rbp), %rax
 	push	%rax
 /*param_s 12323*/
-	movq	decl_4@GOTPCREL(%rip), %rax
-	push	%rax
-/*param_s 1212*/
 	movq	decl_5@GOTPCREL(%rip), %rax
 	push	%rax
-/*param_s 897137132*/
+/*param_s 1212*/
 	movq	decl_6@GOTPCREL(%rip), %rax
+	push	%rax
+/*param_s 897137132*/
+	movq	decl_7@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
 	call	t_printMaxInteger
@@ -437,8 +442,9 @@ e15:
 .section __DATA, __data
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
-	decl_2: .quad 4
+	decl_2: .quad 0
 	decl_3: .quad 4
-	decl_4: .quad 12323
-	decl_5: .quad 1212
-	decl_6: .quad 897137132
+	decl_4: .quad 4
+	decl_5: .quad 12323
+	decl_6: .quad 1212
+	decl_7: .quad 897137132

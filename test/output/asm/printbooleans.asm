@@ -127,11 +127,16 @@ compare_strings:
 		ret
 
 _main:
+	push	%rbp
+	mov 	%rsp, %rbp
+	subq	$0, %rsp
+	movq	decl_2@GOTPCREL(%rip), %rsi
+	movq	%rbp, (%rsi)
+/*t_printNot: skip*/
 	call	t_main
 	mov 	$0x02000001, %rax
 	xor 	$0, %rdi
 	syscall
-/*t_printNot: skip*/
 t_printNot:
 /*pmb s0*/
 	push	%rbp
@@ -164,12 +169,12 @@ t_main:
 	movq	$0, %rbx
 	call	print_boolean
 /*param_s -1*/
-	movq	decl_2@GOTPCREL(%rip), %rax
+	movq	decl_3@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
 	call	t_printNot
 /*param_s 0*/
-	movq	decl_3@GOTPCREL(%rip), %rax
+	movq	decl_4@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
 	call	t_printNot
@@ -349,5 +354,6 @@ e11:
 .section __DATA, __data
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
-	decl_2: .quad -1
-	decl_3: .quad 0
+	decl_2: .quad 0
+	decl_3: .quad -1
+	decl_4: .quad 0

@@ -127,11 +127,16 @@ compare_strings:
 		ret
 
 _main:
+	push	%rbp
+	mov 	%rsp, %rbp
+	subq	$0, %rsp
+	movq	decl_2@GOTPCREL(%rip), %rsi
+	movq	%rbp, (%rsi)
+/*t_printString: skip*/
 	call	t_main
 	mov 	$0x02000001, %rax
 	xor 	$0, %rdi
 	syscall
-/*t_printString: skip*/
 t_printString:
 /*pmb s0*/
 	push	%rbp
@@ -154,13 +159,13 @@ t_main:
 	mov 	%rsp, %rbp
 	subq	$16, %rsp
 /*constString = "Hi! 😀\n"*/
-	movq	decl_2@GOTPCREL(%rip), %rax
+	movq	decl_3@GOTPCREL(%rip), %rax
 	movq	%rax, -8(%rbp)
 /*varString = "Hola\n"*/
-	movq	decl_3@GOTPCREL(%rip), %rax
+	movq	decl_4@GOTPCREL(%rip), %rax
 	movq	%rax, -16(%rbp)
 /*printString("Hello, world\n")*/
-	movq	decl_4@GOTPCREL(%rip), %rsi
+	movq	decl_5@GOTPCREL(%rip), %rsi
 	call	print_string
 /*printString(constString)*/
 	movq	-8(%rbp), %rsi
@@ -169,13 +174,13 @@ t_main:
 	movq	-16(%rbp), %rsi
 	call	print_string
 /*varString = "Adios\n"*/
-	movq	decl_5@GOTPCREL(%rip), %rax
+	movq	decl_6@GOTPCREL(%rip), %rax
 	movq	%rax, -16(%rbp)
 /*printString(varString)*/
 	movq	-16(%rbp), %rsi
 	call	print_string
 /*param_s "749\n"*/
-	leaq	decl_6@GOTPCREL(%rip), %rax
+	leaq	decl_7@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
 	call	t_printString
@@ -192,8 +197,9 @@ t_main:
 .section __DATA, __data
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
-	decl_2: .asciz "Hi! 😀\n"
-	decl_3: .asciz "Hola\n"
-	decl_4: .asciz "Hello, world\n"
-	decl_5: .asciz "Adios\n"
-	decl_6: .asciz "749\n"
+	decl_2: .quad 0
+	decl_3: .asciz "Hi! 😀\n"
+	decl_4: .asciz "Hola\n"
+	decl_5: .asciz "Hello, world\n"
+	decl_6: .asciz "Adios\n"
+	decl_7: .asciz "749\n"
