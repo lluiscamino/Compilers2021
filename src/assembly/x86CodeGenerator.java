@@ -633,9 +633,9 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             return String.format("\tmovq\t%s, %s(%%rbp)", register, variableInfo.getOffset());
         } else if (isLocalArgument(variableInfo)) {
             return String.format("""
-                    \tmovq\t%s(%%ebp), %%rdi
-                    \tmovq\t%s, (%%rdi)
-                    """, variableInfo.getOffset(), reference);
+                    \tmovq\t%s(%%rbp), %%rsi
+                    \tmovq\t%s, (%%rsi)
+                    """, variableInfo.getOffset() + 8, register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
                     \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
