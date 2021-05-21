@@ -14,6 +14,7 @@ import java.util.Optional;
 
 public final class VariablesTable {
     private final List<VariableInfo> variablesList = new ArrayList<>();
+    private int globalVariablesSize = 0;
 
     public List<VariableInfo> getVariablesList() {
         return variablesList;
@@ -27,6 +28,14 @@ public final class VariablesTable {
             scope = scope.getPrevious();
         }
         return variable;
+    }
+
+    public int getGlobalVariablesSize() {
+        return globalVariablesSize;
+    }
+
+    public void setGlobalVariablesSize(int globalVariablesSize) {
+        this.globalVariablesSize = globalVariablesSize;
     }
 
     public VariableInfo get(TACVariable tacVariable) {
@@ -67,6 +76,7 @@ public final class VariablesTable {
         int longestVariableName = Math.max(longestVariable.map(info -> info.getTacVariable().toString().length()).orElse(0), 10);
         String format = "%" + longestVariableName + "s%12s%12s%10s%10s%10s%16s\n";
 
+        printWriter.println("Tamaño variables globales: " + globalVariablesSize);
         printWriter.format(format, "Nombre", "Subprograma", "Profundidad", "Parámetro", "Tipo", "Tamaño", "Desplazamiento");
         for (VariableInfo variableInfo : variablesList) {
             printWriter.format(format,

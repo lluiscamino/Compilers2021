@@ -35,16 +35,19 @@ import static assembly.AssemblyCodeGenerationConstants.*;
 
 public class x86CodeGenerator implements AssemblyCodeGenerator {
     private final List<String> constantDeclarations;
+    private boolean initialScope;
 
     public x86CodeGenerator() {
         constantDeclarations = new ArrayList<>();
+        initialScope = true;
         constantDeclarations.add("decl_0: .asciz \"true\\n\"\n");
         constantDeclarations.add("decl_1: .asciz \"false\\n\"\n");
+        constantDeclarations.add("decl_2: .quad"); // initial scope base pointer
     }
 
     @Override
     public String preamble() {
-        SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
+        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
         return String.format("""
                         .section\t__TEXT, __text
                         \t.globl\t_main
@@ -61,10 +64,11 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         %s
                         _main:
-                        \tcall\t%s
-                        \tmov \t$0x02000001, %%rax
-                        \txor \t$0, %%rdi
-                        \tsyscall
+                        \tpush\t%%rbp
+                        \tmov \t%%rsp, %%rbp
+                        \tsubq\t$%s, %%rsp
+                        \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
+                        \tmovq\t%%rbp, (%%rsi)
                         """,
                 printIntegerFunction(),
                 printBooleanFunction(),
@@ -72,7 +76,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 readStringFunction(),
                 stringLengthFunction(),
                 compareStringsFunction(),
-                subprogramsTable.get("main").getTag()
+                variablesTable.getGlobalVariablesSize()
         );
     }
 
@@ -400,7 +404,20 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(SkipInstruction tacInstruction) {
-        return tacInstruction.getFirstReference() + ":\n";
+        SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
+        String result = "";
+        if (initialScope) {
+            result += String.format("""
+                    \tcall\t%s
+                    \tmov \t$0x02000001, %%rax
+                    \txor \t$0, %%rdi
+                    \tsyscall
+                    """,
+                    subprogramsTable.get("main").getTag()
+            );
+            initialScope = false;
+        }
+        return result + tacInstruction.getFirstReference() + ":\n";
     }
 
     @Override
@@ -594,17 +611,17 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
         if (isLocalVariable(variableInfo)) {
             return String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset(), register);
-        } else if (isLocalArgument(variableInfo)) {
+        } else if (isLocalArgument(variableInfo) || initialScope) {
             return String.format("""
                     \tmovq\t%s(%%rbp), %%rsi
                     \tmovq\t(%%rsi), %s
                     """, variableInfo.getOffset() + 8, register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
-                    \tmovl\t$DISP, %%esi
-                    \tmovl\t%s(%%esi), %%esi
-                    \tmovl\t%s(%%esi), %s
-                    """, variableInfo.getScope().getIndentation(), variableInfo.getOffset(), register);
+                    \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
+                    \tmovq\t(%%rsi), %%rsi
+                    \tmovq\t%s(%%rsi), %s
+                    """, variableInfo.getOffset(), register);
         } else {
             throw new RuntimeException("Unidentifiable variable");
         }
@@ -612,7 +629,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     private String storeInstruction(String register, TACReference reference) {
         VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
-        if (isLocalVariable(variableInfo)) {
+        if (isLocalVariable(variableInfo) || initialScope) {
             return String.format("\tmovq\t%s, %s(%%rbp)", register, variableInfo.getOffset());
         } else if (isLocalArgument(variableInfo)) {
             return String.format("""
@@ -621,10 +638,10 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                     """, variableInfo.getOffset(), reference);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
-                    \tmovl $DISP, %%esi
-                    \tmovq\t%s(%%esi), %%rdi
-                    \tmovq\t%s, %s(%%rdi)
-                    """, variableInfo.getScope().getIndentation(), register, variableInfo.getOffset());
+                    \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
+                    \tmovq\t(%%rsi), %%rsi
+                    \tmovq\t%s, %s(%%rsi)
+                    """, register, variableInfo.getOffset());
         } else {
             throw new RuntimeException("Unidentifiable variable");
         }
@@ -642,14 +659,14 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
         if (isLocalVariable(variableInfo)) {
             return String.format("\tlea \t%s(%%rbp), %s", variableInfo.getOffset(), register);
-        } else if (isLocalArgument(variableInfo)) {
+        } else if (isLocalArgument(variableInfo) || initialScope) {
             return String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset(), register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
-                    \tmovl $DISP, %%esi
-                    \tmovl\t%s(%%esi), %%esi
-                    \tmovl\t%s(%%esi), %s
-                    """, variableInfo.getScope().getIndentation(), variableInfo.getOffset(), register);
+                    \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
+                    \tmovq\t(%%rsi), %%rsi
+                    \tleaq\t%s(%%rsi), %s
+                    """, variableInfo.getOffset(), register);
         } else {
             throw new RuntimeException("Unidentifiable variable");
         }

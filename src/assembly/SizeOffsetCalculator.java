@@ -7,12 +7,12 @@ public final class SizeOffsetCalculator {
     public void calculate(SubprogramsTable subprogramsTable, VariablesTable variablesTable) {
         for (VariablesTable.VariableInfo variableInfo : variablesTable.getVariablesList()) {
             SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get(variableInfo.getTacSubprogram());
-            if (subprogramInfo == null) { // global variable
-                continue;
-            }
             int variableSize = variableInfo.getSize();
             int offset;
-            if (variableInfo.isSubprogramArgument()) {
+            if (subprogramInfo == null) { // global variable
+                variablesTable.setGlobalVariablesSize(variablesTable.getGlobalVariablesSize() + variableSize);
+                offset = -variablesTable.getGlobalVariablesSize();
+            } else if (variableInfo.isSubprogramArgument()) {
                 subprogramInfo.setLocalParametersSize(subprogramInfo.getLocalParametersSize() + 8); // params are sent as addresses
                 offset = subprogramInfo.getLocalParametersSize();
             } else {
