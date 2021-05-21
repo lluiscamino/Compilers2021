@@ -1,0 +1,15 @@
+procedure printA() {
+    print(a);
+}
+
+var int a = 3;
+
+procedure changeA(int newA) {
+    a = newA;
+}
+
+main() {
+    printA();
+    changeA(-9);
+    printA();
+}

@@ -1,4 +1,8 @@
 #! /bin/bash
+as asm/globalvariables.asm -o asm/globalvariables.asm.o
+ld asm/globalvariables.asm.o -o asm/globalvariables.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/globalvariables.asm-exec > outputs/globalvariables.asm.txt
+diff -y -q -w outputs/globalvariables.asm.txt expectedoutputs/globalvariables.asm.txt
 as asm/forloop.asm -o asm/forloop.asm.o
 ld asm/forloop.asm.o -o asm/forloop.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/forloop.asm-exec > outputs/forloop.asm.txt
