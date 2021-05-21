@@ -7,6 +7,8 @@ import parser.symbols.Argument;
 import parser.symbols.SymbolList;
 import parser.symbols.statements.Statement;
 import symboltable.SymbolTable;
+import tac.instructions.TACInstruction;
+import tac.instructions.subprogram.returns.ProcedureReturnInstruction;
 
 public class ProcedureDeclaration extends SubprogramDeclaration {
     
@@ -40,5 +42,9 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
         int lineNum = xleft != null ? xleft.getLine() : -1;
         return lineNum + ": procedure " + identifier + " (" + numArguments() + " args)";
     }
-    
+
+    @Override
+    protected TACInstruction returnInstruction() {
+        return new ProcedureReturnInstruction(tacSubprogram);
+    }
 }

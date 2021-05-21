@@ -10,9 +10,9 @@ import parser.symbols.statements.Statement;
 import symboltable.SymbolTable;
 import tac.generators.TACSubprogramGenerator;
 import tac.generators.TACTagGenerator;
+import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.subprogram.PreambleInstruction;
-import tac.instructions.subprogram.ReturnInstruction;
 import tac.references.TACSubprogram;
 import tac.references.TACTag;
 import tac.tables.SubprogramsTable;
@@ -24,7 +24,7 @@ public abstract class SubprogramDeclaration extends Declaration {
     protected final SymbolList<Argument> arguments;
     protected final SymbolList<Statement> statements;
 
-    private TACSubprogram tacSubprogram;
+    protected TACSubprogram tacSubprogram;
     private TACTag tacStartTag;
 
     public SubprogramDeclaration(String identifier, SymbolList<Argument> arguments, 
@@ -45,6 +45,11 @@ public abstract class SubprogramDeclaration extends Declaration {
         subprogramsTable.add(identifier, tacSubprogram, tacStartTag, numArguments());
     }
 
+    public final List<Argument> toArrayListArguments() {
+        if (arguments == null) return new ArrayList<>();
+        return arguments.toArrayList();
+    }
+
     @Override
     public void toTac() {
         SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
@@ -59,7 +64,7 @@ public abstract class SubprogramDeclaration extends Declaration {
             statements.toTac();
         }
         symbolTable.exitBlock();
-        addTACInstruction(new ReturnInstruction(tacSubprogram));
+        addTACInstruction(returnInstruction());
     }
     
     protected final void validateArguments(SymbolTable symbolTable) {
@@ -77,9 +82,6 @@ public abstract class SubprogramDeclaration extends Declaration {
     protected final int numArguments() {
         return arguments != null ? arguments.size() : 0;
     }
-    
-    public final List<Argument> toArrayListArguments() {
-        if (arguments == null) return new ArrayList<>();
-        return arguments.toArrayList();
-    }
+
+    protected abstract TACInstruction returnInstruction();
 }

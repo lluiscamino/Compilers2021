@@ -20,7 +20,8 @@ import tac.instructions.io.print.PrintStringInstruction;
 import tac.instructions.length.StringLengthInstruction;
 import tac.instructions.subprogram.ComplexParameterInstruction;
 import tac.instructions.subprogram.PreambleInstruction;
-import tac.instructions.subprogram.ReturnInstruction;
+import tac.instructions.subprogram.returns.FunctionReturnInstruction;
+import tac.instructions.subprogram.returns.ProcedureReturnInstruction;
 import tac.instructions.subprogram.SimpleParameterInstruction;
 import tac.instructions.subprogram.calls.FunctionCallInstruction;
 import tac.instructions.subprogram.calls.ProcedureCallInstruction;
@@ -499,7 +500,22 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(FunctionCallInstruction tacInstruction) {
-        return null;
+        SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
+        SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getSecondReference());
+        String declarationName = "decl_" + constantDeclarations.size();
+        constantDeclarations.add(String.format("%s: .quad 0\n", declarationName));
+        return String.format("""
+                \tpush\t%s@GOTPCREL(%%rip)
+                \tcall\t%s
+                \tmovq\t%s@GOTPCREL(%%rip), %%rsi
+                \tmovq\t(%%rsi), %%rax
+                %s
+                """,
+                declarationName,
+                subprogramInfo.getTag(),
+                declarationName,
+                storeInstruction("%rax", tacInstruction.getFirstReference())
+            );
     }
 
     @Override
@@ -521,12 +537,26 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     @Override
-    public String generate(ReturnInstruction tacInstruction) {
+    public String generate(ProcedureReturnInstruction tacInstruction) {
         return """
                 \tmovq\t%rbp, %rsp
                 \tpop \t%rbp
                 \tret\n
                 """;
+    }
+
+    @Override
+    public String generate(FunctionReturnInstruction tacInstruction) {
+        return String.format("""
+                %s
+                \tmovq\t16(%%rbp), %%rsi
+                \tmovq\t%%rax, (%%rsi)
+                \tmovq\t%%rbp, %%rsp
+                \tpop \t%%rbp
+                \tret\n
+                """,
+                loadInstruction(tacInstruction.getSecondReference(), "%rax")
+            );
     }
 
     @Override
@@ -615,7 +645,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             return String.format("""
                     \tmovq\t%s(%%rbp), %%rsi
                     \tmovq\t(%%rsi), %s
-                    """, variableInfo.getOffset() + 8, register);
+                    """, variableInfo.getOffset() + 16, register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
                     \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
@@ -635,7 +665,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             return String.format("""
                     \tmovq\t%s(%%rbp), %%rsi
                     \tmovq\t%s, (%%rsi)
-                    """, variableInfo.getOffset() + 8, register);
+                    """, variableInfo.getOffset() + 16, register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
                     \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi

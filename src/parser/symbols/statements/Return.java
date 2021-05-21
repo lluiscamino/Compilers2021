@@ -11,7 +11,11 @@ public final class Return extends Statement {
         super(expression.xleft);
         this.expression = expression;
     }
-    
+
+    public Expression getExpression() {
+        return expression;
+    }
+
     public Type getExpressionType() {
         return expression.getType();
     }
@@ -29,6 +33,6 @@ public final class Return extends Statement {
 
     @Override
     public void toTac() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        expression.toTac();
     }
 }

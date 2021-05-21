@@ -17,6 +17,8 @@ import tac.instructions.length.StringLengthInstruction;
 import tac.instructions.subprogram.*;
 import tac.instructions.subprogram.calls.FunctionCallInstruction;
 import tac.instructions.subprogram.calls.ProcedureCallInstruction;
+import tac.instructions.subprogram.returns.FunctionReturnInstruction;
+import tac.instructions.subprogram.returns.ProcedureReturnInstruction;
 
 public interface AssemblyCodeGenerator {
     String preamble();
@@ -75,7 +77,9 @@ public interface AssemblyCodeGenerator {
 
     String generate(PreambleInstruction tacInstruction);
 
-    String generate(ReturnInstruction tacInstruction);
+    String generate(ProcedureReturnInstruction tacInstruction);
+
+    String generate(FunctionReturnInstruction tacInstruction);
 
     String generate(SimpleParameterInstruction tacInstruction);
 

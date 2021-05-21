@@ -9,6 +9,8 @@ import parser.symbols.statements.Return;
 import parser.symbols.statements.Statement;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
+import tac.instructions.TACInstruction;
+import tac.instructions.subprogram.returns.FunctionReturnInstruction;
 
 public final class FunctionDeclaration extends SubprogramDeclaration {
     private final Type type;
@@ -61,5 +63,10 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
         int lineNum = xleft != null ? xleft.getLine() : -1;
         return lineNum + ": function " + identifier + " " + type + " (" + numArguments() + " args)";
     }
-    
+
+    @Override
+    protected TACInstruction returnInstruction() {
+        returnStatement.toTac();
+        return new FunctionReturnInstruction(tacSubprogram, returnStatement.getExpression().getTacVariable());
+    }
 }
