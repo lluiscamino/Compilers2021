@@ -42,7 +42,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         initialScope = true;
         constantDeclarations.add("decl_0: .asciz \"true\\n\"\n");
         constantDeclarations.add("decl_1: .asciz \"false\\n\"\n");
-        constantDeclarations.add("decl_2: .quad"); // initial scope base pointer
+        constantDeclarations.add("decl_2: .quad\n"); // initial scope base pointer
     }
 
     @Override
