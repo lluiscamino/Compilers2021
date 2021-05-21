@@ -687,7 +687,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     private VariablesTable.VariableInfo getVariableInfoOrThrowException(TACReference reference) {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
         if (!(reference instanceof TACVariable)) {
-            throw new RuntimeException(reference + " is not a TACVAriable");
+            throw new RuntimeException(reference + " is not a TACVariable");
         }
         VariablesTable.VariableInfo variableInfo = variablesTable.get((TACVariable) reference);
         if (variableInfo == null) {
