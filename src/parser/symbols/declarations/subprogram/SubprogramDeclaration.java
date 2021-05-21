@@ -63,8 +63,8 @@ public abstract class SubprogramDeclaration extends Declaration {
         if (statements != null) {
             statements.toTac();
         }
-        symbolTable.exitBlock();
         addTACInstruction(returnInstruction());
+        symbolTable.exitBlock();
     }
     
     protected final void validateArguments(SymbolTable symbolTable) {
