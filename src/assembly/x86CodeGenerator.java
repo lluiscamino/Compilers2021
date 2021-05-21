@@ -495,7 +495,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(ProcedureCallInstruction tacInstruction) {
         SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
         SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getFirstReference());
-        return "\tcall\t" + subprogramInfo.getTag() + "\n";
+        return String.format("""
+                \tpush\t$0
+                \tcall\t%s
+                """,
+                subprogramInfo.getTag()
+        );
     }
 
     @Override
