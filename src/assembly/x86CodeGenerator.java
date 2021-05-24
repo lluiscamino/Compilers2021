@@ -561,7 +561,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 %s
                 \tpush\t%%rax
                 """,
-                loadAddressInstruction(tacInstruction.getFirstReference(), "%rax")
+                loadInstruction(tacInstruction.getFirstReference(), "%rax")
         );
     }
 
@@ -638,10 +638,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         if (isLocalVariable(variableInfo)) {
             return String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset(), register);
         } else if (isLocalArgument(variableInfo) || initialScope) {
-            return String.format("""
-                    \tmovq\t%s(%%rbp), %%rsi
-                    \tmovq\t(%%rsi), %s
-                    """, variableInfo.getOffset() + 8, register);
+            return String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset() + 8, register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
                     \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
@@ -658,10 +655,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         if (isLocalVariable(variableInfo) || initialScope) {
             return String.format("\tmovq\t%s, %s(%%rbp)", register, variableInfo.getOffset());
         } else if (isLocalArgument(variableInfo)) {
-            return String.format("""
-                    \tmovq\t%s(%%rbp), %%rsi
-                    \tmovq\t%s, (%%rsi)
-                    """, variableInfo.getOffset() + 8, register);
+            return String.format("\tmovq\t%s, %s(%%rbp)", register, variableInfo.getOffset() + 8);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
                     \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
@@ -686,7 +680,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         if (isLocalVariable(variableInfo)) {
             return String.format("\tlea \t%s(%%rbp), %s", variableInfo.getOffset(), register);
         } else if (isLocalArgument(variableInfo) || initialScope) {
-            return String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset(), register);
+            return String.format("\tlea \t%s(%%rbp), %s", variableInfo.getOffset(), register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
                     \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
