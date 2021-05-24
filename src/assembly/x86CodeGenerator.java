@@ -496,7 +496,6 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
         SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getFirstReference());
         return String.format("""
-                \tpush\t$0
                 \tcall\t%s
                 """,
                 subprogramInfo.getTag()
@@ -507,18 +506,11 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(FunctionCallInstruction tacInstruction) {
         SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
         SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getSecondReference());
-        String declarationName = "decl_" + constantDeclarations.size();
-        constantDeclarations.add(String.format("%s: .quad 0\n", declarationName));
         return String.format("""
-                \tpush\t%s@GOTPCREL(%%rip)
                 \tcall\t%s
-                \tmovq\t%s@GOTPCREL(%%rip), %%rsi
-                \tmovq\t(%%rsi), %%rax
                 %s
                 """,
-                declarationName,
                 subprogramInfo.getTag(),
-                declarationName,
                 storeInstruction("%rax", tacInstruction.getFirstReference())
             );
     }
@@ -554,11 +546,10 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(FunctionReturnInstruction tacInstruction) {
         return String.format("""
                 %s
-                \tmovq\t16(%%rbp), %%rsi
-                \tmovq\t%%rax, (%%rsi)
                 \tmovq\t%%rbp, %%rsp
                 \tpop \t%%rbp
-                \tret\n
+                \tret
+                
                 """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax")
             );
@@ -650,7 +641,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             return String.format("""
                     \tmovq\t%s(%%rbp), %%rsi
                     \tmovq\t(%%rsi), %s
-                    """, variableInfo.getOffset() + 16, register);
+                    """, variableInfo.getOffset() + 8, register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
                     \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
@@ -670,7 +661,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             return String.format("""
                     \tmovq\t%s(%%rbp), %%rsi
                     \tmovq\t%s, (%%rsi)
-                    """, variableInfo.getOffset() + 16, register);
+                    """, variableInfo.getOffset() + 8, register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
                     \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
