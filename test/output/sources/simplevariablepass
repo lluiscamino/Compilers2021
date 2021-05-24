@@ -1,0 +1,10 @@
+function returnPlusOne int(int value) {
+    value = value + 1;
+    return value;
+}
+
+main() {
+    var int value = 24;
+    print(returnPlusOne(value));
+    print(value);
+}

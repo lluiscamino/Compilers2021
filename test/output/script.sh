@@ -43,6 +43,10 @@ as asm/identity.asm -o asm/identity.asm.o
 ld asm/identity.asm.o -o asm/identity.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/identity.asm-exec > outputs/identity.asm.txt
 diff -y -q -w outputs/identity.asm.txt expectedoutputs/identity.asm.txt
+as asm/simplevariablepass.asm -o asm/simplevariablepass.asm.o
+ld asm/simplevariablepass.asm.o -o asm/simplevariablepass.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/simplevariablepass.asm-exec > outputs/simplevariablepass.asm.txt
+diff -y -q -w outputs/simplevariablepass.asm.txt expectedoutputs/simplevariablepass.asm.txt
 as asm/printbooleans.asm -o asm/printbooleans.asm.o
 ld asm/printbooleans.asm.o -o asm/printbooleans.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/printbooleans.asm-exec > outputs/printbooleans.asm.txt
