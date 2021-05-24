@@ -39,6 +39,10 @@ as asm/lucassequence.asm -o asm/lucassequence.asm.o
 ld asm/lucassequence.asm.o -o asm/lucassequence.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/lucassequence.asm-exec > outputs/lucassequence.asm.txt
 diff -y -q -w outputs/lucassequence.asm.txt expectedoutputs/lucassequence.asm.txt
+as asm/identity.asm -o asm/identity.asm.o
+ld asm/identity.asm.o -o asm/identity.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/identity.asm-exec > outputs/identity.asm.txt
+diff -y -q -w outputs/identity.asm.txt expectedoutputs/identity.asm.txt
 as asm/printbooleans.asm -o asm/printbooleans.asm.o
 ld asm/printbooleans.asm.o -o asm/printbooleans.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/printbooleans.asm-exec > outputs/printbooleans.asm.txt

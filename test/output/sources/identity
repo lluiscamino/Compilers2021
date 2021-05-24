@@ -1,0 +1,10 @@
+function identity int(int x) {
+   return x;
+}
+
+main() {
+   print(identity(-7));
+   print(identity(3));
+   print(identity(4 + 7));
+   print(identity(2 == 2 ? 3 : -2));
+}
