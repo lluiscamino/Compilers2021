@@ -144,8 +144,6 @@ t_printString:
 	subq	$0, %rsp
 /*printString(str)*/
 	movq	16(%rbp), %rsi
-	movq	(%rsi), %rsi
-
 	call	print_string
 /*rtn s0*/
 	movq	%rbp, %rsp
@@ -180,12 +178,12 @@ t_main:
 	movq	-16(%rbp), %rsi
 	call	print_string
 /*param_s "749\n"*/
-	leaq	decl_7@GOTPCREL(%rip), %rax
+	movq	decl_7@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
 	call	t_printString
 /*param_s constString*/
-	lea 	-8(%rbp), %rax
+	movq	-8(%rbp), %rax
 	push	%rax
 /*call s0*/
 	call	t_printString

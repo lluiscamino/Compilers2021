@@ -143,9 +143,7 @@ t_printNot:
 	mov 	%rsp, %rbp
 	subq	$16, %rsp
 /*t0 = not value*/
-	movq	16(%rbp), %rsi
-	movq	(%rsi), %rbx
-
+	movq	16(%rbp), %rbx
 	notq	%rbx
 	movq	%rbx, -16(%rbp)
 /*printBoolean(t0)*/
@@ -169,12 +167,12 @@ t_main:
 	movq	$0, %rbx
 	call	print_boolean
 /*param_s -1*/
-	movq	decl_3@GOTPCREL(%rip), %rax
+	movq	$-1, %rax
 	push	%rax
 /*call s0*/
 	call	t_printNot
 /*param_s 0*/
-	movq	decl_4@GOTPCREL(%rip), %rax
+	movq	$0, %rax
 	push	%rax
 /*call s0*/
 	call	t_printNot
@@ -355,5 +353,3 @@ e11:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	decl_3: .quad -1
-	decl_4: .quad 0

@@ -143,9 +143,7 @@ t_identity:
 	mov 	%rsp, %rbp
 	subq	$0, %rsp
 /*rtn s0: x*/
-	movq	16(%rbp), %rsi
-	movq	(%rsi), %rax
-
+	movq	16(%rbp), %rax
 	movq	%rbp, %rsp
 	pop 	%rbp
 	ret
@@ -162,7 +160,7 @@ t_main:
 	subq	%rbx, %rax
 	movq	%rax, -16(%rbp)
 /*param_s t2*/
-	lea 	-16(%rbp), %rax
+	movq	-16(%rbp), %rax
 	push	%rax
 /*t0 = call s0*/
 	call	t_identity
@@ -171,7 +169,7 @@ t_main:
 	movq	-8(%rbp), %rdi
 	call	print_uint64
 /*param_s 3*/
-	movq	decl_3@GOTPCREL(%rip), %rax
+	movq	$3, %rax
 	push	%rax
 /*t3 = call s0*/
 	call	t_identity
@@ -185,7 +183,7 @@ t_main:
 	addq	%rbx, %rax
 	movq	%rax, -40(%rbp)
 /*param_s t8*/
-	lea 	-40(%rbp), %rax
+	movq	-40(%rbp), %rax
 	push	%rax
 /*t5 = call s0*/
 	call	t_identity
@@ -237,7 +235,7 @@ e2:
 /*e3: skip*/
 e3:
 /*param_s t13*/
-	lea 	-64(%rbp), %rax
+	movq	-64(%rbp), %rax
 	push	%rax
 /*t9 = call s0*/
 	call	t_identity
@@ -254,4 +252,3 @@ e3:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	decl_3: .quad 3

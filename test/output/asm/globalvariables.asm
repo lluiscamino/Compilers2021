@@ -163,9 +163,7 @@ t_changeA:
 	mov 	%rsp, %rbp
 	subq	$0, %rsp
 /*a = newA*/
-	movq	16(%rbp), %rsi
-	movq	(%rsi), %rax
-
+	movq	16(%rbp), %rax
 	movq	decl_2@GOTPCREL(%rip), %rsi
 	movq	(%rsi), %rsi
 	movq	%rax, -8(%rsi)
@@ -189,7 +187,7 @@ t_main:
 	subq	%rbx, %rax
 	movq	%rax, -8(%rbp)
 /*param_s t2*/
-	lea 	-8(%rbp), %rax
+	movq	-8(%rbp), %rax
 	push	%rax
 /*call s1*/
 	call	t_changeA

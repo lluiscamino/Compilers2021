@@ -155,9 +155,7 @@ t_lucas:
 e0:
 /*if counter < N goto e1*/
 	movq	-32(%rbp), %rax
-	movq	16(%rbp), %rsi
-	movq	(%rsi), %rbx
-
+	movq	16(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jge 	1f
 	jmp	e1
@@ -219,7 +217,7 @@ t_main:
 	mov 	%rsp, %rbp
 	subq	$0, %rsp
 /*param_s 25*/
-	movq	decl_3@GOTPCREL(%rip), %rax
+	movq	$25, %rax
 	push	%rax
 /*call s0*/
 	call	t_lucas
@@ -232,4 +230,3 @@ t_main:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	decl_3: .quad 25
