@@ -155,7 +155,7 @@ t_fibonacci:
 e0:
 /*if counter < N goto e1*/
 	movq	-32(%rbp), %rax
-	movq	24(%rbp), %rsi
+	movq	16(%rbp), %rsi
 	movq	(%rsi), %rbx
 
 	cmpq	%rbx, %rax
@@ -222,7 +222,6 @@ t_main:
 	movq	decl_3@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
-	push	$0
 	call	t_fibonacci
 /*rtn s1*/
 	movq	%rbp, %rsp

@@ -143,7 +143,7 @@ t_printNot:
 	mov 	%rsp, %rbp
 	subq	$16, %rsp
 /*t0 = not value*/
-	movq	24(%rbp), %rsi
+	movq	16(%rbp), %rsi
 	movq	(%rsi), %rbx
 
 	notq	%rbx
@@ -172,13 +172,11 @@ t_main:
 	movq	decl_3@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
-	push	$0
 	call	t_printNot
 /*param_s 0*/
 	movq	decl_4@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
-	push	$0
 	call	t_printNot
 /*t7 = -1 and 0*/
 	movq	$-1, %rax
