@@ -2,7 +2,7 @@ package optimizers;
 
 import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
-import tac.instructions.bifurcation.ifs.IfInstruction;
+import tac.instructions.bifurcation.ifs.*;
 import tac.references.TACLiteral;
 import tac.references.TACTag;
 
@@ -55,6 +55,21 @@ public class ConstantIfsOptimizer extends TACOptimizer {
     }
 
     private boolean conditionIsTrue(IfInstruction ifInstruction) {
-        return ifInstruction.getFirstReference().equals(ifInstruction.getSecondReference());
+        TACLiteral firstLiteral = (TACLiteral) ifInstruction.getFirstReference(), secondLiteral = (TACLiteral) ifInstruction.getSecondReference();
+        int comparison = firstLiteral.compareTo(secondLiteral);
+        if (ifInstruction instanceof IfEqual) {
+            return comparison == 0;
+        } else if (ifInstruction instanceof IfDiff) {
+            return comparison != 0;
+        } else if (ifInstruction instanceof IfGEQ) {
+            return comparison >= 0;
+        } else if (ifInstruction instanceof IfGreater) {
+            return comparison > 0;
+        } else if (ifInstruction instanceof IfLEQ) {
+            return comparison <= 0;
+        } else if (ifInstruction instanceof IfLess) {
+            return comparison < 0;
+        }
+        return false;
     }
 }
