@@ -92,6 +92,8 @@ public final class Call extends ParserSymbol {
         List<Expression> argumentsList = arguments != null ? arguments.toArrayList() : new ArrayList<>();
         for (int i = argumentsList.size() - 1; i >= 0; i--) {
             argumentsList.get(i).toTac();
+        }
+        for (int i = argumentsList.size() - 1; i >= 0; i--) {
             addTACInstruction(new SimpleParameterInstruction(argumentsList.get(i).getTacVariable()));
         }
     }
