@@ -6,6 +6,7 @@ import assembly.x86CodeGenerator;
 import dot.DotIdGenerator;
 import main.Compiler;
 import optimizers.AdjacentBranchesOptimizer;
+import optimizers.ConstantIfsOptimizer;
 import optimizers.DifferedAssignmentsOptimizer;
 import optimizers.UnusedTACVariablesRemover;
 import parser.symbols.Program;
@@ -105,7 +106,7 @@ public final class SemanticAnalyzer {
 
     public void generateAssembly() throws IOException {
         StringBuilder assemblyBuffer = new StringBuilder();
-        List<TACInstruction> optimizedInstructions = new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(Compiler.getCompiler().getSemanticAnalyzer().getTacInstructionList()).optimize()).optimize();
+        List<TACInstruction> optimizedInstructions = new ConstantIfsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(Compiler.getCompiler().getSemanticAnalyzer().getTacInstructionList()).optimize()).optimize()).optimize();
         new UnusedTACVariablesRemover(optimizedInstructions, Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable()).removeUnusedVariables();
         new SizeOffsetCalculator().calculate(subprogramsTable, variablesTable);
         AssemblyCodeGenerator codeGenerator = new x86CodeGenerator(subprogramsTable, variablesTable);
