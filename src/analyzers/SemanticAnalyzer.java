@@ -108,7 +108,7 @@ public final class SemanticAnalyzer {
         List<TACInstruction> optimizedInstructions = new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(Compiler.getCompiler().getSemanticAnalyzer().getTacInstructionList()).optimize()).optimize();
         new UnusedTACVariablesRemover(optimizedInstructions, Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable()).removeUnusedVariables();
         new SizeOffsetCalculator().calculate(subprogramsTable, variablesTable);
-        AssemblyCodeGenerator codeGenerator = new x86CodeGenerator();
+        AssemblyCodeGenerator codeGenerator = new x86CodeGenerator(subprogramsTable, variablesTable);
         assemblyBuffer.append(codeGenerator.preamble());
         for (TACInstruction instruction : optimizedInstructions) {
             assemblyBuffer.append("/*").append(instruction).append("*/\n");

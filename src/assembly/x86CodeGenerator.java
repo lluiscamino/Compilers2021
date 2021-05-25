@@ -1,6 +1,5 @@
 package assembly;
 
-import main.Compiler;
 import tac.instructions.arithmetic.*;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
@@ -35,10 +34,14 @@ import java.util.List;
 import static assembly.AssemblyCodeGenerationConstants.*;
 
 public class x86CodeGenerator implements AssemblyCodeGenerator {
+    private final SubprogramsTable subprogramsTable;
+    private final VariablesTable variablesTable;
     private final List<String> constantDeclarations;
     private boolean initialScope;
 
-    public x86CodeGenerator() {
+    public x86CodeGenerator(SubprogramsTable subprogramsTable, VariablesTable variablesTable) {
+        this.variablesTable = variablesTable;
+        this.subprogramsTable = subprogramsTable;
         constantDeclarations = new ArrayList<>();
         initialScope = true;
         constantDeclarations.add("decl_0: .asciz \"true\\n\"\n");
@@ -48,7 +51,6 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String preamble() {
-        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
         return String.format("""
                         .section\t__TEXT, __text
                         \t.globl\t_main
@@ -405,7 +407,6 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(SkipInstruction tacInstruction) {
-        SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
         String result = "";
         if (initialScope) {
             result += String.format("""
@@ -466,9 +467,9 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                         %s
                         %s
-                        \tadd\t%%rbx, %%rcx
+                        \taddq\t%%rbx, %%rcx
                         %s
-                        \tmovl\t%%ebx, (%%rcx)
+                        \tmovq\t%%rbx, (%%rcx)
                         """,
                 loadAddressInstruction(tacInstruction.getFirstReference(), "%rcx"),
                 loadInstruction(tacInstruction.getSecondReference(), "%rbx"),
@@ -486,14 +487,13 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         """,
                 loadAddressInstruction(tacInstruction.getSecondReference(), "%rax"),
-                loadAddressInstruction(tacInstruction.getThirdReference(), "%rbx"),
+                loadInstruction(tacInstruction.getThirdReference(), "%rbx"),
                 storeInstruction("%rax", tacInstruction.getFirstReference())
         );
     }
 
     @Override
     public String generate(ProcedureCallInstruction tacInstruction) {
-        SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
         SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getFirstReference());
         return String.format("""
                 \tcall\t%s
@@ -504,7 +504,6 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(FunctionCallInstruction tacInstruction) {
-        SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
         SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getSecondReference());
         return String.format("""
                 \tcall\t%s
@@ -522,7 +521,6 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(PreambleInstruction tacInstruction) {
-        SubprogramsTable subprogramsTable = Compiler.getCompiler().getSemanticAnalyzer().getSubprogramsTable();
         SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getFirstReference());
         return String.format("""
                 \tpush\t%%rbp
@@ -705,7 +703,6 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     private VariablesTable.VariableInfo getVariableInfoOrThrowException(TACReference reference) {
-        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
         if (!(reference instanceof TACVariable)) {
             throw new RuntimeException(reference + " is not a TACVariable");
         }

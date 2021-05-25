@@ -2,6 +2,7 @@ package src.assembly;
 
 import assembly.AssemblyCodeGenerator;
 import assembly.x86CodeGenerator;
+import org.junit.Before;
 import org.junit.Test;
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.*;
@@ -15,10 +16,19 @@ import tac.instructions.indexation.IndexAssignmentInstruction;
 import tac.instructions.indexation.IndexedValueInstruction;
 import tac.references.TACTag;
 import tac.references.TACVariable;
+import tac.tables.SubprogramsTable;
+import tac.tables.VariablesTable;
 
 public final class Testx86CodeGenerator {
 
-    private final AssemblyCodeGenerator codeGenerator = new x86CodeGenerator();
+    private AssemblyCodeGenerator codeGenerator;
+
+    @Before
+    public void setUp() {
+        SubprogramsTable subprogramsTable = new SubprogramsTable();
+        VariablesTable variablesTable = new VariablesTable();
+        codeGenerator = new x86CodeGenerator(subprogramsTable, variablesTable);
+    }
 
     @Test
     public void testAddInstructionAssemblyOutput() {
