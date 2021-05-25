@@ -1,4 +1,8 @@
 #! /bin/bash
+as asm/max5.asm -o asm/max5.asm.o
+ld asm/max5.asm.o -o asm/max5.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/max5.asm-exec > outputs/max5.asm.txt
+diff -y -q -w outputs/max5.asm.txt expectedoutputs/max5.asm.txt
 as asm/globalvariables.asm -o asm/globalvariables.asm.o
 ld asm/globalvariables.asm.o -o asm/globalvariables.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/globalvariables.asm-exec > outputs/globalvariables.asm.txt

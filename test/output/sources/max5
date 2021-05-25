@@ -1,0 +1,30 @@
+function max2 int(int num1, int num2) {
+  return num1 > num2 ? num1 : num2;
+}
+
+function max3 int(int num1, int num2, int num3) {
+  return max2(max2(num1, num2), num3);
+}
+
+function max4 int(int num1, int num2, int num3, int num4) {
+  return max2(max3(num1, num2, num3), num4);
+}
+
+function max5 int(int num1, int num2, int num3, int num4, int num5) {
+  return max2(max4(num1, num2, num3, num4), num5);
+}
+
+main() {
+   print(max5(12 + 7, 9, 23, 45, -12));
+   print(max5(920, -245, 1027 / 3, 720 + 64, 746 - 54 + 327));
+   print(max5(3, 2, 1, 0, -1));
+   print(
+        max5(
+            max5(43, 12, 34, 98, 45),
+            max5(67, -43, 23, 67, 65),
+            max5(84, 23, 98, 32, 45),
+            max5(32, 85, 43, -72, -235),
+            max5(12, 56, 67, 89, 94)
+        )
+   );
+}
