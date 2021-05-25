@@ -20,11 +20,9 @@ import java.util.*;
  *     x = ...
  * </pre>
  */
-public final class DifferedAssignmentsOptimizer implements TACOptimizer {
-    private final List<TACInstruction> unoptimizedInstructions;
-
+public final class DifferedAssignmentsOptimizer extends TACOptimizer {
     public DifferedAssignmentsOptimizer(List<TACInstruction> unoptimizedInstructions) {
-        this.unoptimizedInstructions = unoptimizedInstructions;
+        super(unoptimizedInstructions);
     }
 
     @Override

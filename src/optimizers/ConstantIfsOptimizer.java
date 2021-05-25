@@ -28,11 +28,9 @@ import java.util.List;
  *     ...
  * </pre>
  */
-public class ConstantIfsOptimizer implements TACOptimizer {
-    private final List<TACInstruction> unoptimizedInstructions;
-
+public class ConstantIfsOptimizer extends TACOptimizer {
     public ConstantIfsOptimizer(List<TACInstruction> unoptimizedInstructions) {
-        this.unoptimizedInstructions = unoptimizedInstructions;
+        super(unoptimizedInstructions);
     }
 
     @Override

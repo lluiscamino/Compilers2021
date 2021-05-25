@@ -27,12 +27,11 @@ import java.util.List;
  * e2: skip
  * </pre>
  */
-public final class AdjacentBranchesOptimizer implements TACOptimizer {
-    private final List<TACInstruction> unoptimizedInstructions;
+public final class AdjacentBranchesOptimizer extends TACOptimizer {
     private TACInstruction[] scopedInstructions = null;
 
     public AdjacentBranchesOptimizer(List<TACInstruction> unoptimizedInstructions) {
-        this.unoptimizedInstructions = unoptimizedInstructions;
+        super(unoptimizedInstructions);
     }
 
     @Override
