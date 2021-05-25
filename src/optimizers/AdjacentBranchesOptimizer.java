@@ -13,18 +13,18 @@ import java.util.List;
 /**
  * Searches and optimizes adjacent branches. Turns a sequence of instructions like the following:
  * <pre>
- * if COND goto e1
- * goto e2
- * e1: skip
- * ...
- * e2: skip
+ *     if COND goto e1
+ *     goto e2
+ *     e1: skip
+ *     ...
+ *     e2: skip
  * </pre>
  * Into this:
  * <pre>
- * if !COND goto e2
- * e1: skip
- * ...
- * e2: skip
+ *     if !COND goto e2
+ *     e1: skip
+ *     ...
+ *     e2: skip
  * </pre>
  */
 public final class AdjacentBranchesOptimizer extends TACOptimizer {
