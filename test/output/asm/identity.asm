@@ -191,13 +191,8 @@ t_main:
 /*printInt(t5)*/
 	movq	-32(%rbp), %rdi
 	call	print_uint64
-/*if 2 = 2 goto e0*/
-	movq	$2, %rax
-	movq	$2, %rbx
-	cmpq	%rbx, %rax
-	jne 	1f
-	jmp	e0
-1:
+/*goto e0*/
+	jmp 	e0
 /*t12 = 0*/
 	movq	$0, %rax
 	movq	%rax, -56(%rbp)

@@ -182,13 +182,6 @@ e2:
 /*printInt(i)*/
 	movq	-16(%rbp), %rdi
 	call	print_uint64
-/*if -1 = 0 goto e4*/
-	movq	$-1, %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
-	jne 	1f
-	jmp	e4
-1:
 /*i = 3*/
 	movq	$3, %rax
 	movq	%rax, -32(%rbp)

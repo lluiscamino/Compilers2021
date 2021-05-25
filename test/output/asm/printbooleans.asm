@@ -192,13 +192,6 @@ t_main:
 /*printBoolean(t10)*/
 	movq	-16(%rbp), %rbx
 	call	print_boolean
-/*if 3 > 5 goto e0*/
-	movq	$3, %rax
-	movq	$5, %rbx
-	cmpq	%rbx, %rax
-	jle 	1f
-	jmp	e0
-1:
 /*t13 = 0*/
 	movq	$0, %rax
 	movq	%rax, -24(%rbp)
@@ -211,13 +204,8 @@ e0:
 	movq	%rax, -24(%rbp)
 /*e1: skip*/
 e1:
-/*if 7 < 9 goto e2*/
-	movq	$7, %rax
-	movq	$9, %rbx
-	cmpq	%rbx, %rax
-	jge 	1f
-	jmp	e2
-1:
+/*goto e2*/
+	jmp 	e2
 /*t16 = 0*/
 	movq	$0, %rax
 	movq	%rax, -32(%rbp)
@@ -254,13 +242,8 @@ e3:
 /*printBoolean(t22)*/
 	movq	-64(%rbp), %rbx
 	call	print_boolean
-/*if 3 = 3 goto e4*/
-	movq	$3, %rax
-	movq	$3, %rbx
-	cmpq	%rbx, %rax
-	jne 	1f
-	jmp	e4
-1:
+/*goto e4*/
+	jmp 	e4
 /*t25 = 0*/
 	movq	$0, %rax
 	movq	%rax, -72(%rbp)
@@ -276,13 +259,6 @@ e5:
 /*printBoolean(t25)*/
 	movq	-72(%rbp), %rbx
 	call	print_boolean
-/*if 3 = 6 goto e6*/
-	movq	$3, %rax
-	movq	$6, %rbx
-	cmpq	%rbx, %rax
-	jne 	1f
-	jmp	e6
-1:
 /*t28 = 0*/
 	movq	$0, %rax
 	movq	%rax, -80(%rbp)
@@ -298,13 +274,8 @@ e7:
 /*printBoolean(t28)*/
 	movq	-80(%rbp), %rbx
 	call	print_boolean
-/*if 3 != 5 goto e8*/
-	movq	$3, %rax
-	movq	$5, %rbx
-	cmpq	%rbx, %rax
-	je 	1f
-	jmp	e8
-1:
+/*goto e8*/
+	jmp 	e8
 /*t31 = 0*/
 	movq	$0, %rax
 	movq	%rax, -88(%rbp)
@@ -317,13 +288,8 @@ e8:
 	movq	%rax, -88(%rbp)
 /*e9: skip*/
 e9:
-/*if 4 != 6 goto e10*/
-	movq	$4, %rax
-	movq	$6, %rbx
-	cmpq	%rbx, %rax
-	je 	1f
-	jmp	e10
-1:
+/*goto e10*/
+	jmp 	e10
 /*t34 = 0*/
 	movq	$0, %rax
 	movq	%rax, -96(%rbp)

@@ -279,13 +279,8 @@ t_main:
 	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$88, %rsp
-/*if 0 = 0 goto e12*/
-	movq	$0, %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
-	jne 	1f
-	jmp	e12
-1:
+/*goto e12*/
+	jmp 	e12
 /*t7 = 4*/
 	movq	$4, %rax
 	movq	%rax, -8(%rbp)
@@ -322,13 +317,6 @@ e13:
 	push	%rax
 /*call s0*/
 	call	t_printMaxInteger
-/*if -1 = 0 goto e14*/
-	movq	$-1, %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
-	jne 	1f
-	jmp	e14
-1:
 /*t17 = 4*/
 	movq	$4, %rax
 	movq	%rax, -32(%rbp)

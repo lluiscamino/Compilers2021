@@ -142,12 +142,8 @@ t_main:
 	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$96, %rsp
-/*if "Hello\n" = "Hello\n" goto e0*/
-	movq	decl_3@GOTPCREL(%rip), %rsi
-	movq	decl_4@GOTPCREL(%rip), %rdi
-	call 	compare_strings
-	cmpq	$-1, %rdx
-	je  	e0
+/*goto e0*/
+	jmp 	e0
 /*t2 = 0*/
 	movq	$0, %rax
 	movq	%rax, -8(%rbp)
@@ -163,12 +159,6 @@ e1:
 /*printBoolean(t2)*/
 	movq	-8(%rbp), %rbx
 	call	print_boolean
-/*if "Hello\n" != "Hello\n" goto e2*/
-	movq	decl_5@GOTPCREL(%rip), %rsi
-	movq	decl_6@GOTPCREL(%rip), %rdi
-	call 	compare_strings
-	cmpq	$-1, %rdx
-	jne 	e2
 /*t5 = 0*/
 	movq	$0, %rax
 	movq	%rax, -16(%rbp)
@@ -184,12 +174,8 @@ e3:
 /*printBoolean(t5)*/
 	movq	-16(%rbp), %rbx
 	call	print_boolean
-/*if "hello\n" != "HeLl0\n" goto e4*/
-	movq	decl_7@GOTPCREL(%rip), %rsi
-	movq	decl_8@GOTPCREL(%rip), %rdi
-	call 	compare_strings
-	cmpq	$-1, %rdx
-	jne 	e4
+/*goto e4*/
+	jmp 	e4
 /*t8 = 0*/
 	movq	$0, %rax
 	movq	%rax, -24(%rbp)
@@ -205,12 +191,6 @@ e5:
 /*printBoolean(t8)*/
 	movq	-24(%rbp), %rbx
 	call	print_boolean
-/*if "hello\n" = "HeLl0\n" goto e6*/
-	movq	decl_9@GOTPCREL(%rip), %rsi
-	movq	decl_10@GOTPCREL(%rip), %rdi
-	call 	compare_strings
-	cmpq	$-1, %rdx
-	je  	e6
 /*t11 = 0*/
 	movq	$0, %rax
 	movq	%rax, -32(%rbp)
@@ -227,10 +207,10 @@ e7:
 	movq	-32(%rbp), %rbx
 	call	print_boolean
 /*str1 = "Hello, world!\n"*/
-	movq	decl_11@GOTPCREL(%rip), %rax
+	movq	decl_3@GOTPCREL(%rip), %rax
 	movq	%rax, -40(%rbp)
 /*str2 = "Hello, world!\n"*/
-	movq	decl_12@GOTPCREL(%rip), %rax
+	movq	decl_4@GOTPCREL(%rip), %rax
 	movq	%rax, -48(%rbp)
 /*if str1 = str1 goto e8*/
 	movq	-40(%rbp), %rsi
@@ -316,12 +296,8 @@ e15:
 /*printBoolean(t17)*/
 	movq	-80(%rbp), %rbx
 	call	print_boolean
-/*if "😀\n" = "😀\n" goto e16*/
-	movq	decl_13@GOTPCREL(%rip), %rsi
-	movq	decl_14@GOTPCREL(%rip), %rdi
-	call 	compare_strings
-	cmpq	$-1, %rdx
-	je  	e16
+/*goto e16*/
+	jmp 	e16
 /*t20 = 0*/
 	movq	$0, %rax
 	movq	%rax, -88(%rbp)
@@ -337,12 +313,6 @@ e17:
 /*printBoolean(t20)*/
 	movq	-88(%rbp), %rbx
 	call	print_boolean
-/*if "😀\n" != "😀\n" goto e18*/
-	movq	decl_15@GOTPCREL(%rip), %rsi
-	movq	decl_16@GOTPCREL(%rip), %rdi
-	call 	compare_strings
-	cmpq	$-1, %rdx
-	jne 	e18
 /*t23 = 0*/
 	movq	$0, %rax
 	movq	%rax, -96(%rbp)
@@ -367,17 +337,5 @@ e19:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	decl_3: .asciz "Hello\n"
-	decl_4: .asciz "Hello\n"
-	decl_5: .asciz "Hello\n"
-	decl_6: .asciz "Hello\n"
-	decl_7: .asciz "hello\n"
-	decl_8: .asciz "HeLl0\n"
-	decl_9: .asciz "hello\n"
-	decl_10: .asciz "HeLl0\n"
-	decl_11: .asciz "Hello, world!\n"
-	decl_12: .asciz "Hello, world!\n"
-	decl_13: .asciz "😀\n"
-	decl_14: .asciz "😀\n"
-	decl_15: .asciz "😀\n"
-	decl_16: .asciz "😀\n"
+	decl_3: .asciz "Hello, world!\n"
+	decl_4: .asciz "Hello, world!\n"
