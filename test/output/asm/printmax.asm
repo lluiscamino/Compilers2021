@@ -298,22 +298,22 @@ e12:
 	movq	%rax, -8(%rbp)
 /*e13: skip*/
 e13:
-/*param_s t7*/
-	movq	-8(%rbp), %rax
-	push	%rax
 /*t11 = - 3*/
 	xorq 	%rax, %rax
 	movq	$3, %rbx
 	subq	%rbx, %rax
 	movq	%rax, -16(%rbp)
-/*param_s t11*/
-	movq	-16(%rbp), %rax
-	push	%rax
 /*t14 = 4 + 2*/
 	movq	$4, %rax
 	movq	$2, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -24(%rbp)
+/*param_s t7*/
+	movq	-8(%rbp), %rax
+	push	%rax
+/*param_s t11*/
+	movq	-16(%rbp), %rax
+	push	%rax
 /*param_s t14*/
 	movq	-24(%rbp), %rax
 	push	%rax
@@ -341,22 +341,22 @@ e14:
 	movq	%rax, -32(%rbp)
 /*e15: skip*/
 e15:
-/*param_s t17*/
-	movq	-32(%rbp), %rax
-	push	%rax
 /*t21 = - 3*/
 	xorq 	%rax, %rax
 	movq	$3, %rbx
 	subq	%rbx, %rax
 	movq	%rax, -40(%rbp)
-/*param_s t21*/
-	movq	-40(%rbp), %rax
-	push	%rax
 /*t24 = 4 + 2*/
 	movq	$4, %rax
 	movq	$2, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -48(%rbp)
+/*param_s t17*/
+	movq	-32(%rbp), %rax
+	push	%rax
+/*param_s t21*/
+	movq	-40(%rbp), %rax
+	push	%rax
 /*param_s t24*/
 	movq	-48(%rbp), %rax
 	push	%rax
@@ -370,30 +370,30 @@ e15:
 	movq	$27, %rbx
 	subq	%rbx, %rax
 	movq	%rax, -56(%rbp)
-/*param_s t27*/
-	movq	-56(%rbp), %rax
-	push	%rax
 /*t29 = - 23*/
 	xorq 	%rax, %rax
 	movq	$23, %rbx
 	subq	%rbx, %rax
 	movq	%rax, -64(%rbp)
-/*param_s t29*/
-	movq	-64(%rbp), %rax
-	push	%rax
 /*t31 = - 45*/
 	xorq 	%rax, %rax
 	movq	$45, %rbx
 	subq	%rbx, %rax
 	movq	%rax, -72(%rbp)
-/*param_s t31*/
-	movq	-72(%rbp), %rax
-	push	%rax
 /*t33 = - 34*/
 	xorq 	%rax, %rax
 	movq	$34, %rbx
 	subq	%rbx, %rax
 	movq	%rax, -80(%rbp)
+/*param_s t27*/
+	movq	-56(%rbp), %rax
+	push	%rax
+/*param_s t29*/
+	movq	-64(%rbp), %rax
+	push	%rax
+/*param_s t31*/
+	movq	-72(%rbp), %rax
+	push	%rax
 /*param_s t33*/
 	movq	-80(%rbp), %rax
 	push	%rax
