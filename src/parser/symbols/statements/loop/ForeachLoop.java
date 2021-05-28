@@ -15,6 +15,7 @@ import tac.generators.TACTagGenerator;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.AddInstruction;
 import tac.instructions.arithmetic.CopyInstruction;
+import tac.instructions.arithmetic.ProductInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.IfEqual;
@@ -95,7 +96,8 @@ public class ForeachLoop extends Loop {
         symbolTable.enterBlock();
         array.toTac();
         TACVariable index = variableGenerator.generate(Type.getInteger());
-        addTACInstruction(new CopyInstruction(index, new TACLiteral(1)));
+        TACVariable realIndex = variableGenerator.generate(Type.getInteger());
+        addTACInstruction(new CopyInstruction(index, new TACLiteral(0)));
         TACVariable arrayLength = variableGenerator.generate(Type.getInteger());
         addTACInstruction(new IndexedValueInstruction(arrayLength, array.getTacVariable(), new TACLiteral(0)));
         declaration.toTac();
@@ -105,7 +107,9 @@ public class ForeachLoop extends Loop {
 
         addTACInstruction(new SkipInstruction(startTag));
         addTACInstruction(new IfEqual(index, arrayLength, endTag));
-        addTACInstruction(new IndexedValueInstruction(arrayItemVariable, array.getTacVariable(), index));
+        addTACInstruction(new AddInstruction(realIndex, index, new TACLiteral(1)));
+        addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(8)));
+        addTACInstruction(new IndexedValueInstruction(arrayItemVariable, array.getTacVariable(), realIndex));
         if (statements != null) {
             statements.toTac();
         }

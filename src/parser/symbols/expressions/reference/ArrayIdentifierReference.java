@@ -12,6 +12,7 @@ import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.AddInstruction;
+import tac.instructions.arithmetic.ProductInstruction;
 import tac.instructions.indexation.IndexedValueInstruction;
 import tac.references.TACLiteral;
 import tac.references.TACVariable;
@@ -89,6 +90,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
             tacVariable = variableGenerator.generate(getType());
             TACVariable indexVariable = index.getTacVariable();
             addTACInstruction(new AddInstruction(newIndexVariable, indexVariable, new TACLiteral(1)));
+            addTACInstruction(new ProductInstruction(newIndexVariable, newIndexVariable, new TACLiteral(8)));
             addTACInstruction(new IndexedValueInstruction(tacVariable, identifierVariable, newIndexVariable));
             identifierVariable = tacVariable;
         }

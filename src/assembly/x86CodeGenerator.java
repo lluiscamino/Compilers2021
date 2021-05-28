@@ -1,6 +1,7 @@
 package assembly;
 
 import tac.instructions.arithmetic.*;
+import tac.instructions.array.NewArrayInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.*;
@@ -471,7 +472,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         \tmovq\t%%rbx, (%%rcx)
                         """,
-                loadAddressInstruction(tacInstruction.getFirstReference(), "%rcx"),
+                loadInstruction(tacInstruction.getFirstReference(), "%rcx"),
                 loadInstruction(tacInstruction.getSecondReference(), "%rbx"),
                 loadInstruction(tacInstruction.getThirdReference(), "%rbx")
         );
@@ -486,7 +487,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         \tmovq\t(%%rax), %%rax
                         %s
                         """,
-                loadAddressInstruction(tacInstruction.getSecondReference(), "%rax"),
+                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
                 loadInstruction(tacInstruction.getThirdReference(), "%rbx"),
                 storeInstruction("%rax", tacInstruction.getFirstReference())
         );
@@ -620,6 +621,20 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rsi"),
                 storeInstruction("%rdx", tacInstruction.getFirstReference())
+            );
+    }
+
+    @Override
+    public String generate(NewArrayInstruction tacInstruction) {
+        String declarationName = "arr_" + constantDeclarations.size();
+        TACLiteral length = (TACLiteral) tacInstruction.getSecondReference();
+        constantDeclarations.add(String.format("%s: .quad %s\n", declarationName, length.getValue()));
+        return String.format("""
+                \tmovq\t%s, %%rax
+                %s
+                """,
+                declarationName + "@GOTPCREL(%rip)",
+                storeInstruction("%rax", tacInstruction.getFirstReference())
             );
     }
 
