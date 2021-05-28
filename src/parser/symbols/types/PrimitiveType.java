@@ -35,7 +35,7 @@ public enum PrimitiveType implements DOTizable {
         return switch (this) {
             case INT, UNKNOWN -> new IntegerLiteral(0, null);
             case BOOLEAN -> new BooleanLiteral(false, null);
-            case STRING -> new StringLiteral("", null);
+            case STRING -> new StringLiteral("\"\"", null);
         };
     }
 
