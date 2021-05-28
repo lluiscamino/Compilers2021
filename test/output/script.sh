@@ -55,3 +55,7 @@ as asm/printbooleans.asm -o asm/printbooleans.asm.o
 ld asm/printbooleans.asm.o -o asm/printbooleans.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/printbooleans.asm-exec > outputs/printbooleans.asm.txt
 diff -y -q -w outputs/printbooleans.asm.txt expectedoutputs/printbooleans.asm.txt
+as asm/foreach.asm -o asm/foreach.asm.o
+ld asm/foreach.asm.o -o asm/foreach.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/foreach.asm-exec > outputs/foreach.asm.txt
+diff -y -q -w outputs/foreach.asm.txt expectedoutputs/foreach.asm.txt
