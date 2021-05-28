@@ -51,6 +51,10 @@ as asm/fibonacci.asm -o asm/fibonacci.asm.o
 ld asm/fibonacci.asm.o -o asm/fibonacci.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/fibonacci.asm-exec > outputs/fibonacci.asm.txt
 diff -y -q -w outputs/fibonacci.asm.txt expectedoutputs/fibonacci.asm.txt
+as asm/onedimensionarrayliteral.asm -o asm/onedimensionarrayliteral.asm.o
+ld asm/onedimensionarrayliteral.asm.o -o asm/onedimensionarrayliteral.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/onedimensionarrayliteral.asm-exec > outputs/onedimensionarrayliteral.asm.txt
+diff -y -q -w outputs/onedimensionarrayliteral.asm.txt expectedoutputs/onedimensionarrayliteral.asm.txt
 as asm/lucassequence.asm -o asm/lucassequence.asm.o
 ld asm/lucassequence.asm.o -o asm/lucassequence.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/lucassequence.asm-exec > outputs/lucassequence.asm.txt

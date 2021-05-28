@@ -1,0 +1,8 @@
+main() {
+    const array int[] intArray = {3, 8, 24, 9};
+    const array boolean[] booleanArray = {true, false, !true, !false};
+    const array string[] stringArray = {"Juan", "Pedro", "Sara", "Antonio"};
+    print(intArray[2]);
+    print(booleanArray[2]);
+    print(stringArray[2]);
+}
