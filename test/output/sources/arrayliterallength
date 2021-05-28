@@ -1,0 +1,6 @@
+main() {
+    print(length({3, 2, -7}));
+    const array int[] arr = {3, 4, 5, -6};
+    print(length(arr));
+    print(length(arr) + length({3, 2}) + length({-8, 9, 45 + 3}) + length({1}));
+}
