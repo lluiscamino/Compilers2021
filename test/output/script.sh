@@ -27,6 +27,10 @@ as asm/arrayliterallength.asm -o asm/arrayliterallength.asm.o
 ld asm/arrayliterallength.asm.o -o asm/arrayliterallength.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/arrayliterallength.asm-exec > outputs/arrayliterallength.asm.txt
 diff -y -q -w outputs/arrayliterallength.asm.txt expectedoutputs/arrayliterallength.asm.txt
+as asm/bubblesort.asm -o asm/bubblesort.asm.o
+ld asm/bubblesort.asm.o -o asm/bubblesort.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/bubblesort.asm-exec > outputs/bubblesort.asm.txt
+diff -y -q -w outputs/bubblesort.asm.txt expectedoutputs/bubblesort.asm.txt
 as asm/printstrings.asm -o asm/printstrings.asm.o
 ld asm/printstrings.asm.o -o asm/printstrings.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/printstrings.asm-exec > outputs/printstrings.asm.txt
