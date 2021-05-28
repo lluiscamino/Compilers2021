@@ -27,27 +27,40 @@ public final class DifferedAssignmentsOptimizer extends TACOptimizer {
 
     @Override
     public List<TACInstruction> optimize() {
-        Set<TACVariable> uses = new HashSet<>();
-        Set<TACVariable> assignments = new HashSet<>();
+        Map<TACVariable, Integer> uses = new HashMap<>();
+        Map<TACVariable, Integer> assignments = new HashMap<>();
         Map<TACVariable, TACReference> equivalentVariables = new HashMap<>();
         for (TACInstruction instruction : unoptimizedInstructions) {
             if (instruction instanceof CopyInstruction && ((TACVariable) instruction.getFirstReference()).isTemporal()) {
-                addOrRemove(assignments, instruction.getFirstReference());
+                addToMap(assignments, instruction.getFirstReference());
                 equivalentVariables.put((TACVariable) instruction.getFirstReference(), instruction.getSecondReference());
             } else {
-                addOrRemove(uses, instruction.getFirstReference());
+                addToMap(uses, instruction.getFirstReference());
             }
-            addOrRemove(uses, instruction.getSecondReference());
-            addOrRemove(uses, instruction.getThirdReference());
+            addToMap(uses, instruction.getSecondReference());
+            addToMap(uses, instruction.getThirdReference());
         }
-        uses.retainAll(assignments); // Intersection
-        return generateOptimizedCode(uses, equivalentVariables);
+        Set<TACVariable> onlyOneUse = onlyUsedOnceVariables(uses);
+        Set<TACVariable> onlyOneAssignment = onlyUsedOnceVariables(assignments);
+        onlyOneUse.retainAll(onlyOneAssignment); // Intersection
+        return generateOptimizedCode(onlyOneUse, equivalentVariables);
     }
 
-    private void addOrRemove(Set<TACVariable> set, TACReference reference) {
-        if (reference instanceof TACVariable && !set.remove(reference)) {
-            set.add((TACVariable) reference);
+    private void addToMap(Map<TACVariable, Integer> map, TACReference reference) {
+        if (reference instanceof TACVariable) {
+            TACVariable variable = (TACVariable) reference;
+            map.put(variable, map.getOrDefault(variable, 0) + 1);
         }
+    }
+
+    private Set<TACVariable> onlyUsedOnceVariables(Map<TACVariable, Integer> variables) {
+        Set<TACVariable> onlyUsedOnceVariables = new HashSet<>();
+        for (TACVariable variable : variables.keySet()) {
+            if (variables.get(variable) == 1) {
+                onlyUsedOnceVariables.add(variable);
+            }
+        }
+        return onlyUsedOnceVariables;
     }
 
     private List<TACInstruction> generateOptimizedCode(Set<TACVariable> replaceableVariables, Map<TACVariable, TACReference> equivalentVariables) {

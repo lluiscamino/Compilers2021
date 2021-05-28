@@ -32,6 +32,23 @@ public final class TestDifferedAssignmentsOptimizer extends TestOptimizer {
     }
 
     @Test
+    public void testUsedThreeTimesTemporalVariableIgnored() {
+        TACVariable tempVariable = new TACVariable(0);
+        TACVariable namedVariable = new TACVariable(1, "a");
+        TACLiteral zero = new TACLiteral(0);
+        List<TACInstruction> unoptimizedInstructions = Arrays.asList(
+                new CopyInstruction(tempVariable, zero),
+                new PrintIntInstruction(tempVariable),
+                new PrintIntInstruction(tempVariable),
+                new PrintIntInstruction(tempVariable),
+                new CopyInstruction(namedVariable, tempVariable)
+        );
+        TACOptimizer optimizer = new DifferedAssignmentsOptimizer(unoptimizedInstructions);
+        List<TACInstruction> optimizedInstructions = optimizer.optimize();
+        assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
+    }
+
+    @Test
     public void testSimpleDifferedAssigmentOptimized() {
         TACVariable tempVariable = new TACVariable(0);
         TACVariable namedVariable = new TACVariable(1, "a");
