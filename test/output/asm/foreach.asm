@@ -348,4 +348,4 @@ e1:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .quad 17
+	arr_3: .fill 17, 8

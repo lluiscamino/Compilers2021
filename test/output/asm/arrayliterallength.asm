@@ -357,8 +357,8 @@ t_main:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .quad 4
-	arr_4: .quad 5
-	arr_5: .quad 3
-	arr_6: .quad 4
-	arr_7: .quad 2
+	arr_3: .fill 4, 8
+	arr_4: .fill 5, 8
+	arr_5: .fill 3, 8
+	arr_6: .fill 4, 8
+	arr_7: .fill 2, 8

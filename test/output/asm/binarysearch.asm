@@ -671,8 +671,8 @@ t_main:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .quad 7
-	arr_4: .quad 7
-	arr_5: .quad 7
-	arr_6: .quad 7
-	arr_7: .quad 7
+	arr_3: .fill 7, 8
+	arr_4: .fill 7, 8
+	arr_5: .fill 7, 8
+	arr_6: .fill 7, 8
+	arr_7: .fill 7, 8

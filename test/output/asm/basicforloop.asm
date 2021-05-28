@@ -272,4 +272,4 @@ e3:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .quad 5
+	arr_3: .fill 5, 8
