@@ -89,8 +89,6 @@ public final class Relational extends Expression {
             return operator == RelationalOperatorType.EQUAL
                     ? new IfEqualString(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1)
                     : new IfDiffString(leftExpression.getTacVariable(), rightExpression.getTacVariable(), e1);
-        } else if (expressionsType.isArray()) {
-            return null; // todo
         } else {
             return getNormalIfInstruction(e1);
         }
