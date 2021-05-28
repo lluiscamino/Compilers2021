@@ -1,4 +1,8 @@
 #! /bin/bash
+as asm/basicforloop.asm -o asm/basicforloop.asm.o
+ld asm/basicforloop.asm.o -o asm/basicforloop.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/basicforloop.asm-exec > outputs/basicforloop.asm.txt
+diff -y -q -w outputs/basicforloop.asm.txt expectedoutputs/basicforloop.asm.txt
 as asm/max5.asm -o asm/max5.asm.o
 ld asm/max5.asm.o -o asm/max5.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/max5.asm-exec > outputs/max5.asm.txt

@@ -1,0 +1,11 @@
+main() {
+    var array int[] arr = {
+        37 + 28,
+        89 + 4,
+        25 + 3,
+        84 + 8
+    };
+    for (var int i = 0; i < length(arr); i += 1) {
+        print(arr[i]);
+    }
+}
