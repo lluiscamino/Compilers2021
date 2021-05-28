@@ -1,0 +1,28 @@
+function twoSum int[](int[] nums, int target) {
+   var array int[] result = {-1, -1};
+   var int i = 0;
+   var boolean res = false;
+   while (i < length(nums) && !res) {
+       var int j = 0;
+       while (j < length(nums) && !res) {
+           if (nums[i] == target - nums[j]) {
+               result = {i, j};
+               res = true;
+           }
+           j += 1;
+       }
+       i += 1;
+   }
+   return result;
+}
+
+main() {
+   const array int[] result = twoSum({6, 4, 3, 9, 5, 3, 1, 1, 5, 5, 1, 9, 5, 7, 1, 2, 4}, 11);
+   if (result[0] != -1 || result[1] != -1) {
+       print("Resultado: ");
+       print(result[0]);
+       print(result[1]);
+   } else {
+       print("Sin resultado");
+   }
+}
