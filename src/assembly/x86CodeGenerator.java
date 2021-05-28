@@ -628,7 +628,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(NewArrayInstruction tacInstruction) {
         String declarationName = "arr_" + constantDeclarations.size();
         TACLiteral length = (TACLiteral) tacInstruction.getSecondReference();
-        constantDeclarations.add(String.format("%s: .quad %s\n", declarationName, length.getValue()));
+        constantDeclarations.add(String.format("%s: .fill %s, 8\n", declarationName, length.getValue()));
         return String.format("""
                 \tmovq\t%s, %%rax
                 %s
