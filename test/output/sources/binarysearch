@@ -1,0 +1,28 @@
+function binarySearch int(int[] nums, int target) {
+   var int left = 0;
+   var int right = length(nums) - 1;
+   var int result = -1;
+   var boolean res = false;
+   while (left <= right && !res) {
+       const int middle = (left + right) / 2;
+       if (nums[middle] == target) {
+           result = middle;
+           res = true;
+       }
+       if (target < nums[middle]) {
+           right = middle - 1;
+       } else {
+           left = middle + 1;
+       }
+   }
+   return result;
+}
+
+main() {
+   print(binarySearch({-1,0,3,5,9,12}, 9));
+   print(binarySearch({-1,0,3,5,9,12}, 12));
+   print(binarySearch({-1,0,3,5,9,12}, 0));
+   print(binarySearch({-1,0,3,5,9,12}, 5));
+   print(binarySearch({-1,0,3,5,9,12}, 7));
+}
+

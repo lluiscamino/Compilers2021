@@ -31,6 +31,10 @@ as asm/printstrings.asm -o asm/printstrings.asm.o
 ld asm/printstrings.asm.o -o asm/printstrings.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/printstrings.asm-exec > outputs/printstrings.asm.txt
 diff -y -q -w outputs/printstrings.asm.txt expectedoutputs/printstrings.asm.txt
+as asm/binarysearch.asm -o asm/binarysearch.asm.o
+ld asm/binarysearch.asm.o -o asm/binarysearch.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/binarysearch.asm-exec > outputs/binarysearch.asm.txt
+diff -y -q -w outputs/binarysearch.asm.txt expectedoutputs/binarysearch.asm.txt
 as asm/while.asm -o asm/while.asm.o
 ld asm/while.asm.o -o asm/while.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/while.asm-exec > outputs/while.asm.txt
