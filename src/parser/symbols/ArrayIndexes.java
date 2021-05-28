@@ -2,13 +2,11 @@ package parser.symbols;
 
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
-import tac.references.TACVariable;
 
 public final class ArrayIndexes extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "ARR_INDEX";
     
     private SymbolList<Expression> indexes;
-    private TACVariable offset;
 
     public ArrayIndexes(Expression lastIndex) {
         super(STRING_IDENTIFIER, lastIndex.xleft);
@@ -18,10 +16,6 @@ public final class ArrayIndexes extends ParserSymbol {
 
     public SymbolList<Expression> getIndexes() {
         return indexes;
-    }
-
-    public TACVariable getOffset() {
-        return offset;
     }
 
     public void addIndex(Expression index) {
