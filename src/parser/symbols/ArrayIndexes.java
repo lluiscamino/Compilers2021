@@ -49,5 +49,7 @@ public final class ArrayIndexes extends ParserSymbol {
     }
 
     @Override
-    public void toTac() {}
+    public void toTac() {
+        indexes.toTac();
+    }
 }
