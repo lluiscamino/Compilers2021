@@ -105,7 +105,7 @@ public final class SemanticAnalyzer {
         StringBuilder assemblyBuffer = new StringBuilder();
         List<TACInstruction> tacInstructions = Compiler.getCompiler().getSemanticAnalyzer().getTacInstructionList();
         List<TACInstruction> optimizedInstructions =
-                new UnusedTagsOptimizer(new ConstantIfsOptimizer(new ConstantOperationsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(tacInstructions).optimize()).optimize()).optimize()).optimize(), subprogramsTable).optimize();
+                new InaccessibleCodeOptimizer(new UnusedTagsOptimizer(new ConstantIfsOptimizer(new ConstantOperationsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(tacInstructions).optimize()).optimize()).optimize()).optimize(), subprogramsTable).optimize()).optimize();
         new UnusedTACVariablesRemover(optimizedInstructions, Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable()).removeUnusedVariables();
         new SizeOffsetCalculator().calculate(subprogramsTable, variablesTable);
         AssemblyCodeGenerator codeGenerator = new x86CodeGenerator(subprogramsTable, variablesTable);
