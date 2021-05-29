@@ -71,8 +71,6 @@ e2:
 /*printInt(i)*/
 	movq	-32(%rbp), %rdi
 	call	print_uint64
-/*e4: skip*/
-e4:
 /*printInt(i)*/
 	movq	-16(%rbp), %rdi
 	call	print_uint64

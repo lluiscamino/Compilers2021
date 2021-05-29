@@ -198,8 +198,6 @@ e13:
 	movq	%rax, -32(%rbp)
 /*goto e15*/
 	jmp 	e15
-/*e14: skip*/
-e14:
 /*t17 = 9*/
 	movq	$9, %rax
 	movq	%rax, -32(%rbp)
