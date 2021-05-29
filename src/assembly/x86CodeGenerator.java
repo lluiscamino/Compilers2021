@@ -648,9 +648,9 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             return String.format("\tmovq\t$%s, %s", reference, register);
         }
         VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
-        if (isLocalVariable(variableInfo)) {
+        if (isLocalVariable(variableInfo) || initialScope) {
             return String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset(), register);
-        } else if (isLocalArgument(variableInfo) || initialScope) {
+        } else if (isLocalArgument(variableInfo)) {
             return String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset() + 8, register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
@@ -690,9 +690,9 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             return String.format("\t%sq\t%s, %s", moveOrLea, declarationName + "@GOTPCREL(%rip)", register);
         }
         VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
-        if (isLocalVariable(variableInfo)) {
+        if (isLocalVariable(variableInfo) || initialScope) {
             return String.format("\tlea \t%s(%%rbp), %s", variableInfo.getOffset(), register);
-        } else if (isLocalArgument(variableInfo) || initialScope) {
+        } else if (isLocalArgument(variableInfo)) {
             return String.format("\tlea \t%s(%%rbp), %s", variableInfo.getOffset(), register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
