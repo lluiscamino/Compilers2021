@@ -44,8 +44,6 @@ e1:
 	movq	%rax, -16(%rbp)
 /*goto e3*/
 	jmp 	e3
-/*e2: skip*/
-e2:
 /*t5 = -1*/
 	movq	$-1, %rax
 	movq	%rax, -16(%rbp)
@@ -76,8 +74,6 @@ e5:
 	movq	%rax, -32(%rbp)
 /*goto e7*/
 	jmp 	e7
-/*e6: skip*/
-e6:
 /*t11 = -1*/
 	movq	$-1, %rax
 	movq	%rax, -32(%rbp)
@@ -198,8 +194,6 @@ e17:
 	movq	%rax, -96(%rbp)
 /*goto e19*/
 	jmp 	e19
-/*e18: skip*/
-e18:
 /*t23 = -1*/
 	movq	$-1, %rax
 	movq	%rax, -96(%rbp)

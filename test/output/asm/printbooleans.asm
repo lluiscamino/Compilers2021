@@ -73,8 +73,6 @@ t_main:
 	movq	%rax, -24(%rbp)
 /*goto e1*/
 	jmp 	e1
-/*e0: skip*/
-e0:
 /*t13 = -1*/
 	movq	$-1, %rax
 	movq	%rax, -24(%rbp)
@@ -138,8 +136,6 @@ e5:
 	movq	%rax, -80(%rbp)
 /*goto e7*/
 	jmp 	e7
-/*e6: skip*/
-e6:
 /*t28 = -1*/
 	movq	$-1, %rax
 	movq	%rax, -80(%rbp)
