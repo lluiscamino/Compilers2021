@@ -157,13 +157,13 @@ t_main:
 	mov 	%rsp, %rbp
 	subq	$16, %rsp
 /*constString = "Hi! 😀\n"*/
-	movq	decl_3@GOTPCREL(%rip), %rax
+	movq	str_3@GOTPCREL(%rip), %rax
 	movq	%rax, -8(%rbp)
 /*varString = "Hola\n"*/
-	movq	decl_4@GOTPCREL(%rip), %rax
+	movq	str_4@GOTPCREL(%rip), %rax
 	movq	%rax, -16(%rbp)
 /*printString("Hello, world\n")*/
-	movq	decl_5@GOTPCREL(%rip), %rsi
+	movq	str_5@GOTPCREL(%rip), %rsi
 	call	print_string
 /*printString(constString)*/
 	movq	-8(%rbp), %rsi
@@ -172,13 +172,13 @@ t_main:
 	movq	-16(%rbp), %rsi
 	call	print_string
 /*varString = "Adios\n"*/
-	movq	decl_6@GOTPCREL(%rip), %rax
+	movq	str_6@GOTPCREL(%rip), %rax
 	movq	%rax, -16(%rbp)
 /*printString(varString)*/
 	movq	-16(%rbp), %rsi
 	call	print_string
 /*param_s "749\n"*/
-	movq	decl_7@GOTPCREL(%rip), %rax
+	movq	str_7@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
 	call	t_printString
@@ -196,8 +196,8 @@ t_main:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	decl_3: .asciz "Hi! 😀\n"
-	decl_4: .asciz "Hola\n"
-	decl_5: .asciz "Hello, world\n"
-	decl_6: .asciz "Adios\n"
-	decl_7: .asciz "749\n"
+	str_3: .asciz "Hi! 😀\n"
+	str_4: .asciz "Hola\n"
+	str_5: .asciz "Hello, world\n"
+	str_6: .asciz "Adios\n"
+	str_7: .asciz "749\n"

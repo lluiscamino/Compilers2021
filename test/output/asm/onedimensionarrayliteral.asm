@@ -235,25 +235,25 @@ t_main:
 	movq	-64(%rbp), %rcx
 	movq	$8, %rbx
 	addq	%rbx, %rcx
-	movq	decl_6@GOTPCREL(%rip), %rbx
+	movq	str_6@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
 /*t12[16] = "Pedro\n"*/
 	movq	-64(%rbp), %rcx
 	movq	$16, %rbx
 	addq	%rbx, %rcx
-	movq	decl_7@GOTPCREL(%rip), %rbx
+	movq	str_7@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
 /*t12[24] = "Sara\n"*/
 	movq	-64(%rbp), %rcx
 	movq	$24, %rbx
 	addq	%rbx, %rcx
-	movq	decl_8@GOTPCREL(%rip), %rbx
+	movq	str_8@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
 /*t12[32] = "Antonio\n"*/
 	movq	-64(%rbp), %rcx
 	movq	$32, %rbx
 	addq	%rbx, %rcx
-	movq	decl_9@GOTPCREL(%rip), %rbx
+	movq	str_9@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
 /*stringArray = t12*/
 	movq	-64(%rbp), %rax
@@ -327,7 +327,7 @@ t_main:
 	arr_3: .fill 5, 8
 	arr_4: .fill 5, 8
 	arr_5: .fill 5, 8
-	decl_6: .asciz "Juan\n"
-	decl_7: .asciz "Pedro\n"
-	decl_8: .asciz "Sara\n"
-	decl_9: .asciz "Antonio\n"
+	str_6: .asciz "Juan\n"
+	str_7: .asciz "Pedro\n"
+	str_8: .asciz "Sara\n"
+	str_9: .asciz "Antonio\n"

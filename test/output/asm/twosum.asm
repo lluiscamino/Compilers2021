@@ -609,7 +609,7 @@ e14:
 	jmp	e15
 1:
 /*printString("Resultado: \n")*/
-	movq	decl_6@GOTPCREL(%rip), %rsi
+	movq	str_6@GOTPCREL(%rip), %rsi
 	call	print_string
 /*t61 = 0 + 1*/
 	movq	$0, %rax
@@ -654,7 +654,7 @@ e14:
 /*e15: skip*/
 e15:
 /*printString("Sin resultado\n")*/
-	movq	decl_7@GOTPCREL(%rip), %rsi
+	movq	str_7@GOTPCREL(%rip), %rsi
 	call	print_string
 /*e16: skip*/
 e16:
@@ -670,5 +670,5 @@ e16:
 	arr_3: .fill 3, 8
 	arr_4: .fill 3, 8
 	arr_5: .fill 18, 8
-	decl_6: .asciz "Resultado: \n"
-	decl_7: .asciz "Sin resultado\n"
+	str_6: .asciz "Resultado: \n"
+	str_7: .asciz "Sin resultado\n"

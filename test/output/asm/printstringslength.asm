@@ -143,7 +143,7 @@ t_main:
 	mov 	%rsp, %rbp
 	subq	$32, %rsp
 /*t1 = stringLength("Hello\n")*/
-	movq	decl_3@GOTPCREL(%rip), %rsi
+	movq	str_3@GOTPCREL(%rip), %rsi
 	call	string_length
 	subq	$1, %rdx
 	movq	%rdx, -8(%rbp)
@@ -151,7 +151,7 @@ t_main:
 	movq	-8(%rbp), %rdi
 	call	print_uint64
 /*t3 = stringLength("Hello, world!\n")*/
-	movq	decl_4@GOTPCREL(%rip), %rsi
+	movq	str_4@GOTPCREL(%rip), %rsi
 	call	string_length
 	subq	$1, %rdx
 	movq	%rdx, -16(%rbp)
@@ -159,7 +159,7 @@ t_main:
 	movq	-16(%rbp), %rdi
 	call	print_uint64
 /*t5 = stringLength("\n")*/
-	movq	decl_5@GOTPCREL(%rip), %rsi
+	movq	str_5@GOTPCREL(%rip), %rsi
 	call	string_length
 	subq	$1, %rdx
 	movq	%rdx, -24(%rbp)
@@ -167,7 +167,7 @@ t_main:
 	movq	-24(%rbp), %rdi
 	call	print_uint64
 /*t7 = stringLength("-1\n")*/
-	movq	decl_6@GOTPCREL(%rip), %rsi
+	movq	str_6@GOTPCREL(%rip), %rsi
 	call	string_length
 	subq	$1, %rdx
 	movq	%rdx, -32(%rbp)
@@ -183,7 +183,7 @@ t_main:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	decl_3: .asciz "Hello\n"
-	decl_4: .asciz "Hello, world!\n"
-	decl_5: .asciz "\n"
-	decl_6: .asciz "-1\n"
+	str_3: .asciz "Hello\n"
+	str_4: .asciz "Hello, world!\n"
+	str_5: .asciz "\n"
+	str_6: .asciz "-1\n"

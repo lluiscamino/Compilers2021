@@ -207,10 +207,10 @@ e7:
 	movq	-32(%rbp), %rbx
 	call	print_boolean
 /*str1 = "Hello, world!\n"*/
-	movq	decl_3@GOTPCREL(%rip), %rax
+	movq	str_3@GOTPCREL(%rip), %rax
 	movq	%rax, -40(%rbp)
 /*str2 = "Hello, world!\n"*/
-	movq	decl_4@GOTPCREL(%rip), %rax
+	movq	str_4@GOTPCREL(%rip), %rax
 	movq	%rax, -48(%rbp)
 /*if str1 = str1 goto e8*/
 	movq	-40(%rbp), %rsi
@@ -337,5 +337,5 @@ e19:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	decl_3: .asciz "Hello, world!\n"
-	decl_4: .asciz "Hello, world!\n"
+	str_3: .asciz "Hello, world!\n"
+	str_4: .asciz "Hello, world!\n"
