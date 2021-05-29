@@ -101,7 +101,7 @@ public final class ArrayLiteral extends Literal {
         addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(0), new TACLiteral(items.size())));
         for (Expression item : items) {
             item.toTac();
-            addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(counter++ * 8), item.getTacVariable()));
+            addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(counter++ * PrimitiveType.INT.sizeInBytes()), item.getTacVariable()));
         }
     }
 }

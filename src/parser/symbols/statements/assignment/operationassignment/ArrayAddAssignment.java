@@ -4,6 +4,7 @@ import dot.DotNode;
 import main.Compiler;
 import parser.symbols.ArrayIndexes;
 import parser.symbols.expressions.Expression;
+import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.AddInstruction;
@@ -48,13 +49,13 @@ public final class ArrayAddAssignment extends ArrayOperationAssignment {
         for (int i = 0; i < indexesList.size() - 1; i++) {
             Expression index = indexesList.get(i);
             addTACInstruction(new AddInstruction(realIndex, index.getTacVariable(), new TACLiteral(1)));
-            addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(8)));
+            addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(PrimitiveType.INT.sizeInBytes())));
             addTACInstruction(new IndexedValueInstruction(newVariable, newVariable, realIndex));
         }
         expression.toTac();
         TACVariable temp = variableGenerator.generate(Type.getInteger());
         addTACInstruction(new AddInstruction(realIndex, lastIndex, new TACLiteral(1)));
-        addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(8)));
+        addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(PrimitiveType.INT.sizeInBytes())));
         addTACInstruction(new IndexedValueInstruction(temp, newVariable, realIndex));
         addTACInstruction(new AddInstruction(temp, temp, expression.getTacVariable()));
         addTACInstruction(new IndexAssignmentInstruction(newVariable, realIndex, temp));

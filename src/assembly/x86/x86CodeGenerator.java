@@ -3,6 +3,7 @@ package assembly.x86;
 import assembly.AssemblyCodeGenerator;
 import assembly.AssemblyLibrarySubprogram;
 import assembly.x86.subprograms.*;
+import parser.symbols.types.PrimitiveType;
 import tac.instructions.arithmetic.*;
 import tac.instructions.array.NewArrayInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -506,7 +507,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(NewArrayInstruction tacInstruction) {
         String declarationName = "arr_" + constantDeclarations.size();
         TACLiteral length = (TACLiteral) tacInstruction.getSecondReference();
-        constantDeclarations.add(String.format("%s: .fill %s, 8\n", declarationName, length.getValue()));
+        constantDeclarations.add(String.format("%s: .fill %s, %d\n", declarationName, length.getValue(), PrimitiveType.INT.sizeInBytes()));
         return String.format("""
                         \tmovq\t%s, %%rax
                         %s
