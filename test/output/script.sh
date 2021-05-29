@@ -47,6 +47,10 @@ as asm/binarysearch.asm -o asm/binarysearch.asm.o
 ld asm/binarysearch.asm.o -o asm/binarysearch.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/binarysearch.asm-exec > outputs/binarysearch.asm.txt
 diff -y -q -w outputs/binarysearch.asm.txt expectedoutputs/binarysearch.asm.txt
+as asm/unusedprocedure.asm -o asm/unusedprocedure.asm.o
+ld asm/unusedprocedure.asm.o -o asm/unusedprocedure.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/unusedprocedure.asm-exec > outputs/unusedprocedure.asm.txt
+diff -y -q -w outputs/unusedprocedure.asm.txt expectedoutputs/unusedprocedure.asm.txt
 as asm/while.asm -o asm/while.asm.o
 ld asm/while.asm.o -o asm/while.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/while.asm-exec > outputs/while.asm.txt

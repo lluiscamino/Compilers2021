@@ -1,0 +1,6 @@
+procedure unused() {
+    print("This will never be printed");
+}
+
+main() {
+}
