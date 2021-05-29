@@ -27,7 +27,18 @@ public final class TestUnusedTagsOptimizer extends TestOptimizer {
     }
 
     @Test
-    public void testUnusedTagIgnored() {
+    public void testMainTagIgnored() {
+        TACTag tag = new TACTag(0, "t_main");
+        List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
+                new SkipInstruction(tag)
+        );
+        TACOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions);
+        List<TACInstruction> optimizedInstructions = optimizer.optimize();
+        assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
+    }
+
+    @Test
+    public void testUnusedTagOptimized() {
         TACTag tag = new TACTag(0);
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new SkipInstruction(tag)

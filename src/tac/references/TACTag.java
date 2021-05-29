@@ -13,6 +13,10 @@ public final class TACTag extends TACReference {
         this.identifier = identifier;
     }
 
+    public boolean isMain() {
+        return identifier != null && identifier.equals("t_main");
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof TACTag)) {

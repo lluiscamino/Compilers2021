@@ -25,7 +25,8 @@ public final class UnusedTagsOptimizer extends TACOptimizer {
             }
         }
         for (TACInstruction instruction : unoptimizedInstructions) {
-            if (!(instruction instanceof SkipInstruction) || usedTags.contains(instruction.getFirstReference())) {
+            if (!(instruction instanceof SkipInstruction) ||usedTags.contains(instruction.getFirstReference()) ||
+                    ((TACTag) instruction.getFirstReference()).isMain()) {
                 optimizedInstructions.add(instruction);
             }
         }
