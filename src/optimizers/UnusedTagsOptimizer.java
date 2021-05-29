@@ -4,13 +4,18 @@ import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.IfInstruction;
+import tac.instructions.subprogram.calls.CallInstruction;
 import tac.references.TACTag;
+import tac.tables.SubprogramsTable;
 
 import java.util.*;
 
 public final class UnusedTagsOptimizer extends TACOptimizer {
-    public UnusedTagsOptimizer(List<TACInstruction> unoptimizedInstructions) {
+    private final SubprogramsTable subprogramsTable;
+
+    public UnusedTagsOptimizer(List<TACInstruction> unoptimizedInstructions, SubprogramsTable subprogramsTable) {
         super(unoptimizedInstructions);
+        this.subprogramsTable = subprogramsTable;
     }
 
     @Override
@@ -22,6 +27,9 @@ public final class UnusedTagsOptimizer extends TACOptimizer {
                 usedTags.add((TACTag) instruction.getThirdReference());
             } else if (instruction instanceof GotoInstruction) {
                 usedTags.add((TACTag) instruction.getFirstReference());
+            } else if (instruction instanceof CallInstruction) {
+                SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get(((CallInstruction) instruction).getSubprogram());
+                usedTags.add(subprogramInfo.getTag());
             }
         }
         for (TACInstruction instruction : unoptimizedInstructions) {

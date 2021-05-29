@@ -21,7 +21,7 @@ public final class TestUnusedTagsOptimizer extends TestOptimizer {
                 new GotoInstruction(tag),
                 new SkipInstruction(tag)
         );
-        TACOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions);
+        TACOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -32,7 +32,7 @@ public final class TestUnusedTagsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new SkipInstruction(tag)
         );
-        TACOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions);
+        TACOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -43,7 +43,7 @@ public final class TestUnusedTagsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new SkipInstruction(tag)
         );
-        TACOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions);
+        TACOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assert optimizedInstructions.isEmpty();
     }

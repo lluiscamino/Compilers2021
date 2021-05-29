@@ -9,6 +9,11 @@ public final class FunctionCallInstruction extends CallInstruction {
         super(variable, subprogram);
     }
 
+    @Override
+    public TACSubprogram getSubprogram() {
+        return (TACSubprogram) secondReference;
+    }
+
     public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {
         return codeGenerator.generate(this);
     }

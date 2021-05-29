@@ -8,6 +8,11 @@ public final class ProcedureCallInstruction extends CallInstruction {
         super(subprogram);
     }
 
+    @Override
+    public TACSubprogram getSubprogram() {
+        return (TACSubprogram) firstReference;
+    }
+
     public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {
         return codeGenerator.generate(this);
     }

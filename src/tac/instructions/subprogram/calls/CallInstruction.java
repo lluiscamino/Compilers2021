@@ -13,4 +13,6 @@ public abstract class CallInstruction extends SubprogramInstruction {
     public CallInstruction(TACVariable variable, TACSubprogram subprogram) {
         super(variable, subprogram);
     }
+
+    public abstract TACSubprogram getSubprogram();
 }
