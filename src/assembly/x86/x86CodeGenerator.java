@@ -367,7 +367,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(ProcedureCallInstruction tacInstruction) {
-        SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getFirstReference());
+        SubprogramsTable.SubprogramInfo subprogramInfo = getSubprogramInfoOrThrowException(tacInstruction.getFirstReference());
         return String.format("""
                         \tcall\t%s
                         """,
@@ -377,7 +377,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(FunctionCallInstruction tacInstruction) {
-        SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getSecondReference());
+        SubprogramsTable.SubprogramInfo subprogramInfo = getSubprogramInfoOrThrowException(tacInstruction.getSecondReference());
         return String.format("""
                         \tcall\t%s
                         %s
@@ -394,7 +394,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(PreambleInstruction tacInstruction) {
-        SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getFirstReference());
+        SubprogramsTable.SubprogramInfo subprogramInfo = getSubprogramInfoOrThrowException(tacInstruction.getFirstReference());
         return String.format("""
                         \tpush\t%%rbp
                         \tmov \t%%rsp, %%rbp
@@ -579,6 +579,17 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             throw new RuntimeException("Variable not stored in variables table");
         }
         return variableInfo;
+    }
+
+    private SubprogramsTable.SubprogramInfo getSubprogramInfoOrThrowException(TACReference reference) {
+        if (!(reference instanceof TACSubprogram)) {
+            throw new RuntimeException(reference + " is not a TACSubprogram");
+        }
+        SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) reference);
+        if (subprogramInfo == null) {
+            throw new RuntimeException("Subprogram not stored in subprograms table");
+        }
+        return subprogramInfo;
     }
 
     private String generateIfInstruction(IfInstruction tacInstruction, String comparisonCode) {
