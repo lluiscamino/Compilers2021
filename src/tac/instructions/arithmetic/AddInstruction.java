@@ -5,8 +5,8 @@ import tac.references.TACReference;
 import tac.references.TACVariable;
 
 public final class AddInstruction extends ArithmeticInstruction {
-    public AddInstruction(TACVariable firstVariable, TACVariable secondVariable, TACReference thirdReference) {
-        super(firstVariable, secondVariable, thirdReference);
+    public AddInstruction(TACVariable firstVariable, TACReference secondReference, TACReference thirdReference) {
+        super(firstVariable, secondReference, thirdReference);
     }
 
     public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {

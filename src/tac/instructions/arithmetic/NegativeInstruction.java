@@ -1,11 +1,12 @@
 package tac.instructions.arithmetic;
 
 import assembly.AssemblyCodeGenerator;
+import tac.references.TACReference;
 import tac.references.TACVariable;
 
 public final class NegativeInstruction extends ArithmeticInstruction {
-    public NegativeInstruction(TACVariable firstVariable, TACVariable secondVariable) {
-        super(firstVariable, secondVariable);
+    public NegativeInstruction(TACVariable firstVariable, TACReference secondReference) {
+        super(firstVariable, secondReference);
     }
 
     public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {
