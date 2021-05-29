@@ -1,8 +1,8 @@
 package analyzers;
 
 import assembly.AssemblyCodeGenerator;
-import assembly.SizeOffsetCalculator;
-import assembly.x86CodeGenerator;
+import assembly.x86.SizeOffsetCalculator;
+import assembly.x86.x86CodeGenerator;
 import dot.DotIdGenerator;
 import main.Compiler;
 import optimizers.AdjacentBranchesOptimizer;

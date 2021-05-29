@@ -7,8 +7,8 @@ import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.CopyInstruction;
 import tac.references.TACLiteral;
 
-import static assembly.AssemblyCodeGenerationConstants.FALSE;
-import static assembly.AssemblyCodeGenerationConstants.TRUE;
+import static assembly.x86.AssemblyCodeGenerationConstants.FALSE;
+import static assembly.x86.AssemblyCodeGenerationConstants.TRUE;
 
 public class BooleanLiteral extends Literal {
     

@@ -1,5 +1,8 @@
-package assembly;
+package assembly.x86;
 
+import assembly.AssemblyCodeGenerator;
+import assembly.AssemblyLibrarySubprogram;
+import assembly.x86.subprograms.*;
 import tac.instructions.arithmetic.*;
 import tac.instructions.array.NewArrayInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -20,221 +23,88 @@ import tac.instructions.io.print.PrintStringInstruction;
 import tac.instructions.length.StringLengthInstruction;
 import tac.instructions.subprogram.ComplexParameterInstruction;
 import tac.instructions.subprogram.PreambleInstruction;
-import tac.instructions.subprogram.returns.FunctionReturnInstruction;
-import tac.instructions.subprogram.returns.ProcedureReturnInstruction;
 import tac.instructions.subprogram.SimpleParameterInstruction;
 import tac.instructions.subprogram.calls.FunctionCallInstruction;
 import tac.instructions.subprogram.calls.ProcedureCallInstruction;
-import tac.references.*;
+import tac.instructions.subprogram.returns.FunctionReturnInstruction;
+import tac.instructions.subprogram.returns.ProcedureReturnInstruction;
+import tac.references.TACLiteral;
+import tac.references.TACReference;
+import tac.references.TACSubprogram;
+import tac.references.TACVariable;
 import tac.tables.SubprogramsTable;
 import tac.tables.VariablesTable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static assembly.AssemblyCodeGenerationConstants.*;
+import static assembly.x86.AssemblyCodeGenerationConstants.STRING_BUFFER_BYTES;
+import static assembly.x86.AssemblyCodeGenerationConstants.TRUE;
 
 public class x86CodeGenerator implements AssemblyCodeGenerator {
     private final SubprogramsTable subprogramsTable;
     private final VariablesTable variablesTable;
-    private final List<String> constantDeclarations;
-    private boolean initialScope;
+    private final List<String> constantDeclarations = new ArrayList<>();
+    private final Map<String, AssemblyLibrarySubprogram> subprograms = new HashMap<>();
+    private boolean initialScope = true;
 
     public x86CodeGenerator(SubprogramsTable subprogramsTable, VariablesTable variablesTable) {
         this.variablesTable = variablesTable;
         this.subprogramsTable = subprogramsTable;
-        constantDeclarations = new ArrayList<>();
-        initialScope = true;
         constantDeclarations.add("decl_0: .asciz \"true\\n\"\n");
         constantDeclarations.add("decl_1: .asciz \"false\\n\"\n");
         constantDeclarations.add("decl_2: .quad 0\n"); // initial scope base pointer
+        initSubprograms();
+    }
+
+    private void initSubprograms() {
+        AssemblyLibrarySubprogram
+                printInteger = new PrintIntegerSubprogram(),
+                stringLength = new GetStringLengthSubprogram(),
+                printString = new PrintStringSubprogram(Collections.singletonList(stringLength)),
+                printBoolean = new PrintBooleanSubprogram(Collections.singletonList(printString)),
+                readString = new ReadStringSubprogram(),
+                compareStrings = new CompareStringsSubprogram();
+        printInteger.addToMap(subprograms);
+        stringLength.addToMap(subprograms);
+        printString.addToMap(subprograms);
+        printBoolean.addToMap(subprograms);
+        readString.addToMap(subprograms);
+        compareStrings.addToMap(subprograms);
     }
 
     @Override
     public String preamble() {
-        return String.format("""
-                        .section\t__TEXT, __text
-                        \t.globl\t_main
-                        \t.globl\tprint_uint64
-                        \t.globl\tprint_boolean
-                        \t.globl\tprint_string
-                        \t.globl\tread_string
-                        \t.globl\tstring_length
-                        \t.globl\tcompare_strings
-                        %s
-                        %s
-                        %s
-                        %s
-                        %s
-                        %s
-                        _main:
-                        \tpush\t%%rbp
-                        \tmov \t%%rsp, %%rbp
-                        \tsubq\t$%s, %%rsp
-                        \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
-                        \tmovq\t%%rbp, (%%rsi)
-                        """,
-                printIntegerFunction(),
-                printBooleanFunction(),
-                printStringFunction(),
-                readStringFunction(),
-                stringLengthFunction(),
-                compareStringsFunction(),
-                variablesTable.getGlobalVariablesSize()
+        StringBuilder preamble = new StringBuilder("""
+                .section\t__TEXT, __text
+                \t.globl\t_main
+                """);
+        for (AssemblyLibrarySubprogram subprogram : subprograms.values()) {
+            preamble.append("\t.globl\t").append(subprogram.alias()).append("\n");
+        }
+        preamble.append(
+                String.format("""
+                                _main:
+                                \tpush\t%%rbp
+                                \tmov \t%%rsp, %%rbp
+                                \tsubq\t$%s, %%rsp
+                                \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
+                                \tmovq\t%%rbp, (%%rsi)
+                                """,
+                        variablesTable.getGlobalVariablesSize()
+                )
         );
-    }
-
-    private String printIntegerFunction() {
-        return """
-                print_uint64:
-                \tlea \t-1(%rsp), %rsi
-                \tmovb\t$'\\n', (%rsi)
-                \tmov \t$10, %ecx
-                \tmovl\t%edi, %ebx
-                \ttestl\t%edi, %edi
-                \tjns \t.print_uint64_positive
-                \tneg \t%edi
-                    
-                .print_uint64_positive:
-                \tmov \t%rdi, %rax
-                    
-                .Ltoascii_digit:
-                \txor \t%edx, %edx
-                \tdiv \t%rcx
-                \tadd \t$'0', %edx
-                \tdec \t%rsi
-                \tmov \t%dl, (%rsi)  
-                \ttest\t%rax, %rax
-                \tjnz \t.Ltoascii_digit
-                \ttestl\t%ebx, %ebx
-                \tjns \t.print_uint64_end
-                \txor \t%edx, %edx
-                \tdiv \t%rcx
-                \tadd \t$'-', %edx
-                \tdec \t%rsi
-                \tmov \t%dl, (%rsi)  
-                \ttest \t%rax, %rax
-                    
-                .print_uint64_end:
-                \tmov \t$0x02000004, %eax
-                \tmov \t$1, %edi
-                \tmov \t%rsp, %rdx
-                \tsub \t%rsi, %rdx
-                \tsyscall
-                \tret
-                """;
-    }
-
-    private String printBooleanFunction() {
-        return """
-                /**
-                 * Prints a boolean to stdout
-                 * Params:
-                 * - %rbx: Boolean value
-                 */
-                print_boolean:
-                \ttestl\t%ebx, %ebx
-                \tjnz \t.print_boolean_true
-                \tmovq\tdecl_1@GOTPCREL(%rip), %rsi
-                \tjmp \t.print_boolean_end
-                \t.print_boolean_true:
-                \t\tmovq\tdecl_0@GOTPCREL(%rip), %rsi
-                \t.print_boolean_end:
-                \t\tcall \tprint_string
-                \t\tret
-                """;
-    }
-
-    private String printStringFunction() {
-        return """
-                /**
-                 * Prints a string to stdout
-                 * Params:
-                 * - %rsi: String address
-                 */
-                print_string:
-                \tcall\tstring_length
-                \tmov \t$0x02000004, %rax
-                \tmov \t$1, %rdi
-                \tsyscall
-                \tret
-                """;
-    }
-
-    private String readStringFunction() {
-        return String.format("""
-                /**
-                 * Reads a string from stdin
-                 * Params:
-                 * - %%rsi: Address where the string will be saved
-                 */
-                read_string:
-                \tmov \t$0x02000003, %%rax
-                \tmov \t$0, %%rdi
-                \tmovq\t$%s, %%rdx
-                \tsyscall
-                \tret
-                """, STRING_BUFFER_BYTES
-        );
-    }
-
-    private String stringLengthFunction() {
-        return """
-                /**
-                 * Returns a string's length (saves to %rdx)
-                 * Params:
-                 * - %rsi: String address
-                 * https://stackoverflow.com/questions/60482733/how-to-traverse-a-string-in-assembly-until-i-reach-null-strlen-loop
-                 */
-                string_length:
-                \tlea \t-1(%rsi), %rdx
-                \t.Lloop:
-                \t\tinc \t%rdx
-                \t\tcmpb\t$0, (%rdx)
-                \t\tjne \t.Lloop
-                \tsub \t%rsi, %rdx
-                \tret
-                """;
-    }
-
-    private String compareStringsFunction() {
-        return String.format("""
-                /**
-                 * Compares two strings (saves result to %%rdx)
-                 * Params:
-                 * - %%rsi: First string address
-                 * - %%rdi: Second string address
-                 */
-                compare_strings:
-                \tlea \t-1(%%rsi), %%rcx
-                \tlea \t-1(%%rdi), %%rdx
-                \t.Cloop:
-                \t\tinc \t%%rcx
-                \t\tinc \t%%rdx
-                \t\tcmpb\t$0, (%%rcx)
-                \t\tjne \t.compare_strings_continue
-                \t\tcmpb\t$0, (%%rdx)
-                \t\tje  \t.compare_strings_true
-                \t\t.compare_strings_continue:
-                \t\t\tmovb\t(%%rcx), %%al
-                \t\t\tcmpb\t%%al, (%%rdx)
-                \t\t\tje  \t.Cloop
-                \t.compare_strings_false:
-                \t\tmovq\t$%s, %%rdx
-                \t\tjmp \t.compare_strings_end
-                \t.compare_strings_true:
-                \t\tmovq\t$%s, %%rdx
-                \t.compare_strings_end:
-                \t\tret
-                """,
-                FALSE,
-                TRUE
-        );
+        return preamble.toString();
     }
 
     @Override
     public String epilogue() {
-        StringBuilder epilogue = new StringBuilder(".section __DATA, __data\n");
+        StringBuilder epilogue = new StringBuilder();
+        for (AssemblyLibrarySubprogram subprogram : subprograms.values()) {
+            if (subprogram.isUsed()) {
+                epilogue.append(subprogram.assemblyCode()).append("\n");
+            }
+        }
+        epilogue.append(".section __DATA, __data\n");
         for (String declaration : constantDeclarations) {
             epilogue.append("\t").append(declaration);
         }
@@ -244,11 +114,11 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     @Override
     public String generate(AddInstruction tacInstruction) {
         return String.format("""
-                       %s
-                       %s
-                       \taddq\t%%rbx, %%rax
-                       %s
-                        """,
+                        %s
+                        %s
+                        \taddq\t%%rbx, %%rax
+                        %s
+                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax"),
                 loadInstruction(tacInstruction.getThirdReference(), "%rbx"),
                 storeInstruction("%rax", tacInstruction.getFirstReference())
@@ -371,6 +241,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(IfEqualString tacInstruction) {
+        subprograms.get("compare_strings").setUsed();
         return String.format("""
                         %s
                         %s
@@ -387,6 +258,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(IfDiffString tacInstruction) {
+        subprograms.get("compare_strings").setUsed();
         return String.format("""
                         %s
                         %s
@@ -411,11 +283,11 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         String result = "";
         if (initialScope) {
             result += String.format("""
-                    \tcall\t%s
-                    \tmov \t$0x02000001, %%rax
-                    \txor \t$0, %%rdi
-                    \tsyscall
-                    """,
+                            \tcall\t%s
+                            \tmov \t$0x02000001, %%rax
+                            \txor \t$0, %%rdi
+                            \tsyscall
+                            """,
                     subprogramsTable.get("main").getTag()
             );
             initialScope = false;
@@ -497,8 +369,8 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(ProcedureCallInstruction tacInstruction) {
         SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getFirstReference());
         return String.format("""
-                \tcall\t%s
-                """,
+                        \tcall\t%s
+                        """,
                 subprogramInfo.getTag()
         );
     }
@@ -507,12 +379,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(FunctionCallInstruction tacInstruction) {
         SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getSecondReference());
         return String.format("""
-                \tcall\t%s
-                %s
-                """,
+                        \tcall\t%s
+                        %s
+                        """,
                 subprogramInfo.getTag(),
                 storeInstruction("%rax", tacInstruction.getFirstReference())
-            );
+        );
     }
 
     @Override
@@ -524,10 +396,10 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(PreambleInstruction tacInstruction) {
         SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get((TACSubprogram) tacInstruction.getFirstReference());
         return String.format("""
-                \tpush\t%%rbp
-                \tmov \t%%rsp, %%rbp
-                \tsubq\t$%s, %%rsp
-                """,
+                        \tpush\t%%rbp
+                        \tmov \t%%rsp, %%rbp
+                        \tsubq\t$%s, %%rsp
+                        """,
                 subprogramInfo.getLocalVariablesSize()
         );
     }
@@ -537,29 +409,30 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return """
                 \tmovq\t%rbp, %rsp
                 \tpop \t%rbp
-                \tret\n
+                \tret
+                                
                 """;
     }
 
     @Override
     public String generate(FunctionReturnInstruction tacInstruction) {
         return String.format("""
-                %s
-                \tmovq\t%%rbp, %%rsp
-                \tpop \t%%rbp
-                \tret
-                
-                """,
+                        %s
+                        \tmovq\t%%rbp, %%rsp
+                        \tpop \t%%rbp
+                        \tret
+                                        
+                        """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax")
-            );
+        );
     }
 
     @Override
     public String generate(SimpleParameterInstruction tacInstruction) {
         return String.format("""
-                %s
-                \tpush\t%%rax
-                """,
+                        %s
+                        \tpush\t%%rax
+                        """,
                 loadInstruction(tacInstruction.getFirstReference(), "%rax")
         );
     }
@@ -568,11 +441,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     public String generate(ReadInstruction tacInstruction) {
         String bufferName = "buffer_" + constantDeclarations.size();
         constantDeclarations.add(String.format("%s: .space %s\n", bufferName, STRING_BUFFER_BYTES));
+        subprograms.get("read_string").setUsed();
         return String.format("""
-                \tmovq\t%s@GOTPCREL(%%rip), %%rsi
-                \tcall \tread_string
-                %s
-                """,
+                        \tmovq\t%s@GOTPCREL(%%rip), %%rsi
+                        \tcall \tread_string
+                        %s
+                        """,
                 bufferName,
                 storeInstruction("%rsi", tacInstruction.getFirstReference())
         );
@@ -580,26 +454,29 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(PrintIntInstruction tacInstruction) {
+        subprograms.get("print_uint64").setUsed();
         return String.format("""
-                %s
-                \tcall\tprint_uint64
-                """,
+                        %s
+                        \tcall\tprint_uint64
+                        """,
                 loadInstruction(tacInstruction.getFirstReference(), "%rdi")
         );
     }
 
     @Override
     public String generate(PrintBooleanInstruction tacInstruction) {
+        subprograms.get("print_boolean").setUsed();
         return String.format("""
-                %s
-                \tcall\tprint_boolean
-                """,
+                        %s
+                        \tcall\tprint_boolean
+                        """,
                 loadInstruction(tacInstruction.getFirstReference(), "%rbx")
         );
     }
 
     @Override
     public String generate(PrintStringInstruction tacInstruction) {
+        subprograms.get("print_string").setUsed();
         return String.format("""
                 %s
                 \tcall\tprint_string
@@ -613,15 +490,16 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(StringLengthInstruction tacInstruction) {
+        subprograms.get("string_length").setUsed();
         return String.format("""
-                %s
-                \tcall\tstring_length
-                \tsubq\t$1, %%rdx
-                %s
-                """,
+                        %s
+                        \tcall\tstring_length
+                        \tsubq\t$1, %%rdx
+                        %s
+                        """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rsi"),
                 storeInstruction("%rdx", tacInstruction.getFirstReference())
-            );
+        );
     }
 
     @Override
@@ -630,12 +508,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         TACLiteral length = (TACLiteral) tacInstruction.getSecondReference();
         constantDeclarations.add(String.format("%s: .fill %s, 8\n", declarationName, length.getValue()));
         return String.format("""
-                \tmovq\t%s, %%rax
-                %s
-                """,
+                        \tmovq\t%s, %%rax
+                        %s
+                        """,
                 declarationName + "@GOTPCREL(%rip)",
                 storeInstruction("%rax", tacInstruction.getFirstReference())
-            );
+        );
     }
 
     private String loadInstruction(TACReference reference, String register) {
@@ -675,31 +553,6 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                     \tmovq\t(%%rsi), %%rsi
                     \tmovq\t%s, %s(%%rsi)
                     """, register, variableInfo.getOffset());
-        } else {
-            throw new RuntimeException("Unidentifiable variable");
-        }
-    }
-
-    private String loadAddressInstruction(TACReference reference, String register) {
-        if (reference instanceof TACLiteral) {
-            boolean isString = ((TACLiteral) reference).type().isString();
-            String declarationName = "decl_" + constantDeclarations.size();
-            String type = isString ? "asciz" : "quad";
-                constantDeclarations.add(String.format("%s: .%s %s\n", declarationName, type, reference));
-            String moveOrLea = isString ? "lea" : "mov";
-            return String.format("\t%sq\t%s, %s", moveOrLea, declarationName + "@GOTPCREL(%rip)", register);
-        }
-        VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
-        if (isLocalVariable(variableInfo) || initialScope) {
-            return String.format("\tlea \t%s(%%rbp), %s", variableInfo.getOffset(), register);
-        } else if (isLocalArgument(variableInfo)) {
-            return String.format("\tlea \t%s(%%rbp), %s", variableInfo.getOffset(), register);
-        } else if (isGlobalVariable(variableInfo)) {
-            return String.format("""
-                    \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
-                    \tmovq\t(%%rsi), %%rsi
-                    \tleaq\t%s(%%rsi), %s
-                    """, variableInfo.getOffset(), register);
         } else {
             throw new RuntimeException("Unidentifiable variable");
         }

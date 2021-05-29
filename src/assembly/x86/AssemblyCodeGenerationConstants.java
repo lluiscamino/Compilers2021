@@ -1,4 +1,4 @@
-package assembly;
+package assembly.x86;
 
 public final class AssemblyCodeGenerationConstants {
     public static final int TRUE = -1;

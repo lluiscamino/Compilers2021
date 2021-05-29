@@ -1,7 +1,7 @@
 package src.assembly;
 
 import assembly.AssemblyCodeGenerator;
-import assembly.x86CodeGenerator;
+import assembly.x86.x86CodeGenerator;
 import org.junit.Before;
 import org.junit.Test;
 import tac.instructions.TACInstruction;

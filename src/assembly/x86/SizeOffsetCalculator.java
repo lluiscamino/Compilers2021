@@ -1,4 +1,4 @@
-package assembly;
+package assembly.x86;
 
 import tac.tables.SubprogramsTable;
 import tac.tables.VariablesTable;

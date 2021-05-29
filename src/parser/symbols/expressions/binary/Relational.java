@@ -16,8 +16,8 @@ import tac.instructions.bifurcation.ifs.specialtypes.IfEqualString;
 import tac.references.TACLiteral;
 import tac.references.TACTag;
 
-import static assembly.AssemblyCodeGenerationConstants.FALSE;
-import static assembly.AssemblyCodeGenerationConstants.TRUE;
+import static assembly.x86.AssemblyCodeGenerationConstants.FALSE;
+import static assembly.x86.AssemblyCodeGenerationConstants.TRUE;
 
 public final class Relational extends Expression {
     private final Expression leftExpression, rightExpression;

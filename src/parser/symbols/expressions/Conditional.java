@@ -12,7 +12,7 @@ import tac.instructions.bifurcation.ifs.IfEqual;
 import tac.references.TACLiteral;
 import tac.references.TACTag;
 
-import static assembly.AssemblyCodeGenerationConstants.FALSE;
+import static assembly.x86.AssemblyCodeGenerationConstants.FALSE;
 
 public final class Conditional extends Expression {
     private final Expression condition, leftExpression, rightExpression;
