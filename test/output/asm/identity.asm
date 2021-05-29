@@ -70,11 +70,6 @@ t_main:
 	call	print_uint64
 /*goto e0*/
 	jmp 	e0
-/*t12 = 0*/
-	movq	$0, %rax
-	movq	%rax, -56(%rbp)
-/*goto e1*/
-	jmp 	e1
 /*e0: skip*/
 e0:
 /*t12 = -1*/

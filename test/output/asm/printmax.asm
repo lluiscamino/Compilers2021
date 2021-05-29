@@ -162,11 +162,6 @@ t_main:
 	subq	$88, %rsp
 /*goto e12*/
 	jmp 	e12
-/*t7 = 4*/
-	movq	$4, %rax
-	movq	%rax, -8(%rbp)
-/*goto e13*/
-	jmp 	e13
 /*e12: skip*/
 e12:
 /*t7 = 9*/
@@ -199,9 +194,6 @@ e13:
 	movq	%rax, -32(%rbp)
 /*goto e15*/
 	jmp 	e15
-/*t17 = 9*/
-	movq	$9, %rax
-	movq	%rax, -32(%rbp)
 /*e15: skip*/
 e15:
 /*t21 = -3*/

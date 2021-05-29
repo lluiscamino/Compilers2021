@@ -17,18 +17,6 @@ _main:
 	mov 	$0x02000001, %rax
 	xor 	$0, %rdi
 	syscall
-/*pmb s0*/
-	push	%rbp
-	mov 	%rsp, %rbp
-	subq	$0, %rsp
-/*printString("This will never be printed\n")*/
-	movq	str_3@GOTPCREL(%rip), %rsi
-	call	print_string
-/*rtn s0*/
-	movq	%rbp, %rsp
-	pop 	%rbp
-	ret
-
 /*t_main: skip*/
 t_main:
 /*pmb s1*/
@@ -40,35 +28,7 @@ t_main:
 	pop 	%rbp
 	ret
 
-/**
- * Returns a string's length (saves to %rdx)
- * Params:
- * - %rsi: String address
- * https://stackoverflow.com/questions/60482733/how-to-traverse-a-string-in-assembly-until-i-reach-null-strlen-loop
- */
-string_length:
-	lea 	-1(%rsi), %rdx
-	.Lloop:
-		inc 	%rdx
-		cmpb	$0, (%rdx)
-		jne 	.Lloop
-	sub 	%rsi, %rdx
-	ret
-
-/**
- * Prints a string to stdout
- * Params:
- * - %rsi: String address
- */
-print_string:
-	call	string_length
-	mov 	$0x02000004, %rax
-	mov 	$1, %rdi
-	syscall
-	ret
-
 .section __DATA, __data
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	str_3: .asciz "This will never be printed\n"

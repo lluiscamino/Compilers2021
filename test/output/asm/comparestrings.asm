@@ -25,11 +25,6 @@ t_main:
 	subq	$96, %rsp
 /*goto e0*/
 	jmp 	e0
-/*t2 = 0*/
-	movq	$0, %rax
-	movq	%rax, -8(%rbp)
-/*goto e1*/
-	jmp 	e1
 /*e0: skip*/
 e0:
 /*t2 = -1*/
@@ -45,9 +40,6 @@ e1:
 	movq	%rax, -16(%rbp)
 /*goto e3*/
 	jmp 	e3
-/*t5 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -16(%rbp)
 /*e3: skip*/
 e3:
 /*printBoolean(t5)*/
@@ -55,11 +47,6 @@ e3:
 	call	print_boolean
 /*goto e4*/
 	jmp 	e4
-/*t8 = 0*/
-	movq	$0, %rax
-	movq	%rax, -24(%rbp)
-/*goto e5*/
-	jmp 	e5
 /*e4: skip*/
 e4:
 /*t8 = -1*/
@@ -75,9 +62,6 @@ e5:
 	movq	%rax, -32(%rbp)
 /*goto e7*/
 	jmp 	e7
-/*t11 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -32(%rbp)
 /*e7: skip*/
 e7:
 /*printBoolean(t11)*/
@@ -175,11 +159,6 @@ e15:
 	call	print_boolean
 /*goto e16*/
 	jmp 	e16
-/*t20 = 0*/
-	movq	$0, %rax
-	movq	%rax, -88(%rbp)
-/*goto e17*/
-	jmp 	e17
 /*e16: skip*/
 e16:
 /*t20 = -1*/
@@ -195,9 +174,6 @@ e17:
 	movq	%rax, -96(%rbp)
 /*goto e19*/
 	jmp 	e19
-/*t23 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -96(%rbp)
 /*e19: skip*/
 e19:
 /*printBoolean(t23)*/
