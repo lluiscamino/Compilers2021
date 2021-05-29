@@ -1,0 +1,11 @@
+function average int(int[] nums) {
+    var int sum = 0;
+    for (var int num : nums) {
+        sum += num;
+    }
+    return sum / length(nums);
+}
+
+main() {
+    print(average({10, 5, 7, 4, 3, 7}));
+}
