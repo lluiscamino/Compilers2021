@@ -12,11 +12,12 @@ _main:
 	subq	$0, %rsp
 	movq	decl_2@GOTPCREL(%rip), %rsi
 	movq	%rbp, (%rsi)
-/*t_max2: skip*/
+/*init*/
 	call	t_main
 	mov 	$0x02000001, %rax
 	xor 	$0, %rdi
 	syscall
+/*t_max2: skip*/
 t_max2:
 /*pmb s0*/
 	push	%rbp

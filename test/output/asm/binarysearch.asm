@@ -12,11 +12,12 @@ _main:
 	subq	$0, %rsp
 	movq	decl_2@GOTPCREL(%rip), %rsi
 	movq	%rbp, (%rsi)
-/*t_binarySearch: skip*/
+/*init*/
 	call	t_main
 	mov 	$0x02000001, %rax
 	xor 	$0, %rdi
 	syscall
+/*t_binarySearch: skip*/
 t_binarySearch:
 /*pmb s0*/
 	push	%rbp

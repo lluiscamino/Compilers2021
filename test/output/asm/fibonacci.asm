@@ -12,11 +12,12 @@ _main:
 	subq	$0, %rsp
 	movq	decl_2@GOTPCREL(%rip), %rsi
 	movq	%rbp, (%rsi)
-/*t_fibonacci: skip*/
+/*init*/
 	call	t_main
 	mov 	$0x02000001, %rax
 	xor 	$0, %rdi
 	syscall
+/*t_fibonacci: skip*/
 t_fibonacci:
 /*pmb s0*/
 	push	%rbp

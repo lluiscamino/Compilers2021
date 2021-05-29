@@ -15,11 +15,12 @@ _main:
 /*a = 3*/
 	movq	$3, %rax
 	movq	%rax, -8(%rbp)
-/*t_printA: skip*/
+/*init*/
 	call	t_main
 	mov 	$0x02000001, %rax
 	xor 	$0, %rdi
 	syscall
+/*t_printA: skip*/
 t_printA:
 /*pmb s0*/
 	push	%rbp
