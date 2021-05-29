@@ -13,7 +13,7 @@ public final class SizeOffsetCalculator {
                 variablesTable.setGlobalVariablesSize(variablesTable.getGlobalVariablesSize() + variableSize);
                 offset = -variablesTable.getGlobalVariablesSize();
             } else if (variableInfo.isSubprogramArgument()) {
-                subprogramInfo.setLocalParametersSize(subprogramInfo.getLocalParametersSize() + 8); // params are sent as addresses
+                subprogramInfo.setLocalParametersSize(subprogramInfo.getLocalParametersSize() + variableSize);
                 offset = subprogramInfo.getLocalParametersSize();
             } else {
                 if (subprogramInfo.getLocalVariablesSize() == 0) {
