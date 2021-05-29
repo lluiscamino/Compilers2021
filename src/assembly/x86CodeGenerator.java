@@ -641,7 +641,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     private String loadInstruction(TACReference reference, String register) {
         if (reference instanceof TACLiteral) {
             if (((TACLiteral) reference).type().isString()) {
-                String declarationName = "decl_" + constantDeclarations.size();
+                String declarationName = "str_" + constantDeclarations.size();
                 constantDeclarations.add(String.format("%s: .asciz %s\n", declarationName, reference));
                 return String.format("\tmovq\t%s, %s", declarationName + "@GOTPCREL(%rip)", register);
             }
