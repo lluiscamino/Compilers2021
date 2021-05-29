@@ -22,6 +22,7 @@ import tac.instructions.io.print.PrintBooleanInstruction;
 import tac.instructions.io.print.PrintIntInstruction;
 import tac.instructions.io.print.PrintStringInstruction;
 import tac.instructions.length.StringLengthInstruction;
+import tac.instructions.special.InitProgramInstruction;
 import tac.instructions.subprogram.ComplexParameterInstruction;
 import tac.instructions.subprogram.PreambleInstruction;
 import tac.instructions.subprogram.SimpleParameterInstruction;
@@ -110,6 +111,19 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
             epilogue.append("\t").append(declaration);
         }
         return epilogue.toString();
+    }
+
+    @Override
+    public String generate(InitProgramInstruction tacInstruction) {
+        initialScope = false;
+        return String.format("""
+                            \tcall\t%s
+                            \tmov \t$0x02000001, %%rax
+                            \txor \t$0, %%rdi
+                            \tsyscall
+                            """,
+                subprogramsTable.get("main").getTag()
+        );
     }
 
     @Override
@@ -281,19 +295,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(SkipInstruction tacInstruction) {
-        String result = "";
-        if (initialScope) {
-            result += String.format("""
-                            \tcall\t%s
-                            \tmov \t$0x02000001, %%rax
-                            \txor \t$0, %%rdi
-                            \tsyscall
-                            """,
-                    subprogramsTable.get("main").getTag()
-            );
-            initialScope = false;
-        }
-        return result + tacInstruction.getFirstReference() + ":\n";
+        return tacInstruction.getFirstReference() + ":\n";
     }
 
     @Override

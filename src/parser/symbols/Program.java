@@ -8,6 +8,7 @@ import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.declarations.subprogram.MainDeclaration;
 import parser.symbols.declarations.subprogram.SubprogramDeclaration;
 import symboltable.SymbolTable;
+import tac.instructions.special.InitProgramInstruction;
 
 public final class Program extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "PROGRAM";
@@ -49,6 +50,7 @@ public final class Program extends ParserSymbol {
         addSubprogramsToSymbolTable(); // Primero, añadimos todos los subprogramas a la tabla de símbolos para que se puedan llamar entre ellos, independientemente del orden de declaración.
         addSubprogramsToSubprogramsTable();
         generateCVAsTAC(); // Luego, generamos el TAC de todos los CVAs para que puedan ser accedidos desde cualquier subprograma, independientemente del orden de definición.
+        addTACInstruction(new InitProgramInstruction());
         generateSubprogramsTAC(); // Finalmente, se genera el TAC de los subprogramas (se genera el TAC de todas las instrucciones).
     }
 
