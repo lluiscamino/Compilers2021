@@ -31,10 +31,8 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
-/*t3 = 37 + 28*/
-	movq	$37, %rax
-	movq	$28, %rbx
-	addq	%rbx, %rax
+/*t3 = 65*/
+	movq	$65, %rax
 	movq	%rax, -24(%rbp)
 /*t0[8] = t3*/
 	movq	-16(%rbp), %rcx
@@ -42,10 +40,8 @@ t_main:
 	addq	%rbx, %rcx
 	movq	-24(%rbp), %rbx
 	movq	%rbx, (%rcx)
-/*t6 = 89 + 4*/
-	movq	$89, %rax
-	movq	$4, %rbx
-	addq	%rbx, %rax
+/*t6 = 93*/
+	movq	$93, %rax
 	movq	%rax, -32(%rbp)
 /*t0[16] = t6*/
 	movq	-16(%rbp), %rcx
@@ -53,10 +49,8 @@ t_main:
 	addq	%rbx, %rcx
 	movq	-32(%rbp), %rbx
 	movq	%rbx, (%rcx)
-/*t9 = 25 + 3*/
-	movq	$25, %rax
-	movq	$3, %rbx
-	addq	%rbx, %rax
+/*t9 = 28*/
+	movq	$28, %rax
 	movq	%rax, -40(%rbp)
 /*t0[24] = t9*/
 	movq	-16(%rbp), %rcx
@@ -64,10 +58,8 @@ t_main:
 	addq	%rbx, %rcx
 	movq	-40(%rbp), %rbx
 	movq	%rbx, (%rcx)
-/*t12 = 84 + 8*/
-	movq	$84, %rax
-	movq	$8, %rbx
-	addq	%rbx, %rax
+/*t12 = 92*/
+	movq	$92, %rax
 	movq	%rax, -48(%rbp)
 /*t0[32] = t12*/
 	movq	-16(%rbp), %rcx

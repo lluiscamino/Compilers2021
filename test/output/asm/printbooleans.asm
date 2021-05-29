@@ -56,18 +56,14 @@ t_main:
 	push	%rax
 /*call s0*/
 	call	t_printNot
-/*t7 = -1 and 0*/
-	movq	$-1, %rax
-	movq	$0, %rbx
-	andq	%rbx, %rax
+/*t7 = 0*/
+	movq	$0, %rax
 	movq	%rax, -8(%rbp)
 /*printBoolean(t7)*/
 	movq	-8(%rbp), %rbx
 	call	print_boolean
-/*t10 = -1 or 0*/
+/*t10 = -1*/
 	movq	$-1, %rax
-	movq	$0, %rbx
-	orq 	%rbx, %rax
 	movq	%rax, -16(%rbp)
 /*printBoolean(t10)*/
 	movq	-16(%rbp), %rbx
@@ -106,14 +102,12 @@ e3:
 /*printBoolean(t17)*/
 	movq	-40(%rbp), %rbx
 	call	print_boolean
-/*t19 = not -1*/
-	movq	$-1, %rbx
-	notq	%rbx
-	movq	%rbx, -48(%rbp)
-/*t21 = not 0*/
-	movq	$0, %rbx
-	notq	%rbx
-	movq	%rbx, -56(%rbp)
+/*t19 = 0*/
+	movq	$0, %rax
+	movq	%rax, -48(%rbp)
+/*t21 = -1*/
+	movq	$-1, %rax
+	movq	%rax, -56(%rbp)
 /*t22 = t19 or t21*/
 	movq	-48(%rbp), %rax
 	movq	-56(%rbp), %rbx

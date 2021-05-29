@@ -79,20 +79,18 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$0, %rbx
 	movq	%rbx, (%rcx)
-/*t9 = not -1*/
-	movq	$-1, %rbx
-	notq	%rbx
-	movq	%rbx, -40(%rbp)
+/*t9 = 0*/
+	movq	$0, %rax
+	movq	%rax, -40(%rbp)
 /*t5[24] = t9*/
 	movq	-32(%rbp), %rcx
 	movq	$24, %rbx
 	addq	%rbx, %rcx
 	movq	-40(%rbp), %rbx
 	movq	%rbx, (%rcx)
-/*t11 = not 0*/
-	movq	$0, %rbx
-	notq	%rbx
-	movq	%rbx, -48(%rbp)
+/*t11 = -1*/
+	movq	$-1, %rax
+	movq	%rax, -48(%rbp)
 /*t5[32] = t11*/
 	movq	-32(%rbp), %rcx
 	movq	$32, %rbx
@@ -138,10 +136,8 @@ t_main:
 /*stringArray = t12*/
 	movq	-64(%rbp), %rax
 	movq	%rax, -56(%rbp)
-/*t18 = 2 + 1*/
-	movq	$2, %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
+/*t18 = 3*/
+	movq	$3, %rax
 	movq	%rax, -72(%rbp)
 /*t18 = t18 * 8*/
 	movq	-72(%rbp), %rax
@@ -157,10 +153,8 @@ t_main:
 /*printInt(t19)*/
 	movq	-80(%rbp), %rdi
 	call	print_uint64
-/*t21 = 2 + 1*/
-	movq	$2, %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
+/*t21 = 3*/
+	movq	$3, %rax
 	movq	%rax, -88(%rbp)
 /*t21 = t21 * 8*/
 	movq	-88(%rbp), %rax
@@ -176,10 +170,8 @@ t_main:
 /*printBoolean(t22)*/
 	movq	-96(%rbp), %rbx
 	call	print_boolean
-/*t24 = 2 + 1*/
-	movq	$2, %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
+/*t24 = 3*/
+	movq	$3, %rax
 	movq	%rax, -104(%rbp)
 /*t24 = t24 * 8*/
 	movq	-104(%rbp), %rax

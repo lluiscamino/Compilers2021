@@ -173,15 +173,11 @@ e12:
 	movq	%rax, -8(%rbp)
 /*e13: skip*/
 e13:
-/*t11 = - 3*/
-	xorq 	%rax, %rax
-	movq	$3, %rbx
-	subq	%rbx, %rax
+/*t11 = -3*/
+	movq	$-3, %rax
 	movq	%rax, -16(%rbp)
-/*t14 = 4 + 2*/
-	movq	$4, %rax
-	movq	$2, %rbx
-	addq	%rbx, %rax
+/*t14 = 6*/
+	movq	$6, %rax
 	movq	%rax, -24(%rbp)
 /*param_s t7*/
 	movq	-8(%rbp), %rax
@@ -209,15 +205,11 @@ e14:
 	movq	%rax, -32(%rbp)
 /*e15: skip*/
 e15:
-/*t21 = - 3*/
-	xorq 	%rax, %rax
-	movq	$3, %rbx
-	subq	%rbx, %rax
+/*t21 = -3*/
+	movq	$-3, %rax
 	movq	%rax, -40(%rbp)
-/*t24 = 4 + 2*/
-	movq	$4, %rax
-	movq	$2, %rbx
-	addq	%rbx, %rax
+/*t24 = 6*/
+	movq	$6, %rax
 	movq	%rax, -48(%rbp)
 /*param_s t17*/
 	movq	-32(%rbp), %rax
@@ -233,25 +225,17 @@ e15:
 	push	%rax
 /*call s0*/
 	call	t_printMaxInteger
-/*t27 = - 27*/
-	xorq 	%rax, %rax
-	movq	$27, %rbx
-	subq	%rbx, %rax
+/*t27 = -27*/
+	movq	$-27, %rax
 	movq	%rax, -56(%rbp)
-/*t29 = - 23*/
-	xorq 	%rax, %rax
-	movq	$23, %rbx
-	subq	%rbx, %rax
+/*t29 = -23*/
+	movq	$-23, %rax
 	movq	%rax, -64(%rbp)
-/*t31 = - 45*/
-	xorq 	%rax, %rax
-	movq	$45, %rbx
-	subq	%rbx, %rax
+/*t31 = -45*/
+	movq	$-45, %rax
 	movq	%rax, -72(%rbp)
-/*t33 = - 34*/
-	xorq 	%rax, %rax
-	movq	$34, %rbx
-	subq	%rbx, %rax
+/*t33 = -34*/
+	movq	$-34, %rax
 	movq	%rax, -80(%rbp)
 /*param_s t27*/
 	movq	-56(%rbp), %rax
@@ -267,10 +251,8 @@ e15:
 	push	%rax
 /*call s0*/
 	call	t_printMaxInteger
-/*t35 = - 23231*/
-	xorq 	%rax, %rax
-	movq	$23231, %rbx
-	subq	%rbx, %rax
+/*t35 = -23231*/
+	movq	$-23231, %rax
 	movq	%rax, -88(%rbp)
 /*param_s t35*/
 	movq	-88(%rbp), %rax

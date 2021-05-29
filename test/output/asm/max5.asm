@@ -171,15 +171,11 @@ t_main:
 	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$160, %rsp
-/*t10 = - 12*/
-	xorq 	%rax, %rax
-	movq	$12, %rbx
-	subq	%rbx, %rax
+/*t10 = -12*/
+	movq	$-12, %rax
 	movq	%rax, -16(%rbp)
-/*t16 = 12 + 7*/
-	movq	$12, %rax
-	movq	$7, %rbx
-	addq	%rbx, %rax
+/*t16 = 19*/
+	movq	$19, %rax
 	movq	%rax, -24(%rbp)
 /*param_s t10*/
 	movq	-16(%rbp), %rax
@@ -202,32 +198,22 @@ t_main:
 /*printInt(t8)*/
 	movq	-8(%rbp), %rdi
 	call	print_uint64
-/*t20 = 746 - 54*/
-	movq	$746, %rax
-	movq	$54, %rbx
-	subq	%rbx, %rax
+/*t20 = 692*/
+	movq	$692, %rax
 	movq	%rax, -40(%rbp)
 /*t22 = t20 + 327*/
 	movq	-40(%rbp), %rax
 	movq	$327, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -48(%rbp)
-/*t25 = 720 + 64*/
-	movq	$720, %rax
-	movq	$64, %rbx
-	addq	%rbx, %rax
+/*t25 = 784*/
+	movq	$784, %rax
 	movq	%rax, -56(%rbp)
-/*t28 = 1027 / 3*/
-	movq	$1027, %rax
-	movq	%rax, %rdx
-	sarq	$31, %rdx
-	movq	$3, %rbx
-	idivq	%rbx
+/*t28 = 342*/
+	movq	$342, %rax
 	movq	%rax, -64(%rbp)
-/*t30 = - 245*/
-	xorq 	%rax, %rax
-	movq	$245, %rbx
-	subq	%rbx, %rax
+/*t30 = -245*/
+	movq	$-245, %rax
 	movq	%rax, -72(%rbp)
 /*param_s t22*/
 	movq	-48(%rbp), %rax
@@ -250,10 +236,8 @@ t_main:
 /*printInt(t17)*/
 	movq	-32(%rbp), %rdi
 	call	print_uint64
-/*t34 = - 1*/
-	xorq 	%rax, %rax
-	movq	$1, %rbx
-	subq	%rbx, %rax
+/*t34 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -88(%rbp)
 /*param_s t34*/
 	movq	-88(%rbp), %rax
@@ -294,15 +278,11 @@ t_main:
 /*t40 = call s3*/
 	call	t_max5
 	movq	%rax, -104(%rbp)
-/*t48 = - 235*/
-	xorq 	%rax, %rax
-	movq	$235, %rbx
-	subq	%rbx, %rax
+/*t48 = -235*/
+	movq	$-235, %rax
 	movq	%rax, -120(%rbp)
-/*t50 = - 72*/
-	xorq 	%rax, %rax
-	movq	$72, %rbx
-	subq	%rbx, %rax
+/*t50 = -72*/
+	movq	$-72, %rax
 	movq	%rax, -128(%rbp)
 /*param_s t48*/
 	movq	-120(%rbp), %rax
@@ -340,10 +320,8 @@ t_main:
 /*t54 = call s3*/
 	call	t_max5
 	movq	%rax, -136(%rbp)
-/*t65 = - 43*/
-	xorq 	%rax, %rax
-	movq	$43, %rbx
-	subq	%rbx, %rax
+/*t65 = -43*/
+	movq	$-43, %rax
 	movq	%rax, -152(%rbp)
 /*param_s 65*/
 	movq	$65, %rax

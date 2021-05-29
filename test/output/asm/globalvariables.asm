@@ -61,10 +61,8 @@ t_main:
 	subq	$8, %rsp
 /*call s0*/
 	call	t_printA
-/*t2 = - 9*/
-	xorq 	%rax, %rax
-	movq	$9, %rbx
-	subq	%rbx, %rax
+/*t2 = -9*/
+	movq	$-9, %rax
 	movq	%rax, -8(%rbp)
 /*param_s t2*/
 	movq	-8(%rbp), %rax

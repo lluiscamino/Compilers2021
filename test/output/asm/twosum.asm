@@ -31,10 +31,8 @@ t_twoSum:
 	addq	%rbx, %rcx
 	movq	$2, %rbx
 	movq	%rbx, (%rcx)
-/*t2 = - 1*/
-	xorq 	%rax, %rax
-	movq	$1, %rbx
-	subq	%rbx, %rax
+/*t2 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -40(%rbp)
 /*t0[8] = t2*/
 	movq	-32(%rbp), %rcx
@@ -42,10 +40,8 @@ t_twoSum:
 	addq	%rbx, %rcx
 	movq	-40(%rbp), %rbx
 	movq	%rbx, (%rcx)
-/*t4 = - 1*/
-	xorq 	%rax, %rax
-	movq	$1, %rbx
-	subq	%rbx, %rax
+/*t4 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -48(%rbp)
 /*t0[16] = t4*/
 	movq	-32(%rbp), %rcx
@@ -396,10 +392,8 @@ t_main:
 /*result = t26*/
 	movq	-16(%rbp), %rax
 	movq	%rax, -8(%rbp)
-/*t47 = 0 + 1*/
-	movq	$0, %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
+/*t47 = 1*/
+	movq	$1, %rax
 	movq	%rax, -32(%rbp)
 /*t47 = t47 * 8*/
 	movq	-32(%rbp), %rax
@@ -412,10 +406,8 @@ t_main:
 	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -40(%rbp)
-/*t50 = - 1*/
-	xorq 	%rax, %rax
-	movq	$1, %rbx
-	subq	%rbx, %rax
+/*t50 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -48(%rbp)
 /*if t48 != t50 goto e11*/
 	movq	-40(%rbp), %rax
@@ -436,10 +428,8 @@ e11:
 	movq	%rax, -56(%rbp)
 /*e12: skip*/
 e12:
-/*t53 = 1 + 1*/
-	movq	$1, %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
+/*t53 = 2*/
+	movq	$2, %rax
 	movq	%rax, -64(%rbp)
 /*t53 = t53 * 8*/
 	movq	-64(%rbp), %rax
@@ -452,10 +442,8 @@ e12:
 	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -72(%rbp)
-/*t56 = - 1*/
-	xorq 	%rax, %rax
-	movq	$1, %rbx
-	subq	%rbx, %rax
+/*t56 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -80(%rbp)
 /*if t54 != t56 goto e13*/
 	movq	-72(%rbp), %rax
@@ -491,10 +479,8 @@ e14:
 /*printString("Resultado: \n")*/
 	movq	str_6@GOTPCREL(%rip), %rsi
 	call	print_string
-/*t61 = 0 + 1*/
-	movq	$0, %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
+/*t61 = 1*/
+	movq	$1, %rax
 	movq	%rax, -104(%rbp)
 /*t61 = t61 * 8*/
 	movq	-104(%rbp), %rax
@@ -510,10 +496,8 @@ e14:
 /*printInt(t62)*/
 	movq	-112(%rbp), %rdi
 	call	print_uint64
-/*t64 = 1 + 1*/
-	movq	$1, %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
+/*t64 = 2*/
+	movq	$2, %rax
 	movq	%rax, -120(%rbp)
 /*t64 = t64 * 8*/
 	movq	-120(%rbp), %rax

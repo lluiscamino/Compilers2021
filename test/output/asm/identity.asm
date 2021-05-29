@@ -34,10 +34,8 @@ t_main:
 	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$72, %rsp
-/*t2 = - 7*/
-	xorq 	%rax, %rax
-	movq	$7, %rbx
-	subq	%rbx, %rax
+/*t2 = -7*/
+	movq	$-7, %rax
 	movq	%rax, -16(%rbp)
 /*param_s t2*/
 	movq	-16(%rbp), %rax
@@ -57,10 +55,8 @@ t_main:
 /*printInt(t3)*/
 	movq	-24(%rbp), %rdi
 	call	print_uint64
-/*t8 = 4 + 7*/
-	movq	$4, %rax
-	movq	$7, %rbx
-	addq	%rbx, %rax
+/*t8 = 11*/
+	movq	$11, %rax
 	movq	%rax, -40(%rbp)
 /*param_s t8*/
 	movq	-40(%rbp), %rax
@@ -99,10 +95,8 @@ e1:
 	jmp 	e3
 /*e2: skip*/
 e2:
-/*t16 = - 2*/
-	xorq 	%rax, %rax
-	movq	$2, %rbx
-	subq	%rbx, %rax
+/*t16 = -2*/
+	movq	$-2, %rax
 	movq	%rax, -72(%rbp)
 /*t13 = t16*/
 	movq	-72(%rbp), %rax

@@ -39,10 +39,8 @@ t_binarySearch:
 /*right = t3*/
 	movq	-48(%rbp), %rax
 	movq	%rax, -32(%rbp)
-/*t5 = - 1*/
-	xorq 	%rax, %rax
-	movq	$1, %rbx
-	subq	%rbx, %rax
+/*t5 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -64(%rbp)
 /*result = t5*/
 	movq	-64(%rbp), %rax
@@ -241,10 +239,8 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$6, %rbx
 	movq	%rbx, (%rcx)
-/*t28 = - 1*/
-	xorq 	%rax, %rax
-	movq	$1, %rbx
-	subq	%rbx, %rax
+/*t28 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -24(%rbp)
 /*t26[8] = t28*/
 	movq	-16(%rbp), %rcx
@@ -303,10 +299,8 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$6, %rbx
 	movq	%rbx, (%rcx)
-/*t38 = - 1*/
-	xorq 	%rax, %rax
-	movq	$1, %rbx
-	subq	%rbx, %rax
+/*t38 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -48(%rbp)
 /*t36[8] = t38*/
 	movq	-40(%rbp), %rcx
@@ -365,10 +359,8 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$6, %rbx
 	movq	%rbx, (%rcx)
-/*t48 = - 1*/
-	xorq 	%rax, %rax
-	movq	$1, %rbx
-	subq	%rbx, %rax
+/*t48 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -72(%rbp)
 /*t46[8] = t48*/
 	movq	-64(%rbp), %rcx
@@ -427,10 +419,8 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$6, %rbx
 	movq	%rbx, (%rcx)
-/*t58 = - 1*/
-	xorq 	%rax, %rax
-	movq	$1, %rbx
-	subq	%rbx, %rax
+/*t58 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -96(%rbp)
 /*t56[8] = t58*/
 	movq	-88(%rbp), %rcx
@@ -489,10 +479,8 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$6, %rbx
 	movq	%rbx, (%rcx)
-/*t68 = - 1*/
-	xorq 	%rax, %rax
-	movq	$1, %rbx
-	subq	%rbx, %rax
+/*t68 = -1*/
+	movq	$-1, %rax
 	movq	%rax, -120(%rbp)
 /*t66[8] = t68*/
 	movq	-112(%rbp), %rcx
