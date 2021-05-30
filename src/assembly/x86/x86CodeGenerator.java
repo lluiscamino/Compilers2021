@@ -442,15 +442,15 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(ReadInstruction tacInstruction) {
-        String bufferName = "buffer_" + constantDeclarations.size();
-        constantDeclarations.add(String.format("%s: .space %s\n", bufferName, STRING_BUFFER_BYTES));
         subprograms.get("read_string").setUsed();
         return String.format("""
-                        \tmovq\t%s@GOTPCREL(%%rip), %%rsi
-                        \tcall \tread_string
+                        \tpush\t$%s
+                        \tcallq\t_malloc
+                        \tmovq\t%%rax, %%rsi
+                        \tcall\tread_string
                         %s
                         """,
-                bufferName,
+                STRING_BUFFER_BYTES,
                 storeInstruction("%rsi", tacInstruction.getFirstReference())
         );
     }
