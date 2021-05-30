@@ -27,7 +27,14 @@ public final class ReadStringSubprogram extends AssemblyLibrarySubprogram {
                  * - %%rsi: Address where the string will be saved
                  */
                 read_string:
-                \tmov \t$0x02000003, %%rax
+                \tmovq\t%%rsi, %%rdi
+                \tlea \t-1(%%rdi), %%rdx /* Clear buffer */
+                \t.Rloop:
+                \t\tinc \t%%rdx
+                \t\tcmpb\t$0, (%%rdx)
+                \t\tmovq\t$0, (%%rdx)
+                \t\tjne \t.Rloop
+                \tmov \t$0x02000003, %%rax /* Read string */
                 \tmov \t$0, %%rdi
                 \tmovq\t$%s, %%rdx
                 \tsyscall
