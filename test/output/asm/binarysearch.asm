@@ -201,8 +201,8 @@ e8:
 /*right = t21*/
 	movq	-176(%rbp), %rax
 	movq	%rax, -32(%rbp)
-/*goto e10*/
-	jmp 	e10
+/*goto e0*/
+	jmp 	e0
 /*e9: skip*/
 e9:
 /*t23 = middle + 1*/

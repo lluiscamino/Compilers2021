@@ -73,12 +73,12 @@ e3:
 	movq	%rax, -48(%rbp)
 /*e4: skip*/
 e4:
-/*if t6 = 0 goto e5*/
+/*if t6 = 0 goto e0*/
 	movq	-48(%rbp), %rax
 	movq	$0, %rbx
 	cmpq	%rbx, %rax
 	jne 	1f
-	jmp	e5
+	jmp	e0
 1:
 /*t7 = i + 1*/
 	movq	-24(%rbp), %rax

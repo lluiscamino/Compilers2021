@@ -72,8 +72,8 @@ t_main:
 /*t13 = 0*/
 	movq	$0, %rax
 	movq	%rax, -24(%rbp)
-/*goto e1*/
-	jmp 	e1
+/*goto e2*/
+	jmp 	e2
 /*e1: skip*/
 e1:
 /*goto e2*/
