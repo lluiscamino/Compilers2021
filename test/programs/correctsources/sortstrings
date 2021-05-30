@@ -5,7 +5,7 @@ function bubbleSort string[](string[] arr) {
     var boolean swapped = false;
     for (var int i = 0; i < n && !swapped; i += 1) {
         swapped = true;
-        for (var int j = 0; j < n; j += 1) {
+        for (var int j = 0; j < n - 1; j += 1) {
             if (length(arr[j]) > length(arr[j + 1])) {
                 swapped = false;
                 var string aux = arr[j];
