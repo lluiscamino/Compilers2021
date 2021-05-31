@@ -93,7 +93,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                                 \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
                                 \tmovq\t%%rbp, (%%rsi)
                                 """,
-                        variablesTable.getGlobalVariablesSize()
+                        variablesTable.getGlobalVariablesSize() % 16 == 0 ? variablesTable.getGlobalVariablesSize() : variablesTable.getGlobalVariablesSize() + 8
                 )
         );
         return preamble.toString();
@@ -404,7 +404,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         \tmov \t%%rsp, %%rbp
                         \tsubq\t$%s, %%rsp
                         """,
-                subprogramInfo.getLocalVariablesSize()
+                subprogramInfo.getLocalVariablesSize() % 16 == 0 ? subprogramInfo.getLocalVariablesSize() : subprogramInfo.getLocalVariablesSize() + 8
         );
     }
 
@@ -443,11 +443,10 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(ReadInstruction tacInstruction) {
-        subprograms.get("dynalloc").setUsed();
         subprograms.get("read_string").setUsed();
         return String.format("""
-                        \tpush\t$%s
-                        \tcall\tdynalloc
+                        \tmovq\t$%s, %%rdi
+                        \tcall\t_malloc
                         \tmovq\t%%rax, %%rsi
                         \tcall\tread_string
                         %s
@@ -509,12 +508,10 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(NewArrayInstruction tacInstruction) {
-        subprograms.get("dynalloc").setUsed();
         TACReference size = tacInstruction.getSecondReference();
         return String.format("""
                         %s
-                        push\t%%rax
-                        \tcall\tdynalloc
+                        \tcall\t_malloc
                         %s
                         """,
                 loadInstruction(size, "%rax"),
