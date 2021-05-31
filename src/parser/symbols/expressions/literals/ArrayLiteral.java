@@ -1,20 +1,20 @@
 package parser.symbols.expressions.literals;
 
 import dot.DotNode;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 import java_cup.runtime.ComplexSymbolFactory.Location;
+import main.Compiler;
 import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
-import tac.instructions.array.NewArrayInstruction;
+import tac.instructions.array.NewStaticArrayInstruction;
 import tac.instructions.indexation.IndexAssignmentInstruction;
 import tac.references.TACLiteral;
-import main.Compiler;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public final class ArrayLiteral extends Literal {
     
@@ -97,7 +97,7 @@ public final class ArrayLiteral extends Literal {
         tacVariable = variableGenerator.generate(getType());
         List<Expression> items = getValue() != null ? getValue().toArrayList() : new ArrayList<>();
         int counter = 1;
-        addTACInstruction(new NewArrayInstruction(tacVariable, new TACLiteral((items.size() + 1)), new TACLiteral(PrimitiveType.INT.sizeInBytes()))); // TODO: get real type
+        addTACInstruction(new NewStaticArrayInstruction(tacVariable, new TACLiteral((items.size() + 1)), new TACLiteral(PrimitiveType.INT.sizeInBytes()))); // TODO: get real type
         addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(0), new TACLiteral(items.size())));
         for (Expression item : items) {
             item.toTac();

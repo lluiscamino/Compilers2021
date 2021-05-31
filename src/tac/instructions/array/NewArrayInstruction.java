@@ -1,22 +1,15 @@
 package tac.instructions.array;
 
-import assembly.AssemblyCodeGenerator;
-import tac.references.TACLiteral;
+import tac.instructions.TACInstruction;
 import tac.references.TACReference;
-import tac.references.TACVariable;
 
-public final class NewArrayInstruction extends ArrayInstruction {
-    public NewArrayInstruction(TACVariable variable, TACReference size) {
-        super(variable, size);
+public abstract class NewArrayInstruction extends TACInstruction {
+    public NewArrayInstruction(TACReference firstReference, TACReference secondReference) {
+        super(firstReference, secondReference, null);
     }
 
-    public NewArrayInstruction(TACReference firstReference, TACLiteral length, TACReference dataTypeSize) {
-        super(firstReference, length, dataTypeSize);
-    }
-
-    @Override
-    public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {
-        return codeGenerator.generate(this);
+    public NewArrayInstruction(TACReference firstReference, TACReference secondReference, TACReference thirdReference) {
+        super(firstReference, secondReference, thirdReference);
     }
 
     @Override

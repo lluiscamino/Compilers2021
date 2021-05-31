@@ -6,9 +6,8 @@ import parser.symbols.ArrayIndexes;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
-import tac.instructions.arithmetic.CopyInstruction;
 import tac.instructions.arithmetic.ProductInstruction;
-import tac.instructions.array.NewArrayInstruction;
+import tac.instructions.array.NewDynamicArrayInstruction;
 import tac.instructions.indexation.IndexAssignmentInstruction;
 import tac.references.TACLiteral;
 import tac.references.TACVariable;
@@ -49,7 +48,7 @@ public final class ArrayInstance extends Expression {
         PrimitiveType elementsType = indexesArray.size() == 1 ? primitiveType : PrimitiveType.INT;
 
         addTACInstruction(new ProductInstruction(arraySizeInBytes, firstIndex.getTacVariable(), new TACLiteral(elementsType.sizeInBytes())));
-        addTACInstruction(new NewArrayInstruction(tacVariable, arraySizeInBytes));
+        addTACInstruction(new NewDynamicArrayInstruction(tacVariable, arraySizeInBytes));
         addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(0), firstIndex.getTacVariable()));
     }
 }

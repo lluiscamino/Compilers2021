@@ -1,7 +1,8 @@
 package assembly;
 
 import tac.instructions.arithmetic.*;
-import tac.instructions.array.NewArrayInstruction;
+import tac.instructions.array.NewDynamicArrayInstruction;
+import tac.instructions.array.NewStaticArrayInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.*;
@@ -13,10 +14,15 @@ import tac.instructions.binary.OrInstruction;
 import tac.instructions.indexation.IndexAssignmentInstruction;
 import tac.instructions.indexation.IndexedValueInstruction;
 import tac.instructions.io.ReadInstruction;
-import tac.instructions.io.print.*;
+import tac.instructions.io.print.PrintArrayInstruction;
+import tac.instructions.io.print.PrintBooleanInstruction;
+import tac.instructions.io.print.PrintIntInstruction;
+import tac.instructions.io.print.PrintStringInstruction;
 import tac.instructions.length.StringLengthInstruction;
 import tac.instructions.special.InitProgramInstruction;
-import tac.instructions.subprogram.*;
+import tac.instructions.subprogram.ComplexParameterInstruction;
+import tac.instructions.subprogram.PreambleInstruction;
+import tac.instructions.subprogram.SimpleParameterInstruction;
 import tac.instructions.subprogram.calls.FunctionCallInstruction;
 import tac.instructions.subprogram.calls.ProcedureCallInstruction;
 import tac.instructions.subprogram.returns.FunctionReturnInstruction;
@@ -99,5 +105,7 @@ public interface AssemblyCodeGenerator {
 
     String generate(StringLengthInstruction tacInstruction);
 
-    String generate(NewArrayInstruction tacInstruction);
+    String generate(NewStaticArrayInstruction tacInstruction);
+
+    String generate(NewDynamicArrayInstruction tacInstruction);
 }

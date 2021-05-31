@@ -4,7 +4,8 @@ import assembly.AssemblyCodeGenerator;
 import assembly.AssemblyLibrarySubprogram;
 import assembly.x86.subprograms.*;
 import tac.instructions.arithmetic.*;
-import tac.instructions.array.NewArrayInstruction;
+import tac.instructions.array.NewDynamicArrayInstruction;
+import tac.instructions.array.NewStaticArrayInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.*;
@@ -508,16 +509,9 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     @Override
-    public String generate(NewArrayInstruction tacInstruction) {
-        TACReference size = tacInstruction.getSecondReference();
-        return size instanceof TACLiteral ? generateStaticArray(tacInstruction) : generateDynamicArray(tacInstruction);
-    }
-
-    private String generateStaticArray(NewArrayInstruction tacInstruction) {
+    public String generate(NewStaticArrayInstruction tacInstruction) {
         String declarationName = "arr_" + constantDeclarations.size();
-        TACLiteral length = (TACLiteral) tacInstruction.getSecondReference();
-        TACLiteral dataTypeSize = (TACLiteral) tacInstruction.getThirdReference();
-        constantDeclarations.add(String.format("%s: .fill %s, %s\n", declarationName, length.getValue(), dataTypeSize.getValue()));
+        constantDeclarations.add(String.format("%s: .fill %s, %s\n", declarationName, tacInstruction.getLength().getValue(), tacInstruction.getDataTypeSize().getValue()));
         return String.format("""
                         \tmovq\t%s, %%rax
                         %s
@@ -527,7 +521,8 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         );
     }
 
-    private String generateDynamicArray(NewArrayInstruction tacInstruction) {
+    @Override
+    public String generate(NewDynamicArrayInstruction tacInstruction) {
         return String.format("""
                         \tmovq\t%%rsp, %%rbx
                         \tand \t$-16, %%rsp
@@ -536,7 +531,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         \tmovq\t%%rbx, %%rsp
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
+                loadInstruction(tacInstruction.getSize(), "%rax"),
                 storeInstruction("%rax", tacInstruction.getFirstReference())
         );
     }
