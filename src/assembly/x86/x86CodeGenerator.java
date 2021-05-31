@@ -64,15 +64,13 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 printString = new PrintStringSubprogram(Collections.singletonList(stringLength)),
                 printBoolean = new PrintBooleanSubprogram(Collections.singletonList(printString)),
                 readString = new ReadStringSubprogram(),
-                compareStrings = new CompareStringsSubprogram(),
-                allocateDynamicMemory = new AllocateDynamicMemory();
+                compareStrings = new CompareStringsSubprogram();
         printInteger.addToMap(subprograms);
         stringLength.addToMap(subprograms);
         printString.addToMap(subprograms);
         printBoolean.addToMap(subprograms);
         readString.addToMap(subprograms);
         compareStrings.addToMap(subprograms);
-        allocateDynamicMemory.addToMap(subprograms);
     }
 
     @Override
@@ -93,7 +91,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                                 \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
                                 \tmovq\t%%rbp, (%%rsi)
                                 """,
-                        variablesTable.getGlobalVariablesSize() % 16 == 0 ? variablesTable.getGlobalVariablesSize() : variablesTable.getGlobalVariablesSize() + 8
+                        variablesTable.getGlobalVariablesSize()
                 )
         );
         return preamble.toString();
@@ -404,7 +402,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         \tmov \t%%rsp, %%rbp
                         \tsubq\t$%s, %%rsp
                         """,
-                subprogramInfo.getLocalVariablesSize() % 16 == 0 ? subprogramInfo.getLocalVariablesSize() : subprogramInfo.getLocalVariablesSize() + 8
+                subprogramInfo.getLocalVariablesSize()
         );
     }
 
@@ -446,7 +444,10 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         subprograms.get("read_string").setUsed();
         return String.format("""
                         \tmovq\t$%s, %%rdi
+                        \tmovq\t%%rsp, %%rbx
+                        \tand \t$-16, %%rsp
                         \tcall\t_malloc
+                        \tmovq\t%%rbx, %%rsp
                         \tmovq\t%%rax, %%rsi
                         \tcall\tread_string
                         %s
@@ -528,8 +529,11 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     private String generateDynamicArray(NewArrayInstruction tacInstruction) {
         return String.format("""
+                        \tmovq\t%%rsp, %%rbx
+                        \tand \t$-16, %%rsp
                         %s
                         \tcall\t_malloc
+                        \tmovq\t%%rbx, %%rsp
                         %s
                         """,
                 loadInstruction(tacInstruction.getSecondReference(), "%rax"),
