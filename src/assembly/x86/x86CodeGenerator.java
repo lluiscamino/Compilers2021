@@ -509,12 +509,30 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     @Override
     public String generate(NewArrayInstruction tacInstruction) {
         TACReference size = tacInstruction.getSecondReference();
+        return size instanceof TACLiteral ? generateStaticArray(tacInstruction) : generateDynamicArray(tacInstruction);
+    }
+
+    private String generateStaticArray(NewArrayInstruction tacInstruction) {
+        String declarationName = "arr_" + constantDeclarations.size();
+        TACLiteral length = (TACLiteral) tacInstruction.getSecondReference();
+        TACLiteral dataTypeSize = (TACLiteral) tacInstruction.getThirdReference();
+        constantDeclarations.add(String.format("%s: .fill %s, %s\n", declarationName, length.getValue(), dataTypeSize.getValue()));
+        return String.format("""
+                        \tmovq\t%s, %%rax
+                        %s
+                        """,
+                declarationName + "@GOTPCREL(%rip)",
+                storeInstruction("%rax", tacInstruction.getFirstReference())
+        );
+    }
+
+    private String generateDynamicArray(NewArrayInstruction tacInstruction) {
         return String.format("""
                         %s
                         \tcall\t_malloc
                         %s
                         """,
-                loadInstruction(size, "%rax"),
+                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
                 storeInstruction("%rax", tacInstruction.getFirstReference())
         );
     }

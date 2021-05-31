@@ -7,4 +7,8 @@ public abstract class ArrayInstruction extends TACInstruction {
     public ArrayInstruction(TACReference firstReference, TACReference secondReference) {
         super(firstReference, secondReference, null);
     }
+
+    public ArrayInstruction(TACReference firstReference, TACReference secondReference, TACReference thirdReference) {
+        super(firstReference, secondReference, thirdReference);
+    }
 }
