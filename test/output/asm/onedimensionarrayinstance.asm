@@ -26,11 +26,8 @@ t_main:
 /*t0 = 100*/
 	movq	$100, %rax
 	movq	%rax, -16(%rbp)
-/*t2 = t0*/
+/*t2 = t0 * 8*/
 	movq	-16(%rbp), %rax
-	movq	%rax, -32(%rbp)
-/*t2 = t2 * 8*/
-	movq	-32(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
 	movq	%rax, -32(%rbp)
