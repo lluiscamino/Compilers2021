@@ -48,8 +48,7 @@ public final class ArrayInstance extends Expression {
         Expression firstIndex = indexesArray.get(0);
         PrimitiveType elementsType = indexesArray.size() == 1 ? primitiveType : PrimitiveType.INT;
 
-        addTACInstruction(new CopyInstruction(arraySizeInBytes, firstIndex.getTacVariable()));
-        addTACInstruction(new ProductInstruction(arraySizeInBytes, arraySizeInBytes, new TACLiteral(elementsType.sizeInBytes())));
+        addTACInstruction(new ProductInstruction(arraySizeInBytes, firstIndex.getTacVariable(), new TACLiteral(elementsType.sizeInBytes())));
         addTACInstruction(new NewArrayInstruction(tacVariable, arraySizeInBytes));
         addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(0), firstIndex.getTacVariable()));
     }
