@@ -44,7 +44,7 @@ public enum PrimitiveType implements DOTizable {
             case INT -> 8;
             case BOOLEAN -> 8;
             case STRING -> 8;
-            case UNKNOWN -> 0;
+            case UNKNOWN -> 8;
         };
     }
 
