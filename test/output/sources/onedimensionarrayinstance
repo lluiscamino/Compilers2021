@@ -1,0 +1,11 @@
+main() {
+    var array int[] arr = array(int[100]);
+    var int sum = 0;
+    for (var int i = 0; i < length(arr); i += 1) {
+        arr[i] = i;
+    }
+    for (const int el : arr) {
+        sum += el;
+    }
+    print(sum);
+}

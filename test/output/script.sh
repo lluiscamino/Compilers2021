@@ -67,6 +67,10 @@ as asm/fibonacci.asm -o asm/fibonacci.asm.o
 ld asm/fibonacci.asm.o -o asm/fibonacci.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/fibonacci.asm-exec > outputs/fibonacci.asm.txt
 diff -y -q -w outputs/fibonacci.asm.txt expectedoutputs/fibonacci.asm.txt
+as asm/onedimensionarrayinstance.asm -o asm/onedimensionarrayinstance.asm.o
+ld asm/onedimensionarrayinstance.asm.o -o asm/onedimensionarrayinstance.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./asm/onedimensionarrayinstance.asm-exec > outputs/onedimensionarrayinstance.asm.txt
+diff -y -q -w outputs/onedimensionarrayinstance.asm.txt expectedoutputs/onedimensionarrayinstance.asm.txt
 as asm/onedimensionarrayliteral.asm -o asm/onedimensionarrayliteral.asm.o
 ld asm/onedimensionarrayliteral.asm.o -o asm/onedimensionarrayliteral.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./asm/onedimensionarrayliteral.asm-exec > outputs/onedimensionarrayliteral.asm.txt
