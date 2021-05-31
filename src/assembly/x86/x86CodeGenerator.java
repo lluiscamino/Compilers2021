@@ -442,10 +442,11 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(ReadInstruction tacInstruction) {
+        subprograms.get("dynalloc").setUsed();
         subprograms.get("read_string").setUsed();
         return String.format("""
                         \tpush\t$%s
-                        \tcallq\t_malloc
+                        \tcall\tdynalloc
                         \tmovq\t%%rax, %%rsi
                         \tcall\tread_string
                         %s
