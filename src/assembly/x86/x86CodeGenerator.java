@@ -3,7 +3,6 @@ package assembly.x86;
 import assembly.AssemblyCodeGenerator;
 import assembly.AssemblyLibrarySubprogram;
 import assembly.x86.subprograms.*;
-import parser.symbols.types.PrimitiveType;
 import tac.instructions.arithmetic.*;
 import tac.instructions.array.NewArrayInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -65,13 +64,15 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 printString = new PrintStringSubprogram(Collections.singletonList(stringLength)),
                 printBoolean = new PrintBooleanSubprogram(Collections.singletonList(printString)),
                 readString = new ReadStringSubprogram(),
-                compareStrings = new CompareStringsSubprogram();
+                compareStrings = new CompareStringsSubprogram(),
+                allocateDynamicMemory = new AllocateDynamicMemory();
         printInteger.addToMap(subprograms);
         stringLength.addToMap(subprograms);
         printString.addToMap(subprograms);
         printBoolean.addToMap(subprograms);
         readString.addToMap(subprograms);
         compareStrings.addToMap(subprograms);
+        allocateDynamicMemory.addToMap(subprograms);
     }
 
     @Override
@@ -508,14 +509,15 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(NewArrayInstruction tacInstruction) {
-        String declarationName = "arr_" + constantDeclarations.size();
-        TACLiteral length = (TACLiteral) tacInstruction.getSecondReference();
-        constantDeclarations.add(String.format("%s: .fill %s, %d\n", declarationName, length.getValue(), PrimitiveType.INT.sizeInBytes()));
+        subprograms.get("dynalloc").setUsed();
+        TACReference size = tacInstruction.getSecondReference();
         return String.format("""
-                        \tmovq\t%s, %%rax
+                        %s
+                        push\t%%rax
+                        \tcall\tdynalloc
                         %s
                         """,
-                declarationName + "@GOTPCREL(%rip)",
+                loadInstruction(size, "%rax"),
                 storeInstruction("%rax", tacInstruction.getFirstReference())
         );
     }

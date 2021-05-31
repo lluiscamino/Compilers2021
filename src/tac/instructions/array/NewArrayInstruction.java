@@ -1,11 +1,11 @@
 package tac.instructions.array;
 
 import assembly.AssemblyCodeGenerator;
-import tac.references.TACLiteral;
+import tac.references.TACReference;
 import tac.references.TACVariable;
 
 public final class NewArrayInstruction extends ArrayInstruction {
-    public NewArrayInstruction(TACVariable variable, TACLiteral length) {
+    public NewArrayInstruction(TACVariable variable, TACReference length) {
         super(variable, length);
     }
 
