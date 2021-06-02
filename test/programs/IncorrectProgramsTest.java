@@ -174,8 +174,8 @@ public final class IncorrectProgramsTest {
                 tacWriter = new StringWriter(),
                 assemblyWriter = new StringWriter(),
                 errorsWriter = new StringWriter();
-        Compiler compiler = new Compiler(programPath, tokensWriter, symbolTableWriter, treeWriter, tacWriter, assemblyWriter, errorsWriter);
-        compiler.compile();
+        Compiler compiler = new Compiler(programPath);
+        compiler.compile(tokensWriter, symbolTableWriter, treeWriter, tacWriter, assemblyWriter, errorsWriter);
         List<ProgramError> programErrors = Compiler.getCompiler().getErrorsList();
         assert programErrors.size() == expectedErrors.length;
         for (int i = 0; i < expectedErrors.length; i++) {

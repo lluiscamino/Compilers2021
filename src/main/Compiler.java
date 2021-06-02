@@ -3,6 +3,7 @@ package main;
 import analyzers.LexicalAnalyzer;
 import analyzers.SemanticAnalyzer;
 import analyzers.SyntacticAnalyzer;
+import assembly.x86.x86CodeGenerator;
 import errors.ProgramError;
 import parser.symbols.Program;
 
@@ -17,19 +18,13 @@ public final class Compiler {
 
     private final LexicalAnalyzer scanner;
     private final SyntacticAnalyzer parser;
-    private final Writer symbolTableWriter, treeWriter, tacWriter, assemblyWriter, errorsWriter;
     private final List<ProgramError> errorsList = new ArrayList<>();
     private SemanticAnalyzer semanticAnalyzer;
 
-    public Compiler(String inputPath, Writer tokensWriter, Writer symbolTableWriter, Writer treeWriter, Writer tacWriter, Writer assemblyWriter, Writer errorsWriter) throws FileNotFoundException {
+    public Compiler(String inputPath) throws FileNotFoundException {
         instance = this;
-        this.scanner = new LexicalAnalyzer(inputPath, tokensWriter);
+        this.scanner = new LexicalAnalyzer(inputPath);
         this.parser = new SyntacticAnalyzer(scanner);
-        this.symbolTableWriter = symbolTableWriter;
-        this.treeWriter = treeWriter;
-        this.tacWriter = tacWriter;
-        this.assemblyWriter = assemblyWriter;
-        this.errorsWriter = errorsWriter;
     }
 
     public static Compiler getCompiler() {
@@ -48,28 +43,32 @@ public final class Compiler {
         return errorsList;
     }
 
-    public void compile() throws Exception {
-        scanner.writeTokenList();
+    public void compile(Writer tokensWriter, Writer symbolTableWriter, Writer treeWriter, Writer tacWriter, Writer assemblyWriter, Writer errorsWriter) throws Exception {
+        scanner.writeTokenList(tokensWriter);
         Program program = parser.getSyntaxTree();
         if (program != null) {
-            semanticAnalyzer = new SemanticAnalyzer(program, symbolTableWriter, treeWriter, tacWriter, assemblyWriter);
+            semanticAnalyzer = new SemanticAnalyzer(program);
             semanticAnalyzer.validate();
             if (errorsList.isEmpty()) {
-                semanticAnalyzer.writeSymbolTable();
-                semanticAnalyzer.writeTree();
-                semanticAnalyzer.generateTAC();
-                semanticAnalyzer.generateAssembly();
+                semanticAnalyzer.writeSymbolTable(symbolTableWriter);
+                semanticAnalyzer.writeSyntaxTree(treeWriter);
+                semanticAnalyzer.writeTAC(tacWriter);
+                x86CodeGenerator codeGenerator = new x86CodeGenerator(getSemanticAnalyzer().getSubprogramsTable(), getSemanticAnalyzer().getVariablesTable());
+                semanticAnalyzer.writeAssembly(assemblyWriter, codeGenerator);
             }
         }
-        writeErrors();
+        writeErrors(errorsWriter);
     }
 
-    private void writeErrors() throws IOException {
+    private void writeErrors(Writer writer) throws IOException {
+        if (writer == null) {
+            return;
+        }
         StringBuilder buffer = new StringBuilder();
         for (ProgramError error : errorsList) {
             buffer.append(error.getMessage()).append("\n");
         }
-        errorsWriter.write(buffer.toString());
-        errorsWriter.close();
+        writer.write(buffer.toString());
+        writer.close();
     }
 }

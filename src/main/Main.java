@@ -2,8 +2,6 @@ package main;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.StringWriter;
-import java.io.Writer;
 
 public final class Main {
     private Main() {}
@@ -12,17 +10,15 @@ public final class Main {
         try {
             checkCorrectFormat(args);
             String directory = getParentFilePath(args[0]);
-            Writer fakeWriter = getFakeWriter();
-            Compiler compiler = new Compiler(
-                    args[0],
-                    fakeWriter,
-                    fakeWriter,
-                    fakeWriter,
+            Compiler compiler = new Compiler(args[0]);
+            compiler.compile(
+                    null,
+                    null,
+                    null,
                     new FileWriter(directory + "/3ac.txt"),
                     new FileWriter(directory + "/assembly.asm"),
                     new FileWriter(directory + "/errors.txt")
             );
-            compiler.compile();
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -36,9 +32,5 @@ public final class Main {
 
     public static String getParentFilePath(String path) {
         return new File(path).getParentFile().getAbsolutePath();
-    }
-
-    public static Writer getFakeWriter() {
-        return new StringWriter();
     }
 }

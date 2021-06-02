@@ -236,8 +236,8 @@ public final class CorrectProgramsTest {
                 tacWriter = new StringWriter(),
                 assemblyWriter = new StringWriter(),
                 errorsWriter = new StringWriter();
-        Compiler compiler = new Compiler(programPath, tokensWriter, symbolTableWriter, treeWriter, tacWriter, assemblyWriter, errorsWriter);
-        compiler.compile();
+        Compiler compiler = new Compiler(programPath);
+        compiler.compile(tokensWriter, symbolTableWriter, treeWriter, tacWriter, assemblyWriter, errorsWriter);
         assert compiler.getErrorsList().isEmpty();
         assert errorsWriter.toString().length() == 0;
         assert symbolTableWriter.toString().equals(expectedSymbolTable);

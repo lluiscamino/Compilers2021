@@ -30,10 +30,10 @@ public final class SemanticAnalyzer {
     private final List<TACInstruction> tacInstructionList;
     private final SubprogramsTable subprogramsTable;
     private final VariablesTable variablesTable;
-    private final Writer symbolTableWriter, treeWriter, tacWriter, assemblyWriter;
+
     private final StringBuilder treeBuffer;
 
-    public SemanticAnalyzer(Program program, Writer symbolTableWriter, Writer treeWriter, Writer tacWriter, Writer assemblyWriter) {
+    public SemanticAnalyzer(Program program) {
         this.program = program;
         this.symbolTable = new SymbolTable();
         this.dotIdGenerator = new DotIdGenerator();
@@ -43,10 +43,6 @@ public final class SemanticAnalyzer {
         this.tacInstructionList = new ArrayList<>();
         this.subprogramsTable = new SubprogramsTable();
         this.variablesTable = new VariablesTable();
-        this.symbolTableWriter = symbolTableWriter;
-        this.treeWriter = treeWriter;
-        this.tacWriter = tacWriter;
-        this.assemblyWriter = assemblyWriter;
         this.treeBuffer = new StringBuilder();
     }
 
@@ -90,49 +86,72 @@ public final class SemanticAnalyzer {
         program.validate();
     }
 
-    public void generateTAC() throws IOException {
+    public void writeSymbolTable(Writer writer) throws IOException {
+        if (writer == null) {
+            return;
+        }
+        writer.write(symbolTable.toString());
+        writer.close();
+    }
+
+    public void writeSyntaxTree(Writer writer) throws IOException {
+        if (program == null || writer == null) {
+            return;
+        }
+        treeBuffer.append("strict digraph {\n");
+        program.toDot();
+        treeBuffer.append("}");
+        writer.write(treeBuffer.toString());
+        writer.close();
+    }
+
+    public void writeTAC(Writer writer) throws IOException {
+        if (writer == null) {
+            return;
+        }
         symbolTable.clear();
         program.toTac();
         StringBuilder tacBuffer = new StringBuilder();
         for (TACInstruction tacInstruction : tacInstructionList) {
             tacBuffer.append(tacInstruction).append("\n");
         }
-        tacWriter.write(tacBuffer.toString());
-        tacWriter.close();
+        writer.write(tacBuffer.toString());
+        writer.close();
     }
 
-    public void generateAssembly() throws IOException {
-        StringBuilder assemblyBuffer = new StringBuilder();
-        List<TACInstruction> tacInstructions = Compiler.getCompiler().getSemanticAnalyzer().getTacInstructionList();
-        List<TACInstruction> optimizedInstructions =
-                new NeedlessGotosOptimizer(new InaccessibleCodeOptimizer(new UnusedTagsOptimizer(new ConstantIfsOptimizer(new ConstantOperationsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(tacInstructions).optimize()).optimize()).optimize()).optimize(), subprogramsTable).optimize()).optimize()).optimize();
-        new UnusedTACVariablesRemover(optimizedInstructions, Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable()).removeUnusedVariables();
+    public void writeAssembly(Writer writer, AssemblyCodeGenerator codeGenerator) throws IOException {
+        if (writer == null) {
+            return;
+        }
+        List<TACInstruction> optimizedInstructions = optimizeTACInstructions();
+        removeUnusedVariables(optimizedInstructions);
+        calculateSizesAndOffsets();
+        StringBuilder assemblyBuffer = buildAssemblyBuffer(optimizedInstructions, codeGenerator);
+        writer.write(assemblyBuffer.toString());
+        writer.close();
+    }
+
+    private List<TACInstruction> optimizeTACInstructions() {
+        return new NeedlessGotosOptimizer(new InaccessibleCodeOptimizer(new UnusedTagsOptimizer(new ConstantIfsOptimizer(new ConstantOperationsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(tacInstructionList).optimize()).optimize()).optimize()).optimize(), subprogramsTable).optimize()).optimize()).optimize();
+    }
+
+    private void removeUnusedVariables(List<TACInstruction> optimizedTACInstructions) {
+        new UnusedTACVariablesRemover(optimizedTACInstructions, variablesTable).removeUnusedVariables();
+    }
+
+    private void calculateSizesAndOffsets() {
         new SizeOffsetCalculator().calculate(subprogramsTable, variablesTable);
-        AssemblyCodeGenerator codeGenerator = new x86CodeGenerator(subprogramsTable, variablesTable);
+    }
+
+    private StringBuilder buildAssemblyBuffer(List<TACInstruction> optimizedTACInstructions, AssemblyCodeGenerator codeGenerator) {
+        StringBuilder assemblyBuffer = new StringBuilder();
         assemblyBuffer.append(codeGenerator.preamble());
-        for (TACInstruction instruction : optimizedInstructions) {
+        for (TACInstruction instruction : optimizedTACInstructions) {
             assemblyBuffer.append("/*").append(instruction).append("*/\n");
             String asm = instruction.toAssemblyCode(codeGenerator);
             assemblyBuffer.append(asm != null ? asm : "/*null*/\n");
         }
         assemblyBuffer.append(codeGenerator.epilogue());
-        assemblyWriter.write(assemblyBuffer.toString());
-        assemblyWriter.close();
-    }
-
-    public void writeSymbolTable() throws IOException {
-        symbolTableWriter.write(symbolTable.toString());
-        symbolTableWriter.close();
-    }
-
-    public void writeTree() throws IOException {
-        if (program == null) {
-            return;
-        }
-        treeBuffer.append("strict digraph {\n");
-        program.toDot();
-        treeBuffer.append("}");
-        treeWriter.write(treeBuffer.toString());
-        treeWriter.close();
+        return assemblyBuffer;
     }
 }

@@ -17,9 +17,9 @@ public final class OutputTest {
                 (filePath, fileAttr) -> fileAttr.isRegularFile())
                 .forEach(filePath -> {
                     try {
-                        Writer assemblyWriter = new FileWriter("test/output/asm/" + filePath.getFileName() + ".asm"), mockWriter = new StringWriter();
-                        Compiler compiler = new Compiler(filePath.toString(), mockWriter, mockWriter, mockWriter, mockWriter, assemblyWriter, mockWriter);
-                        compiler.compile();
+                        Writer assemblyWriter = new FileWriter("test/output/asm/" + filePath.getFileName() + ".asm");
+                        Compiler compiler = new Compiler(filePath.toString());
+                        compiler.compile(null, null, null, null, assemblyWriter, null);
                         if (!compiler.getErrorsList().isEmpty()) {
                             System.out.println("Error(s) with program " + filePath.getFileName() + ":");
                             compiler.getErrorsList().forEach(System.out::println);
