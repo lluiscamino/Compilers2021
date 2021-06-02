@@ -1,24 +1,26 @@
 package main;
 
+import java.io.File;
 import java.io.FileWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 
 public final class Main {
-    private static String[] args;
-
-    private Main() {
-    }
+    private Main() {}
 
     public static void main(String[] args) {
         try {
-            Main.args = args;
+            checkCorrectFormat(args);
+            String directory = getParentFilePath(args[0]);
+            Writer fakeWriter = getFakeWriter();
             Compiler compiler = new Compiler(
-                    getArg(0),
-                    new FileWriter(getArg(1)),
-                    new FileWriter(getArg(2)),
-                    new FileWriter(getArg(3)),
-                    new FileWriter(getArg(4)),
-                    new FileWriter(getArg(5)),
-                    new FileWriter(getArg(6))
+                    args[0],
+                    fakeWriter,
+                    fakeWriter,
+                    fakeWriter,
+                    new FileWriter(directory + "/3ac.txt"),
+                    new FileWriter(directory + "/assembly.asm"),
+                    new FileWriter(directory + "/errors.txt")
             );
             compiler.compile();
         } catch (Exception ex) {
@@ -26,10 +28,17 @@ public final class Main {
         }
     }
 
-    private static String getArg(int pos) throws Exception {
-        if (args.length <= pos) {
-            throw new Exception("Formato incorrecto!\nFormato esperado: java -jar Compiladores.jar <PROGRAMA> <TOKENS> <TABLA_SIMBOLOS> <ARBOL> <ERRORES>");
+    public static void checkCorrectFormat(String[] args) throws Exception {
+        if (args.length < 1) {
+            throw new Exception("Formato incorrecto!\nFormato esperado: java -jar Compiladores.jar <PROGRAMA>");
         }
-        return args[pos];
+    }
+
+    public static String getParentFilePath(String path) {
+        return new File(path).getParentFile().getAbsolutePath();
+    }
+
+    public static Writer getFakeWriter() {
+        return new StringWriter();
     }
 }
