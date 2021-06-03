@@ -14,6 +14,11 @@ public final class ArrayIndexes extends ParserSymbol {
         this.indexes = new SymbolList<>(indexes, lastIndex);
     }
 
+    public ArrayIndexes(SymbolList<Expression> indexes) {
+        super(STRING_IDENTIFIER, null);
+        this.indexes = indexes;
+    }
+
     public SymbolList<Expression> getIndexes() {
         return indexes;
     }
