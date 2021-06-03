@@ -1,0 +1,17 @@
+main() {
+    var array int[][] input = array(int[100][100]);
+    for (var int i = 0; i < 100; i += 1) {
+        for (var int j = 0; j < 100; j += 1) {
+          input[i][j] = i * j;
+        }
+    }
+    print(input[2][5]);
+    print(input[25][9]);
+    print(input[78][32]);
+    print(input[42][76]);
+    print(input[3][67]);
+    print(input[8][54]);
+    print(input[97][12]);
+    print(input[12][34]);
+    print(input[23][32]);
+}
