@@ -26,15 +26,20 @@ t_main:
 /*t0 = 100*/
 	movq	$100, %rax
 	movq	%rax, -16(%rbp)
-/*t2 = t0 * 8*/
+/*t2 = t0 + 1*/
 	movq	-16(%rbp), %rax
+	movq	$1, %rbx
+	addq	%rbx, %rax
+	movq	%rax, -32(%rbp)
+/*t2 = t2 * 8*/
+	movq	-32(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
 	movq	%rax, -32(%rbp)
 /*t1 = new array[t2]*/
 	movq	%rsp, %rbx
 	and 	$-16, %rsp
-	movq	-32(%rbp), %rax
+	movq	-32(%rbp), %rdi
 	call	_malloc
 	movq	%rbx, %rsp
 	movq	%rax, -24(%rbp)
