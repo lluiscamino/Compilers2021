@@ -100,6 +100,7 @@ public class ForeachLoop extends Loop {
         addTACInstruction(new CopyInstruction(index, new TACLiteral(0)));
         TACVariable arrayLength = variableGenerator.generate(Type.getInteger());
         addTACInstruction(new IndexedValueInstruction(arrayLength, array.getTacVariable(), new TACLiteral(0)));
+        declaration.setAssociatedValue(null);
         declaration.toTac();
         TACVariable arrayItemVariable = variablesTable.get(declaration.getIdentifier()).getTacVariable();
 
