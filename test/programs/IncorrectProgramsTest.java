@@ -167,15 +167,8 @@ public final class IncorrectProgramsTest {
 
     private void testProgram(final String programName, final ProgramError[] expectedErrors) throws Exception {
         final String programPath = "test/programs/incorrectsources/" + programName;
-        final StringWriter
-                tokensWriter = new StringWriter(),
-                symbolTableWriter = new StringWriter(),
-                treeWriter = new StringWriter(),
-                tacWriter = new StringWriter(),
-                assemblyWriter = new StringWriter(),
-                errorsWriter = new StringWriter();
         Compiler compiler = new Compiler(programPath);
-        compiler.compile(tokensWriter, symbolTableWriter, treeWriter, tacWriter, assemblyWriter, errorsWriter);
+        compiler.compile(null, null, null, null, null, null, null, null, false);
         List<ProgramError> programErrors = Compiler.getCompiler().getErrorsList();
         assert programErrors.size() == expectedErrors.length;
         for (int i = 0; i < expectedErrors.length; i++) {

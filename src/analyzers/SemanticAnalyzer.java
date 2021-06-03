@@ -2,9 +2,7 @@ package analyzers;
 
 import assembly.AssemblyCodeGenerator;
 import assembly.x86.SizeOffsetCalculator;
-import assembly.x86.x86CodeGenerator;
 import dot.DotIdGenerator;
-import main.Compiler;
 import optimizers.*;
 import parser.symbols.Program;
 import symboltable.SymbolTable;
@@ -27,7 +25,7 @@ public final class SemanticAnalyzer {
     private final TACVariableGenerator tacVariableGenerator;
     private final TACSubprogramGenerator tacSubprogramGenerator;
     private final TACTagGenerator tacTagGenerator;
-    private final List<TACInstruction> tacInstructionList;
+    private List<TACInstruction> tacInstructionList;
     private final SubprogramsTable subprogramsTable;
     private final VariablesTable variablesTable;
 
@@ -105,12 +103,24 @@ public final class SemanticAnalyzer {
         writer.close();
     }
 
+    public void generateTAC() {
+        symbolTable.clear();
+        program.toTac();
+    }
+
+    public void optimizeTACInstructionList() {
+        tacInstructionList = new NeedlessGotosOptimizer(new InaccessibleCodeOptimizer(new UnusedTagsOptimizer(new ConstantIfsOptimizer(new ConstantOperationsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(tacInstructionList).optimize()).optimize()).optimize()).optimize(), subprogramsTable).optimize()).optimize()).optimize();
+        removeUnusedVariables();
+    }
+
+    private void removeUnusedVariables() {
+        new UnusedTACVariablesRemover(tacInstructionList, variablesTable).removeUnusedVariables();
+    }
+
     public void writeTAC(Writer writer) throws IOException {
         if (writer == null) {
             return;
         }
-        symbolTable.clear();
-        program.toTac();
         StringBuilder tacBuffer = new StringBuilder();
         for (TACInstruction tacInstruction : tacInstructionList) {
             tacBuffer.append(tacInstruction).append("\n");
@@ -119,34 +129,40 @@ public final class SemanticAnalyzer {
         writer.close();
     }
 
+    public void writeVariablesTable(Writer writer) throws IOException {
+        if (writer == null) {
+            return;
+        }
+        writer.write(variablesTable.toString());
+        writer.close();
+    }
+
+    public void writeSubprogramsTable(Writer writer) throws IOException {
+        if (writer == null) {
+            return;
+        }
+        writer.write(subprogramsTable.toString());
+        writer.close();
+    }
+
     public void writeAssembly(Writer writer, AssemblyCodeGenerator codeGenerator) throws IOException {
         if (writer == null) {
             return;
         }
-        List<TACInstruction> optimizedInstructions = optimizeTACInstructions();
-        removeUnusedVariables(optimizedInstructions);
         calculateSizesAndOffsets();
-        StringBuilder assemblyBuffer = buildAssemblyBuffer(optimizedInstructions, codeGenerator);
+        StringBuilder assemblyBuffer = buildAssemblyBuffer(codeGenerator);
         writer.write(assemblyBuffer.toString());
         writer.close();
-    }
-
-    private List<TACInstruction> optimizeTACInstructions() {
-        return new NeedlessGotosOptimizer(new InaccessibleCodeOptimizer(new UnusedTagsOptimizer(new ConstantIfsOptimizer(new ConstantOperationsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(tacInstructionList).optimize()).optimize()).optimize()).optimize(), subprogramsTable).optimize()).optimize()).optimize();
-    }
-
-    private void removeUnusedVariables(List<TACInstruction> optimizedTACInstructions) {
-        new UnusedTACVariablesRemover(optimizedTACInstructions, variablesTable).removeUnusedVariables();
     }
 
     private void calculateSizesAndOffsets() {
         new SizeOffsetCalculator().calculate(subprogramsTable, variablesTable);
     }
 
-    private StringBuilder buildAssemblyBuffer(List<TACInstruction> optimizedTACInstructions, AssemblyCodeGenerator codeGenerator) {
+    private StringBuilder buildAssemblyBuffer(AssemblyCodeGenerator codeGenerator) {
         StringBuilder assemblyBuffer = new StringBuilder();
         assemblyBuffer.append(codeGenerator.preamble());
-        for (TACInstruction instruction : optimizedTACInstructions) {
+        for (TACInstruction instruction : tacInstructionList) {
             assemblyBuffer.append("/*").append(instruction).append("*/\n");
             String asm = instruction.toAssemblyCode(codeGenerator);
             assemblyBuffer.append(asm != null ? asm : "/*null*/\n");

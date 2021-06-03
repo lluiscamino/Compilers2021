@@ -229,15 +229,9 @@ public final class CorrectProgramsTest {
 
     private void testProgram(final String programName, final String expectedSymbolTable) throws Exception {
         final String programPath = "test/programs/correctsources/" + programName;
-        final StringWriter
-                tokensWriter = new StringWriter(),
-                symbolTableWriter = new StringWriter(),
-                treeWriter = new StringWriter(),
-                tacWriter = new StringWriter(),
-                assemblyWriter = new StringWriter(),
-                errorsWriter = new StringWriter();
+        final StringWriter symbolTableWriter = new StringWriter(), errorsWriter = new StringWriter();
         Compiler compiler = new Compiler(programPath);
-        compiler.compile(tokensWriter, symbolTableWriter, treeWriter, tacWriter, assemblyWriter, errorsWriter);
+        compiler.compile(null, symbolTableWriter, null, null, null, null, null, errorsWriter, false);
         assert compiler.getErrorsList().isEmpty();
         assert errorsWriter.toString().length() == 0;
         assert symbolTableWriter.toString().equals(expectedSymbolTable);
