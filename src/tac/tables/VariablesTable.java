@@ -74,7 +74,7 @@ public final class VariablesTable {
                         -> variable1.getTacVariable().toString().length() > variable2.getTacVariable().toString().length()
                         ? variable1 : variable2);
         int longestVariableName = Math.max(longestVariable.map(info -> info.getTacVariable().toString().length()).orElse(0), 10);
-        String format = "%" + longestVariableName + "s%12s%12s%10s%10s%10s%16s\n";
+        String format = "%" + longestVariableName + "s%12s%12s%10s%12s%10s%16s\n";
 
         printWriter.println("Tamaño variables globales: " + globalVariablesSize);
         printWriter.format(format, "Nombre", "Subprograma", "Profundidad", "Parámetro", "Tipo", "Tamaño", "Desplazamiento");
