@@ -30,8 +30,9 @@ public final class OutputTest {
                 });
     }
 
-    public void generateBashScript() throws IOException {
-        Writer bashScriptWriter = new FileWriter("test/output/script.sh");
+    public void generateBashScript(boolean optimized) throws IOException {
+        String directoryName = optimized ? "optimizedasm" : "unoptimizedasm";
+        Writer bashScriptWriter = new FileWriter(String.format("test/output/%s_script.sh", directoryName));
         bashScriptWriter.append("#! /bin/bash\n\n");
         Files.find(Paths.get("test/output/unoptimizedasm"),
                 Integer.MAX_VALUE,
@@ -39,19 +40,12 @@ public final class OutputTest {
                 .forEach(filePath -> {
                     try {
                         String fileName = filePath.getFileName().toString();
-                        bashScriptWriter.append(String.format("as optimizedasm/%s -o optimizedasm/%s.o\n", fileName, fileName));
-                        bashScriptWriter.append(String.format("ld optimizedasm/%s.o -o optimizedasm/%s-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem\n", fileName, fileName));
-                        bashScriptWriter.append(String.format("./optimizedasm/%s-exec > outputs/%s.txt\n", fileName, fileName));
+                        bashScriptWriter.append(String.format("as %s/%s -o %s/%s.o\n", directoryName, fileName, directoryName, fileName));
+                        bashScriptWriter.append(String.format("ld %s/%s.o -o %s/%s-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem\n", directoryName, fileName, directoryName, fileName));
+                        bashScriptWriter.append(String.format("./%s/%s-exec > outputs/%s.txt\n", directoryName, fileName, fileName));
                         bashScriptWriter.append(String.format("diff -y -q -w outputs/%s.txt expectedoutputs/%s.txt\n", fileName, fileName));
-                        bashScriptWriter.append(String.format("rm optimizedasm/%s.o\n", fileName));
-                        bashScriptWriter.append(String.format("rm optimizedasm/%s-exec\n\n", fileName));
-
-                        bashScriptWriter.append(String.format("as unoptimizedasm/%s -o unoptimizedasm/%s.o\n", fileName, fileName));
-                        bashScriptWriter.append(String.format("ld unoptimizedasm/%s.o -o unoptimizedasm/%s-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem\n", fileName, fileName));
-                        bashScriptWriter.append(String.format("./unoptimizedasm/%s-exec > outputs/%s.txt\n", fileName, fileName));
-                        bashScriptWriter.append(String.format("diff -y -q -w outputs/%s.txt expectedoutputs/%s.txt\n", fileName, fileName));
-                        bashScriptWriter.append(String.format("rm unoptimizedasm/%s.o\n", fileName));
-                        bashScriptWriter.append(String.format("rm unoptimizedasm/%s-exec\n\n", fileName));
+                        bashScriptWriter.append(String.format("rm %s/%s.o\n", directoryName, fileName));
+                        bashScriptWriter.append(String.format("rm %s/%s-exec\n\n", directoryName, fileName));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -63,6 +57,7 @@ public final class OutputTest {
         OutputTest outputTest = new OutputTest();
         outputTest.generateAssembly(false);
         outputTest.generateAssembly(true);
-        outputTest.generateBashScript();
+        outputTest.generateBashScript(false);
+        outputTest.generateBashScript(true);
     }
 }
