@@ -29,11 +29,11 @@ public final class IncorrectProgramsTest {
         final ProgramError[] expectedErrors = {
                 new SyntaxError("No se esperaba el token EQUALS", getLocation(2)),
                 new SemanticError("La función compareArrays debería devolver un tipo INT " +
-                        "pero devuelve un valor de tipo BOOLEAN_ARR Dimensions:1", getLocation(1)),
+                        "pero devuelve un valor de tipo BOOLEAN[]", getLocation(1)),
                 new SemanticError("El tipo del argumento num. 2 en la llamada al subprograma compareArrays tiene" +
-                        " que ser de tipo BOOLEAN_ARR Dimensions:1, no de BOOLEAN_ARR Dimensions:2", getLocation(11)),
-                new SemanticError("No se puede asignar un valor de tipo INT_ARR Dimensions:1 a " +
-                        "una variable de tipo INT_ARR Dimensions:2", getLocation(12)),
+                        " que ser de tipo BOOLEAN[], no de BOOLEAN[][]", getLocation(11)),
+                new SemanticError("No se puede asignar un valor de tipo INT[] a " +
+                        "una variable de tipo INT[][]", getLocation(12)),
                 new SemanticError("i ya ha sido definido previamente", getLocation(13)),
                 new SyntaxError("No se esperaba el token R_BRK", getLocation(15))
         };
@@ -72,7 +72,7 @@ public final class IncorrectProgramsTest {
                 new SemanticError("La condición del bucle debe ser de tipo BOOLEAN, no de tipo INT", getLocation(6)),
                 new SemanticError("La condición del bucle debe ser de tipo BOOLEAN, no de tipo STRING", getLocation(9)),
                 new SemanticError("La condición del bucle debe ser de tipo BOOLEAN, " +
-                        "no de tipo BOOLEAN_ARR Dimensions:1", getLocation(12))
+                        "no de tipo BOOLEAN[]", getLocation(12))
         };
         testProgram("nonbooleanwhile", expectedErrors);
     }
@@ -82,10 +82,10 @@ public final class IncorrectProgramsTest {
         final ProgramError[] expectedErrors = {
                 new SemanticError("No se puede asignar un valor de tipo STRING a una variable de tipo INT", getLocation(5)),
                 new SemanticError("No se puede asignar un valor de tipo BOOLEAN a una variable de tipo INT", getLocation(6)),
-                new SemanticError("No se puede asignar un valor de tipo INT_ARR Dimensions:2 a una variable de tipo INT", getLocation(7)),
+                new SemanticError("No se puede asignar un valor de tipo INT[][] a una variable de tipo INT", getLocation(7)),
                 new SemanticError("No se puede asignar un valor de tipo INT a una variable de tipo STRING", getLocation(9)),
                 new SemanticError("No se puede asignar un valor de tipo BOOLEAN a una variable de tipo STRING", getLocation(10)),
-                new SemanticError("No se puede asignar un valor de tipo STRING_ARR Dimensions:2 a una variable de tipo STRING", getLocation(11))
+                new SemanticError("No se puede asignar un valor de tipo STRING[][] a una variable de tipo STRING", getLocation(11))
         };
         testProgram("wrongtypeassignment", expectedErrors);
     }
@@ -95,7 +95,7 @@ public final class IncorrectProgramsTest {
         final ProgramError[] expectedErrors = {
                 new SemanticError("No se pueden comparar expresiones de tipo STRING", getLocation(2)),
                 new SemanticError("No se pueden comparar expresiones de tipo BOOLEAN", getLocation(4)),
-                new SemanticError("No se pueden comparar expresiones de tipo INT_ARR Dimensions:1", getLocation(6)),
+                new SemanticError("No se pueden comparar expresiones de tipo INT[]", getLocation(6)),
         };
         testProgram("wrongtypesrelational", expectedErrors);
     }

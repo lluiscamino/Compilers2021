@@ -122,10 +122,7 @@ public final class Type extends ParserSymbol {
     @Override
     public String toString() {
         String result = primitiveType.toString();
-        if (isArray()) {
-            result += "_ARR Dimensions:" + dimensions.size();
-        }
-        return result;
+        return isArray() ? result + dimensions : result;
     }
     
     public static Type getUnknown() {

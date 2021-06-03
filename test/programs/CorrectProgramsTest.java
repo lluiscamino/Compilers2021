@@ -12,10 +12,10 @@ public final class CorrectProgramsTest {
         final String expectedSymbolTable = """
                 1: procedure main (0 args)
                 \t2: const INT a
-                \t3: const INT_ARR Dimensions:1 b
-                \t4: var INT_ARR Dimensions:1 unidimensional
-                \t5: var INT_ARR Dimensions:2 bidimensional
-                \t6: var INT_ARR Dimensions:3 tridimensional
+                \t3: const INT[] b
+                \t4: var INT[] unidimensional
+                \t5: var INT[][] bidimensional
+                \t6: var INT[][][] tridimensional
                 \t\t32: var INT i
                 \t\t\t33: var INT j
                 """;
@@ -26,9 +26,9 @@ public final class CorrectProgramsTest {
     public void testArrayDeclaration() throws Exception {
         final String expectedSymbolTable = """
                 1: procedure main (0 args)
-                \t2: const INT_ARR Dimensions:1 unidimensional
-                \t3: const INT_ARR Dimensions:2 bidimensional
-                \t4: var INT_ARR Dimensions:3 tridimensional
+                \t2: const INT[] unidimensional
+                \t3: const INT[][] bidimensional
+                \t4: var INT[][][] tridimensional
                 """;
         testProgram("arraydeclaration", expectedSymbolTable);
     }
@@ -37,7 +37,7 @@ public final class CorrectProgramsTest {
     public void testBinarySearch() throws Exception {
         final String expectedSymbolTable = """
                 1: function binarySearch INT (2 args)
-                \t1: var INT_ARR Dimensions:1 nums
+                \t1: var INT[] nums
                 \t1: var INT target
                 \t2: var INT left
                 \t3: var INT right
@@ -45,7 +45,7 @@ public final class CorrectProgramsTest {
                 \t5: var BOOLEAN res
                 \t\t7: const INT middle
                 21: procedure main (0 args)
-                \t22: const INT_ARR Dimensions:1 arr
+                \t22: const INT[] arr
                 \t23: const INT target
                 \t24: const INT result
                 """;
@@ -89,7 +89,7 @@ public final class CorrectProgramsTest {
         final String expectedSymbolTable = """
                 1: procedure loopForever (0 args)
                 5: procedure main (0 args)
-                \t6: var INT_ARR Dimensions:1 arr
+                \t6: var INT[] arr
                 \t\t7: var INT i
                 \t\t10: var INT i
                 \t\t13: var INT i
@@ -105,13 +105,13 @@ public final class CorrectProgramsTest {
     public void testForeach() throws Exception {
         final String expectedSymbolTable = """
                 1: procedure main (0 args)
-                \t2: const STRING_ARR Dimensions:1 cities
+                \t2: const STRING[] cities
                 \t3: const STRING city
                 \t\t4: const STRING city
                 \t\t7: var STRING city
                 \t\t10: const STRING country
                 \t\t13: const INT num
-                \t\t16: const BOOLEAN_ARR Dimensions:1 arr
+                \t\t16: const BOOLEAN[] arr
                 \t\t\t17: const BOOLEAN val
                 """;
         testProgram("foreach", expectedSymbolTable);
@@ -124,7 +124,7 @@ public final class CorrectProgramsTest {
                 \t1: var BOOLEAN c
                 5: procedure main (0 args)
                 \t6: const BOOLEAN condition
-                \t7: const BOOLEAN_ARR Dimensions:2 conditions
+                \t7: const BOOLEAN[][] conditions
                 """;
         testProgram("if", expectedSymbolTable);
     }
@@ -146,10 +146,10 @@ public final class CorrectProgramsTest {
                 \t25: var INT num1
                 \t25: var INT num2
                 33: procedure proc6 (1 args)
-                \t33: var STRING_ARR Dimensions:1 messages
+                \t33: var STRING[] messages
                 38: procedure main (0 args)
                 \t39: var STRING text
-                \t40: var STRING_ARR Dimensions:1 msgs
+                \t40: var STRING[] msgs
                 """;
         testProgram("procedurecall", expectedSymbolTable);
     }
@@ -158,7 +158,7 @@ public final class CorrectProgramsTest {
     public void testRelational() throws Exception {
         final String expectedSymbolTable = """
                 1: procedure main (0 args)
-                \t5: const STRING_ARR Dimensions:1 strings
+                \t5: const STRING[] strings
                 \t12: var STRING h
                 \t13: var INT a
                 """;
@@ -168,21 +168,21 @@ public final class CorrectProgramsTest {
     @Test
     public void testSortStrings() throws Exception {
         final String expectedSymbolTable = """
-                3: function bubbleSort STRING_ARR Dimensions:1 (1 args)
-                \t3: var STRING_ARR Dimensions:1 arr
+                3: function bubbleSort STRING[] (1 args)
+                \t3: var STRING[] arr
                 \t4: var INT n
                 \t5: var BOOLEAN swapped
                 \t\t6: var INT i
                 \t\t\t8: var INT j
                 \t\t\t\t11: var STRING aux
-                20: function readStringArray STRING_ARR Dimensions:1 (1 args)
+                20: function readStringArray STRING[] (1 args)
                 \t20: var INT len
-                \t21: var STRING_ARR Dimensions:1 arr
+                \t21: var STRING[] arr
                 \t\t22: var INT i
                 \t\t24: var STRING str
                 30: procedure main (1 args)
                 \t30: var INT arrLength
-                \t31: const STRING_ARR Dimensions:1 input
+                \t31: const STRING[] input
                 """;
         testProgram("sortstrings", expectedSymbolTable);
     }
@@ -201,16 +201,16 @@ public final class CorrectProgramsTest {
     @Test
     public void twoSum() throws Exception {
         final String expectedSymbolTable = """
-                1: const INT_ARR Dimensions:1 noResult
-                10: function twoSum INT_ARR Dimensions:1 (2 args)
-                \t10: var INT_ARR Dimensions:1 nums
+                1: const INT[] noResult
+                10: function twoSum INT[] (2 args)
+                \t10: var INT[] nums
                 \t10: var INT target
-                \t11: var INT_ARR Dimensions:1 result
+                \t11: var INT[] result
                 \t12: var INT i
                 \t13: var BOOLEAN res
                 \t\t15: var INT j
                 28: procedure main (0 args)
-                \t29: const INT_ARR Dimensions:1 result
+                \t29: const INT[] result
                 """;
         testProgram("twosum", expectedSymbolTable);
     }
