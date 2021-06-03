@@ -531,7 +531,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         \tmovq\t%%rbx, %%rsp
                         %s
                         """,
-                loadInstruction(tacInstruction.getSize(), "%rax"),
+                loadInstruction(tacInstruction.getSize(), "%rdi"),
                 storeInstruction("%rax", tacInstruction.getFirstReference())
         );
     }
