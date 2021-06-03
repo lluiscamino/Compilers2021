@@ -231,7 +231,7 @@ public final class CorrectProgramsTest {
         final String programPath = "test/programs/correctsources/" + programName;
         final StringWriter symbolTableWriter = new StringWriter(), errorsWriter = new StringWriter();
         Compiler compiler = new Compiler(programPath);
-        compiler.compile(null, symbolTableWriter, null, null, null, null, null, errorsWriter, false);
+        compiler.compile(null, symbolTableWriter, null, null, null, null, null, errorsWriter, false, 1);
         assert compiler.getErrorsList().isEmpty();
         assert errorsWriter.toString().length() == 0;
         assert symbolTableWriter.toString().equals(expectedSymbolTable);

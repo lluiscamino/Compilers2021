@@ -108,8 +108,13 @@ public final class SemanticAnalyzer {
         program.toTac();
     }
 
-    public void optimizeTACInstructionList() {
-        tacInstructionList = new NeedlessGotosOptimizer(new InaccessibleCodeOptimizer(new UnusedTagsOptimizer(new ConstantIfsOptimizer(new ConstantOperationsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(tacInstructionList).optimize()).optimize()).optimize()).optimize(), subprogramsTable).optimize()).optimize()).optimize();
+    public void optimizeTACInstructionList(int maxCycles) {
+        List<TACInstruction> previousOptimizationCycleInstructions;
+        int cycleCounter = 0;
+        do {
+            previousOptimizationCycleInstructions = new ArrayList<>(tacInstructionList);
+            tacInstructionList = new NeedlessGotosOptimizer(new InaccessibleCodeOptimizer(new UnusedTagsOptimizer(new ConstantIfsOptimizer(new ConstantOperationsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(tacInstructionList).optimize()).optimize()).optimize()).optimize(), subprogramsTable).optimize()).optimize()).optimize();
+        } while (!tacInstructionList.equals(previousOptimizationCycleInstructions) && ++cycleCounter < maxCycles);
         removeUnusedVariables();
     }
 

@@ -18,7 +18,7 @@ public final class OutputTest {
                     try {
                         Writer assemblyWriter = new FileWriter("test/output/asm/" + filePath.getFileName() + ".asm");
                         Compiler compiler = new Compiler(filePath.toString());
-                        compiler.compile(null, null, null, null, null, null, assemblyWriter, null, true);
+                        compiler.compile(null, null, null, null, null, null, assemblyWriter, null, true, 10000);
                         if (!compiler.getErrorsList().isEmpty()) {
                             System.out.println("Error(s) with program " + filePath.getFileName() + ":");
                             compiler.getErrorsList().forEach(System.out::println);
