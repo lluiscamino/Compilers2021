@@ -5,6 +5,7 @@ import tac.references.TACTag;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -32,6 +33,10 @@ public final class SubprogramsTable {
 
     public int size() {
         return subprogramsMap.size();
+    }
+
+    public Collection<SubprogramInfo> subprograms() {
+        return subprogramsMap.values();
     }
 
     @Override
