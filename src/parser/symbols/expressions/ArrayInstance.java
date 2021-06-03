@@ -26,6 +26,7 @@ public final class ArrayInstance extends Expression {
 
     @Override
     public void validate() {
+        indexes.validate();
     }
 
     @Override
