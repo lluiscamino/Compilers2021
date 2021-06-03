@@ -22,7 +22,7 @@ t_main:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$112, %rsp
+	subq	$96, %rsp
 /*t0 = new array[5]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
 	movq	%rax, -16(%rbp)
@@ -80,113 +80,107 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$0, %rbx
 	movq	%rbx, (%rcx)
-/*t9 = 0*/
-	movq	$0, %rax
-	movq	%rax, -40(%rbp)
-/*t5[24] = t9*/
+/*t5[24] = 0*/
 	movq	-32(%rbp), %rcx
 	movq	$24, %rbx
 	addq	%rbx, %rcx
-	movq	-40(%rbp), %rbx
+	movq	$0, %rbx
 	movq	%rbx, (%rcx)
-/*t11 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -48(%rbp)
-/*t5[32] = t11*/
+/*t5[32] = -1*/
 	movq	-32(%rbp), %rcx
 	movq	$32, %rbx
 	addq	%rbx, %rcx
-	movq	-48(%rbp), %rbx
+	movq	$-1, %rbx
 	movq	%rbx, (%rcx)
 /*booleanArray = t5*/
 	movq	-32(%rbp), %rax
 	movq	%rax, -24(%rbp)
 /*t12 = new array[5]*/
 	movq	arr_5@GOTPCREL(%rip), %rax
-	movq	%rax, -64(%rbp)
+	movq	%rax, -48(%rbp)
 /*t12[0] = 4*/
-	movq	-64(%rbp), %rcx
+	movq	-48(%rbp), %rcx
 	movq	$0, %rbx
 	addq	%rbx, %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t12[8] = "Juan\n"*/
-	movq	-64(%rbp), %rcx
+	movq	-48(%rbp), %rcx
 	movq	$8, %rbx
 	addq	%rbx, %rcx
 	movq	str_6@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
 /*t12[16] = "Pedro\n"*/
-	movq	-64(%rbp), %rcx
+	movq	-48(%rbp), %rcx
 	movq	$16, %rbx
 	addq	%rbx, %rcx
 	movq	str_7@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
 /*t12[24] = "Sara\n"*/
-	movq	-64(%rbp), %rcx
+	movq	-48(%rbp), %rcx
 	movq	$24, %rbx
 	addq	%rbx, %rcx
 	movq	str_8@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
 /*t12[32] = "Antonio\n"*/
-	movq	-64(%rbp), %rcx
+	movq	-48(%rbp), %rcx
 	movq	$32, %rbx
 	addq	%rbx, %rcx
 	movq	str_9@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
 /*stringArray = t12*/
-	movq	-64(%rbp), %rax
-	movq	%rax, -56(%rbp)
+	movq	-48(%rbp), %rax
+	movq	%rax, -40(%rbp)
 /*t18 = 3*/
 	movq	$3, %rax
-	movq	%rax, -72(%rbp)
+	movq	%rax, -56(%rbp)
 /*t18 = t18 * 8*/
+	movq	-56(%rbp), %rax
+	movq	$8, %rbx
+	imulq	%rbx, %rax
+	movq	%rax, -56(%rbp)
+/*t19 = intArray[t18]*/
+	movq	-8(%rbp), %rax
+	movq	-56(%rbp), %rbx
+	addq	%rbx, %rax
+	movq	(%rax), %rax
+	movq	%rax, -64(%rbp)
+/*printInt(t19)*/
+	movq	-64(%rbp), %rdi
+	call	print_uint64
+/*t21 = 3*/
+	movq	$3, %rax
+	movq	%rax, -72(%rbp)
+/*t21 = t21 * 8*/
 	movq	-72(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
 	movq	%rax, -72(%rbp)
-/*t19 = intArray[t18]*/
-	movq	-8(%rbp), %rax
+/*t22 = booleanArray[t21]*/
+	movq	-24(%rbp), %rax
 	movq	-72(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -80(%rbp)
-/*printInt(t19)*/
-	movq	-80(%rbp), %rdi
-	call	print_uint64
-/*t21 = 3*/
+/*printBoolean(t22)*/
+	movq	-80(%rbp), %rbx
+	call	print_boolean
+/*t24 = 3*/
 	movq	$3, %rax
 	movq	%rax, -88(%rbp)
-/*t21 = t21 * 8*/
+/*t24 = t24 * 8*/
 	movq	-88(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
 	movq	%rax, -88(%rbp)
-/*t22 = booleanArray[t21]*/
-	movq	-24(%rbp), %rax
+/*t25 = stringArray[t24]*/
+	movq	-40(%rbp), %rax
 	movq	-88(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -96(%rbp)
-/*printBoolean(t22)*/
-	movq	-96(%rbp), %rbx
-	call	print_boolean
-/*t24 = 3*/
-	movq	$3, %rax
-	movq	%rax, -104(%rbp)
-/*t24 = t24 * 8*/
-	movq	-104(%rbp), %rax
-	movq	$8, %rbx
-	imulq	%rbx, %rax
-	movq	%rax, -104(%rbp)
-/*t25 = stringArray[t24]*/
-	movq	-56(%rbp), %rax
-	movq	-104(%rbp), %rbx
-	addq	%rbx, %rax
-	movq	(%rax), %rax
-	movq	%rax, -112(%rbp)
 /*printString(t25)*/
-	movq	-112(%rbp), %rsi
+	movq	-96(%rbp), %rsi
 	call	print_string
 /*rtn s0*/
 	movq	%rbp, %rsp

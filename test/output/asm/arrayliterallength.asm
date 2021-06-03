@@ -22,7 +22,7 @@ t_main:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$152, %rsp
+	subq	$120, %rsp
 /*t0 = new array[4]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
 	movq	%rax, -8(%rbp)
@@ -44,182 +44,170 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$2, %rbx
 	movq	%rbx, (%rcx)
-/*t4 = -7*/
-	movq	$-7, %rax
-	movq	%rax, -16(%rbp)
-/*t0[24] = t4*/
+/*t0[24] = -7*/
 	movq	-8(%rbp), %rcx
 	movq	$24, %rbx
 	addq	%rbx, %rcx
-	movq	-16(%rbp), %rbx
+	movq	$-7, %rbx
 	movq	%rbx, (%rcx)
 /*t5 = t0[0]*/
 	movq	-8(%rbp), %rax
 	movq	$0, %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -24(%rbp)
+	movq	%rax, -16(%rbp)
 /*printInt(t5)*/
-	movq	-24(%rbp), %rdi
+	movq	-16(%rbp), %rdi
 	call	print_uint64
 /*t6 = new array[5]*/
 	movq	arr_4@GOTPCREL(%rip), %rax
-	movq	%rax, -40(%rbp)
+	movq	%rax, -32(%rbp)
 /*t6[0] = 4*/
-	movq	-40(%rbp), %rcx
+	movq	-32(%rbp), %rcx
 	movq	$0, %rbx
 	addq	%rbx, %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t6[8] = 3*/
-	movq	-40(%rbp), %rcx
+	movq	-32(%rbp), %rcx
 	movq	$8, %rbx
 	addq	%rbx, %rcx
 	movq	$3, %rbx
 	movq	%rbx, (%rcx)
 /*t6[16] = 4*/
-	movq	-40(%rbp), %rcx
+	movq	-32(%rbp), %rcx
 	movq	$16, %rbx
 	addq	%rbx, %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t6[24] = 5*/
-	movq	-40(%rbp), %rcx
+	movq	-32(%rbp), %rcx
 	movq	$24, %rbx
 	addq	%rbx, %rcx
 	movq	$5, %rbx
 	movq	%rbx, (%rcx)
-/*t11 = -6*/
-	movq	$-6, %rax
-	movq	%rax, -48(%rbp)
-/*t6[32] = t11*/
-	movq	-40(%rbp), %rcx
+/*t6[32] = -6*/
+	movq	-32(%rbp), %rcx
 	movq	$32, %rbx
 	addq	%rbx, %rcx
-	movq	-48(%rbp), %rbx
+	movq	$-6, %rbx
 	movq	%rbx, (%rcx)
 /*arr = t6*/
-	movq	-40(%rbp), %rax
-	movq	%rax, -32(%rbp)
-/*t12 = arr[0]*/
 	movq	-32(%rbp), %rax
+	movq	%rax, -24(%rbp)
+/*t12 = arr[0]*/
+	movq	-24(%rbp), %rax
 	movq	$0, %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -56(%rbp)
+	movq	%rax, -40(%rbp)
 /*printInt(t12)*/
-	movq	-56(%rbp), %rdi
+	movq	-40(%rbp), %rdi
 	call	print_uint64
 /*t13 = arr[0]*/
-	movq	-32(%rbp), %rax
+	movq	-24(%rbp), %rax
 	movq	$0, %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -64(%rbp)
+	movq	%rax, -48(%rbp)
 /*t14 = new array[3]*/
 	movq	arr_5@GOTPCREL(%rip), %rax
-	movq	%rax, -72(%rbp)
+	movq	%rax, -56(%rbp)
 /*t14[0] = 2*/
-	movq	-72(%rbp), %rcx
+	movq	-56(%rbp), %rcx
 	movq	$0, %rbx
 	addq	%rbx, %rcx
 	movq	$2, %rbx
 	movq	%rbx, (%rcx)
 /*t14[8] = 3*/
-	movq	-72(%rbp), %rcx
+	movq	-56(%rbp), %rcx
 	movq	$8, %rbx
 	addq	%rbx, %rcx
 	movq	$3, %rbx
 	movq	%rbx, (%rcx)
 /*t14[16] = 2*/
-	movq	-72(%rbp), %rcx
+	movq	-56(%rbp), %rcx
 	movq	$16, %rbx
 	addq	%rbx, %rcx
 	movq	$2, %rbx
 	movq	%rbx, (%rcx)
 /*t17 = t14[0]*/
-	movq	-72(%rbp), %rax
+	movq	-56(%rbp), %rax
 	movq	$0, %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -80(%rbp)
+	movq	%rax, -64(%rbp)
 /*t18 = t13 + t17*/
-	movq	-64(%rbp), %rax
-	movq	-80(%rbp), %rbx
+	movq	-48(%rbp), %rax
+	movq	-64(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -88(%rbp)
+	movq	%rax, -72(%rbp)
 /*t19 = new array[4]*/
 	movq	arr_6@GOTPCREL(%rip), %rax
-	movq	%rax, -96(%rbp)
+	movq	%rax, -80(%rbp)
 /*t19[0] = 3*/
-	movq	-96(%rbp), %rcx
+	movq	-80(%rbp), %rcx
 	movq	$0, %rbx
 	addq	%rbx, %rcx
 	movq	$3, %rbx
 	movq	%rbx, (%rcx)
-/*t21 = -8*/
-	movq	$-8, %rax
-	movq	%rax, -104(%rbp)
-/*t19[8] = t21*/
-	movq	-96(%rbp), %rcx
+/*t19[8] = -8*/
+	movq	-80(%rbp), %rcx
 	movq	$8, %rbx
 	addq	%rbx, %rcx
-	movq	-104(%rbp), %rbx
+	movq	$-8, %rbx
 	movq	%rbx, (%rcx)
 /*t19[16] = 9*/
-	movq	-96(%rbp), %rcx
+	movq	-80(%rbp), %rcx
 	movq	$16, %rbx
 	addq	%rbx, %rcx
 	movq	$9, %rbx
 	movq	%rbx, (%rcx)
-/*t25 = 48*/
-	movq	$48, %rax
-	movq	%rax, -112(%rbp)
-/*t19[24] = t25*/
-	movq	-96(%rbp), %rcx
+/*t19[24] = 48*/
+	movq	-80(%rbp), %rcx
 	movq	$24, %rbx
 	addq	%rbx, %rcx
-	movq	-112(%rbp), %rbx
+	movq	$48, %rbx
 	movq	%rbx, (%rcx)
 /*t26 = t19[0]*/
-	movq	-96(%rbp), %rax
+	movq	-80(%rbp), %rax
 	movq	$0, %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -120(%rbp)
+	movq	%rax, -88(%rbp)
 /*t27 = t18 + t26*/
-	movq	-88(%rbp), %rax
-	movq	-120(%rbp), %rbx
+	movq	-72(%rbp), %rax
+	movq	-88(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -128(%rbp)
+	movq	%rax, -96(%rbp)
 /*t28 = new array[2]*/
 	movq	arr_7@GOTPCREL(%rip), %rax
-	movq	%rax, -136(%rbp)
+	movq	%rax, -104(%rbp)
 /*t28[0] = 1*/
-	movq	-136(%rbp), %rcx
+	movq	-104(%rbp), %rcx
 	movq	$0, %rbx
 	addq	%rbx, %rcx
 	movq	$1, %rbx
 	movq	%rbx, (%rcx)
 /*t28[8] = 1*/
-	movq	-136(%rbp), %rcx
+	movq	-104(%rbp), %rcx
 	movq	$8, %rbx
 	addq	%rbx, %rcx
 	movq	$1, %rbx
 	movq	%rbx, (%rcx)
 /*t30 = t28[0]*/
-	movq	-136(%rbp), %rax
+	movq	-104(%rbp), %rax
 	movq	$0, %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -144(%rbp)
+	movq	%rax, -112(%rbp)
 /*t31 = t27 + t30*/
-	movq	-128(%rbp), %rax
-	movq	-144(%rbp), %rbx
+	movq	-96(%rbp), %rax
+	movq	-112(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -152(%rbp)
+	movq	%rax, -120(%rbp)
 /*printInt(t31)*/
-	movq	-152(%rbp), %rdi
+	movq	-120(%rbp), %rdi
 	call	print_uint64
 /*rtn s0*/
 	movq	%rbp, %rsp

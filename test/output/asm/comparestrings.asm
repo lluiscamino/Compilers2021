@@ -22,162 +22,138 @@ t_main:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$96, %rsp
+	subq	$48, %rsp
 /*goto e0*/
 	jmp 	e0
 /*e0: skip*/
 e0:
-/*t2 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -8(%rbp)
-/*e1: skip*/
-e1:
-/*printBoolean(t2)*/
-	movq	-8(%rbp), %rbx
+/*printBoolean(-1)*/
+	movq	$-1, %rbx
 	call	print_boolean
-/*t5 = 0*/
-	movq	$0, %rax
-	movq	%rax, -16(%rbp)
 /*goto e3*/
 	jmp 	e3
 /*e3: skip*/
 e3:
-/*printBoolean(t5)*/
-	movq	-16(%rbp), %rbx
+/*printBoolean(0)*/
+	movq	$0, %rbx
 	call	print_boolean
 /*goto e4*/
 	jmp 	e4
 /*e4: skip*/
 e4:
-/*t8 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -24(%rbp)
-/*e5: skip*/
-e5:
-/*printBoolean(t8)*/
-	movq	-24(%rbp), %rbx
+/*printBoolean(-1)*/
+	movq	$-1, %rbx
 	call	print_boolean
-/*t11 = 0*/
-	movq	$0, %rax
-	movq	%rax, -32(%rbp)
 /*goto e7*/
 	jmp 	e7
 /*e7: skip*/
 e7:
-/*printBoolean(t11)*/
-	movq	-32(%rbp), %rbx
+/*printBoolean(0)*/
+	movq	$0, %rbx
 	call	print_boolean
 /*str1 = "Hello, world!\n"*/
 	movq	str_3@GOTPCREL(%rip), %rax
-	movq	%rax, -40(%rbp)
+	movq	%rax, -8(%rbp)
 /*str2 = "Hello, world!\n"*/
 	movq	str_4@GOTPCREL(%rip), %rax
-	movq	%rax, -48(%rbp)
+	movq	%rax, -16(%rbp)
 /*if str1 = str1 goto e8*/
-	movq	-40(%rbp), %rsi
-	movq	-40(%rbp), %rdi
+	movq	-8(%rbp), %rsi
+	movq	-8(%rbp), %rdi
 	call 	compare_strings
 	cmpq	$-1, %rdx
 	je  	e8
 /*t14 = 0*/
 	movq	$0, %rax
-	movq	%rax, -56(%rbp)
+	movq	%rax, -24(%rbp)
 /*goto e9*/
 	jmp 	e9
 /*e8: skip*/
 e8:
 /*t14 = -1*/
 	movq	$-1, %rax
-	movq	%rax, -56(%rbp)
+	movq	%rax, -24(%rbp)
 /*e9: skip*/
 e9:
 /*printBoolean(t14)*/
-	movq	-56(%rbp), %rbx
+	movq	-24(%rbp), %rbx
 	call	print_boolean
 /*if str1 != str1 goto e10*/
-	movq	-40(%rbp), %rsi
-	movq	-40(%rbp), %rdi
+	movq	-8(%rbp), %rsi
+	movq	-8(%rbp), %rdi
 	call 	compare_strings
 	cmpq	$-1, %rdx
 	jne 	e10
 /*t15 = 0*/
 	movq	$0, %rax
-	movq	%rax, -64(%rbp)
+	movq	%rax, -32(%rbp)
 /*goto e11*/
 	jmp 	e11
 /*e10: skip*/
 e10:
 /*t15 = -1*/
 	movq	$-1, %rax
-	movq	%rax, -64(%rbp)
+	movq	%rax, -32(%rbp)
 /*e11: skip*/
 e11:
 /*printBoolean(t15)*/
-	movq	-64(%rbp), %rbx
+	movq	-32(%rbp), %rbx
 	call	print_boolean
 /*if str1 = str2 goto e12*/
-	movq	-40(%rbp), %rsi
-	movq	-48(%rbp), %rdi
+	movq	-8(%rbp), %rsi
+	movq	-16(%rbp), %rdi
 	call 	compare_strings
 	cmpq	$-1, %rdx
 	je  	e12
 /*t16 = 0*/
 	movq	$0, %rax
-	movq	%rax, -72(%rbp)
+	movq	%rax, -40(%rbp)
 /*goto e13*/
 	jmp 	e13
 /*e12: skip*/
 e12:
 /*t16 = -1*/
 	movq	$-1, %rax
-	movq	%rax, -72(%rbp)
+	movq	%rax, -40(%rbp)
 /*e13: skip*/
 e13:
 /*printBoolean(t16)*/
-	movq	-72(%rbp), %rbx
+	movq	-40(%rbp), %rbx
 	call	print_boolean
 /*if str1 != str2 goto e14*/
-	movq	-40(%rbp), %rsi
-	movq	-48(%rbp), %rdi
+	movq	-8(%rbp), %rsi
+	movq	-16(%rbp), %rdi
 	call 	compare_strings
 	cmpq	$-1, %rdx
 	jne 	e14
 /*t17 = 0*/
 	movq	$0, %rax
-	movq	%rax, -80(%rbp)
+	movq	%rax, -48(%rbp)
 /*goto e15*/
 	jmp 	e15
 /*e14: skip*/
 e14:
 /*t17 = -1*/
 	movq	$-1, %rax
-	movq	%rax, -80(%rbp)
+	movq	%rax, -48(%rbp)
 /*e15: skip*/
 e15:
 /*printBoolean(t17)*/
-	movq	-80(%rbp), %rbx
+	movq	-48(%rbp), %rbx
 	call	print_boolean
 /*goto e16*/
 	jmp 	e16
 /*e16: skip*/
 e16:
-/*t20 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -88(%rbp)
-/*e17: skip*/
-e17:
-/*printBoolean(t20)*/
-	movq	-88(%rbp), %rbx
+/*printBoolean(-1)*/
+	movq	$-1, %rbx
 	call	print_boolean
-/*t23 = 0*/
-	movq	$0, %rax
-	movq	%rax, -96(%rbp)
 /*goto e19*/
 	jmp 	e19
 /*e19: skip*/
 e19:
-/*printBoolean(t23)*/
-	movq	-96(%rbp), %rbx
+/*printBoolean(0)*/
+	movq	$0, %rbx
 	call	print_boolean
 /*rtn s0*/
 	movq	%rbp, %rsp

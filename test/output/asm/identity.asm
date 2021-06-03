@@ -34,12 +34,9 @@ t_main:
 /*pmb s1*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$72, %rsp
-/*t2 = -7*/
+	subq	$32, %rsp
+/*param_s -7*/
 	movq	$-7, %rax
-	movq	%rax, -16(%rbp)
-/*param_s t2*/
-	movq	-16(%rbp), %rax
 	push	%rax
 /*t0 = call s0*/
 	call	t_identity
@@ -52,61 +49,31 @@ t_main:
 	push	%rax
 /*t3 = call s0*/
 	call	t_identity
-	movq	%rax, -24(%rbp)
+	movq	%rax, -16(%rbp)
 /*printInt(t3)*/
-	movq	-24(%rbp), %rdi
+	movq	-16(%rbp), %rdi
 	call	print_uint64
-/*t8 = 11*/
+/*param_s 11*/
 	movq	$11, %rax
-	movq	%rax, -40(%rbp)
-/*param_s t8*/
-	movq	-40(%rbp), %rax
 	push	%rax
 /*t5 = call s0*/
 	call	t_identity
-	movq	%rax, -32(%rbp)
+	movq	%rax, -24(%rbp)
 /*printInt(t5)*/
-	movq	-32(%rbp), %rdi
+	movq	-24(%rbp), %rdi
 	call	print_uint64
-/*goto e0*/
-	jmp 	e0
-/*e0: skip*/
-e0:
-/*t12 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -56(%rbp)
-/*e1: skip*/
-e1:
-/*if t12 = 0 goto e2*/
-	movq	-56(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
-	jne 	1f
-	jmp	e2
-1:
-/*t13 = 3*/
-	movq	$3, %rax
-	movq	%rax, -64(%rbp)
 /*goto e3*/
 	jmp 	e3
-/*e2: skip*/
-e2:
-/*t16 = -2*/
-	movq	$-2, %rax
-	movq	%rax, -72(%rbp)
-/*t13 = t16*/
-	movq	-72(%rbp), %rax
-	movq	%rax, -64(%rbp)
 /*e3: skip*/
 e3:
-/*param_s t13*/
-	movq	-64(%rbp), %rax
+/*param_s 3*/
+	movq	$3, %rax
 	push	%rax
 /*t9 = call s0*/
 	call	t_identity
-	movq	%rax, -48(%rbp)
+	movq	%rax, -32(%rbp)
 /*printInt(t9)*/
-	movq	-48(%rbp), %rdi
+	movq	-32(%rbp), %rdi
 	call	print_uint64
 /*rtn s1*/
 	movq	%rbp, %rsp

@@ -171,10 +171,6 @@ e8:
 	movq	%rax, -24(%rbp)
 /*goto e2*/
 	jmp 	e2
-/*e5: skip*/
-e5:
-/*goto e0*/
-	jmp 	e0
 /*e1: skip*/
 e1:
 /*rtn s0*/

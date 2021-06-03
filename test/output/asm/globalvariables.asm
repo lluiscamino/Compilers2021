@@ -59,14 +59,11 @@ t_main:
 /*pmb s2*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$8, %rsp
+	subq	$0, %rsp
 /*call s0*/
 	call	t_printA
-/*t2 = -9*/
+/*param_s -9*/
 	movq	$-9, %rax
-	movq	%rax, -8(%rbp)
-/*param_s t2*/
-	movq	-8(%rbp), %rax
 	push	%rax
 /*call s1*/
 	call	t_changeA

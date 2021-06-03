@@ -40,7 +40,7 @@ t_main:
 /*pmb s1*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$104, %rsp
+	subq	$0, %rsp
 /*printBoolean(-1)*/
 	movq	$-1, %rbx
 	call	print_boolean
@@ -57,103 +57,42 @@ t_main:
 	push	%rax
 /*call s0*/
 	call	t_printNot
-/*t7 = 0*/
-	movq	$0, %rax
-	movq	%rax, -8(%rbp)
-/*printBoolean(t7)*/
-	movq	-8(%rbp), %rbx
+/*printBoolean(0)*/
+	movq	$0, %rbx
 	call	print_boolean
-/*t10 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -16(%rbp)
-/*printBoolean(t10)*/
-	movq	-16(%rbp), %rbx
+/*printBoolean(-1)*/
+	movq	$-1, %rbx
 	call	print_boolean
-/*t13 = 0*/
-	movq	$0, %rax
-	movq	%rax, -24(%rbp)
-/*goto e2*/
-	jmp 	e2
-/*e1: skip*/
-e1:
 /*goto e2*/
 	jmp 	e2
 /*e2: skip*/
 e2:
-/*t16 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -32(%rbp)
-/*e3: skip*/
-e3:
-/*t17 = t13 or t16*/
-	movq	-24(%rbp), %rax
-	movq	-32(%rbp), %rbx
-	orq 	%rbx, %rax
-	movq	%rax, -40(%rbp)
-/*printBoolean(t17)*/
-	movq	-40(%rbp), %rbx
+/*printBoolean(-1)*/
+	movq	$-1, %rbx
 	call	print_boolean
-/*t19 = 0*/
-	movq	$0, %rax
-	movq	%rax, -48(%rbp)
-/*t21 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -56(%rbp)
-/*t22 = t19 or t21*/
-	movq	-48(%rbp), %rax
-	movq	-56(%rbp), %rbx
-	orq 	%rbx, %rax
-	movq	%rax, -64(%rbp)
-/*printBoolean(t22)*/
-	movq	-64(%rbp), %rbx
+/*printBoolean(-1)*/
+	movq	$-1, %rbx
 	call	print_boolean
 /*goto e4*/
 	jmp 	e4
 /*e4: skip*/
 e4:
-/*t25 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -72(%rbp)
-/*e5: skip*/
-e5:
-/*printBoolean(t25)*/
-	movq	-72(%rbp), %rbx
+/*printBoolean(-1)*/
+	movq	$-1, %rbx
 	call	print_boolean
-/*t28 = 0*/
-	movq	$0, %rax
-	movq	%rax, -80(%rbp)
 /*goto e7*/
 	jmp 	e7
 /*e7: skip*/
 e7:
-/*printBoolean(t28)*/
-	movq	-80(%rbp), %rbx
+/*printBoolean(0)*/
+	movq	$0, %rbx
 	call	print_boolean
-/*goto e8*/
-	jmp 	e8
-/*e8: skip*/
-e8:
-/*t31 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -88(%rbp)
-/*e9: skip*/
-e9:
 /*goto e10*/
 	jmp 	e10
 /*e10: skip*/
 e10:
-/*t34 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -96(%rbp)
-/*e11: skip*/
-e11:
-/*t35 = t31 or t34*/
-	movq	-88(%rbp), %rax
-	movq	-96(%rbp), %rbx
-	orq 	%rbx, %rax
-	movq	%rax, -104(%rbp)
-/*printBoolean(t35)*/
-	movq	-104(%rbp), %rbx
+/*printBoolean(-1)*/
+	movq	$-1, %rbx
 	call	print_boolean
 /*rtn s1*/
 	movq	%rbp, %rsp
