@@ -1,0 +1,37 @@
+procedure quicksortAux(int[] arr, int left, int right) {
+   const int pivot = arr[left];
+   var int i = left;
+   var int j = right;
+   while (i < j) {
+       while(arr[i] <= pivot && i < j) i += 1;
+       while (arr[j] > pivot) j -= 1;
+       if (i < j) {
+           const int aux = arr[i];
+           arr[i] = arr[j];
+           arr[j] = aux;
+       }
+   }
+   arr[left] = arr[j];
+   arr[j] = pivot;
+   if (left < j - 1)
+       quicksortAux(arr, left, j - 1);
+   if (j + 1 < right) {
+       quicksortAux(arr, j + 1, right);
+   }
+}
+
+procedure quicksort(int[] arr) {
+   quicksortAux(arr, 0, length(arr) - 1);
+}
+
+procedure printArray(int[] arr) {
+   for (const int el : arr) {
+       print(el);
+   }
+}
+
+main() {
+   const array int[] values = {47, -25, 3, 85, 9, 125, 42, 1};
+   quicksort(values);
+   printArray(values);
+}

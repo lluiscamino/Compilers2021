@@ -84,6 +84,13 @@ diff -y -q -w outputs/binarysearch.asm.txt expectedoutputs/binarysearch.asm.txt
 rm unoptimizedasm/binarysearch.asm.o
 rm unoptimizedasm/binarysearch.asm-exec
 
+as unoptimizedasm/quicksort.asm -o unoptimizedasm/quicksort.asm.o
+ld unoptimizedasm/quicksort.asm.o -o unoptimizedasm/quicksort.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./unoptimizedasm/quicksort.asm-exec > outputs/quicksort.asm.txt
+diff -y -q -w outputs/quicksort.asm.txt expectedoutputs/quicksort.asm.txt
+rm unoptimizedasm/quicksort.asm.o
+rm unoptimizedasm/quicksort.asm-exec
+
 as unoptimizedasm/unusedprocedure.asm -o unoptimizedasm/unusedprocedure.asm.o
 ld unoptimizedasm/unusedprocedure.asm.o -o unoptimizedasm/unusedprocedure.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./unoptimizedasm/unusedprocedure.asm-exec > outputs/unusedprocedure.asm.txt
