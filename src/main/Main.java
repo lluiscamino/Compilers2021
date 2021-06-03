@@ -52,7 +52,7 @@ public final class Main {
                 null,
                 new FileWriter(path + "/3ac.txt"),
                 new FileWriter(path + "/tabla_variables.txt"),
-                new FileWriter(path + "/taula_subprogramas.txt"),
+                new FileWriter(path + "/tabla_subprogramas.txt"),
                 new FileWriter(path + "/assembly.asm"),
                 new FileWriter(path + "/errores.txt"),
                 optimized
