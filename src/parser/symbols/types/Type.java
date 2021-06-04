@@ -89,6 +89,10 @@ public final class Type extends ParserSymbol {
         };
     }
 
+    public int sizeInBytes() {
+        return isArray() ? PrimitiveType.INT.sizeInBytes() : primitiveType.sizeInBytes();
+    }
+
     public Expression defaultExpression() {
         if (!isArray()) {
             return primitiveType.defaultExpression();
