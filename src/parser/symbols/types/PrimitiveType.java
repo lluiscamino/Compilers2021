@@ -23,14 +23,6 @@ public enum PrimitiveType implements DOTizable {
         return UNKNOWN;
     }
 
-    public Object defaultValue() {
-        return switch (this) {
-            case INT, UNKNOWN -> 0;
-            case BOOLEAN -> false;
-            case STRING -> "\"\"";
-        };
-    }
-
     public Expression defaultExpression() {
         return switch (this) {
             case INT, UNKNOWN -> new IntegerLiteral(0, null);
