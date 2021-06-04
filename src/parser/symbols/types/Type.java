@@ -62,31 +62,8 @@ public final class Type extends ParserSymbol {
         return !isArray() && primitiveType == PrimitiveType.STRING;
     }
     
-    public boolean isIntegerArray() {
-        return isArray() && primitiveType == PrimitiveType.INT;
-    }
-    
-    public boolean isBooleanArray() {
-        return isArray() && primitiveType == PrimitiveType.BOOLEAN;
-    }
-    
-    public boolean isStringArray() {
-        return isArray() && primitiveType == PrimitiveType.STRING;
-    }
-    
     public boolean isArray() {
         return dimensions != null;
-    }
-
-    public Object defaultValue() {
-        if (!isArray()) {
-            return primitiveType.defaultValue();
-        }
-        return switch (primitiveType) {
-            case INT, UNKNOWN -> new int[]{};
-            case BOOLEAN -> new boolean[]{};
-            case STRING -> new String[]{};
-        };
     }
 
     public int sizeInBytes() {
