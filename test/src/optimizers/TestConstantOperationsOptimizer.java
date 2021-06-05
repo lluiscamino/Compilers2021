@@ -14,9 +14,6 @@ import tac.references.TACVariable;
 import java.util.Collections;
 import java.util.List;
 
-import static assembly.x86.AssemblyCodeGenerationConstants.FALSE;
-import static assembly.x86.AssemblyCodeGenerationConstants.TRUE;
-
 public final class TestConstantOperationsOptimizer extends TestOptimizer {
 
     @Test
@@ -125,10 +122,10 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
     public void testConstantAndOperationOptimized() {
         TACVariable variable = new TACVariable(0);
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
-                new AndInstruction(variable, new TACLiteral(TRUE), new TACLiteral(FALSE))
+                new AndInstruction(variable, new TACLiteral(true), new TACLiteral(false))
         );
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
-                new CopyInstruction(variable, new TACLiteral(FALSE))
+                new CopyInstruction(variable, new TACLiteral(false))
         );
         TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
@@ -139,10 +136,10 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
     public void testConstantOrOperationOptimized() {
         TACVariable variable = new TACVariable(0);
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
-                new OrInstruction(variable, new TACLiteral(TRUE), new TACLiteral(FALSE))
+                new OrInstruction(variable, new TACLiteral(true), new TACLiteral(false))
         );
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
-                new CopyInstruction(variable, new TACLiteral(TRUE))
+                new CopyInstruction(variable, new TACLiteral(true))
         );
         TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
@@ -153,10 +150,10 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
     public void testConstantNotOperationOptimized() {
         TACVariable variable = new TACVariable(0);
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
-                new NotInstruction(variable, new TACLiteral(TRUE))
+                new NotInstruction(variable, new TACLiteral(true))
         );
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
-                new CopyInstruction(variable, new TACLiteral(FALSE))
+                new CopyInstruction(variable, new TACLiteral(false))
         );
         TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();

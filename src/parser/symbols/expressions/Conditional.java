@@ -66,7 +66,7 @@ public final class Conditional extends Expression {
         TACTag e1 = tacTagGenerator.generate();
         TACTag e2 = tacTagGenerator.generate();
 
-        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(FALSE), e1));
+        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(false), e1));
         leftExpression.toTac();
         addTACInstruction(new CopyInstruction(tacVariable, leftExpression.getTacVariable()));
         addTACInstruction(new GotoInstruction(e2));

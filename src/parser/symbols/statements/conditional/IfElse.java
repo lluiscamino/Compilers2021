@@ -13,8 +13,6 @@ import tac.instructions.bifurcation.ifs.IfEqual;
 import tac.references.TACLiteral;
 import tac.references.TACTag;
 
-import static assembly.x86.AssemblyCodeGenerationConstants.FALSE;
-
 public final class IfElse extends If {
 
     private final SymbolList<Statement> elseStatements;
@@ -51,7 +49,7 @@ public final class IfElse extends If {
         symbolTable.enterBlock();
         condition.toTac();
         TACTag tag = tagGenerator.generate();
-        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(FALSE), tag));
+        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(false), tag));
         if (statements != null) {
             statements.toTac();
         }

@@ -2,6 +2,9 @@ package tac.references;
 
 import parser.symbols.types.Type;
 
+import static assembly.x86.AssemblyCodeGenerationConstants.FALSE;
+import static assembly.x86.AssemblyCodeGenerationConstants.TRUE;
+
 public final class TACLiteral extends TACReference {
     private final Object value;
 
@@ -54,6 +57,6 @@ public final class TACLiteral extends TACReference {
 
     @Override
     public String toString() {
-        return value.toString();
+        return !type().isBoolean() ? value.toString() : String.valueOf(((Boolean) value) ? TRUE : FALSE);
     }
 }

@@ -53,7 +53,7 @@ public final class WhileLoop extends Loop {
         symbolTable.enterBlock();
         condition.toTac();
         TACTag endTag = tagGenerator.generate();
-        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(FALSE), endTag));
+        addTACInstruction(new IfEqual(condition.getTacVariable(), new TACLiteral(false), endTag));
         if (statements != null) {
             statements.toTac();
         }

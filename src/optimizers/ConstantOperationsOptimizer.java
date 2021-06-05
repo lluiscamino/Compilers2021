@@ -56,8 +56,8 @@ public final class ConstantOperationsOptimizer extends TACOptimizer {
 
     private TACInstruction optimizeTwoArgumentsInstruction(TACInstruction instruction) {
         TACVariable firstVariable = (TACVariable) instruction.getFirstReference();
-        Integer value = (Integer) ((TACLiteral) instruction.getSecondReference()).getValue(),
-                newValue = instruction instanceof NegativeInstruction ? -value : booleanToInteger(!integerToBoolean(value));
+        Object value = ((TACLiteral) instruction.getSecondReference()).getValue(),
+                newValue = instruction instanceof NegativeInstruction ? -(Integer) value : !(Boolean) value;
         return new CopyInstruction(firstVariable, new TACLiteral(newValue));
     }
 
@@ -67,34 +67,26 @@ public final class ConstantOperationsOptimizer extends TACOptimizer {
     }
 
     private TACLiteral getNewValue(TACInstruction instruction) {
-        Integer secondLiteral = ((Integer) ((TACLiteral) instruction.getSecondReference()).getValue()),
-                thirdLiteral = ((Integer) ((TACLiteral) instruction.getThirdReference()).getValue());
-        int newValue;
+        Object secondLiteral = (((TACLiteral) instruction.getSecondReference()).getValue()),
+                thirdLiteral = (((TACLiteral) instruction.getThirdReference()).getValue());
+        Object newValue;
         if (instruction instanceof AddInstruction) {
-            newValue = secondLiteral + thirdLiteral;
+            newValue = (Integer) secondLiteral + (Integer) thirdLiteral;
         } else if (instruction instanceof DivideInstruction) {
-            newValue = secondLiteral / thirdLiteral;
+            newValue = (Integer) secondLiteral / (Integer) thirdLiteral;
         } else if (instruction instanceof ModuloInstruction) {
-            newValue = secondLiteral % thirdLiteral;
+            newValue = (Integer) secondLiteral % (Integer) thirdLiteral;
         } else if (instruction instanceof ProductInstruction) {
-            newValue = secondLiteral * thirdLiteral;
+            newValue = (Integer) secondLiteral * (Integer) thirdLiteral;
         } else if (instruction instanceof SubtractInstruction) {
-            newValue = secondLiteral - thirdLiteral;
+            newValue = (Integer) secondLiteral - (Integer) thirdLiteral;
         } else if (instruction instanceof AndInstruction) {
-            newValue = booleanToInteger(integerToBoolean(secondLiteral) && integerToBoolean(thirdLiteral));
+            newValue = (Boolean) secondLiteral && (Boolean) thirdLiteral;
         } else if (instruction instanceof OrInstruction) {
-            newValue = booleanToInteger(integerToBoolean(secondLiteral) || integerToBoolean(thirdLiteral));
+            newValue = (Boolean) secondLiteral || (Boolean) thirdLiteral;
         } else {
             throw new RuntimeException(instruction + " not recognized by ConstantOperationsOptimizer");
         }
         return new TACLiteral(newValue);
-    }
-
-    private boolean integerToBoolean(Integer integer) {
-        return integer == TRUE;
-    }
-
-    private int booleanToInteger(boolean bool) {
-        return bool ? TRUE : FALSE;
     }
 }

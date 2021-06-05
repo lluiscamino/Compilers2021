@@ -16,9 +16,6 @@ import tac.instructions.bifurcation.ifs.specialtypes.IfEqualString;
 import tac.references.TACLiteral;
 import tac.references.TACTag;
 
-import static assembly.x86.AssemblyCodeGenerationConstants.FALSE;
-import static assembly.x86.AssemblyCodeGenerationConstants.TRUE;
-
 public final class Relational extends Expression {
     private final Expression leftExpression, rightExpression;
     private final RelationalOperatorType operator;
@@ -76,10 +73,10 @@ public final class Relational extends Expression {
         TACTag e2 = tacTagGenerator.generate();
 
         addTACInstruction(getIfInstruction(e1));
-        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(FALSE)));
+        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(false)));
         addTACInstruction(new GotoInstruction(e2));
         addTACInstruction(new SkipInstruction(e1));
-        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(TRUE)));
+        addTACInstruction(new CopyInstruction(tacVariable, new TACLiteral(true)));
         addTACInstruction(new SkipInstruction(e2));
     }
 
