@@ -2,7 +2,9 @@ package assembly.x86;
 
 import assembly.AssemblyCodeGenerator;
 import assembly.AssemblyLibrarySubprogram;
+import assembly.x86.registers.x86RegisterFactory;
 import assembly.x86.subprograms.*;
+import parser.symbols.types.Type;
 import tac.instructions.arithmetic.*;
 import tac.instructions.array.NewDynamicArrayInstruction;
 import tac.instructions.array.NewStaticArrayInstruction;
@@ -127,99 +129,128 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(AddInstruction tacInstruction) {
+        int size = tacInstruction.getFirstReference().sizeInBytes();
+        String aRegister = register("a", size), bRegister = register("b", size);
         return String.format("""
                         %s
                         %s
-                        \taddq\t%%rbx, %%rax
+                        \t%s\t%s, %s
                         %s
                          """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
-                loadInstruction(tacInstruction.getThirdReference(), "%rbx"),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSecondReference(), aRegister, size),
+                loadInstruction(tacInstruction.getThirdReference(), bRegister, size),
+                instructionCode("add", size), bRegister, aRegister,
+                storeInstruction("%rax", tacInstruction.getFirstReference(), size)
         );
     }
 
     @Override
     public String generate(CopyInstruction tacInstruction) {
+        int size = tacInstruction.getFirstReference().sizeInBytes();
+        String aRegister = register("a", size);
         return String.format("""
                         %s
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSecondReference(), aRegister, size),
+                storeInstruction(aRegister, tacInstruction.getFirstReference(), size)
         );
     }
 
     @Override
     public String generate(DivideInstruction tacInstruction) {
+        int size = tacInstruction.getFirstReference().sizeInBytes();
+        String aRegister = register("a", size),
+                bRegister = register("b", size),
+                dRegister = register("d", size);
         return String.format("""
                         %s
-                        \tmovq\t%%rax, %%rdx
-                        \tsarq\t$31, %%rdx
+                        \t%s\t%s, %s
+                        \t%s\t$31, %s
                         %s
-                        \tidivq\t%%rbx
+                        \t%s\t%s
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
-                loadInstruction(tacInstruction.getThirdReference(), "%rbx"),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSecondReference(), aRegister, size),
+                instructionCode("mov", size), aRegister, dRegister,
+                instructionCode("sar", size), dRegister,
+                loadInstruction(tacInstruction.getThirdReference(), bRegister, size),
+                instructionCode("idiv", size), bRegister,
+                storeInstruction(aRegister, tacInstruction.getFirstReference(), size)
         );
     }
 
     @Override
     public String generate(ModuloInstruction tacInstruction) {
+        int size = tacInstruction.getFirstReference().sizeInBytes();
+        String aRegister = register("a", size),
+                bRegister = register("b", size),
+                dRegister = register("d", size);
         return String.format("""
                         %s
-                        \tmovq\t%%rax, %%rdx
-                        \tsarq\t$31, %%rdx
+                        \t%s\t%s, %s
+                        \t%s\t$31, %s
                         %s
-                        \tidivq\t%%rbx
+                        \t%s\t%s
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
-                loadInstruction(tacInstruction.getThirdReference(), "%rbx"),
-                storeInstruction("%rdx", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSecondReference(), aRegister, size),
+                instructionCode("mov", size), aRegister, dRegister,
+                instructionCode("sar", size), dRegister,
+                loadInstruction(tacInstruction.getThirdReference(), bRegister, size),
+                instructionCode("idiv", size), bRegister,
+                storeInstruction(dRegister, tacInstruction.getFirstReference(), size)
         );
     }
 
     @Override
     public String generate(NegativeInstruction tacInstruction) {
+        int size = tacInstruction.getFirstReference().sizeInBytes();
+        String aRegister = register("a", size), bRegister = register("b", size);
         return String.format("""
-                        \txorq \t%%rax, %%rax
+                        \t%s \t%s, %s
                         %s
-                        \tsubq\t%%rbx, %%rax
+                        \t%s\t%s, %s
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rbx"),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                instructionCode("xor", size), aRegister, aRegister,
+                loadInstruction(tacInstruction.getSecondReference(), bRegister, size),
+                instructionCode("sub", size), bRegister, aRegister,
+                storeInstruction(aRegister, tacInstruction.getFirstReference(), size)
         );
     }
 
     @Override
     public String generate(ProductInstruction tacInstruction) {
+        int size = tacInstruction.getFirstReference().sizeInBytes();
+        String aRegister = register("a", size), bRegister = register("b", size);
         return String.format("""
                         %s
                         %s
-                        \timulq\t%%rbx, %%rax
+                        \t%s\t%s, %s
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
-                loadInstruction(tacInstruction.getThirdReference(), "%rbx"),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSecondReference(), aRegister, size),
+                loadInstruction(tacInstruction.getThirdReference(), bRegister, size),
+                instructionCode("imul", size), bRegister, aRegister,
+                storeInstruction(aRegister, tacInstruction.getFirstReference(), size)
         );
     }
 
     @Override
     public String generate(SubtractInstruction tacInstruction) {
+        int size = tacInstruction.getFirstReference().sizeInBytes();
+        String aRegister = register("a", size), bRegister = register("b", size);
         return String.format("""
                         %s
                         %s
-                        \tsubq\t%%rbx, %%rax
+                        \t%s\t%s, %s
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
-                loadInstruction(tacInstruction.getThirdReference(), "%rbx"),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSecondReference(), aRegister, size),
+                loadInstruction(tacInstruction.getThirdReference(), bRegister, size),
+                instructionCode("sub", size), bRegister, aRegister,
+                storeInstruction(aRegister, tacInstruction.getFirstReference(), size)
         );
     }
 
@@ -253,6 +284,25 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return generateIfInstruction(tacInstruction, "jge");
     }
 
+    private String generateIfInstruction(IfInstruction tacInstruction, String comparisonCode) {
+        int size = tacInstruction.getFirstReference().sizeInBytes();
+        String aRegister = register("a", size), bRegister = register("b", size);
+        return String.format("""
+                        %s
+                        %s
+                        \t%s\t%s, %s
+                        \t%s \t1f
+                        \tjmp\t%s
+                        1:
+                        """,
+                loadInstruction(tacInstruction.getFirstReference(), aRegister, size),
+                loadInstruction(tacInstruction.getSecondReference(), bRegister, size),
+                instructionCode("cmp", size), bRegister, aRegister,
+                comparisonCode,
+                tacInstruction.getThirdReference()
+        );
+    }
+
     @Override
     public String generate(IfEqualString tacInstruction) {
         subprograms.get("compare_strings").setUsed();
@@ -260,12 +310,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         %s
                         \tcall \tcompare_strings
-                        \tcmpq\t$%S, %%rdx
+                        \tcmpq\t$%s, %s
                         \tje  \t%s
                         """,
-                loadInstruction(tacInstruction.getFirstReference(), "%rsi"),
-                loadInstruction(tacInstruction.getSecondReference(), "%rdi"),
-                TRUE,
+                loadInstruction(tacInstruction.getFirstReference(), "%rsi", Type.getInteger().sizeInBytes()),
+                loadInstruction(tacInstruction.getSecondReference(), "%rdi", Type.getInteger().sizeInBytes()),
+                TRUE, register("d", Type.getInteger().sizeInBytes()),
                 tacInstruction.getThirdReference()
         );
     }
@@ -277,12 +327,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         %s
                         \tcall \tcompare_strings
-                        \tcmpq\t$%s, %%rdx
+                        \tcmpq\t$%s, %s
                         \tjne \t%s
                         """,
-                loadInstruction(tacInstruction.getFirstReference(), "%rsi"),
-                loadInstruction(tacInstruction.getSecondReference(), "%rdi"),
-                TRUE,
+                loadInstruction(tacInstruction.getFirstReference(), "%rsi", Type.getInteger().sizeInBytes()),
+                loadInstruction(tacInstruction.getSecondReference(), "%rdi", Type.getInteger().sizeInBytes()),
+                TRUE, register("d", Type.getInteger().sizeInBytes()),
                 tacInstruction.getThirdReference()
         );
     }
@@ -299,71 +349,88 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(AndInstruction tacInstruction) {
+        int size = Type.getBoolean().sizeInBytes();
+        String aRegister = register("a", size), bRegister = register("b", size);
         return String.format("""
                         %s
                         %s
-                        \tandq\t%%rbx, %%rax
+                        \t%s\t%s, %s
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
-                loadInstruction(tacInstruction.getThirdReference(), "%rbx"),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSecondReference(), aRegister, size),
+                loadInstruction(tacInstruction.getThirdReference(), bRegister, size),
+                instructionCode("and", size), bRegister, aRegister,
+                storeInstruction(aRegister, tacInstruction.getFirstReference(), size)
         );
     }
 
     @Override
     public String generate(NotInstruction tacInstruction) {
+        int size = Type.getBoolean().sizeInBytes();
+        String bRegister = register("b", size);
         return String.format("""
                         %s
-                        \tnotq\t%%rbx
+                        \t%s\t%s
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rbx"),
-                storeInstruction("%rbx", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSecondReference(), bRegister, size),
+                instructionCode("not", size), bRegister,
+                storeInstruction(bRegister, tacInstruction.getFirstReference(), size)
         );
     }
 
     @Override
     public String generate(OrInstruction tacInstruction) {
+        int size = Type.getBoolean().sizeInBytes();
+        String aRegister = register("a", size), bRegister = register("b", size);
         return String.format("""
                         %s
                         %s
-                        \torq \t%%rbx, %%rax
+                        \t%s \t%s, %s
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
-                loadInstruction(tacInstruction.getThirdReference(), "%rbx"),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSecondReference(), aRegister, size),
+                loadInstruction(tacInstruction.getThirdReference(), bRegister, size),
+                instructionCode("or", size), bRegister, aRegister,
+                storeInstruction(aRegister, tacInstruction.getFirstReference(), size)
         );
     }
 
     @Override
     public String generate(IndexAssignmentInstruction tacInstruction) {
+        int addressSize = Type.getInteger().sizeInBytes();
+        int valueSize = tacInstruction.getThirdReference().sizeInBytes();
         return String.format("""
                         %s
                         %s
-                        \taddq\t%%rbx, %%rcx
+                        \t%s\t%s, %s
                         %s
-                        \tmovq\t%%rbx, (%%rcx)
+                        \t%s\t%s, (%s)
                         """,
-                loadInstruction(tacInstruction.getFirstReference(), "%rcx"),
-                loadInstruction(tacInstruction.getSecondReference(), "%rbx"),
-                loadInstruction(tacInstruction.getThirdReference(), "%rbx")
+                loadInstruction(tacInstruction.getFirstReference(), register("c", addressSize), addressSize),
+                loadInstruction(tacInstruction.getSecondReference(), register("b", addressSize), addressSize),
+                instructionCode("add", addressSize), register("b", addressSize), register("c", addressSize),
+                loadInstruction(tacInstruction.getThirdReference(), register("b", valueSize), valueSize),
+                instructionCode("mov", valueSize), register("b", valueSize), register("c", addressSize)
         );
     }
 
     @Override
     public String generate(IndexedValueInstruction tacInstruction) {
+        int addressSize = Type.getInteger().sizeInBytes();
+        int valueSize = tacInstruction.getFirstReference().sizeInBytes();
         return String.format("""
                         %s
                         %s
-                        \taddq\t%%rbx, %%rax
-                        \tmovq\t(%%rax), %%rax
+                        \t%s\t%s, %s
+                        \t%s\t(%s), %s
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rax"),
-                loadInstruction(tacInstruction.getThirdReference(), "%rbx"),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSecondReference(), register("a", addressSize), addressSize),
+                loadInstruction(tacInstruction.getThirdReference(), register("b", addressSize), addressSize),
+                instructionCode("add", addressSize), register("b", addressSize), register("a", addressSize),
+                instructionCode("mov", valueSize), register("a", addressSize), register("a", valueSize),
+                storeInstruction(register("a", valueSize), tacInstruction.getFirstReference(), valueSize)
         );
     }
 
@@ -379,13 +446,14 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(FunctionCallInstruction tacInstruction) {
+        int size = tacInstruction.getFirstReference().sizeInBytes();
         SubprogramsTable.SubprogramInfo subprogramInfo = getSubprogramInfoOrThrowException(tacInstruction.getSecondReference());
         return String.format("""
                         \tcall\t%s
                         %s
                         """,
                 subprogramInfo.getTag(),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                storeInstruction(register("a", size), tacInstruction.getFirstReference(), size)
         );
     }
 
@@ -413,6 +481,8 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(FunctionReturnInstruction tacInstruction) {
+        int size = tacInstruction.getSecondReference().sizeInBytes();
+        String aRegister = register("a", size);
         return String.format("""
                         %s
                         \tmovq\t%%rbp, %%rsp
@@ -420,17 +490,20 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         \tret
                                         
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rax")
+                loadInstruction(tacInstruction.getSecondReference(), aRegister, size)
         );
     }
 
     @Override
     public String generate(ParameterInstruction tacInstruction) {
+        int size = tacInstruction.getFirstReference().sizeInBytes();
+        String aRegister = register("a", size);
         return String.format("""
                         %s
-                        \tpush\t%%rax
+                        \t%s\t%s
                         """,
-                loadInstruction(tacInstruction.getFirstReference(), "%rax")
+                loadInstruction(tacInstruction.getFirstReference(), aRegister, size),
+                instructionCode("push", size), aRegister
         );
     }
 
@@ -448,7 +521,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         """,
                 STRING_BUFFER_BYTES,
-                storeInstruction("%rsi", tacInstruction.getFirstReference())
+                storeInstruction("%rsi", tacInstruction.getFirstReference(), Type.getInteger().sizeInBytes())
         );
     }
 
@@ -459,18 +532,19 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         \tcall\tprint_uint64
                         """,
-                loadInstruction(tacInstruction.getFirstReference(), "%rdi")
+                loadInstruction(tacInstruction.getFirstReference(), "%rdi", Type.getInteger().sizeInBytes())
         );
     }
 
     @Override
     public String generate(PrintBooleanInstruction tacInstruction) {
+        int size = Type.getBoolean().sizeInBytes();
         subprograms.get("print_boolean").setUsed();
         return String.format("""
                         %s
                         \tcall\tprint_boolean
                         """,
-                loadInstruction(tacInstruction.getFirstReference(), "%rbx")
+                loadInstruction(tacInstruction.getFirstReference(), register("b", size), size)
         );
     }
 
@@ -480,7 +554,8 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return String.format("""
                 %s
                 \tcall\tprint_string
-                """, loadInstruction(tacInstruction.getFirstReference(), "%rsi"));
+                """, loadInstruction(tacInstruction.getFirstReference(), "%rsi", Type.getInteger().sizeInBytes())
+        );
     }
 
     @Override
@@ -490,15 +565,18 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(StringLengthInstruction tacInstruction) {
+        int size = tacInstruction.getFirstReference().sizeInBytes();
+        String dRegister = register("d", size);
         subprograms.get("string_length").setUsed();
         return String.format("""
                         %s
                         \tcall\tstring_length
-                        \tsubq\t$1, %%rdx
+                        \t%s\t$1, %s
                         %s
                         """,
-                loadInstruction(tacInstruction.getSecondReference(), "%rsi"),
-                storeInstruction("%rdx", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSecondReference(), "%rsi", size),
+                instructionCode("sub", size), dRegister,
+                storeInstruction(dRegister, tacInstruction.getFirstReference(), Type.getInteger().sizeInBytes())
         );
     }
 
@@ -511,7 +589,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         """,
                 declarationName + "@GOTPCREL(%rip)",
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                storeInstruction("%rax", tacInstruction.getFirstReference(), Type.getInteger().sizeInBytes())
         );
     }
 
@@ -525,48 +603,48 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         \tmovq\t%%rbx, %%rsp
                         %s
                         """,
-                loadInstruction(tacInstruction.getSize(), "%rdi"),
-                storeInstruction("%rax", tacInstruction.getFirstReference())
+                loadInstruction(tacInstruction.getSize(), "%rdi", Type.getInteger().sizeInBytes()),
+                storeInstruction("%rax", tacInstruction.getFirstReference(), Type.getInteger().sizeInBytes())
         );
     }
 
-    private String loadInstruction(TACReference reference, String register) {
+    private String loadInstruction(TACReference reference, String register, int size) {
         if (reference instanceof TACLiteral) {
             if (((TACLiteral) reference).type().isString()) {
                 String declarationName = "str_" + constantDeclarations.size();
                 constantDeclarations.add(String.format("%s: .asciz %s\n", declarationName, reference));
                 return String.format("\tmovq\t%s, %s", declarationName + "@GOTPCREL(%rip)", register);
             }
-            return String.format("\tmovq\t$%s, %s", reference, register);
+            return String.format("\t%s\t$%s, %s", instructionCode("mov", size), reference, register);
         }
         VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
         if (isLocalVariable(variableInfo) || initialScope) {
-            return String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset(), register);
+            return String.format("\t%s\t%s(%%rbp), %s", instructionCode("mov", size), variableInfo.getOffset(), register);
         } else if (isLocalArgument(variableInfo)) {
-            return String.format("\tmovq\t%s(%%rbp), %s", variableInfo.getOffset() + 8, register);
+            return String.format("\t%s\t%s(%%rbp), %s", instructionCode("mov", size), variableInfo.getOffset() + 8, register);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
                     \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
                     \tmovq\t(%%rsi), %%rsi
-                    \tmovq\t%s(%%rsi), %s
-                    """, variableInfo.getOffset(), register);
+                    \t%s\t%s(%%rsi), %s
+                    """, instructionCode("mov", size), variableInfo.getOffset(), register);
         } else {
             throw new RuntimeException("Unidentifiable variable");
         }
     }
 
-    private String storeInstruction(String register, TACReference reference) {
+    private String storeInstruction(String register, TACReference reference, int size) {
         VariablesTable.VariableInfo variableInfo = getVariableInfoOrThrowException(reference);
         if (isLocalVariable(variableInfo) || initialScope) {
-            return String.format("\tmovq\t%s, %s(%%rbp)", register, variableInfo.getOffset());
+            return String.format("\t%s\t%s, %s(%%rbp)", instructionCode("mov", size), register, variableInfo.getOffset());
         } else if (isLocalArgument(variableInfo)) {
-            return String.format("\tmovq\t%s, %s(%%rbp)", register, variableInfo.getOffset() + 8);
+            return String.format("\t%s\t%s, %s(%%rbp)", instructionCode("mov", size), register, variableInfo.getOffset() + 8);
         } else if (isGlobalVariable(variableInfo)) {
             return String.format("""
                     \tmovq\tdecl_2@GOTPCREL(%%rip), %%rsi
                     \tmovq\t(%%rsi), %%rsi
-                    \tmovq\t%s, %s(%%rsi)
-                    """, register, variableInfo.getOffset());
+                    \t%s\t%s, %s(%%rsi)
+                    """, instructionCode("mov", size), register, variableInfo.getOffset());
         } else {
             throw new RuntimeException("Unidentifiable variable");
         }
@@ -606,19 +684,20 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         return subprogramInfo;
     }
 
-    private String generateIfInstruction(IfInstruction tacInstruction, String comparisonCode) {
-        return String.format("""
-                        %s
-                        %s
-                        \tcmpq\t%%rbx, %%rax
-                        \t%s \t1f
-                        \tjmp\t%s
-                        1:
-                        """,
-                loadInstruction(tacInstruction.getFirstReference(), "%rax"),
-                loadInstruction(tacInstruction.getSecondReference(), "%rbx"),
-                comparisonCode,
-                tacInstruction.getThirdReference()
-        );
+    private String instructionCode(String instruction, int size) {
+        return instruction + sizeCode(size);
+    }
+
+    private String sizeCode(int bytes) {
+        return switch (bytes) {
+            case 1 -> "b";
+            case 4 -> "l";
+            case 8 -> "q";
+            default -> throw new RuntimeException("Invalid size code " + bytes + "B. Valid options: 1B, 4B and 8B");
+        };
+    }
+
+    private String register(String name, int size) {
+        return new x86RegisterFactory().getRegister(name).name(size);
     }
 }
