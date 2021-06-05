@@ -45,7 +45,7 @@ t_main:
 	movq	%rax, -24(%rbp)
 /*param t2*/
 	movq	-24(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t0 = call s0*/
 	call	t_identity
 	movq	%rax, -8(%rbp)
@@ -57,7 +57,7 @@ t_main:
 	movq	%rax, -40(%rbp)
 /*param t4*/
 	movq	-40(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t3 = call s0*/
 	call	t_identity
 	movq	%rax, -32(%rbp)
@@ -77,7 +77,7 @@ t_main:
 	movq	%rax, -72(%rbp)
 /*param t8*/
 	movq	-72(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t5 = call s0*/
 	call	t_identity
 	movq	%rax, -48(%rbp)
@@ -141,7 +141,7 @@ e2:
 e3:
 /*param t13*/
 	movq	-112(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t9 = call s0*/
 	call	t_identity
 	movq	%rax, -80(%rbp)

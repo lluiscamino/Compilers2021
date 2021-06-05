@@ -60,12 +60,12 @@ t_main:
 	call	print_string
 /*param "749\n"*/
 	movq	str_7@GOTPCREL(%rip), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printString
 /*param constString*/
 	movq	-8(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printString
 /*rtn s1*/

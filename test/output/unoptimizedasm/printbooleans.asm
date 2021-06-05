@@ -58,7 +58,7 @@ t_main:
 	movq	%rax, -24(%rbp)
 /*param t3*/
 	movq	-24(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printNot
 /*t4 = 0*/
@@ -66,7 +66,7 @@ t_main:
 	movq	%rax, -32(%rbp)
 /*param t4*/
 	movq	-32(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printNot
 /*t5 = -1*/

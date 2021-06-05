@@ -49,12 +49,12 @@ t_main:
 	call	print_boolean
 /*param -1*/
 	movq	$-1, %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printNot
 /*param 0*/
 	movq	$0, %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printNot
 /*printBoolean(0)*/

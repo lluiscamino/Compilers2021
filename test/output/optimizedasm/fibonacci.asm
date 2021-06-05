@@ -99,7 +99,7 @@ t_main:
 	subq	$0, %rsp
 /*param 40*/
 	movq	$40, %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_fibonacci
 /*rtn s1*/

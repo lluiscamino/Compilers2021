@@ -75,12 +75,12 @@ t_main:
 	movq	%rax, -56(%rbp)
 /*param t4*/
 	movq	-56(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printString
 /*param constString*/
 	movq	-8(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printString
 /*rtn s1*/

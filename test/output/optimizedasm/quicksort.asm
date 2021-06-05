@@ -389,13 +389,13 @@ e18:
 	movq	%rax, -256(%rbp)
 /*param t32*/
 	movq	-256(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param left*/
 	movq	24(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param arr*/
 	movq	16(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_quicksortAux
 /*e19: skip*/
@@ -438,13 +438,13 @@ e21:
 	movq	%rax, -280(%rbp)
 /*param right*/
 	movq	32(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t37*/
 	movq	-280(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param arr*/
 	movq	16(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_quicksortAux
 /*e22: skip*/
@@ -473,13 +473,13 @@ t_quicksort:
 	movq	%rax, -24(%rbp)
 /*param t40*/
 	movq	-24(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param 0*/
 	movq	$0, %rax
-	push	%rax
+	pushq	%rax
 /*param arr*/
 	movq	16(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_quicksortAux
 /*rtn s1*/
@@ -615,12 +615,12 @@ t_main:
 	movq	%rax, -8(%rbp)
 /*param values*/
 	movq	-8(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s1*/
 	call	t_quicksort
 /*param values*/
 	movq	-8(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s2*/
 	call	t_printArray
 /*rtn s3*/

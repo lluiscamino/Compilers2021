@@ -273,10 +273,10 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param 9*/
 	movq	$9, %rax
-	push	%rax
+	pushq	%rax
 /*param t26*/
 	movq	-16(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t24 = call s0*/
 	call	t_binarySearch
 	movq	%rax, -8(%rbp)
@@ -330,10 +330,10 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param 12*/
 	movq	$12, %rax
-	push	%rax
+	pushq	%rax
 /*param t36*/
 	movq	-32(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t34 = call s0*/
 	call	t_binarySearch
 	movq	%rax, -24(%rbp)
@@ -387,10 +387,10 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param 0*/
 	movq	$0, %rax
-	push	%rax
+	pushq	%rax
 /*param t46*/
 	movq	-48(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t44 = call s0*/
 	call	t_binarySearch
 	movq	%rax, -40(%rbp)
@@ -444,10 +444,10 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param 5*/
 	movq	$5, %rax
-	push	%rax
+	pushq	%rax
 /*param t56*/
 	movq	-64(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t54 = call s0*/
 	call	t_binarySearch
 	movq	%rax, -56(%rbp)
@@ -501,10 +501,10 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param 7*/
 	movq	$7, %rax
-	push	%rax
+	pushq	%rax
 /*param t66*/
 	movq	-80(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t64 = call s0*/
 	call	t_binarySearch
 	movq	%rax, -72(%rbp)

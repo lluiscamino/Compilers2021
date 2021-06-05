@@ -99,7 +99,7 @@ t_main:
 	subq	$0, %rsp
 /*param 25*/
 	movq	$25, %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_lucas
 /*rtn s1*/

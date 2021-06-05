@@ -166,16 +166,16 @@ t_main:
 e12:
 /*param 9*/
 	movq	$9, %rax
-	push	%rax
+	pushq	%rax
 /*param -3*/
 	movq	$-3, %rax
-	push	%rax
+	pushq	%rax
 /*param 6*/
 	movq	$6, %rax
-	push	%rax
+	pushq	%rax
 /*param 4*/
 	movq	$4, %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printMaxInteger
 /*goto e15*/
@@ -184,44 +184,44 @@ e12:
 e15:
 /*param 4*/
 	movq	$4, %rax
-	push	%rax
+	pushq	%rax
 /*param -3*/
 	movq	$-3, %rax
-	push	%rax
+	pushq	%rax
 /*param 6*/
 	movq	$6, %rax
-	push	%rax
+	pushq	%rax
 /*param 4*/
 	movq	$4, %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printMaxInteger
 /*param -27*/
 	movq	$-27, %rax
-	push	%rax
+	pushq	%rax
 /*param -23*/
 	movq	$-23, %rax
-	push	%rax
+	pushq	%rax
 /*param -45*/
 	movq	$-45, %rax
-	push	%rax
+	pushq	%rax
 /*param -34*/
 	movq	$-34, %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printMaxInteger
 /*param -23231*/
 	movq	$-23231, %rax
-	push	%rax
+	pushq	%rax
 /*param 12323*/
 	movq	$12323, %rax
-	push	%rax
+	pushq	%rax
 /*param 1212*/
 	movq	$1212, %rax
-	push	%rax
+	pushq	%rax
 /*param 897137132*/
 	movq	$897137132, %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printMaxInteger
 /*rtn s1*/

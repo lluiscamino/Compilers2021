@@ -212,16 +212,16 @@ e13:
 	movq	%rax, -80(%rbp)
 /*param t7*/
 	movq	-16(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t11*/
 	movq	-48(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t14*/
 	movq	-72(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t15*/
 	movq	-80(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printMaxInteger
 /*t16 = -1*/
@@ -276,16 +276,16 @@ e15:
 	movq	%rax, -160(%rbp)
 /*param t17*/
 	movq	-96(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t21*/
 	movq	-128(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t24*/
 	movq	-152(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t25*/
 	movq	-160(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printMaxInteger
 /*t26 = 27*/
@@ -322,16 +322,16 @@ e15:
 	movq	%rax, -224(%rbp)
 /*param t27*/
 	movq	-176(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t29*/
 	movq	-192(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t31*/
 	movq	-208(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t33*/
 	movq	-224(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printMaxInteger
 /*t34 = 23231*/
@@ -353,16 +353,16 @@ e15:
 	movq	%rax, -264(%rbp)
 /*param t35*/
 	movq	-240(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t36*/
 	movq	-248(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t37*/
 	movq	-256(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t38*/
 	movq	-264(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_printMaxInteger
 /*rtn s1*/

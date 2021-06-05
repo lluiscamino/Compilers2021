@@ -75,19 +75,19 @@ t_max3:
 	subq	$40, %rsp
 /*param num2*/
 	movq	24(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param num1*/
 	movq	16(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t3 = call s0*/
 	call	t_max2
 	movq	%rax, -40(%rbp)
 /*param num3*/
 	movq	32(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t3*/
 	movq	-40(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t2 = call s0*/
 	call	t_max2
 	movq	%rax, -32(%rbp)
@@ -105,22 +105,22 @@ t_max4:
 	subq	$48, %rsp
 /*param num3*/
 	movq	32(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param num2*/
 	movq	24(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param num1*/
 	movq	16(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t5 = call s1*/
 	call	t_max3
 	movq	%rax, -48(%rbp)
 /*param num4*/
 	movq	40(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t5*/
 	movq	-48(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t4 = call s0*/
 	call	t_max2
 	movq	%rax, -40(%rbp)
@@ -138,25 +138,25 @@ t_max5:
 	subq	$56, %rsp
 /*param num4*/
 	movq	40(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param num3*/
 	movq	32(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param num2*/
 	movq	24(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param num1*/
 	movq	16(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t7 = call s2*/
 	call	t_max4
 	movq	%rax, -56(%rbp)
 /*param num5*/
 	movq	48(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t7*/
 	movq	-56(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t6 = call s0*/
 	call	t_max2
 	movq	%rax, -48(%rbp)
@@ -174,19 +174,19 @@ t_main:
 	subq	$72, %rsp
 /*param -12*/
 	movq	$-12, %rax
-	push	%rax
+	pushq	%rax
 /*param 45*/
 	movq	$45, %rax
-	push	%rax
+	pushq	%rax
 /*param 23*/
 	movq	$23, %rax
-	push	%rax
+	pushq	%rax
 /*param 9*/
 	movq	$9, %rax
-	push	%rax
+	pushq	%rax
 /*param 19*/
 	movq	$19, %rax
-	push	%rax
+	pushq	%rax
 /*t8 = call s3*/
 	call	t_max5
 	movq	%rax, -8(%rbp)
@@ -195,19 +195,19 @@ t_main:
 	call	print_uint64
 /*param 1019*/
 	movq	$1019, %rax
-	push	%rax
+	pushq	%rax
 /*param 784*/
 	movq	$784, %rax
-	push	%rax
+	pushq	%rax
 /*param 342*/
 	movq	$342, %rax
-	push	%rax
+	pushq	%rax
 /*param -245*/
 	movq	$-245, %rax
-	push	%rax
+	pushq	%rax
 /*param 920*/
 	movq	$920, %rax
-	push	%rax
+	pushq	%rax
 /*t17 = call s3*/
 	call	t_max5
 	movq	%rax, -16(%rbp)
@@ -216,19 +216,19 @@ t_main:
 	call	print_uint64
 /*param -1*/
 	movq	$-1, %rax
-	push	%rax
+	pushq	%rax
 /*param 0*/
 	movq	$0, %rax
-	push	%rax
+	pushq	%rax
 /*param 1*/
 	movq	$1, %rax
-	push	%rax
+	pushq	%rax
 /*param 2*/
 	movq	$2, %rax
-	push	%rax
+	pushq	%rax
 /*param 3*/
 	movq	$3, %rax
-	push	%rax
+	pushq	%rax
 /*t32 = call s3*/
 	call	t_max5
 	movq	%rax, -24(%rbp)
@@ -237,109 +237,109 @@ t_main:
 	call	print_uint64
 /*param 94*/
 	movq	$94, %rax
-	push	%rax
+	pushq	%rax
 /*param 89*/
 	movq	$89, %rax
-	push	%rax
+	pushq	%rax
 /*param 67*/
 	movq	$67, %rax
-	push	%rax
+	pushq	%rax
 /*param 56*/
 	movq	$56, %rax
-	push	%rax
+	pushq	%rax
 /*param 12*/
 	movq	$12, %rax
-	push	%rax
+	pushq	%rax
 /*t40 = call s3*/
 	call	t_max5
 	movq	%rax, -40(%rbp)
 /*param -235*/
 	movq	$-235, %rax
-	push	%rax
+	pushq	%rax
 /*param -72*/
 	movq	$-72, %rax
-	push	%rax
+	pushq	%rax
 /*param 43*/
 	movq	$43, %rax
-	push	%rax
+	pushq	%rax
 /*param 85*/
 	movq	$85, %rax
-	push	%rax
+	pushq	%rax
 /*param 32*/
 	movq	$32, %rax
-	push	%rax
+	pushq	%rax
 /*t46 = call s3*/
 	call	t_max5
 	movq	%rax, -48(%rbp)
 /*param 45*/
 	movq	$45, %rax
-	push	%rax
+	pushq	%rax
 /*param 32*/
 	movq	$32, %rax
-	push	%rax
+	pushq	%rax
 /*param 98*/
 	movq	$98, %rax
-	push	%rax
+	pushq	%rax
 /*param 23*/
 	movq	$23, %rax
-	push	%rax
+	pushq	%rax
 /*param 84*/
 	movq	$84, %rax
-	push	%rax
+	pushq	%rax
 /*t54 = call s3*/
 	call	t_max5
 	movq	%rax, -56(%rbp)
 /*param 65*/
 	movq	$65, %rax
-	push	%rax
+	pushq	%rax
 /*param 67*/
 	movq	$67, %rax
-	push	%rax
+	pushq	%rax
 /*param 23*/
 	movq	$23, %rax
-	push	%rax
+	pushq	%rax
 /*param -43*/
 	movq	$-43, %rax
-	push	%rax
+	pushq	%rax
 /*param 67*/
 	movq	$67, %rax
-	push	%rax
+	pushq	%rax
 /*t60 = call s3*/
 	call	t_max5
 	movq	%rax, -64(%rbp)
 /*param 45*/
 	movq	$45, %rax
-	push	%rax
+	pushq	%rax
 /*param 98*/
 	movq	$98, %rax
-	push	%rax
+	pushq	%rax
 /*param 34*/
 	movq	$34, %rax
-	push	%rax
+	pushq	%rax
 /*param 12*/
 	movq	$12, %rax
-	push	%rax
+	pushq	%rax
 /*param 43*/
 	movq	$43, %rax
-	push	%rax
+	pushq	%rax
 /*t67 = call s3*/
 	call	t_max5
 	movq	%rax, -72(%rbp)
 /*param t40*/
 	movq	-40(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t46*/
 	movq	-48(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t54*/
 	movq	-56(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t60*/
 	movq	-64(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t67*/
 	movq	-72(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t39 = call s3*/
 	call	t_max5
 	movq	%rax, -32(%rbp)

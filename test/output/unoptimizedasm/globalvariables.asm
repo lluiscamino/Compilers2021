@@ -75,7 +75,7 @@ t_main:
 	movq	%rax, -16(%rbp)
 /*param t2*/
 	movq	-16(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s1*/
 	call	t_changeA
 /*call s0*/

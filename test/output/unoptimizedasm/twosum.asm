@@ -465,10 +465,10 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param t27*/
 	movq	-24(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*param t28*/
 	movq	-32(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*t26 = call s0*/
 	call	t_twoSum
 	movq	%rax, -16(%rbp)

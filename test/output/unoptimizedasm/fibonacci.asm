@@ -114,7 +114,7 @@ t_main:
 	movq	%rax, -8(%rbp)
 /*param t6*/
 	movq	-8(%rbp), %rax
-	push	%rax
+	pushq	%rax
 /*call s0*/
 	call	t_fibonacci
 /*rtn s1*/
