@@ -113,7 +113,7 @@ public final class SemanticAnalyzer {
         int cycleCounter = 0;
         do {
             previousOptimizationCycleInstructions = new ArrayList<>(tacInstructionList);
-            tacInstructionList = new NeedlessGotosOptimizer(new InaccessibleCodeOptimizer(new UnusedTagsOptimizer(new ConstantIfsOptimizer(new ConstantOperationsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(tacInstructionList).optimize()).optimize()).optimize()).optimize(), subprogramsTable).optimize()).optimize()).optimize();
+            tacInstructionList = new NeedlessGotosOptimizer(new InaccessibleCodeOptimizer(new UnusedTagsOptimizer(new ConstantIfsOptimizer(new ArithmeticOperationsOptimizer(new ConstantOperationsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(tacInstructionList).optimize()).optimize()).optimize()).optimize()).optimize(), subprogramsTable).optimize()).optimize()).optimize();
         } while (!tacInstructionList.equals(previousOptimizationCycleInstructions) && ++cycleCounter < maxCycles);
         removeUnusedVariables();
     }
