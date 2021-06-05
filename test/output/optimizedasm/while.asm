@@ -22,7 +22,7 @@ t_main:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$16, %rsp
+	subq	$9, %rsp
 /*a = 16*/
 	movq	$16, %rax
 	movq	%rax, -8(%rbp)
@@ -36,21 +36,21 @@ e0:
 	jmp	e1
 1:
 /*t2 = 0*/
-	movq	$0, %rax
-	movq	%rax, -16(%rbp)
+	movb	$0, %al
+	movb	%al, -9(%rbp)
 /*goto e2*/
 	jmp 	e2
 /*e1: skip*/
 e1:
 /*t2 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -16(%rbp)
+	movb	$-1, %al
+	movb	%al, -9(%rbp)
 /*e2: skip*/
 e2:
 /*if t2 = 0 goto e3*/
-	movq	-16(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-9(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e3
 1:

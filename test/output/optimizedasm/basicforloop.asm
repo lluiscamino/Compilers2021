@@ -22,7 +22,7 @@ t_main:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$56, %rsp
+	subq	$49, %rsp
 /*t0 = new array[4]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
 	movq	%rax, -16(%rbp)
@@ -78,21 +78,21 @@ e0:
 	jmp	e1
 1:
 /*t15 = 0*/
-	movq	$0, %rax
-	movq	%rax, -40(%rbp)
+	movb	$0, %al
+	movb	%al, -33(%rbp)
 /*goto e2*/
 	jmp 	e2
 /*e1: skip*/
 e1:
 /*t15 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -40(%rbp)
+	movb	$-1, %al
+	movb	%al, -33(%rbp)
 /*e2: skip*/
 e2:
 /*if t15 = 0 goto e3*/
-	movq	-40(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-33(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e3
 1:
@@ -100,20 +100,20 @@ e2:
 	movq	-24(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -48(%rbp)
+	movq	%rax, -41(%rbp)
 /*t16 = t16 + 8*/
-	movq	-48(%rbp), %rax
+	movq	-41(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -48(%rbp)
+	movq	%rax, -41(%rbp)
 /*t17 = arr[t16]*/
 	movq	-8(%rbp), %rax
-	movq	-48(%rbp), %rbx
+	movq	-41(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -56(%rbp)
+	movq	%rax, -49(%rbp)
 /*printInt(t17)*/
-	movq	-56(%rbp), %rdi
+	movq	-49(%rbp), %rdi
 	call	print_uint64
 /*i = i + 1*/
 	movq	-24(%rbp), %rax

@@ -22,7 +22,7 @@ t_quicksortAux:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$360, %rsp
+	subq	$304, %rsp
 /*t0 = left * 8*/
 	movq	24(%rbp), %rax
 	movq	$8, %rbx
@@ -58,21 +58,21 @@ e0:
 	jmp	e1
 1:
 /*t2 = 0*/
-	movq	$0, %rax
-	movq	%rax, -72(%rbp)
+	movb	$0, %al
+	movb	%al, -65(%rbp)
 /*goto e2*/
 	jmp 	e2
 /*e1: skip*/
 e1:
 /*t2 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -72(%rbp)
+	movb	$-1, %al
+	movb	%al, -65(%rbp)
 /*e2: skip*/
 e2:
 /*if t2 = 0 goto e3*/
-	movq	-72(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-65(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e3
 1:
@@ -82,35 +82,35 @@ e4:
 	movq	-56(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -80(%rbp)
+	movq	%rax, -73(%rbp)
 /*t3 = t3 + 8*/
-	movq	-80(%rbp), %rax
+	movq	-73(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -80(%rbp)
+	movq	%rax, -73(%rbp)
 /*t4 = arr[t3]*/
 	movq	16(%rbp), %rax
-	movq	-80(%rbp), %rbx
+	movq	-73(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -88(%rbp)
+	movq	%rax, -81(%rbp)
 /*if t4 <= pivot goto e5*/
-	movq	-88(%rbp), %rax
+	movq	-81(%rbp), %rax
 	movq	-32(%rbp), %rbx
 	cmpq	%rbx, %rax
 	ja 	1f
 	jmp	e5
 1:
 /*t5 = 0*/
-	movq	$0, %rax
-	movq	%rax, -96(%rbp)
+	movb	$0, %al
+	movb	%al, -82(%rbp)
 /*goto e6*/
 	jmp 	e6
 /*e5: skip*/
 e5:
 /*t5 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -96(%rbp)
+	movb	$-1, %al
+	movb	%al, -82(%rbp)
 /*e6: skip*/
 e6:
 /*if i < j goto e7*/
@@ -121,35 +121,35 @@ e6:
 	jmp	e7
 1:
 /*t6 = 0*/
-	movq	$0, %rax
-	movq	%rax, -104(%rbp)
+	movb	$0, %al
+	movb	%al, -83(%rbp)
 /*goto e8*/
 	jmp 	e8
 /*e7: skip*/
 e7:
 /*t6 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -104(%rbp)
+	movb	$-1, %al
+	movb	%al, -83(%rbp)
 /*e8: skip*/
 e8:
 /*t7 = t5 and t6*/
-	movq	-96(%rbp), %rax
-	movq	-104(%rbp), %rbx
-	andq	%rbx, %rax
-	movq	%rax, -112(%rbp)
+	movb	-82(%rbp), %al
+	movb	-83(%rbp), %bl
+	andb	%bl, %al
+	movb	%al, -84(%rbp)
 /*if t7 = 0 goto e9*/
-	movq	-112(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-84(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e9
 1:
 /*t8 = 1*/
 	movq	$1, %rax
-	movq	%rax, -120(%rbp)
+	movq	%rax, -92(%rbp)
 /*i = i + t8*/
 	movq	-56(%rbp), %rax
-	movq	-120(%rbp), %rbx
+	movq	-92(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	%rax, -56(%rbp)
 /*goto e4*/
@@ -162,50 +162,50 @@ e10:
 	movq	-64(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -128(%rbp)
+	movq	%rax, -100(%rbp)
 /*t9 = t9 + 8*/
-	movq	-128(%rbp), %rax
+	movq	-100(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -128(%rbp)
+	movq	%rax, -100(%rbp)
 /*t10 = arr[t9]*/
 	movq	16(%rbp), %rax
-	movq	-128(%rbp), %rbx
+	movq	-100(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -136(%rbp)
+	movq	%rax, -108(%rbp)
 /*if t10 > pivot goto e11*/
-	movq	-136(%rbp), %rax
+	movq	-108(%rbp), %rax
 	movq	-32(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jle 	1f
 	jmp	e11
 1:
 /*t11 = 0*/
-	movq	$0, %rax
-	movq	%rax, -144(%rbp)
+	movb	$0, %al
+	movb	%al, -109(%rbp)
 /*goto e12*/
 	jmp 	e12
 /*e11: skip*/
 e11:
 /*t11 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -144(%rbp)
+	movb	$-1, %al
+	movb	%al, -109(%rbp)
 /*e12: skip*/
 e12:
 /*if t11 = 0 goto e13*/
-	movq	-144(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-109(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e13
 1:
 /*t12 = 1*/
 	movq	$1, %rax
-	movq	%rax, -152(%rbp)
+	movq	%rax, -117(%rbp)
 /*j = j - t12*/
 	movq	-64(%rbp), %rax
-	movq	-152(%rbp), %rbx
+	movq	-117(%rbp), %rbx
 	subq	%rbx, %rax
 	movq	%rax, -64(%rbp)
 /*goto e10*/
@@ -220,21 +220,21 @@ e13:
 	jmp	e14
 1:
 /*t13 = 0*/
-	movq	$0, %rax
-	movq	%rax, -160(%rbp)
+	movb	$0, %al
+	movb	%al, -118(%rbp)
 /*goto e15*/
 	jmp 	e15
 /*e14: skip*/
 e14:
 /*t13 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -160(%rbp)
+	movb	$-1, %al
+	movb	%al, -118(%rbp)
 /*e15: skip*/
 e15:
 /*if t13 = 0 goto e16*/
-	movq	-160(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-118(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e16
 1:
@@ -242,74 +242,74 @@ e15:
 	movq	-56(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -176(%rbp)
+	movq	%rax, -134(%rbp)
 /*t14 = t14 + 8*/
-	movq	-176(%rbp), %rax
+	movq	-134(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -176(%rbp)
+	movq	%rax, -134(%rbp)
 /*t15 = arr[t14]*/
 	movq	16(%rbp), %rax
-	movq	-176(%rbp), %rbx
+	movq	-134(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -184(%rbp)
+	movq	%rax, -142(%rbp)
 /*aux = t15*/
-	movq	-184(%rbp), %rax
-	movq	%rax, -168(%rbp)
+	movq	-142(%rbp), %rax
+	movq	%rax, -126(%rbp)
 /*t16 = arr*/
 	movq	16(%rbp), %rax
-	movq	%rax, -192(%rbp)
+	movq	%rax, -150(%rbp)
 /*t18 = j * 8*/
 	movq	-64(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -208(%rbp)
+	movq	%rax, -166(%rbp)
 /*t18 = t18 + 8*/
-	movq	-208(%rbp), %rax
+	movq	-166(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -208(%rbp)
+	movq	%rax, -166(%rbp)
 /*t19 = arr[t18]*/
 	movq	16(%rbp), %rax
-	movq	-208(%rbp), %rbx
+	movq	-166(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -216(%rbp)
+	movq	%rax, -174(%rbp)
 /*t17 = i * 8*/
 	movq	-56(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -200(%rbp)
+	movq	%rax, -158(%rbp)
 /*t17 = t17 + 8*/
-	movq	-200(%rbp), %rax
+	movq	-158(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -200(%rbp)
+	movq	%rax, -158(%rbp)
 /*t16[t17] = t19*/
-	movq	-192(%rbp), %rcx
-	movq	-200(%rbp), %rbx
+	movq	-150(%rbp), %rcx
+	movq	-158(%rbp), %rbx
 	addq	%rbx, %rcx
-	movq	-216(%rbp), %rbx
+	movq	-174(%rbp), %rbx
 	movq	%rbx, (%rcx)
 /*t20 = arr*/
 	movq	16(%rbp), %rax
-	movq	%rax, -224(%rbp)
+	movq	%rax, -182(%rbp)
 /*t21 = j * 8*/
 	movq	-64(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -232(%rbp)
+	movq	%rax, -190(%rbp)
 /*t21 = t21 + 8*/
-	movq	-232(%rbp), %rax
+	movq	-190(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -232(%rbp)
+	movq	%rax, -190(%rbp)
 /*t20[t21] = aux*/
-	movq	-224(%rbp), %rcx
-	movq	-232(%rbp), %rbx
+	movq	-182(%rbp), %rcx
+	movq	-190(%rbp), %rbx
 	addq	%rbx, %rcx
-	movq	-168(%rbp), %rbx
+	movq	-126(%rbp), %rbx
 	movq	%rbx, (%rcx)
 /*e16: skip*/
 e16:
@@ -319,164 +319,164 @@ e16:
 e3:
 /*t22 = arr*/
 	movq	16(%rbp), %rax
-	movq	%rax, -240(%rbp)
+	movq	%rax, -198(%rbp)
 /*t24 = j * 8*/
 	movq	-64(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -256(%rbp)
+	movq	%rax, -214(%rbp)
 /*t24 = t24 + 8*/
-	movq	-256(%rbp), %rax
+	movq	-214(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -256(%rbp)
+	movq	%rax, -214(%rbp)
 /*t25 = arr[t24]*/
 	movq	16(%rbp), %rax
-	movq	-256(%rbp), %rbx
+	movq	-214(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -264(%rbp)
+	movq	%rax, -222(%rbp)
 /*t23 = left * 8*/
 	movq	24(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -248(%rbp)
+	movq	%rax, -206(%rbp)
 /*t23 = t23 + 8*/
-	movq	-248(%rbp), %rax
+	movq	-206(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -248(%rbp)
+	movq	%rax, -206(%rbp)
 /*t22[t23] = t25*/
-	movq	-240(%rbp), %rcx
-	movq	-248(%rbp), %rbx
+	movq	-198(%rbp), %rcx
+	movq	-206(%rbp), %rbx
 	addq	%rbx, %rcx
-	movq	-264(%rbp), %rbx
+	movq	-222(%rbp), %rbx
 	movq	%rbx, (%rcx)
 /*t26 = arr*/
 	movq	16(%rbp), %rax
-	movq	%rax, -272(%rbp)
+	movq	%rax, -230(%rbp)
 /*t27 = j * 8*/
 	movq	-64(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -280(%rbp)
+	movq	%rax, -238(%rbp)
 /*t27 = t27 + 8*/
-	movq	-280(%rbp), %rax
+	movq	-238(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -280(%rbp)
+	movq	%rax, -238(%rbp)
 /*t26[t27] = pivot*/
-	movq	-272(%rbp), %rcx
-	movq	-280(%rbp), %rbx
+	movq	-230(%rbp), %rcx
+	movq	-238(%rbp), %rbx
 	addq	%rbx, %rcx
 	movq	-32(%rbp), %rbx
 	movq	%rbx, (%rcx)
 /*t28 = 1*/
 	movq	$1, %rax
-	movq	%rax, -288(%rbp)
+	movq	%rax, -246(%rbp)
 /*t29 = j - t28*/
 	movq	-64(%rbp), %rax
-	movq	-288(%rbp), %rbx
+	movq	-246(%rbp), %rbx
 	subq	%rbx, %rax
-	movq	%rax, -296(%rbp)
+	movq	%rax, -254(%rbp)
 /*if left < t29 goto e17*/
 	movq	24(%rbp), %rax
-	movq	-296(%rbp), %rbx
+	movq	-254(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jge 	1f
 	jmp	e17
 1:
 /*t30 = 0*/
-	movq	$0, %rax
-	movq	%rax, -304(%rbp)
+	movb	$0, %al
+	movb	%al, -255(%rbp)
 /*goto e18*/
 	jmp 	e18
 /*e17: skip*/
 e17:
 /*t30 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -304(%rbp)
+	movb	$-1, %al
+	movb	%al, -255(%rbp)
 /*e18: skip*/
 e18:
 /*if t30 = 0 goto e19*/
-	movq	-304(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-255(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e19
 1:
 /*t31 = 1*/
 	movq	$1, %rax
-	movq	%rax, -312(%rbp)
+	movq	%rax, -263(%rbp)
 /*t32 = j - t31*/
 	movq	-64(%rbp), %rax
-	movq	-312(%rbp), %rbx
+	movq	-263(%rbp), %rbx
 	subq	%rbx, %rax
-	movq	%rax, -320(%rbp)
+	movq	%rax, -271(%rbp)
 /*param t32*/
-	movq	-320(%rbp), %rax
-	pushq	%rax
+	movq	-271(%rbp), %rax
+	push	%rax
 /*param left*/
 	movq	24(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*param arr*/
 	movq	16(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*call s0*/
 	call	t_quicksortAux
 /*e19: skip*/
 e19:
 /*t33 = 1*/
 	movq	$1, %rax
-	movq	%rax, -328(%rbp)
+	movq	%rax, -279(%rbp)
 /*t34 = j + t33*/
 	movq	-64(%rbp), %rax
-	movq	-328(%rbp), %rbx
+	movq	-279(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -336(%rbp)
+	movq	%rax, -287(%rbp)
 /*if t34 < right goto e20*/
-	movq	-336(%rbp), %rax
+	movq	-287(%rbp), %rax
 	movq	32(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jge 	1f
 	jmp	e20
 1:
 /*t35 = 0*/
-	movq	$0, %rax
-	movq	%rax, -344(%rbp)
+	movb	$0, %al
+	movb	%al, -288(%rbp)
 /*goto e21*/
 	jmp 	e21
 /*e20: skip*/
 e20:
 /*t35 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -344(%rbp)
+	movb	$-1, %al
+	movb	%al, -288(%rbp)
 /*e21: skip*/
 e21:
 /*if t35 = 0 goto e22*/
-	movq	-344(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-288(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e22
 1:
 /*t36 = 1*/
 	movq	$1, %rax
-	movq	%rax, -352(%rbp)
+	movq	%rax, -296(%rbp)
 /*t37 = j + t36*/
 	movq	-64(%rbp), %rax
-	movq	-352(%rbp), %rbx
+	movq	-296(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -360(%rbp)
+	movq	%rax, -304(%rbp)
 /*param right*/
 	movq	32(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*param t37*/
-	movq	-360(%rbp), %rax
-	pushq	%rax
+	movq	-304(%rbp), %rax
+	push	%rax
 /*param arr*/
 	movq	16(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*call s0*/
 	call	t_quicksortAux
 /*e22: skip*/
@@ -511,13 +511,13 @@ t_quicksort:
 	movq	%rax, -40(%rbp)
 /*param t40*/
 	movq	-32(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*param t41*/
 	movq	-40(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*param arr*/
 	movq	16(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*call s0*/
 	call	t_quicksortAux
 /*rtn s1*/
@@ -685,12 +685,12 @@ t_main:
 	movq	%rax, -8(%rbp)
 /*param values*/
 	movq	-8(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*call s1*/
 	call	t_quicksort
 /*param values*/
 	movq	-8(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*call s2*/
 	call	t_printArray
 /*rtn s3*/

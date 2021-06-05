@@ -22,13 +22,13 @@ t_printNot:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$16, %rsp
+	subq	$9, %rsp
 /*t0 = not value*/
-	movq	16(%rbp), %rbx
-	notq	%rbx
-	movq	%rbx, -16(%rbp)
+	movb	16(%rbp), %bl
+	notb	%bl
+	movb	%bl, -9(%rbp)
 /*printBoolean(t0)*/
-	movq	-16(%rbp), %rbx
+	movb	-9(%rbp), %bl
 	call	print_boolean
 /*rtn s0*/
 	movq	%rbp, %rsp
@@ -42,57 +42,57 @@ t_main:
 	mov 	%rsp, %rbp
 	subq	$0, %rsp
 /*printBoolean(-1)*/
-	movq	$-1, %rbx
+	movb	$-1, %bl
 	call	print_boolean
 /*printBoolean(0)*/
-	movq	$0, %rbx
+	movb	$0, %bl
 	call	print_boolean
 /*param -1*/
 	movq	$-1, %rax
-	pushq	%rax
+	push	%rax
 /*call s0*/
 	call	t_printNot
 /*param 0*/
 	movq	$0, %rax
-	pushq	%rax
+	push	%rax
 /*call s0*/
 	call	t_printNot
 /*printBoolean(0)*/
-	movq	$0, %rbx
+	movb	$0, %bl
 	call	print_boolean
 /*printBoolean(-1)*/
-	movq	$-1, %rbx
+	movb	$-1, %bl
 	call	print_boolean
 /*goto e2*/
 	jmp 	e2
 /*e2: skip*/
 e2:
 /*printBoolean(-1)*/
-	movq	$-1, %rbx
+	movb	$-1, %bl
 	call	print_boolean
 /*printBoolean(-1)*/
-	movq	$-1, %rbx
+	movb	$-1, %bl
 	call	print_boolean
 /*goto e4*/
 	jmp 	e4
 /*e4: skip*/
 e4:
 /*printBoolean(-1)*/
-	movq	$-1, %rbx
+	movb	$-1, %bl
 	call	print_boolean
 /*goto e7*/
 	jmp 	e7
 /*e7: skip*/
 e7:
 /*printBoolean(0)*/
-	movq	$0, %rbx
+	movb	$0, %bl
 	call	print_boolean
 /*goto e10*/
 	jmp 	e10
 /*e10: skip*/
 e10:
 /*printBoolean(-1)*/
-	movq	$-1, %rbx
+	movb	$-1, %bl
 	call	print_boolean
 /*rtn s1*/
 	movq	%rbp, %rsp
@@ -102,10 +102,10 @@ e10:
 /**
  * Prints a boolean to stdout
  * Params:
- * - %rbx: Boolean value
+ * - %bl: Boolean value
  */
 print_boolean:
-	testl	%ebx, %ebx
+	testb	%bl, %bl
 	jnz 	.print_boolean_true
 	movq	decl_1@GOTPCREL(%rip), %rsi
 	jmp 	.print_boolean_end

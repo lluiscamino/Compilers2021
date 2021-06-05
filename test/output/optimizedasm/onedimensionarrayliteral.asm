@@ -22,7 +22,7 @@ t_main:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$96, %rsp
+	subq	$89, %rsp
 /*t0 = new array[4]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
 	movq	%rax, -16(%rbp)
@@ -72,26 +72,26 @@ t_main:
 	movq	-32(%rbp), %rcx
 	movq	$8, %rbx
 	addq	%rbx, %rcx
-	movq	$-1, %rbx
-	movq	%rbx, (%rcx)
-/*t5[16] = 0*/
+	movb	$-1, %bl
+	movb	%bl, (%rcx)
+/*t5[9] = 0*/
 	movq	-32(%rbp), %rcx
-	movq	$16, %rbx
+	movq	$9, %rbx
 	addq	%rbx, %rcx
-	movq	$0, %rbx
-	movq	%rbx, (%rcx)
-/*t5[24] = 0*/
+	movb	$0, %bl
+	movb	%bl, (%rcx)
+/*t5[10] = 0*/
 	movq	-32(%rbp), %rcx
-	movq	$24, %rbx
+	movq	$10, %rbx
 	addq	%rbx, %rcx
-	movq	$0, %rbx
-	movq	%rbx, (%rcx)
-/*t5[32] = -1*/
+	movb	$0, %bl
+	movb	%bl, (%rcx)
+/*t5[11] = -1*/
 	movq	-32(%rbp), %rcx
-	movq	$32, %rbx
+	movq	$11, %rbx
 	addq	%rbx, %rcx
-	movq	$-1, %rbx
-	movq	%rbx, (%rcx)
+	movb	$-1, %bl
+	movb	%bl, (%rcx)
 /*booleanArray = t5*/
 	movq	-32(%rbp), %rax
 	movq	%rax, -24(%rbp)
@@ -148,8 +148,8 @@ t_main:
 /*printInt(t19)*/
 	movq	-64(%rbp), %rdi
 	call	print_uint64
-/*t21 = 16*/
-	movq	$16, %rax
+/*t21 = 2*/
+	movq	$2, %rax
 	movq	%rax, -72(%rbp)
 /*t21 = t21 + 8*/
 	movq	-72(%rbp), %rax
@@ -160,27 +160,27 @@ t_main:
 	movq	-24(%rbp), %rax
 	movq	-72(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	(%rax), %rax
-	movq	%rax, -80(%rbp)
+	movb	(%rax), %al
+	movb	%al, -73(%rbp)
 /*printBoolean(t22)*/
-	movq	-80(%rbp), %rbx
+	movb	-73(%rbp), %bl
 	call	print_boolean
 /*t24 = 16*/
 	movq	$16, %rax
-	movq	%rax, -88(%rbp)
+	movq	%rax, -81(%rbp)
 /*t24 = t24 + 8*/
-	movq	-88(%rbp), %rax
+	movq	-81(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -88(%rbp)
+	movq	%rax, -81(%rbp)
 /*t25 = stringArray[t24]*/
 	movq	-40(%rbp), %rax
-	movq	-88(%rbp), %rbx
+	movq	-81(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -96(%rbp)
+	movq	%rax, -89(%rbp)
 /*printString(t25)*/
-	movq	-96(%rbp), %rsi
+	movq	-89(%rbp), %rsi
 	call	print_string
 /*rtn s0*/
 	movq	%rbp, %rsp
@@ -190,10 +190,10 @@ t_main:
 /**
  * Prints a boolean to stdout
  * Params:
- * - %rbx: Boolean value
+ * - %bl: Boolean value
  */
 print_boolean:
-	testl	%ebx, %ebx
+	testb	%bl, %bl
 	jnz 	.print_boolean_true
 	movq	decl_1@GOTPCREL(%rip), %rsi
 	jmp 	.print_boolean_end
@@ -272,7 +272,7 @@ print_uint64:
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
 	arr_3: .fill 40, 1
-	arr_4: .fill 40, 1
+	arr_4: .fill 12, 1
 	arr_5: .fill 40, 1
 	str_6: .asciz "Juan\n"
 	str_7: .asciz "Pedro\n"

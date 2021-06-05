@@ -22,7 +22,7 @@ t_fibonacci:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$56, %rsp
+	subq	$49, %rsp
 /*num1 = 0*/
 	movq	$0, %rax
 	movq	%rax, -16(%rbp)
@@ -42,21 +42,21 @@ e0:
 	jmp	e1
 1:
 /*t3 = 0*/
-	movq	$0, %rax
-	movq	%rax, -40(%rbp)
+	movb	$0, %al
+	movb	%al, -33(%rbp)
 /*goto e2*/
 	jmp 	e2
 /*e1: skip*/
 e1:
 /*t3 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -40(%rbp)
+	movb	$-1, %al
+	movb	%al, -33(%rbp)
 /*e2: skip*/
 e2:
 /*if t3 = 0 goto e3*/
-	movq	-40(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-33(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e3
 1:
@@ -67,15 +67,15 @@ e2:
 	movq	-24(%rbp), %rax
 	movq	-16(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -56(%rbp)
+	movq	%rax, -49(%rbp)
 /*tmp = t4*/
-	movq	-56(%rbp), %rax
-	movq	%rax, -48(%rbp)
+	movq	-49(%rbp), %rax
+	movq	%rax, -41(%rbp)
 /*num1 = num2*/
 	movq	-24(%rbp), %rax
 	movq	%rax, -16(%rbp)
 /*num2 = tmp*/
-	movq	-48(%rbp), %rax
+	movq	-41(%rbp), %rax
 	movq	%rax, -24(%rbp)
 /*counter = counter + 1*/
 	movq	-32(%rbp), %rax
@@ -99,7 +99,7 @@ t_main:
 	subq	$0, %rsp
 /*param 40*/
 	movq	$40, %rax
-	pushq	%rax
+	push	%rax
 /*call s0*/
 	call	t_fibonacci
 /*rtn s1*/

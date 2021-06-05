@@ -37,7 +37,7 @@ t_main:
 	subq	$32, %rsp
 /*param -7*/
 	movq	$-7, %rax
-	pushq	%rax
+	push	%rax
 /*t0 = call s0*/
 	call	t_identity
 	movq	%rax, -8(%rbp)
@@ -46,7 +46,7 @@ t_main:
 	call	print_uint64
 /*param 3*/
 	movq	$3, %rax
-	pushq	%rax
+	push	%rax
 /*t3 = call s0*/
 	call	t_identity
 	movq	%rax, -16(%rbp)
@@ -55,7 +55,7 @@ t_main:
 	call	print_uint64
 /*param 11*/
 	movq	$11, %rax
-	pushq	%rax
+	push	%rax
 /*t5 = call s0*/
 	call	t_identity
 	movq	%rax, -24(%rbp)
@@ -68,7 +68,7 @@ t_main:
 e3:
 /*param 3*/
 	movq	$3, %rax
-	pushq	%rax
+	push	%rax
 /*t9 = call s0*/
 	call	t_identity
 	movq	%rax, -32(%rbp)

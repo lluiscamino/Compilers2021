@@ -22,7 +22,7 @@ t_binarySearch:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$248, %rsp
+	subq	$192, %rsp
 /*t0 = 0*/
 	movq	$0, %rax
 	movq	%rax, -32(%rbp)
@@ -58,11 +58,11 @@ t_binarySearch:
 	movq	-88(%rbp), %rax
 	movq	%rax, -72(%rbp)
 /*t6 = 0*/
-	movq	$0, %rax
-	movq	%rax, -104(%rbp)
+	movb	$0, %al
+	movb	%al, -90(%rbp)
 /*res = t6*/
-	movq	-104(%rbp), %rax
-	movq	%rax, -96(%rbp)
+	movb	-90(%rbp), %al
+	movb	%al, -89(%rbp)
 /*e0: skip*/
 e0:
 /*if left <= right goto e1*/
@@ -73,30 +73,30 @@ e0:
 	jmp	e1
 1:
 /*t7 = 0*/
-	movq	$0, %rax
-	movq	%rax, -112(%rbp)
+	movb	$0, %al
+	movb	%al, -91(%rbp)
 /*goto e2*/
 	jmp 	e2
 /*e1: skip*/
 e1:
 /*t7 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -112(%rbp)
+	movb	$-1, %al
+	movb	%al, -91(%rbp)
 /*e2: skip*/
 e2:
 /*t8 = not res*/
-	movq	-96(%rbp), %rbx
-	notq	%rbx
-	movq	%rbx, -120(%rbp)
+	movb	-89(%rbp), %bl
+	notb	%bl
+	movb	%bl, -92(%rbp)
 /*t9 = t7 and t8*/
-	movq	-112(%rbp), %rax
-	movq	-120(%rbp), %rbx
-	andq	%rbx, %rax
-	movq	%rax, -128(%rbp)
+	movb	-91(%rbp), %al
+	movb	-92(%rbp), %bl
+	andb	%bl, %al
+	movb	%al, -93(%rbp)
 /*if t9 = 0 goto e3*/
-	movq	-128(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-93(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e3
 1:
@@ -104,125 +104,125 @@ e2:
 	movq	-24(%rbp), %rax
 	movq	-40(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -144(%rbp)
+	movq	%rax, -109(%rbp)
 /*t11 = 2*/
 	movq	$2, %rax
-	movq	%rax, -152(%rbp)
+	movq	%rax, -117(%rbp)
 /*t12 = t10 / t11*/
-	movq	-144(%rbp), %rax
+	movq	-109(%rbp), %rax
 	movq	%rax, %rdx
 	sarq	$31, %rdx
-	movq	-152(%rbp), %rbx
+	movq	-117(%rbp), %rbx
 	idivq	%rbx
-	movq	%rax, -160(%rbp)
+	movq	%rax, -125(%rbp)
 /*middle = t12*/
-	movq	-160(%rbp), %rax
-	movq	%rax, -136(%rbp)
+	movq	-125(%rbp), %rax
+	movq	%rax, -101(%rbp)
 /*t13 = middle * 8*/
-	movq	-136(%rbp), %rax
+	movq	-101(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -168(%rbp)
+	movq	%rax, -133(%rbp)
 /*t13 = t13 + 8*/
-	movq	-168(%rbp), %rax
+	movq	-133(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -168(%rbp)
+	movq	%rax, -133(%rbp)
 /*t14 = nums[t13]*/
 	movq	16(%rbp), %rax
-	movq	-168(%rbp), %rbx
+	movq	-133(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -176(%rbp)
+	movq	%rax, -141(%rbp)
 /*if t14 = target goto e4*/
-	movq	-176(%rbp), %rax
+	movq	-141(%rbp), %rax
 	movq	24(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jne 	1f
 	jmp	e4
 1:
 /*t15 = 0*/
-	movq	$0, %rax
-	movq	%rax, -184(%rbp)
+	movb	$0, %al
+	movb	%al, -142(%rbp)
 /*goto e5*/
 	jmp 	e5
 /*e4: skip*/
 e4:
 /*t15 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -184(%rbp)
+	movb	$-1, %al
+	movb	%al, -142(%rbp)
 /*e5: skip*/
 e5:
 /*if t15 = 0 goto e6*/
-	movq	-184(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-142(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e6
 1:
 /*result = middle*/
-	movq	-136(%rbp), %rax
+	movq	-101(%rbp), %rax
 	movq	%rax, -72(%rbp)
 /*t16 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -192(%rbp)
+	movb	$-1, %al
+	movb	%al, -143(%rbp)
 /*res = t16*/
-	movq	-192(%rbp), %rax
-	movq	%rax, -96(%rbp)
+	movb	-143(%rbp), %al
+	movb	%al, -89(%rbp)
 /*e6: skip*/
 e6:
 /*t17 = middle * 8*/
-	movq	-136(%rbp), %rax
+	movq	-101(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -200(%rbp)
+	movq	%rax, -151(%rbp)
 /*t17 = t17 + 8*/
-	movq	-200(%rbp), %rax
+	movq	-151(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -200(%rbp)
+	movq	%rax, -151(%rbp)
 /*t18 = nums[t17]*/
 	movq	16(%rbp), %rax
-	movq	-200(%rbp), %rbx
+	movq	-151(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -208(%rbp)
+	movq	%rax, -159(%rbp)
 /*if target < t18 goto e7*/
 	movq	24(%rbp), %rax
-	movq	-208(%rbp), %rbx
+	movq	-159(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jge 	1f
 	jmp	e7
 1:
 /*t19 = 0*/
-	movq	$0, %rax
-	movq	%rax, -216(%rbp)
+	movb	$0, %al
+	movb	%al, -160(%rbp)
 /*goto e8*/
 	jmp 	e8
 /*e7: skip*/
 e7:
 /*t19 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -216(%rbp)
+	movb	$-1, %al
+	movb	%al, -160(%rbp)
 /*e8: skip*/
 e8:
 /*if t19 = 0 goto e9*/
-	movq	-216(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-160(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e9
 1:
 /*t20 = 1*/
 	movq	$1, %rax
-	movq	%rax, -224(%rbp)
+	movq	%rax, -168(%rbp)
 /*t21 = middle - t20*/
-	movq	-136(%rbp), %rax
-	movq	-224(%rbp), %rbx
+	movq	-101(%rbp), %rax
+	movq	-168(%rbp), %rbx
 	subq	%rbx, %rax
-	movq	%rax, -232(%rbp)
+	movq	%rax, -176(%rbp)
 /*right = t21*/
-	movq	-232(%rbp), %rax
+	movq	-176(%rbp), %rax
 	movq	%rax, -40(%rbp)
 /*goto e10*/
 	jmp 	e10
@@ -230,14 +230,14 @@ e8:
 e9:
 /*t22 = 1*/
 	movq	$1, %rax
-	movq	%rax, -240(%rbp)
+	movq	%rax, -184(%rbp)
 /*t23 = middle + t22*/
-	movq	-136(%rbp), %rax
-	movq	-240(%rbp), %rbx
+	movq	-101(%rbp), %rax
+	movq	-184(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -248(%rbp)
+	movq	%rax, -192(%rbp)
 /*left = t23*/
-	movq	-248(%rbp), %rax
+	movq	-192(%rbp), %rax
 	movq	%rax, -24(%rbp)
 /*e10: skip*/
 e10:
@@ -330,10 +330,10 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param t25*/
 	movq	-16(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*param t26*/
 	movq	-24(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*t24 = call s0*/
 	call	t_binarySearch
 	movq	%rax, -8(%rbp)
@@ -413,10 +413,10 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param t35*/
 	movq	-96(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*param t36*/
 	movq	-104(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*t34 = call s0*/
 	call	t_binarySearch
 	movq	%rax, -88(%rbp)
@@ -496,10 +496,10 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param t45*/
 	movq	-176(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*param t46*/
 	movq	-184(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*t44 = call s0*/
 	call	t_binarySearch
 	movq	%rax, -168(%rbp)
@@ -579,10 +579,10 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param t55*/
 	movq	-256(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*param t56*/
 	movq	-264(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*t54 = call s0*/
 	call	t_binarySearch
 	movq	%rax, -248(%rbp)
@@ -662,10 +662,10 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param t65*/
 	movq	-336(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*param t66*/
 	movq	-344(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*t64 = call s0*/
 	call	t_binarySearch
 	movq	%rax, -328(%rbp)

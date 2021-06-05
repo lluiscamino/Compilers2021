@@ -34,7 +34,7 @@ t_main:
 /*pmb s1*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$136, %rsp
+	subq	$129, %rsp
 /*t1 = 7*/
 	movq	$7, %rax
 	movq	%rax, -16(%rbp)
@@ -45,7 +45,7 @@ t_main:
 	movq	%rax, -24(%rbp)
 /*param t2*/
 	movq	-24(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*t0 = call s0*/
 	call	t_identity
 	movq	%rax, -8(%rbp)
@@ -57,7 +57,7 @@ t_main:
 	movq	%rax, -40(%rbp)
 /*param t4*/
 	movq	-40(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*t3 = call s0*/
 	call	t_identity
 	movq	%rax, -32(%rbp)
@@ -77,7 +77,7 @@ t_main:
 	movq	%rax, -72(%rbp)
 /*param t8*/
 	movq	-72(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*t5 = call s0*/
 	call	t_identity
 	movq	%rax, -48(%rbp)
@@ -98,50 +98,50 @@ t_main:
 	jmp	e0
 1:
 /*t12 = 0*/
-	movq	$0, %rax
-	movq	%rax, -104(%rbp)
+	movb	$0, %al
+	movb	%al, -97(%rbp)
 /*goto e1*/
 	jmp 	e1
 /*e0: skip*/
 e0:
 /*t12 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -104(%rbp)
+	movb	$-1, %al
+	movb	%al, -97(%rbp)
 /*e1: skip*/
 e1:
 /*if t12 = 0 goto e2*/
-	movq	-104(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-97(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e2
 1:
 /*t14 = 3*/
 	movq	$3, %rax
-	movq	%rax, -120(%rbp)
+	movq	%rax, -113(%rbp)
 /*t13 = t14*/
-	movq	-120(%rbp), %rax
-	movq	%rax, -112(%rbp)
+	movq	-113(%rbp), %rax
+	movq	%rax, -105(%rbp)
 /*goto e3*/
 	jmp 	e3
 /*e2: skip*/
 e2:
 /*t15 = 2*/
 	movq	$2, %rax
-	movq	%rax, -128(%rbp)
+	movq	%rax, -121(%rbp)
 /*t16 = - t15*/
 	xorq 	%rax, %rax
-	movq	-128(%rbp), %rbx
+	movq	-121(%rbp), %rbx
 	subq	%rbx, %rax
-	movq	%rax, -136(%rbp)
+	movq	%rax, -129(%rbp)
 /*t13 = t16*/
-	movq	-136(%rbp), %rax
-	movq	%rax, -112(%rbp)
+	movq	-129(%rbp), %rax
+	movq	%rax, -105(%rbp)
 /*e3: skip*/
 e3:
 /*param t13*/
-	movq	-112(%rbp), %rax
-	pushq	%rax
+	movq	-105(%rbp), %rax
+	push	%rax
 /*t9 = call s0*/
 	call	t_identity
 	movq	%rax, -80(%rbp)

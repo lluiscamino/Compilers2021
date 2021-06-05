@@ -22,7 +22,7 @@ t_main:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$80, %rsp
+	subq	$66, %rsp
 /*t0 = 1*/
 	movq	$1, %rax
 	movq	%rax, -16(%rbp)
@@ -51,21 +51,21 @@ e0:
 	jmp	e1
 1:
 /*t3 = 0*/
-	movq	$0, %rax
-	movq	%rax, -48(%rbp)
+	movb	$0, %al
+	movb	%al, -41(%rbp)
 /*goto e2*/
 	jmp 	e2
 /*e1: skip*/
 e1:
 /*t3 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -48(%rbp)
+	movb	$-1, %al
+	movb	%al, -41(%rbp)
 /*e2: skip*/
 e2:
 /*if t3 = 0 goto e3*/
-	movq	-48(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-41(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e3
 1:
@@ -73,26 +73,26 @@ e2:
 	movq	-24(%rbp), %rdi
 	call	print_uint64
 /*t4 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -56(%rbp)
+	movb	$-1, %al
+	movb	%al, -42(%rbp)
 /*if t4 = 0 goto e4*/
-	movq	-56(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-42(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e4
 1:
 /*t5 = 3*/
 	movq	$3, %rax
-	movq	%rax, -72(%rbp)
+	movq	%rax, -58(%rbp)
 /*i = t5*/
-	movq	-72(%rbp), %rax
-	movq	%rax, -64(%rbp)
+	movq	-58(%rbp), %rax
+	movq	%rax, -50(%rbp)
 /*printInt(i)*/
-	movq	-64(%rbp), %rdi
+	movq	-50(%rbp), %rdi
 	call	print_uint64
 /*printInt(i)*/
-	movq	-64(%rbp), %rdi
+	movq	-50(%rbp), %rdi
 	call	print_uint64
 /*e4: skip*/
 e4:
@@ -101,10 +101,10 @@ e4:
 	call	print_uint64
 /*t6 = 1*/
 	movq	$1, %rax
-	movq	%rax, -80(%rbp)
+	movq	%rax, -66(%rbp)
 /*i = i + t6*/
 	movq	-24(%rbp), %rax
-	movq	-80(%rbp), %rbx
+	movq	-66(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	%rax, -24(%rbp)
 /*goto e0*/

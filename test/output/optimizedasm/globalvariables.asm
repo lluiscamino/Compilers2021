@@ -64,7 +64,7 @@ t_main:
 	call	t_printA
 /*param -9*/
 	movq	$-9, %rax
-	pushq	%rax
+	push	%rax
 /*call s1*/
 	call	t_changeA
 /*call s0*/

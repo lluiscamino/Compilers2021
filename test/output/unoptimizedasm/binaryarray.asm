@@ -9,15 +9,15 @@
 _main:
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$80, %rsp
+	subq	$52, %rsp
 	movq	decl_2@GOTPCREL(%rip), %rsi
 	movq	%rbp, (%rsi)
 /*t0 = 10*/
 	movq	$10, %rax
 	movq	%rax, -16(%rbp)
-/*t2 = t0 * 8*/
+/*t2 = t0 * 1*/
 	movq	-16(%rbp), %rax
-	movq	$8, %rbx
+	movq	$1, %rbx
 	imulq	%rbx, %rax
 	movq	%rax, -32(%rbp)
 /*t2 = t2 + 8*/
@@ -51,41 +51,41 @@ _main:
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t4 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -56(%rbp)
+	movb	$-1, %al
+	movb	%al, -49(%rbp)
 /*t3[8] = t4*/
 	movq	-48(%rbp), %rcx
 	movq	$8, %rbx
 	addq	%rbx, %rcx
-	movq	-56(%rbp), %rbx
-	movq	%rbx, (%rcx)
+	movb	-49(%rbp), %bl
+	movb	%bl, (%rcx)
 /*t5 = 0*/
-	movq	$0, %rax
-	movq	%rax, -64(%rbp)
-/*t3[16] = t5*/
+	movb	$0, %al
+	movb	%al, -50(%rbp)
+/*t3[9] = t5*/
 	movq	-48(%rbp), %rcx
-	movq	$16, %rbx
+	movq	$9, %rbx
 	addq	%rbx, %rcx
-	movq	-64(%rbp), %rbx
-	movq	%rbx, (%rcx)
+	movb	-50(%rbp), %bl
+	movb	%bl, (%rcx)
 /*t6 = 0*/
-	movq	$0, %rax
-	movq	%rax, -72(%rbp)
-/*t3[24] = t6*/
+	movb	$0, %al
+	movb	%al, -51(%rbp)
+/*t3[10] = t6*/
 	movq	-48(%rbp), %rcx
-	movq	$24, %rbx
+	movq	$10, %rbx
 	addq	%rbx, %rcx
-	movq	-72(%rbp), %rbx
-	movq	%rbx, (%rcx)
+	movb	-51(%rbp), %bl
+	movb	%bl, (%rcx)
 /*t7 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -80(%rbp)
-/*t3[32] = t7*/
+	movb	$-1, %al
+	movb	%al, -52(%rbp)
+/*t3[11] = t7*/
 	movq	-48(%rbp), %rcx
-	movq	$32, %rbx
+	movq	$11, %rbx
 	addq	%rbx, %rcx
-	movq	-80(%rbp), %rbx
-	movq	%rbx, (%rcx)
+	movb	-52(%rbp), %bl
+	movb	%bl, (%rcx)
 /*arr2 = t3*/
 	movq	-48(%rbp), %rax
 	movq	%rax, -40(%rbp)
@@ -99,7 +99,7 @@ t_main:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$176, %rsp
+	subq	$134, %rsp
 /*t8 = 0*/
 	movq	$0, %rax
 	movq	%rax, -16(%rbp)
@@ -125,21 +125,21 @@ e0:
 	jmp	e1
 1:
 /*t10 = 0*/
-	movq	$0, %rax
-	movq	%rax, -32(%rbp)
+	movb	$0, %al
+	movb	%al, -25(%rbp)
 /*goto e2*/
 	jmp 	e2
 /*e1: skip*/
 e1:
 /*t10 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -32(%rbp)
+	movb	$-1, %al
+	movb	%al, -25(%rbp)
 /*e2: skip*/
 e2:
 /*if t10 = 0 goto e3*/
-	movq	-32(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-25(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e3
 1:
@@ -148,61 +148,61 @@ e2:
 	movq	(%rsi), %rsi
 	movq	-8(%rsi), %rax
 
-	movq	%rax, -40(%rbp)
+	movq	%rax, -33(%rbp)
 /*t13 = 2*/
 	movq	$2, %rax
-	movq	%rax, -56(%rbp)
+	movq	%rax, -49(%rbp)
 /*t14 = i % t13*/
 	movq	-8(%rbp), %rax
 	movq	%rax, %rdx
 	sarq	$31, %rdx
-	movq	-56(%rbp), %rbx
+	movq	-49(%rbp), %rbx
 	idivq	%rbx
-	movq	%rdx, -64(%rbp)
+	movq	%rdx, -57(%rbp)
 /*t15 = 0*/
 	movq	$0, %rax
-	movq	%rax, -72(%rbp)
+	movq	%rax, -65(%rbp)
 /*if t14 = t15 goto e4*/
-	movq	-64(%rbp), %rax
-	movq	-72(%rbp), %rbx
+	movq	-57(%rbp), %rax
+	movq	-65(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jne 	1f
 	jmp	e4
 1:
 /*t16 = 0*/
-	movq	$0, %rax
-	movq	%rax, -80(%rbp)
+	movb	$0, %al
+	movb	%al, -66(%rbp)
 /*goto e5*/
 	jmp 	e5
 /*e4: skip*/
 e4:
 /*t16 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -80(%rbp)
+	movb	$-1, %al
+	movb	%al, -66(%rbp)
 /*e5: skip*/
 e5:
-/*t12 = i * 8*/
+/*t12 = i * 1*/
 	movq	-8(%rbp), %rax
-	movq	$8, %rbx
+	movq	$1, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -48(%rbp)
+	movq	%rax, -41(%rbp)
 /*t12 = t12 + 8*/
-	movq	-48(%rbp), %rax
+	movq	-41(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -48(%rbp)
+	movq	%rax, -41(%rbp)
 /*t11[t12] = t16*/
-	movq	-40(%rbp), %rcx
-	movq	-48(%rbp), %rbx
+	movq	-33(%rbp), %rcx
+	movq	-41(%rbp), %rbx
 	addq	%rbx, %rcx
-	movq	-80(%rbp), %rbx
-	movq	%rbx, (%rcx)
+	movb	-66(%rbp), %bl
+	movb	%bl, (%rcx)
 /*t17 = 1*/
 	movq	$1, %rax
-	movq	%rax, -88(%rbp)
+	movq	%rax, -74(%rbp)
 /*i = i + t17*/
 	movq	-8(%rbp), %rax
-	movq	-88(%rbp), %rbx
+	movq	-74(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	%rax, -8(%rbp)
 /*goto e0*/
@@ -211,7 +211,7 @@ e5:
 e3:
 /*t18 = 0*/
 	movq	$0, %rax
-	movq	%rax, -96(%rbp)
+	movq	%rax, -82(%rbp)
 /*t20 = arr1[0]*/
 	movq	decl_2@GOTPCREL(%rip), %rsi
 	movq	(%rsi), %rsi
@@ -220,62 +220,62 @@ e3:
 	movq	$0, %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -112(%rbp)
+	movq	%rax, -98(%rbp)
 /*t21 = 0*/
-	movq	$0, %rax
-	movq	%rax, -128(%rbp)
+	movb	$0, %al
+	movb	%al, -100(%rbp)
 /*el = t21*/
-	movq	-128(%rbp), %rax
-	movq	%rax, -120(%rbp)
+	movb	-100(%rbp), %al
+	movb	%al, -99(%rbp)
 /*e6: skip*/
 e6:
 /*if t18 = t20 goto e7*/
-	movq	-96(%rbp), %rax
-	movq	-112(%rbp), %rbx
+	movq	-82(%rbp), %rax
+	movq	-98(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jne 	1f
 	jmp	e7
 1:
-/*t19 = t18 * 8*/
-	movq	-96(%rbp), %rax
-	movq	$8, %rbx
+/*t19 = t18 * 1*/
+	movq	-82(%rbp), %rax
+	movq	$1, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -104(%rbp)
+	movq	%rax, -90(%rbp)
 /*t19 = t19 + 8*/
-	movq	-104(%rbp), %rax
+	movq	-90(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -104(%rbp)
+	movq	%rax, -90(%rbp)
 /*el = arr1[t19]*/
 	movq	decl_2@GOTPCREL(%rip), %rsi
 	movq	(%rsi), %rsi
 	movq	-8(%rsi), %rax
 
-	movq	-104(%rbp), %rbx
+	movq	-90(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	(%rax), %rax
-	movq	%rax, -120(%rbp)
+	movb	(%rax), %al
+	movb	%al, -99(%rbp)
 /*printBoolean(el)*/
-	movq	-120(%rbp), %rbx
+	movb	-99(%rbp), %bl
 	call	print_boolean
 /*t18 = t18 + 1*/
-	movq	-96(%rbp), %rax
+	movq	-82(%rbp), %rax
 	movq	$1, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -96(%rbp)
+	movq	%rax, -82(%rbp)
 /*goto e6*/
 	jmp 	e6
 /*e7: skip*/
 e7:
 /*t22 = "\n"*/
 	movq	str_4@GOTPCREL(%rip), %rax
-	movq	%rax, -136(%rbp)
+	movq	%rax, -108(%rbp)
 /*printString(t22)*/
-	movq	-136(%rbp), %rsi
+	movq	-108(%rbp), %rsi
 	call	print_string
 /*t23 = 0*/
 	movq	$0, %rax
-	movq	%rax, -144(%rbp)
+	movq	%rax, -116(%rbp)
 /*t25 = arr2[0]*/
 	movq	decl_2@GOTPCREL(%rip), %rsi
 	movq	(%rsi), %rsi
@@ -284,49 +284,49 @@ e7:
 	movq	$0, %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -160(%rbp)
+	movq	%rax, -132(%rbp)
 /*t26 = 0*/
-	movq	$0, %rax
-	movq	%rax, -176(%rbp)
+	movb	$0, %al
+	movb	%al, -134(%rbp)
 /*el = t26*/
-	movq	-176(%rbp), %rax
-	movq	%rax, -168(%rbp)
+	movb	-134(%rbp), %al
+	movb	%al, -133(%rbp)
 /*e8: skip*/
 e8:
 /*if t23 = t25 goto e9*/
-	movq	-144(%rbp), %rax
-	movq	-160(%rbp), %rbx
+	movq	-116(%rbp), %rax
+	movq	-132(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jne 	1f
 	jmp	e9
 1:
-/*t24 = t23 * 8*/
-	movq	-144(%rbp), %rax
-	movq	$8, %rbx
+/*t24 = t23 * 1*/
+	movq	-116(%rbp), %rax
+	movq	$1, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -152(%rbp)
+	movq	%rax, -124(%rbp)
 /*t24 = t24 + 8*/
-	movq	-152(%rbp), %rax
+	movq	-124(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -152(%rbp)
+	movq	%rax, -124(%rbp)
 /*el = arr2[t24]*/
 	movq	decl_2@GOTPCREL(%rip), %rsi
 	movq	(%rsi), %rsi
 	movq	-40(%rsi), %rax
 
-	movq	-152(%rbp), %rbx
+	movq	-124(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	(%rax), %rax
-	movq	%rax, -168(%rbp)
+	movb	(%rax), %al
+	movb	%al, -133(%rbp)
 /*printBoolean(el)*/
-	movq	-168(%rbp), %rbx
+	movb	-133(%rbp), %bl
 	call	print_boolean
 /*t23 = t23 + 1*/
-	movq	-144(%rbp), %rax
+	movq	-116(%rbp), %rax
 	movq	$1, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -144(%rbp)
+	movq	%rax, -116(%rbp)
 /*goto e8*/
 	jmp 	e8
 /*e9: skip*/
@@ -339,10 +339,10 @@ e9:
 /**
  * Prints a boolean to stdout
  * Params:
- * - %rbx: Boolean value
+ * - %bl: Boolean value
  */
 print_boolean:
-	testl	%ebx, %ebx
+	testb	%bl, %bl
 	jnz 	.print_boolean_true
 	movq	decl_1@GOTPCREL(%rip), %rsi
 	jmp 	.print_boolean_end
@@ -383,5 +383,5 @@ print_string:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .fill 40, 1
+	arr_3: .fill 12, 1
 	str_4: .asciz "\n"

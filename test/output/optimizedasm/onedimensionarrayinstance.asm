@@ -22,7 +22,7 @@ t_main:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$104, %rsp
+	subq	$97, %rsp
 /*t0 = 100*/
 	movq	$100, %rax
 	movq	%rax, -16(%rbp)
@@ -74,21 +74,21 @@ e0:
 	jmp	e1
 1:
 /*t6 = 0*/
-	movq	$0, %rax
-	movq	%rax, -64(%rbp)
+	movb	$0, %al
+	movb	%al, -57(%rbp)
 /*goto e2*/
 	jmp 	e2
 /*e1: skip*/
 e1:
 /*t6 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -64(%rbp)
+	movb	$-1, %al
+	movb	%al, -57(%rbp)
 /*e2: skip*/
 e2:
 /*if t6 = 0 goto e3*/
-	movq	-64(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-57(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e3
 1:
@@ -96,15 +96,15 @@ e2:
 	movq	-48(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -72(%rbp)
+	movq	%rax, -65(%rbp)
 /*t8 = t8 + 8*/
-	movq	-72(%rbp), %rax
+	movq	-65(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -72(%rbp)
+	movq	%rax, -65(%rbp)
 /*arr[t8] = i*/
 	movq	-8(%rbp), %rcx
-	movq	-72(%rbp), %rbx
+	movq	-65(%rbp), %rbx
 	addq	%rbx, %rcx
 	movq	-48(%rbp), %rbx
 	movq	%rbx, (%rcx)
@@ -119,51 +119,51 @@ e2:
 e3:
 /*t10 = 0*/
 	movq	$0, %rax
-	movq	%rax, -80(%rbp)
+	movq	%rax, -73(%rbp)
 /*t12 = arr[0]*/
 	movq	-8(%rbp), %rax
 	movq	$0, %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -96(%rbp)
+	movq	%rax, -89(%rbp)
 /*el = 0*/
 	movq	$0, %rax
-	movq	%rax, -104(%rbp)
+	movq	%rax, -97(%rbp)
 /*e4: skip*/
 e4:
 /*if t10 = t12 goto e5*/
-	movq	-80(%rbp), %rax
-	movq	-96(%rbp), %rbx
+	movq	-73(%rbp), %rax
+	movq	-89(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jne 	1f
 	jmp	e5
 1:
 /*t11 = t10 * 8*/
-	movq	-80(%rbp), %rax
+	movq	-73(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -88(%rbp)
+	movq	%rax, -81(%rbp)
 /*t11 = t11 + 8*/
-	movq	-88(%rbp), %rax
+	movq	-81(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -88(%rbp)
+	movq	%rax, -81(%rbp)
 /*el = arr[t11]*/
 	movq	-8(%rbp), %rax
-	movq	-88(%rbp), %rbx
+	movq	-81(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -104(%rbp)
+	movq	%rax, -97(%rbp)
 /*sum = sum + el*/
 	movq	-40(%rbp), %rax
-	movq	-104(%rbp), %rbx
+	movq	-97(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	%rax, -40(%rbp)
 /*t10 = t10 + 1*/
-	movq	-80(%rbp), %rax
+	movq	-73(%rbp), %rax
 	movq	$1, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -80(%rbp)
+	movq	%rax, -73(%rbp)
 /*goto e4*/
 	jmp 	e4
 /*e5: skip*/

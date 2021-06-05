@@ -48,7 +48,7 @@ t_main:
 	movq	%rax, -8(%rbp)
 /*param value*/
 	movq	-8(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*t3 = call s0*/
 	call	t_returnPlusOne
 	movq	%rax, -16(%rbp)

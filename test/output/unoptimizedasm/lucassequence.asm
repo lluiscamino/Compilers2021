@@ -22,7 +22,7 @@ t_lucas:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$88, %rsp
+	subq	$81, %rsp
 /*t0 = 2*/
 	movq	$2, %rax
 	movq	%rax, -24(%rbp)
@@ -51,21 +51,21 @@ e0:
 	jmp	e1
 1:
 /*t3 = 0*/
-	movq	$0, %rax
-	movq	%rax, -64(%rbp)
+	movb	$0, %al
+	movb	%al, -57(%rbp)
 /*goto e2*/
 	jmp 	e2
 /*e1: skip*/
 e1:
 /*t3 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -64(%rbp)
+	movb	$-1, %al
+	movb	%al, -57(%rbp)
 /*e2: skip*/
 e2:
 /*if t3 = 0 goto e3*/
-	movq	-64(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-57(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e3
 1:
@@ -76,22 +76,22 @@ e2:
 	movq	-32(%rbp), %rax
 	movq	-16(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -80(%rbp)
+	movq	%rax, -73(%rbp)
 /*tmp = t4*/
-	movq	-80(%rbp), %rax
-	movq	%rax, -72(%rbp)
+	movq	-73(%rbp), %rax
+	movq	%rax, -65(%rbp)
 /*num1 = num2*/
 	movq	-32(%rbp), %rax
 	movq	%rax, -16(%rbp)
 /*num2 = tmp*/
-	movq	-72(%rbp), %rax
+	movq	-65(%rbp), %rax
 	movq	%rax, -32(%rbp)
 /*t5 = 1*/
 	movq	$1, %rax
-	movq	%rax, -88(%rbp)
+	movq	%rax, -81(%rbp)
 /*counter = counter + t5*/
 	movq	-48(%rbp), %rax
-	movq	-88(%rbp), %rbx
+	movq	-81(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	%rax, -48(%rbp)
 /*goto e0*/
@@ -114,7 +114,7 @@ t_main:
 	movq	%rax, -8(%rbp)
 /*param t6*/
 	movq	-8(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*call s0*/
 	call	t_lucas
 /*rtn s1*/

@@ -22,34 +22,34 @@ t_bubbleSort:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$168, %rsp
+	subq	$126, %rsp
 /*t0 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -24(%rbp)
+	movb	$-1, %al
+	movb	%al, -10(%rbp)
 /*changes = t0*/
-	movq	-24(%rbp), %rax
-	movq	%rax, -16(%rbp)
+	movb	-10(%rbp), %al
+	movb	%al, -9(%rbp)
 /*e0: skip*/
 e0:
 /*if changes = 0 goto e1*/
-	movq	-16(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-9(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e1
 1:
 /*t1 = 0*/
-	movq	$0, %rax
-	movq	%rax, -32(%rbp)
+	movb	$0, %al
+	movb	%al, -11(%rbp)
 /*changes = t1*/
-	movq	-32(%rbp), %rax
-	movq	%rax, -16(%rbp)
+	movb	-11(%rbp), %al
+	movb	%al, -9(%rbp)
 /*t2 = 0*/
 	movq	$0, %rax
-	movq	%rax, -48(%rbp)
+	movq	%rax, -27(%rbp)
 /*i = t2*/
-	movq	-48(%rbp), %rax
-	movq	%rax, -40(%rbp)
+	movq	-27(%rbp), %rax
+	movq	%rax, -19(%rbp)
 /*e2: skip*/
 e2:
 /*t3 = values[0]*/
@@ -57,142 +57,142 @@ e2:
 	movq	$0, %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -56(%rbp)
+	movq	%rax, -35(%rbp)
 /*t4 = 1*/
 	movq	$1, %rax
-	movq	%rax, -64(%rbp)
+	movq	%rax, -43(%rbp)
 /*t5 = t3 - t4*/
-	movq	-56(%rbp), %rax
-	movq	-64(%rbp), %rbx
+	movq	-35(%rbp), %rax
+	movq	-43(%rbp), %rbx
 	subq	%rbx, %rax
-	movq	%rax, -72(%rbp)
+	movq	%rax, -51(%rbp)
 /*if i < t5 goto e3*/
-	movq	-40(%rbp), %rax
-	movq	-72(%rbp), %rbx
+	movq	-19(%rbp), %rax
+	movq	-51(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jge 	1f
 	jmp	e3
 1:
 /*t6 = 0*/
-	movq	$0, %rax
-	movq	%rax, -80(%rbp)
+	movb	$0, %al
+	movb	%al, -52(%rbp)
 /*goto e4*/
 	jmp 	e4
 /*e3: skip*/
 e3:
 /*t6 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -80(%rbp)
+	movb	$-1, %al
+	movb	%al, -52(%rbp)
 /*e4: skip*/
 e4:
 /*if t6 = 0 goto e5*/
-	movq	-80(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-52(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e5
 1:
 /*t7 = i * 8*/
-	movq	-40(%rbp), %rax
+	movq	-19(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -88(%rbp)
+	movq	%rax, -60(%rbp)
 /*t7 = t7 + 8*/
-	movq	-88(%rbp), %rax
+	movq	-60(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -88(%rbp)
+	movq	%rax, -60(%rbp)
 /*t8 = values[t7]*/
 	movq	16(%rbp), %rax
-	movq	-88(%rbp), %rbx
+	movq	-60(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -96(%rbp)
+	movq	%rax, -68(%rbp)
 /*t9 = 1*/
 	movq	$1, %rax
-	movq	%rax, -104(%rbp)
+	movq	%rax, -76(%rbp)
 /*t10 = i + t9*/
-	movq	-40(%rbp), %rax
-	movq	-104(%rbp), %rbx
+	movq	-19(%rbp), %rax
+	movq	-76(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -112(%rbp)
+	movq	%rax, -84(%rbp)
 /*t11 = t10 * 8*/
-	movq	-112(%rbp), %rax
+	movq	-84(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
-	movq	%rax, -120(%rbp)
+	movq	%rax, -92(%rbp)
 /*t11 = t11 + 8*/
-	movq	-120(%rbp), %rax
+	movq	-92(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -120(%rbp)
+	movq	%rax, -92(%rbp)
 /*t12 = values[t11]*/
 	movq	16(%rbp), %rax
-	movq	-120(%rbp), %rbx
+	movq	-92(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -128(%rbp)
+	movq	%rax, -100(%rbp)
 /*if t8 > t12 goto e6*/
-	movq	-96(%rbp), %rax
-	movq	-128(%rbp), %rbx
+	movq	-68(%rbp), %rax
+	movq	-100(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jle 	1f
 	jmp	e6
 1:
 /*t13 = 0*/
-	movq	$0, %rax
-	movq	%rax, -136(%rbp)
+	movb	$0, %al
+	movb	%al, -101(%rbp)
 /*goto e7*/
 	jmp 	e7
 /*e6: skip*/
 e6:
 /*t13 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -136(%rbp)
+	movb	$-1, %al
+	movb	%al, -101(%rbp)
 /*e7: skip*/
 e7:
 /*if t13 = 0 goto e8*/
-	movq	-136(%rbp), %rax
-	movq	$0, %rbx
-	cmpq	%rbx, %rax
+	movb	-101(%rbp), %al
+	movb	$0, %bl
+	cmpb	%bl, %al
 	jne 	1f
 	jmp	e8
 1:
 /*t14 = 1*/
 	movq	$1, %rax
-	movq	%rax, -144(%rbp)
+	movq	%rax, -109(%rbp)
 /*t15 = i + t14*/
-	movq	-40(%rbp), %rax
-	movq	-144(%rbp), %rbx
+	movq	-19(%rbp), %rax
+	movq	-109(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -152(%rbp)
+	movq	%rax, -117(%rbp)
 /*param t15*/
-	movq	-152(%rbp), %rax
-	pushq	%rax
+	movq	-117(%rbp), %rax
+	push	%rax
 /*param i*/
-	movq	-40(%rbp), %rax
-	pushq	%rax
+	movq	-19(%rbp), %rax
+	push	%rax
 /*param values*/
 	movq	16(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*call s1*/
 	call	t_swap
 /*t16 = -1*/
-	movq	$-1, %rax
-	movq	%rax, -160(%rbp)
+	movb	$-1, %al
+	movb	%al, -118(%rbp)
 /*changes = t16*/
-	movq	-160(%rbp), %rax
-	movq	%rax, -16(%rbp)
+	movb	-118(%rbp), %al
+	movb	%al, -9(%rbp)
 /*e8: skip*/
 e8:
 /*t17 = 1*/
 	movq	$1, %rax
-	movq	%rax, -168(%rbp)
+	movq	%rax, -126(%rbp)
 /*i = i + t17*/
-	movq	-40(%rbp), %rax
-	movq	-168(%rbp), %rbx
+	movq	-19(%rbp), %rax
+	movq	-126(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -40(%rbp)
+	movq	%rax, -19(%rbp)
 /*goto e2*/
 	jmp 	e2
 /*e5: skip*/
@@ -463,12 +463,12 @@ t_main:
 	movq	%rax, -8(%rbp)
 /*param values*/
 	movq	-8(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*call s0*/
 	call	t_bubbleSort
 /*param values*/
 	movq	-8(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*call s2*/
 	call	t_printArray
 /*rtn s3*/

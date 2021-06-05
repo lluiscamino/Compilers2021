@@ -149,7 +149,7 @@ t_main:
 	movq	%rbx, (%rcx)
 /*param t8*/
 	movq	-16(%rbp), %rax
-	pushq	%rax
+	push	%rax
 /*t7 = call s0*/
 	call	t_average
 	movq	%rax, -8(%rbp)
