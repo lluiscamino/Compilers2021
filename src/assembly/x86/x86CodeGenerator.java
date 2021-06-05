@@ -315,7 +315,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         """,
                 loadInstruction(tacInstruction.getFirstReference(), "%rsi", Type.getInteger().sizeInBytes()),
                 loadInstruction(tacInstruction.getSecondReference(), "%rdi", Type.getInteger().sizeInBytes()),
-                instructionCode("cmp", Type.getBoolean().sizeInBytes()), TRUE, register("d", Type.getInteger().sizeInBytes()),
+                instructionCode("cmp", Type.getBoolean().sizeInBytes()), TRUE, register("d", Type.getBoolean().sizeInBytes()),
                 tacInstruction.getThirdReference()
         );
     }
