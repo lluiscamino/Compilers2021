@@ -13,6 +13,9 @@ public final class DotIdGenerator {
     }
 
     public int get() {
+        if (queue.isEmpty()) {
+            throw new RuntimeException("DotIdGenerator: Cannot call get() before create()");
+        }
         return queue.poll();
     }
     
