@@ -375,10 +375,10 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
-/*param_s 11*/
+/*param 11*/
 	movq	$11, %rax
 	push	%rax
-/*param_s t28*/
+/*param t28*/
 	movq	-24(%rbp), %rax
 	push	%rax
 /*t26 = call s0*/

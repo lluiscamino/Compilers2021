@@ -62,7 +62,7 @@ t_main:
 	subq	$0, %rsp
 /*call s0*/
 	call	t_printA
-/*param_s -9*/
+/*param -9*/
 	movq	$-9, %rax
 	push	%rax
 /*call s1*/

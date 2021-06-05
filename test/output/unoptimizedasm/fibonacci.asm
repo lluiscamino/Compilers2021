@@ -112,7 +112,7 @@ t_main:
 /*t6 = 40*/
 	movq	$40, %rax
 	movq	%rax, -8(%rbp)
-/*param_s t6*/
+/*param t6*/
 	movq	-8(%rbp), %rax
 	push	%rax
 /*call s0*/

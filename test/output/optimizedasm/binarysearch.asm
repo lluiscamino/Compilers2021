@@ -271,10 +271,10 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$12, %rbx
 	movq	%rbx, (%rcx)
-/*param_s 9*/
+/*param 9*/
 	movq	$9, %rax
 	push	%rax
-/*param_s t26*/
+/*param t26*/
 	movq	-16(%rbp), %rax
 	push	%rax
 /*t24 = call s0*/
@@ -328,10 +328,10 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$12, %rbx
 	movq	%rbx, (%rcx)
-/*param_s 12*/
+/*param 12*/
 	movq	$12, %rax
 	push	%rax
-/*param_s t36*/
+/*param t36*/
 	movq	-32(%rbp), %rax
 	push	%rax
 /*t34 = call s0*/
@@ -385,10 +385,10 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$12, %rbx
 	movq	%rbx, (%rcx)
-/*param_s 0*/
+/*param 0*/
 	movq	$0, %rax
 	push	%rax
-/*param_s t46*/
+/*param t46*/
 	movq	-48(%rbp), %rax
 	push	%rax
 /*t44 = call s0*/
@@ -442,10 +442,10 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$12, %rbx
 	movq	%rbx, (%rcx)
-/*param_s 5*/
+/*param 5*/
 	movq	$5, %rax
 	push	%rax
-/*param_s t56*/
+/*param t56*/
 	movq	-64(%rbp), %rax
 	push	%rax
 /*t54 = call s0*/
@@ -499,10 +499,10 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$12, %rbx
 	movq	%rbx, (%rcx)
-/*param_s 7*/
+/*param 7*/
 	movq	$7, %rax
 	push	%rax
-/*param_s t66*/
+/*param t66*/
 	movq	-80(%rbp), %rax
 	push	%rax
 /*t64 = call s0*/

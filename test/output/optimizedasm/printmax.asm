@@ -164,16 +164,16 @@ t_main:
 	jmp 	e12
 /*e12: skip*/
 e12:
-/*param_s 9*/
+/*param 9*/
 	movq	$9, %rax
 	push	%rax
-/*param_s -3*/
+/*param -3*/
 	movq	$-3, %rax
 	push	%rax
-/*param_s 6*/
+/*param 6*/
 	movq	$6, %rax
 	push	%rax
-/*param_s 4*/
+/*param 4*/
 	movq	$4, %rax
 	push	%rax
 /*call s0*/
@@ -182,44 +182,44 @@ e12:
 	jmp 	e15
 /*e15: skip*/
 e15:
-/*param_s 4*/
+/*param 4*/
 	movq	$4, %rax
 	push	%rax
-/*param_s -3*/
+/*param -3*/
 	movq	$-3, %rax
 	push	%rax
-/*param_s 6*/
+/*param 6*/
 	movq	$6, %rax
 	push	%rax
-/*param_s 4*/
+/*param 4*/
 	movq	$4, %rax
 	push	%rax
 /*call s0*/
 	call	t_printMaxInteger
-/*param_s -27*/
+/*param -27*/
 	movq	$-27, %rax
 	push	%rax
-/*param_s -23*/
+/*param -23*/
 	movq	$-23, %rax
 	push	%rax
-/*param_s -45*/
+/*param -45*/
 	movq	$-45, %rax
 	push	%rax
-/*param_s -34*/
+/*param -34*/
 	movq	$-34, %rax
 	push	%rax
 /*call s0*/
 	call	t_printMaxInteger
-/*param_s -23231*/
+/*param -23231*/
 	movq	$-23231, %rax
 	push	%rax
-/*param_s 12323*/
+/*param 12323*/
 	movq	$12323, %rax
 	push	%rax
-/*param_s 1212*/
+/*param 1212*/
 	movq	$1212, %rax
 	push	%rax
-/*param_s 897137132*/
+/*param 897137132*/
 	movq	$897137132, %rax
 	push	%rax
 /*call s0*/

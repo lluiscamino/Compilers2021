@@ -73,12 +73,12 @@ t_main:
 /*t4 = "749\n"*/
 	movq	str_7@GOTPCREL(%rip), %rax
 	movq	%rax, -56(%rbp)
-/*param_s t4*/
+/*param t4*/
 	movq	-56(%rbp), %rax
 	push	%rax
 /*call s0*/
 	call	t_printString
-/*param_s constString*/
+/*param constString*/
 	movq	-8(%rbp), %rax
 	push	%rax
 /*call s0*/

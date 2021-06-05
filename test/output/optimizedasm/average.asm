@@ -147,7 +147,7 @@ t_main:
 	addq	%rbx, %rcx
 	movq	$7, %rbx
 	movq	%rbx, (%rcx)
-/*param_s t8*/
+/*param t8*/
 	movq	-16(%rbp), %rax
 	push	%rax
 /*t7 = call s0*/

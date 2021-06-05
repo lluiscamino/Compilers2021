@@ -47,12 +47,12 @@ t_main:
 /*printBoolean(0)*/
 	movq	$0, %rbx
 	call	print_boolean
-/*param_s -1*/
+/*param -1*/
 	movq	$-1, %rax
 	push	%rax
 /*call s0*/
 	call	t_printNot
-/*param_s 0*/
+/*param 0*/
 	movq	$0, %rax
 	push	%rax
 /*call s0*/

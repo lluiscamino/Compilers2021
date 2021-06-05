@@ -58,12 +58,12 @@ t_main:
 /*printString(varString)*/
 	movq	-16(%rbp), %rsi
 	call	print_string
-/*param_s "749\n"*/
+/*param "749\n"*/
 	movq	str_7@GOTPCREL(%rip), %rax
 	push	%rax
 /*call s0*/
 	call	t_printString
-/*param_s constString*/
+/*param constString*/
 	movq	-8(%rbp), %rax
 	push	%rax
 /*call s0*/

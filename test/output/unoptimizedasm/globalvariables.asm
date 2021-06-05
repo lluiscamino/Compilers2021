@@ -73,7 +73,7 @@ t_main:
 	movq	-8(%rbp), %rbx
 	subq	%rbx, %rax
 	movq	%rax, -16(%rbp)
-/*param_s t2*/
+/*param t2*/
 	movq	-16(%rbp), %rax
 	push	%rax
 /*call s1*/

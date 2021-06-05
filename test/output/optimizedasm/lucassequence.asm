@@ -97,7 +97,7 @@ t_main:
 	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$0, %rsp
-/*param_s 25*/
+/*param 25*/
 	movq	$25, %rax
 	push	%rax
 /*call s0*/

@@ -166,13 +166,13 @@ e7:
 	movq	-144(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	%rax, -152(%rbp)
-/*param_s t15*/
+/*param t15*/
 	movq	-152(%rbp), %rax
 	push	%rax
-/*param_s i*/
+/*param i*/
 	movq	-40(%rbp), %rax
 	push	%rax
-/*param_s values*/
+/*param values*/
 	movq	16(%rbp), %rax
 	push	%rax
 /*call s1*/
@@ -461,12 +461,12 @@ t_main:
 /*values = t30*/
 	movq	-16(%rbp), %rax
 	movq	%rax, -8(%rbp)
-/*param_s values*/
+/*param values*/
 	movq	-8(%rbp), %rax
 	push	%rax
 /*call s0*/
 	call	t_bubbleSort
-/*param_s values*/
+/*param values*/
 	movq	-8(%rbp), %rax
 	push	%rax
 /*call s2*/

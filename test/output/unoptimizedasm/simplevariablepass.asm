@@ -52,7 +52,7 @@ t_main:
 /*value = t2*/
 	movq	-16(%rbp), %rax
 	movq	%rax, -8(%rbp)
-/*param_s value*/
+/*param value*/
 	movq	-8(%rbp), %rax
 	push	%rax
 /*t3 = call s0*/

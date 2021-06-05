@@ -35,7 +35,7 @@ t_main:
 	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$32, %rsp
-/*param_s -7*/
+/*param -7*/
 	movq	$-7, %rax
 	push	%rax
 /*t0 = call s0*/
@@ -44,7 +44,7 @@ t_main:
 /*printInt(t0)*/
 	movq	-8(%rbp), %rdi
 	call	print_uint64
-/*param_s 3*/
+/*param 3*/
 	movq	$3, %rax
 	push	%rax
 /*t3 = call s0*/
@@ -53,7 +53,7 @@ t_main:
 /*printInt(t3)*/
 	movq	-16(%rbp), %rdi
 	call	print_uint64
-/*param_s 11*/
+/*param 11*/
 	movq	$11, %rax
 	push	%rax
 /*t5 = call s0*/
@@ -66,7 +66,7 @@ t_main:
 	jmp 	e3
 /*e3: skip*/
 e3:
-/*param_s 3*/
+/*param 3*/
 	movq	$3, %rax
 	push	%rax
 /*t9 = call s0*/

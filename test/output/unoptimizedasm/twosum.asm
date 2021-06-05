@@ -463,10 +463,10 @@ t_main:
 	addq	%rbx, %rcx
 	movq	-168(%rbp), %rbx
 	movq	%rbx, (%rcx)
-/*param_s t27*/
+/*param t27*/
 	movq	-24(%rbp), %rax
 	push	%rax
-/*param_s t28*/
+/*param t28*/
 	movq	-32(%rbp), %rax
 	push	%rax
 /*t26 = call s0*/
