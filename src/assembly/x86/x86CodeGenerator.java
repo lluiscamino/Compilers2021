@@ -496,13 +496,13 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(ParameterInstruction tacInstruction) {
-        int size = tacInstruction.getFirstReference().sizeInBytes();
+        int size = Math.max(tacInstruction.getFirstReference().sizeInBytes(), Type.getInteger().sizeInBytes());
         String aRegister = register("a", size);
         return String.format("""
                         %s
                         \tpush\t%s
                         """,
-                loadInstruction(tacInstruction.getFirstReference(), aRegister, Math.max(size, Type.getInteger().sizeInBytes())),
+                loadInstruction(tacInstruction.getFirstReference(), aRegister, size),
                 aRegister
         );
     }
