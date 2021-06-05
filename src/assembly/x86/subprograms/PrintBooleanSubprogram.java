@@ -22,10 +22,10 @@ public final class PrintBooleanSubprogram extends AssemblyLibrarySubprogram {
                 /**
                  * Prints a boolean to stdout
                  * Params:
-                 * - %rbx: Boolean value
+                 * - %bl: Boolean value
                  */
                 print_boolean:
-                \ttestl\t%ebx, %ebx
+                \ttestb\t%bl, %bl
                 \tjnz \t.print_boolean_true
                 \tmovq\tdecl_1@GOTPCREL(%rip), %rsi
                 \tjmp \t.print_boolean_end

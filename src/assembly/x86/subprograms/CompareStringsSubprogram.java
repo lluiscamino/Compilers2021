@@ -23,7 +23,7 @@ public final class CompareStringsSubprogram extends AssemblyLibrarySubprogram {
     public String assemblyCode() {
         return String.format("""
                 /**
-                 * Compares two strings (saves result to %%rdx)
+                 * Compares two strings (saves result to %%dl)
                  * Params:
                  * - %%rsi: First string address
                  * - %%rdi: Second string address
@@ -43,10 +43,10 @@ public final class CompareStringsSubprogram extends AssemblyLibrarySubprogram {
                 \t\t\tcmpb\t%%al, (%%rdx)
                 \t\t\tje  \t.Cloop
                 \t.compare_strings_false:
-                \t\tmovq\t$%s, %%rdx
+                \t\tmovb\t$%s, %%dl
                 \t\tjmp \t.compare_strings_end
                 \t.compare_strings_true:
-                \t\tmovq\t$%s, %%rdx
+                \t\tmovb\t$%s, %%dl
                 \t.compare_strings_end:
                 \t\tret
                 """,

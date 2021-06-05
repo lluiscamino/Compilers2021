@@ -33,10 +33,8 @@ public enum PrimitiveType implements DOTizable {
 
     public int sizeInBytes() {
         return switch (this) {
-            case INT -> 8;
-            case BOOLEAN -> 8;
-            case STRING -> 8;
-            case UNKNOWN -> 8;
+            case INT, STRING, UNKNOWN -> 8;
+            case BOOLEAN -> 1;
         };
     }
 
