@@ -118,15 +118,15 @@ e2:
 /*middle = t12*/
 	movq	-160(%rbp), %rax
 	movq	%rax, -136(%rbp)
-/*t13 = middle + 1*/
+/*t13 = middle * 8*/
 	movq	-136(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -168(%rbp)
-/*t13 = t13 * 8*/
-	movq	-168(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -168(%rbp)
+/*t13 = t13 + 8*/
+	movq	-168(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -168(%rbp)
 /*t14 = nums[t13]*/
 	movq	16(%rbp), %rax
@@ -171,15 +171,15 @@ e5:
 	movq	%rax, -96(%rbp)
 /*e6: skip*/
 e6:
-/*t17 = middle + 1*/
+/*t17 = middle * 8*/
 	movq	-136(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -200(%rbp)
-/*t17 = t17 * 8*/
-	movq	-200(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -200(%rbp)
+/*t17 = t17 + 8*/
+	movq	-200(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -200(%rbp)
 /*t18 = nums[t17]*/
 	movq	16(%rbp), %rax
@@ -260,7 +260,7 @@ t_main:
 /*t25 = 9*/
 	movq	$9, %rax
 	movq	%rax, -16(%rbp)
-/*t26 = new array[7]*/
+/*t26 = new array[6]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
 	movq	%rax, -24(%rbp)
 /*t26[0] = 6*/
@@ -343,7 +343,7 @@ t_main:
 /*t35 = 12*/
 	movq	$12, %rax
 	movq	%rax, -96(%rbp)
-/*t36 = new array[7]*/
+/*t36 = new array[6]*/
 	movq	arr_4@GOTPCREL(%rip), %rax
 	movq	%rax, -104(%rbp)
 /*t36[0] = 6*/
@@ -426,7 +426,7 @@ t_main:
 /*t45 = 0*/
 	movq	$0, %rax
 	movq	%rax, -176(%rbp)
-/*t46 = new array[7]*/
+/*t46 = new array[6]*/
 	movq	arr_5@GOTPCREL(%rip), %rax
 	movq	%rax, -184(%rbp)
 /*t46[0] = 6*/
@@ -509,7 +509,7 @@ t_main:
 /*t55 = 5*/
 	movq	$5, %rax
 	movq	%rax, -256(%rbp)
-/*t56 = new array[7]*/
+/*t56 = new array[6]*/
 	movq	arr_6@GOTPCREL(%rip), %rax
 	movq	%rax, -264(%rbp)
 /*t56[0] = 6*/
@@ -592,7 +592,7 @@ t_main:
 /*t65 = 7*/
 	movq	$7, %rax
 	movq	%rax, -336(%rbp)
-/*t66 = new array[7]*/
+/*t66 = new array[6]*/
 	movq	arr_7@GOTPCREL(%rip), %rax
 	movq	%rax, -344(%rbp)
 /*t66[0] = 6*/
@@ -718,8 +718,8 @@ print_uint64:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .fill 7, 8
-	arr_4: .fill 7, 8
-	arr_5: .fill 7, 8
-	arr_6: .fill 7, 8
-	arr_7: .fill 7, 8
+	arr_3: .fill 56, 1
+	arr_4: .fill 56, 1
+	arr_5: .fill 56, 1
+	arr_6: .fill 56, 1
+	arr_7: .fill 56, 1

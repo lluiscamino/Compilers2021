@@ -23,7 +23,7 @@ t_main:
 	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$56, %rsp
-/*t0 = new array[5]*/
+/*t0 = new array[4]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
 	movq	%rax, -16(%rbp)
 /*t0[0] = 4*/
@@ -96,15 +96,15 @@ e2:
 	jne 	1f
 	jmp	e3
 1:
-/*t16 = i + 1*/
+/*t16 = i * 8*/
 	movq	-24(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -48(%rbp)
-/*t16 = t16 * 8*/
-	movq	-48(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -48(%rbp)
+/*t16 = t16 + 8*/
+	movq	-48(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -48(%rbp)
 /*t17 = arr[t16]*/
 	movq	-8(%rbp), %rax
@@ -170,4 +170,4 @@ print_uint64:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .fill 5, 8
+	arr_3: .fill 40, 1

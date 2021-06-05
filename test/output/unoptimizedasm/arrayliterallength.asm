@@ -23,7 +23,7 @@ t_main:
 	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$264, %rsp
-/*t0 = new array[4]*/
+/*t0 = new array[3]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
 	movq	%rax, -8(%rbp)
 /*t0[0] = 3*/
@@ -73,7 +73,7 @@ t_main:
 /*printInt(t5)*/
 	movq	-48(%rbp), %rdi
 	call	print_uint64
-/*t6 = new array[5]*/
+/*t6 = new array[4]*/
 	movq	arr_4@GOTPCREL(%rip), %rax
 	movq	%rax, -64(%rbp)
 /*t6[0] = 4*/
@@ -141,7 +141,7 @@ t_main:
 	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -120(%rbp)
-/*t14 = new array[3]*/
+/*t14 = new array[2]*/
 	movq	arr_5@GOTPCREL(%rip), %rax
 	movq	%rax, -128(%rbp)
 /*t14[0] = 2*/
@@ -179,7 +179,7 @@ t_main:
 	movq	-152(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	%rax, -160(%rbp)
-/*t19 = new array[4]*/
+/*t19 = new array[3]*/
 	movq	arr_6@GOTPCREL(%rip), %rax
 	movq	%rax, -168(%rbp)
 /*t19[0] = 3*/
@@ -239,7 +239,7 @@ t_main:
 	movq	-224(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	%rax, -232(%rbp)
-/*t28 = new array[2]*/
+/*t28 = new array[1]*/
 	movq	arr_7@GOTPCREL(%rip), %rax
 	movq	%rax, -240(%rbp)
 /*t28[0] = 1*/
@@ -317,8 +317,8 @@ print_uint64:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .fill 4, 8
-	arr_4: .fill 5, 8
-	arr_5: .fill 3, 8
-	arr_6: .fill 4, 8
-	arr_7: .fill 2, 8
+	arr_3: .fill 32, 1
+	arr_4: .fill 40, 1
+	arr_5: .fill 24, 1
+	arr_6: .fill 32, 1
+	arr_7: .fill 16, 1

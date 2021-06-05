@@ -15,15 +15,15 @@ _main:
 /*t0 = 10*/
 	movq	$10, %rax
 	movq	%rax, -16(%rbp)
-/*t2 = t0 + 1*/
+/*t2 = t0 * 8*/
 	movq	-16(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -32(%rbp)
-/*t2 = t2 * 8*/
-	movq	-32(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -32(%rbp)
+/*t2 = t2 + 8*/
+	movq	-32(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -32(%rbp)
 /*t1 = new array[t2]*/
 	movq	%rsp, %rbx
@@ -41,7 +41,7 @@ _main:
 /*arr1 = t1*/
 	movq	-24(%rbp), %rax
 	movq	%rax, -8(%rbp)
-/*t3 = new array[5]*/
+/*t3 = new array[4]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
 	movq	%rax, -48(%rbp)
 /*t3[0] = 4*/
@@ -154,15 +154,15 @@ e4:
 	movq	%rax, -48(%rbp)
 /*e5: skip*/
 e5:
-/*t12 = i + 1*/
+/*t12 = i * 8*/
 	movq	-8(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -32(%rbp)
-/*t12 = t12 * 8*/
-	movq	-32(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -32(%rbp)
+/*t12 = t12 + 8*/
+	movq	-32(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -32(%rbp)
 /*arr1[t12] = t16*/
 	movq	decl_2@GOTPCREL(%rip), %rsi
@@ -206,15 +206,15 @@ e6:
 	jne 	1f
 	jmp	e7
 1:
-/*t19 = t18 + 1*/
+/*t19 = t18 * 8*/
 	movq	-56(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -64(%rbp)
-/*t19 = t19 * 8*/
-	movq	-64(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -64(%rbp)
+/*t19 = t19 + 8*/
+	movq	-64(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -64(%rbp)
 /*el = arr1[t19]*/
 	movq	decl_2@GOTPCREL(%rip), %rsi
@@ -264,15 +264,15 @@ e8:
 	jne 	1f
 	jmp	e9
 1:
-/*t24 = t23 + 1*/
+/*t24 = t23 * 8*/
 	movq	-88(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -96(%rbp)
-/*t24 = t24 * 8*/
-	movq	-96(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -96(%rbp)
+/*t24 = t24 + 8*/
+	movq	-96(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -96(%rbp)
 /*el = arr2[t24]*/
 	movq	decl_2@GOTPCREL(%rip), %rsi
@@ -347,5 +347,5 @@ print_string:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .fill 5, 8
+	arr_3: .fill 40, 1
 	str_4: .asciz "\n"
