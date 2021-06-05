@@ -53,14 +53,15 @@ public final class ArrayInstance extends Expression {
         firstIndex.toTac();
         tacVariable = variableGenerator.generate(getType());
         TACVariable arraySizeInBytes = variableGenerator.generate(Type.getInteger());
-        PrimitiveType elementsType = indexesArray.size() == 1 ? primitiveType : PrimitiveType.INT;
+        int arrayDimensions = indexesArray.size();
+        Type elementsType = Type.getArray(primitiveType, arrayDimensions - 1);
 
         addTACInstruction(new AddInstruction(arraySizeInBytes, firstIndex.getTacVariable(), new TACLiteral(1)));
         addTACInstruction(new ProductInstruction(arraySizeInBytes, arraySizeInBytes, new TACLiteral(elementsType.sizeInBytes())));
         addTACInstruction(new NewDynamicArrayInstruction(tacVariable, arraySizeInBytes));
         addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(0), firstIndex.getTacVariable()));
 
-        if (indexesArray.size() > 1) {
+        if (arrayDimensions > 1) {
             buildSubArraysTAC();
         }
     }

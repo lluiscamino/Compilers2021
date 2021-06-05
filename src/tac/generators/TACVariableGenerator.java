@@ -18,7 +18,7 @@ public class TACVariableGenerator extends TACReferenceGenerator {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
 
         TACVariable variable = new TACVariable(nextId++);
-        variablesTable.add(variable, type, type.getPrimitiveType().sizeInBytes(), false); // todo: arrays and strings
+        variablesTable.add(variable, type, type.sizeInBytes(), false);
         return variable;
     }
 
@@ -26,7 +26,7 @@ public class TACVariableGenerator extends TACReferenceGenerator {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
 
         TACVariable variable = new TACVariable(nextIdDesc--, identifier);
-        variablesTable.add(variable, type, type.getPrimitiveType().sizeInBytes(),subprogramArgument);
+        variablesTable.add(variable, type, type.sizeInBytes(),subprogramArgument);
         return variable;
     }
 }

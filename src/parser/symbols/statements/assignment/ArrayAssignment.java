@@ -33,8 +33,7 @@ public class ArrayAssignment extends Assignment {
     @Override
     public void validate() {
         try {
-            SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
-            CVADeclaration declaration = symbolTable.getCVA(identifier);
+            CVADeclaration declaration = getIdentifierDeclaration();
             checkDeclarationExists(declaration);
             checkDeclarationIsVariable(declaration);
             checkDeclarationIsArray(declaration);
@@ -45,6 +44,11 @@ public class ArrayAssignment extends Assignment {
             indexes.validate();
             expression.validate();
         }
+    }
+
+    protected CVADeclaration getIdentifierDeclaration() {
+        SymbolTable symbolTable = Compiler.getCompiler().getSemanticAnalyzer().getSymbolTable();
+        return symbolTable.getCVA(identifier);
     }
 
     protected void checkDeclarationIsArray(CVADeclaration declaration) throws Exception {
@@ -88,6 +92,8 @@ public class ArrayAssignment extends Assignment {
         VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
         TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
+        ArrayDeclaration declaration = (ArrayDeclaration) getIdentifierDeclaration();
+        int declarationNumDimensions = declaration.getDimensions().size();
         VariablesTable.VariableInfo variableInfo = variablesTable.get(identifier);
         TACVariable variable = variableInfo.getTacVariable();
         TACVariable newVariable = variableGenerator.generate(variableInfo.getType());
@@ -97,15 +103,16 @@ public class ArrayAssignment extends Assignment {
         TACVariable lastIndex = indexesList.get(indexesList.size() - 1).getTacVariable();
 
         addTACInstruction(new CopyInstruction(newVariable, variable));
+        PrimitiveType primitiveType = expression.getType().getPrimitiveType();
         for (int i = 0; i < indexesList.size() - 1; i++) {
             Expression index = indexesList.get(i);
             addTACInstruction(new AddInstruction(realIndex, index.getTacVariable(), new TACLiteral(1)));
-            addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(PrimitiveType.INT.sizeInBytes())));
+            addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(Type.getArray(primitiveType, (declarationNumDimensions - i - 1)).sizeInBytes())));
             addTACInstruction(new IndexedValueInstruction(newVariable, newVariable, realIndex));
         }
         expression.toTac();
         addTACInstruction(new AddInstruction(realIndex, lastIndex, new TACLiteral(1)));
-        addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(PrimitiveType.INT.sizeInBytes())));
+        addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(Type.getArray(primitiveType, (declarationNumDimensions - indexesList.size() - 1)).sizeInBytes())));
         addTACInstruction(new IndexAssignmentInstruction(newVariable, realIndex, expression.getTacVariable()));
     }
 }

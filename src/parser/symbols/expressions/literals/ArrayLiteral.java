@@ -97,11 +97,11 @@ public final class ArrayLiteral extends Literal {
         tacVariable = variableGenerator.generate(getType());
         List<Expression> items = getValue() != null ? getValue().toArrayList() : new ArrayList<>();
         int counter = 1;
-        addTACInstruction(new NewStaticArrayInstruction(tacVariable, new TACLiteral((items.size() + 1)), new TACLiteral(PrimitiveType.INT.sizeInBytes()))); // TODO: get real type
+        addTACInstruction(new NewStaticArrayInstruction(tacVariable, new TACLiteral((items.size() + 1)), new TACLiteral(getType().sizeInBytes())));
         addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(0), new TACLiteral(items.size())));
         for (Expression item : items) {
             item.toTac();
-            addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(counter++ * PrimitiveType.INT.sizeInBytes()), item.getTacVariable()));
+            addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(counter++ * getType().sizeInBytes()), item.getTacVariable()));
         }
     }
 }
