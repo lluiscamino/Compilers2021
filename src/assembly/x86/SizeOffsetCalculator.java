@@ -3,6 +3,8 @@ package assembly.x86;
 import tac.tables.SubprogramsTable;
 import tac.tables.VariablesTable;
 
+import static assembly.x86.AssemblyCodeGenerationConstants.PUSH_DEFAULT_BYTES;
+
 public final class SizeOffsetCalculator {
     public void calculate(SubprogramsTable subprogramsTable, VariablesTable variablesTable) {
         for (VariablesTable.VariableInfo variableInfo : variablesTable.getVariablesList()) {
@@ -13,7 +15,7 @@ public final class SizeOffsetCalculator {
                 variablesTable.setGlobalVariablesSize(variablesTable.getGlobalVariablesSize() + variableSize);
                 offset = -variablesTable.getGlobalVariablesSize();
             } else if (variableInfo.isSubprogramArgument()) {
-                subprogramInfo.setLocalParametersSize(subprogramInfo.getLocalParametersSize() + variableSize);
+                subprogramInfo.setLocalParametersSize(subprogramInfo.getLocalParametersSize() + PUSH_DEFAULT_BYTES);
                 offset = subprogramInfo.getLocalParametersSize();
             } else {
                 if (subprogramInfo.getLocalVariablesSize() == 0) {

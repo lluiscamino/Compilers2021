@@ -40,8 +40,7 @@ import tac.tables.VariablesTable;
 
 import java.util.*;
 
-import static assembly.x86.AssemblyCodeGenerationConstants.STRING_BUFFER_BYTES;
-import static assembly.x86.AssemblyCodeGenerationConstants.TRUE;
+import static assembly.x86.AssemblyCodeGenerationConstants.*;
 
 public class x86CodeGenerator implements AssemblyCodeGenerator {
     private final SubprogramsTable subprogramsTable;
@@ -496,13 +495,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
 
     @Override
     public String generate(ParameterInstruction tacInstruction) {
-        int size = Math.max(tacInstruction.getFirstReference().sizeInBytes(), Type.getInteger().sizeInBytes());
-        String aRegister = register("a", size);
+        String aRegister = register("a", PUSH_DEFAULT_BYTES);
         return String.format("""
                         %s
                         \tpush\t%s
                         """,
-                loadInstruction(tacInstruction.getFirstReference(), aRegister, size),
+                loadInstruction(tacInstruction.getFirstReference(), aRegister, PUSH_DEFAULT_BYTES),
                 aRegister
         );
     }
