@@ -505,7 +505,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     @Override
     public String generate(NewStaticArrayInstruction tacInstruction) {
         String declarationName = "arr_" + constantDeclarations.size();
-        constantDeclarations.add(String.format("%s: .fill %s, %s\n", declarationName, tacInstruction.getLength().getValue(), tacInstruction.getDataTypeSize().getValue()));
+        constantDeclarations.add(String.format("%s: .fill %s, 1\n", declarationName, tacInstruction.getSizeInBytes()));
         return String.format("""
                         \tmovq\t%s, %%rax
                         %s
