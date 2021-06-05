@@ -500,10 +500,10 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
         String aRegister = register("a", size);
         return String.format("""
                         %s
-                        \t%s\t%s
+                        \tpush\t%s
                         """,
                 loadInstruction(tacInstruction.getFirstReference(), aRegister, size),
-                instructionCode("push", size), aRegister
+                aRegister
         );
     }
 
