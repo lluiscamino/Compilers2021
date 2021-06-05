@@ -1,11 +1,11 @@
 package parser.symbols.statements.loop;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.SymbolList;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
 import parser.symbols.types.Type;
-import main.Compiler;
 import symboltable.SymbolTable;
 import tac.generators.TACTagGenerator;
 import tac.instructions.bifurcation.GotoInstruction;

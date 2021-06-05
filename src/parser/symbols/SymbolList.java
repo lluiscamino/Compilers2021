@@ -1,6 +1,7 @@
 package parser.symbols;
 
 import dot.DotNode;
+
 import java.util.ArrayList;
 import java.util.List;
 

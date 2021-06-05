@@ -1,10 +1,11 @@
 package symboltable;
 
+import parser.symbols.declarations.Declaration;
+import tac.references.TACSubprogram;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import parser.symbols.declarations.Declaration;
-import tac.references.TACSubprogram;
 
 public class Scope {
 

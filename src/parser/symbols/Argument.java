@@ -1,15 +1,14 @@
 package parser.symbols;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.DeclarationMode;
 import parser.symbols.declarations.cva.ArrayDeclaration;
 import parser.symbols.declarations.cva.PrimitiveDeclaration;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
-import main.Compiler;
 import tac.generators.TACVariableGenerator;
-import tac.references.TACVariable;
 
 public final class Argument extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "ARGUMENT";

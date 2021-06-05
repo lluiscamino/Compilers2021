@@ -4,8 +4,6 @@ import assembly.AssemblyLibrarySubprogram;
 
 import java.util.List;
 
-import static assembly.x86.AssemblyCodeGenerationConstants.STRING_BUFFER_BYTES;
-
 public final class GetStringLengthSubprogram extends AssemblyLibrarySubprogram {
     public GetStringLengthSubprogram() {}
 

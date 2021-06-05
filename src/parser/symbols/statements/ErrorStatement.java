@@ -2,11 +2,12 @@ package parser.symbols.statements;
 
 import errors.ProgramError;
 import errors.SyntaxError;
-import java.util.List;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import java_cup.runtime.Symbol;
 import main.Compiler;
 import parser.ParserSym;
+
+import java.util.List;
 
 public final class ErrorStatement extends Statement {
     private final Symbol token;

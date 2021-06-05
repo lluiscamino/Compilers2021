@@ -6,7 +6,6 @@ import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.CopyInstruction;
 import tac.references.TACLiteral;
-import tac.references.TACVariable;
 
 public final class IntegerLiteral extends Literal {
     

@@ -2,11 +2,11 @@ package parser.symbols.expressions.reference;
 
 import dot.DotNode;
 import java_cup.runtime.ComplexSymbolFactory.Location;
+import main.Compiler;
 import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
-import main.Compiler;
 import tac.tables.VariablesTable;
 
 public class IdentifierReference extends Expression {

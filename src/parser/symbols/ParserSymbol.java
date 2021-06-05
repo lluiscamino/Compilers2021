@@ -2,9 +2,9 @@ package parser.symbols;
 
 import dot.DOTizable;
 import errors.SemanticError;
-import main.Compiler;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
 import java_cup.runtime.ComplexSymbolFactory.Location;
+import main.Compiler;
 import tac.TACizable;
 import tac.instructions.TACInstruction;
 

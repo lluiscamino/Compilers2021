@@ -3,10 +3,8 @@ package parser.symbols.expressions.binary;
 import dot.DotNode;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
-import symboltable.SymbolTable;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.binary.OrInstruction;
-import tac.references.TACVariable;
 
 public final class BinaryOr extends BinaryOperation {
     

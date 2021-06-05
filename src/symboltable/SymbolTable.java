@@ -1,13 +1,14 @@
 package symboltable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.declarations.subprogram.SubprogramDeclaration;
 import tac.references.TACSubprogram;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class SymbolTable {
 

@@ -2,14 +2,14 @@ package parser.symbols.expressions.reference;
 
 import dot.DotNode;
 import java_cup.runtime.ComplexSymbolFactory.Location;
+import main.Compiler;
 import parser.symbols.ArrayIndexes;
+import parser.symbols.declarations.cva.ArrayDeclaration;
 import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.expressions.Expression;
-import symboltable.SymbolTable;
-import main.Compiler;
-import parser.symbols.declarations.cva.ArrayDeclaration;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
+import symboltable.SymbolTable;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.AddInstruction;
 import tac.instructions.arithmetic.ProductInstruction;

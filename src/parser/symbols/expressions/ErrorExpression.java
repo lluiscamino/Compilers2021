@@ -2,13 +2,13 @@ package parser.symbols.expressions;
 
 import errors.ProgramError;
 import errors.SyntaxError;
-import java.util.List;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import java_cup.runtime.Symbol;
-import parser.symbols.expressions.Expression.Mode;
 import main.Compiler;
 import parser.ParserSym;
 import parser.symbols.types.Type;
+
+import java.util.List;
 
 public final class ErrorExpression extends Expression {
     private final Symbol token;

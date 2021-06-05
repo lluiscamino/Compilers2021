@@ -1,6 +1,5 @@
 package dot;
 
-import java.io.PrintWriter;
 import main.Compiler;
 
 public class DotNode {

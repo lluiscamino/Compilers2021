@@ -5,7 +5,6 @@ import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.binary.AndInstruction;
-import tac.references.TACVariable;
 
 public final class BinaryAnd extends BinaryOperation {
     

@@ -1,16 +1,10 @@
 package parser.symbols.declarations.cva;
 
 import dot.DotNode;
-import main.Compiler;
 import parser.symbols.declarations.DeclarationMode;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
-import symboltable.SymbolTable;
-import tac.generators.TACVariableGenerator;
-import tac.instructions.arithmetic.CopyInstruction;
-import tac.references.TACLiteral;
-import tac.references.TACVariable;
 
 
 public final class PrimitiveDeclaration extends CVADeclaration {

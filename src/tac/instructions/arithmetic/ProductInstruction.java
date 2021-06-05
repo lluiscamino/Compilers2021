@@ -2,7 +2,6 @@ package tac.instructions.arithmetic;
 
 import assembly.AssemblyCodeGenerator;
 import tac.references.TACReference;
-import tac.references.TACVariable;
 
 public final class ProductInstruction extends ArithmeticInstruction {
     public ProductInstruction(TACReference firstReference, TACReference secondReference, TACReference thirdReference) {

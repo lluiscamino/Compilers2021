@@ -1,15 +1,14 @@
 package parser.symbols.declarations.cva;
 
+import main.Compiler;
 import parser.symbols.declarations.Declaration;
 import parser.symbols.declarations.DeclarationMode;
+import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
-import main.Compiler;
-import parser.symbols.expressions.Expression;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.CopyInstruction;
 import tac.references.TACVariable;
-import tac.tables.VariablesTable;
 
 public abstract class CVADeclaration extends Declaration {
     protected final Type type;

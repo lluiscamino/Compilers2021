@@ -1,12 +1,12 @@
 package parser.symbols.statements.assignment;
 
 import dot.DotNode;
+import main.Compiler;
 import parser.symbols.declarations.cva.CVADeclaration;
 import parser.symbols.expressions.Expression;
 import parser.symbols.statements.Statement;
-import symboltable.SymbolTable;
-import main.Compiler;
 import parser.symbols.types.Type;
+import symboltable.SymbolTable;
 import tac.instructions.arithmetic.CopyInstruction;
 import tac.references.TACVariable;
 import tac.tables.VariablesTable;

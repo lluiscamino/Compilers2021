@@ -1,16 +1,17 @@
 package parser.symbols;
 
 import dot.DotNode;
-import java.util.ArrayList;
-import java.util.List;
 import java_cup.runtime.ComplexSymbolFactory.Location;
-import parser.symbols.declarations.subprogram.SubprogramDeclaration;
-import parser.symbols.expressions.*;
-import parser.symbols.types.Type;
-import symboltable.SymbolTable;
 import main.Compiler;
 import parser.symbols.declarations.subprogram.FunctionDeclaration;
+import parser.symbols.declarations.subprogram.SubprogramDeclaration;
+import parser.symbols.expressions.Expression;
+import parser.symbols.types.Type;
+import symboltable.SymbolTable;
 import tac.instructions.subprogram.SimpleParameterInstruction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Call extends ParserSymbol {
     private static final String STRING_IDENTIFIER = "CALL";

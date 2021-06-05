@@ -4,7 +4,8 @@ import assembly.AssemblyLibrarySubprogram;
 
 import java.util.List;
 
-import static assembly.x86.AssemblyCodeGenerationConstants.*;
+import static assembly.x86.AssemblyCodeGenerationConstants.FALSE;
+import static assembly.x86.AssemblyCodeGenerationConstants.TRUE;
 
 public final class CompareStringsSubprogram extends AssemblyLibrarySubprogram {
     public CompareStringsSubprogram() {}

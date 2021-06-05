@@ -3,8 +3,8 @@ package parser.symbols.expressions.io;
 import dot.DotNode;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import main.Compiler;
-import parser.symbols.types.Type;
 import parser.symbols.expressions.Expression;
+import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.io.ReadInstruction;
 

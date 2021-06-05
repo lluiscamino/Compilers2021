@@ -8,7 +8,10 @@ import tac.instructions.subprogram.calls.CallInstruction;
 import tac.references.TACTag;
 import tac.tables.SubprogramsTable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public final class UnusedTagsOptimizer extends TACOptimizer {
     private final SubprogramsTable subprogramsTable;

@@ -7,7 +7,6 @@ import java_cup.runtime.ComplexSymbolFactory.Location;
 import main.Compiler;
 import org.junit.Test;
 
-import java.io.StringWriter;
 import java.util.List;
 
 public final class IncorrectProgramsTest {

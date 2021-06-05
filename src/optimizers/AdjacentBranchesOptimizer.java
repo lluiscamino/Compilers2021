@@ -3,7 +3,7 @@ package optimizers;
 import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
-import tac.instructions.bifurcation.ifs.*;
+import tac.instructions.bifurcation.ifs.IfInstruction;
 import tac.references.TACReference;
 import tac.references.TACTag;
 
