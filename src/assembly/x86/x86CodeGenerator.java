@@ -502,7 +502,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         \tpush\t%s
                         """,
-                loadInstruction(tacInstruction.getFirstReference(), aRegister, size),
+                loadInstruction(tacInstruction.getFirstReference(), aRegister, Math.max(size, Type.getInteger().sizeInBytes())),
                 aRegister
         );
     }
