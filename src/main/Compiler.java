@@ -31,10 +31,6 @@ public final class Compiler {
         return instance;
     }
 
-    public SyntacticAnalyzer getParser() {
-        return parser;
-    }
-
     public SemanticAnalyzer getSemanticAnalyzer() {
         return semanticAnalyzer;
     }
