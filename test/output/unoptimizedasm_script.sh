@@ -63,6 +63,13 @@ diff -y -q -w outputs/printstrings.asm.txt expectedoutputs/printstrings.asm.txt
 rm unoptimizedasm/printstrings.asm.o
 rm unoptimizedasm/printstrings.asm-exec
 
+as unoptimizedasm/binaryarray.asm -o unoptimizedasm/binaryarray.asm.o
+ld unoptimizedasm/binaryarray.asm.o -o unoptimizedasm/binaryarray.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./unoptimizedasm/binaryarray.asm-exec > outputs/binaryarray.asm.txt
+diff -y -q -w outputs/binaryarray.asm.txt expectedoutputs/binaryarray.asm.txt
+rm unoptimizedasm/binaryarray.asm.o
+rm unoptimizedasm/binaryarray.asm-exec
+
 as unoptimizedasm/average.asm -o unoptimizedasm/average.asm.o
 ld unoptimizedasm/average.asm.o -o unoptimizedasm/average.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./unoptimizedasm/average.asm-exec > outputs/average.asm.txt

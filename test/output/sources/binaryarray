@@ -1,0 +1,15 @@
+var array boolean[] arr1 = array(boolean[10]);
+const array boolean[] arr2 = {true, false, false, true};
+
+main() {
+    for (var int i = 0; i < length(arr1); i += 1) {
+        arr1[i] = i % 2 == 0;
+    }
+    for (const boolean el : arr1) {
+        print(el);
+    }
+    print("");
+    for (const boolean el : arr2) {
+        print(el);
+    }
+}
