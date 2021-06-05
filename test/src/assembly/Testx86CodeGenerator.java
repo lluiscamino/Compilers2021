@@ -3,6 +3,7 @@ package src.assembly;
 import assembly.AssemblyCodeGenerator;
 import assembly.x86.x86CodeGenerator;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.*;
@@ -19,6 +20,7 @@ import tac.references.TACVariable;
 import tac.tables.SubprogramsTable;
 import tac.tables.VariablesTable;
 
+@Ignore
 public final class Testx86CodeGenerator {
 
     private AssemblyCodeGenerator codeGenerator;
