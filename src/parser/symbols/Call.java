@@ -52,10 +52,9 @@ public final class Call extends ParserSymbol {
             return;
         }
         //mirar si los tipos de argumentos coinciden
-        SubprogramDeclaration subpDecl = (SubprogramDeclaration) decl;
         
         List<Expression> actualArgs = arguments != null ? arguments.toArrayList() : new ArrayList<>();
-        List<Argument> args = subpDecl.toArrayListArguments();
+        List<Argument> args = decl.toArrayListArguments();
         
         //comparar la cantidad de argumentos
         if (actualArgs.size() != args.size()) {
