@@ -3,8 +3,8 @@ package tac.instructions.subprogram;
 import assembly.AssemblyCodeGenerator;
 import tac.references.TACReference;
 
-public final class SimpleParameterInstruction extends SubprogramInstruction {
-    public SimpleParameterInstruction(TACReference reference) {
+public final class ParameterInstruction extends SubprogramInstruction {
+    public ParameterInstruction(TACReference reference) {
         super(reference);
     }
 
@@ -14,6 +14,6 @@ public final class SimpleParameterInstruction extends SubprogramInstruction {
 
     @Override
     public String toString() {
-        return "param_s " + firstReference;
+        return "param " + firstReference;
     }
 }

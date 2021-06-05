@@ -20,9 +20,8 @@ import tac.instructions.io.print.PrintIntInstruction;
 import tac.instructions.io.print.PrintStringInstruction;
 import tac.instructions.length.StringLengthInstruction;
 import tac.instructions.special.InitProgramInstruction;
-import tac.instructions.subprogram.ComplexParameterInstruction;
+import tac.instructions.subprogram.ParameterInstruction;
 import tac.instructions.subprogram.PreambleInstruction;
-import tac.instructions.subprogram.SimpleParameterInstruction;
 import tac.instructions.subprogram.calls.FunctionCallInstruction;
 import tac.instructions.subprogram.calls.ProcedureCallInstruction;
 import tac.instructions.subprogram.returns.FunctionReturnInstruction;
@@ -83,15 +82,13 @@ public interface AssemblyCodeGenerator {
 
     String generate(FunctionCallInstruction tacInstruction);
 
-    String generate(ComplexParameterInstruction tacInstruction);
-
     String generate(PreambleInstruction tacInstruction);
 
     String generate(ProcedureReturnInstruction tacInstruction);
 
     String generate(FunctionReturnInstruction tacInstruction);
 
-    String generate(SimpleParameterInstruction tacInstruction);
+    String generate(ParameterInstruction tacInstruction);
 
     String generate(ReadInstruction tacInstruction);
 

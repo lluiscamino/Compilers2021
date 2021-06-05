@@ -8,7 +8,7 @@ import parser.symbols.declarations.subprogram.SubprogramDeclaration;
 import parser.symbols.expressions.Expression;
 import parser.symbols.types.Type;
 import symboltable.SymbolTable;
-import tac.instructions.subprogram.SimpleParameterInstruction;
+import tac.instructions.subprogram.ParameterInstruction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +95,7 @@ public final class Call extends ParserSymbol {
             argumentsList.get(i).toTac();
         }
         for (int i = argumentsList.size() - 1; i >= 0; i--) {
-            addTACInstruction(new SimpleParameterInstruction(argumentsList.get(i).getTacVariable()));
+            addTACInstruction(new ParameterInstruction(argumentsList.get(i).getTacVariable()));
         }
     }
 }

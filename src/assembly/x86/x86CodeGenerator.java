@@ -23,9 +23,8 @@ import tac.instructions.io.print.PrintIntInstruction;
 import tac.instructions.io.print.PrintStringInstruction;
 import tac.instructions.length.StringLengthInstruction;
 import tac.instructions.special.InitProgramInstruction;
-import tac.instructions.subprogram.ComplexParameterInstruction;
+import tac.instructions.subprogram.ParameterInstruction;
 import tac.instructions.subprogram.PreambleInstruction;
-import tac.instructions.subprogram.SimpleParameterInstruction;
 import tac.instructions.subprogram.calls.FunctionCallInstruction;
 import tac.instructions.subprogram.calls.ProcedureCallInstruction;
 import tac.instructions.subprogram.returns.FunctionReturnInstruction;
@@ -391,11 +390,6 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     @Override
-    public String generate(ComplexParameterInstruction tacInstruction) {
-        return null;
-    }
-
-    @Override
     public String generate(PreambleInstruction tacInstruction) {
         SubprogramsTable.SubprogramInfo subprogramInfo = getSubprogramInfoOrThrowException(tacInstruction.getFirstReference());
         return String.format("""
@@ -431,7 +425,7 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     @Override
-    public String generate(SimpleParameterInstruction tacInstruction) {
+    public String generate(ParameterInstruction tacInstruction) {
         return String.format("""
                         %s
                         \tpush\t%%rax
