@@ -56,8 +56,8 @@ public final class ArrayInstance extends Expression {
         int arrayDimensions = indexesArray.size();
         Type elementsType = Type.getArray(primitiveType, arrayDimensions - 1);
 
-        addTACInstruction(new AddInstruction(arraySizeInBytes, firstIndex.getTacVariable(), new TACLiteral(1)));
-        addTACInstruction(new ProductInstruction(arraySizeInBytes, arraySizeInBytes, new TACLiteral(elementsType.sizeInBytes())));
+        addTACInstruction(new ProductInstruction(arraySizeInBytes, firstIndex.getTacVariable(), new TACLiteral(elementsType.sizeInBytes())));
+        addTACInstruction(new AddInstruction(arraySizeInBytes, arraySizeInBytes, new TACLiteral(Type.getInteger().sizeInBytes())));
         addTACInstruction(new NewDynamicArrayInstruction(tacVariable, arraySizeInBytes));
         addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(0), firstIndex.getTacVariable()));
 
@@ -85,8 +85,8 @@ public final class ArrayInstance extends Expression {
         ArrayInstance subArray = generateSubArray();
         subArray.toTac();
 
-        addTACInstruction(new AddInstruction(realIndex, index, new TACLiteral(1)));
-        addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(8)));
+        addTACInstruction(new ProductInstruction(realIndex, index, new TACLiteral(Type.getInteger().sizeInBytes())));
+        addTACInstruction(new AddInstruction(realIndex, realIndex, new TACLiteral(Type.getInteger().sizeInBytes())));
         addTACInstruction(new IndexAssignmentInstruction(tacVariable, realIndex, subArray.getTacVariable()));
         addTACInstruction(new AddInstruction(index, index, new TACLiteral(1)));
         addTACInstruction(new GotoInstruction(startTag));

@@ -108,9 +108,9 @@ public class ForeachLoop extends Loop {
 
         addTACInstruction(new SkipInstruction(startTag));
         addTACInstruction(new IfEqual(index, arrayLength, endTag));
-        addTACInstruction(new AddInstruction(realIndex, index, new TACLiteral(1)));
         int declarationSizeInBytes = declaration.getType().sizeInBytes();
-        addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(declarationSizeInBytes)));
+        addTACInstruction(new ProductInstruction(realIndex, index, new TACLiteral(declarationSizeInBytes)));
+        addTACInstruction(new AddInstruction(realIndex, realIndex, new TACLiteral(Type.getInteger().sizeInBytes())));
         addTACInstruction(new IndexedValueInstruction(arrayItemVariable, array.getTacVariable(), realIndex));
         if (statements != null) {
             statements.toTac();

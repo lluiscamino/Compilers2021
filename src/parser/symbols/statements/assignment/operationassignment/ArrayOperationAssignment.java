@@ -58,14 +58,14 @@ public abstract class ArrayOperationAssignment extends ArrayAssignment {
         addTACInstruction(new CopyInstruction(newVariable, variable));
         for (int i = 0; i < indexesList.size() - 1; i++) {
             Expression index = indexesList.get(i);
-            addTACInstruction(new AddInstruction(realIndex, index.getTacVariable(), new TACLiteral(1)));
-            addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(PrimitiveType.INT.sizeInBytes())));
+            addTACInstruction(new ProductInstruction(realIndex, index.getTacVariable(), new TACLiteral(PrimitiveType.INT.sizeInBytes())));
+            addTACInstruction(new AddInstruction(realIndex, realIndex, new TACLiteral(Type.getInteger().sizeInBytes())));
             addTACInstruction(new IndexedValueInstruction(newVariable, newVariable, realIndex));
         }
         expression.toTac();
         TACVariable temp = variableGenerator.generate(Type.getInteger());
-        addTACInstruction(new AddInstruction(realIndex, lastIndex, new TACLiteral(1)));
-        addTACInstruction(new ProductInstruction(realIndex, realIndex, new TACLiteral(PrimitiveType.INT.sizeInBytes())));
+        addTACInstruction(new ProductInstruction(realIndex, lastIndex, new TACLiteral(PrimitiveType.INT.sizeInBytes())));
+        addTACInstruction(new AddInstruction(realIndex, realIndex, new TACLiteral(Type.getInteger().sizeInBytes())));
         addTACInstruction(new IndexedValueInstruction(temp, newVariable, realIndex));
         operationToTac(temp);
         addTACInstruction(new IndexAssignmentInstruction(newVariable, realIndex, temp));

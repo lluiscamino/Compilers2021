@@ -94,14 +94,18 @@ public final class ArrayLiteral extends Literal {
     public void toTac() {
         TACVariableGenerator variableGenerator = Compiler.getCompiler().getSemanticAnalyzer().getTacVariableGenerator();
 
-        tacVariable = variableGenerator.generate(getType());
+        Type type = getType();
+        int numDimensions = type.getDimensions() != null ? type.getDimensions().size() : 0;
+        tacVariable = variableGenerator.generate(type);
         List<Expression> items = getValue() != null ? getValue().toArrayList() : new ArrayList<>();
-        int counter = 1;
-        addTACInstruction(new NewStaticArrayInstruction(tacVariable, new TACLiteral((items.size() + 1)), new TACLiteral(getType().sizeInBytes())));
+        Type elementsType = Type.getArray(type.getPrimitiveType(), numDimensions - 1);
+        addTACInstruction(new NewStaticArrayInstruction(tacVariable, new TACLiteral(items.size()), new TACLiteral(elementsType.sizeInBytes())));
         addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(0), new TACLiteral(items.size())));
+        int counter = 0;
         for (Expression item : items) {
             item.toTac();
-            addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(counter++ * getType().sizeInBytes()), item.getTacVariable()));
+            int offset = Type.getInteger().sizeInBytes() + counter++ * elementsType.sizeInBytes();
+            addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(offset), item.getTacVariable()));
         }
     }
 }
