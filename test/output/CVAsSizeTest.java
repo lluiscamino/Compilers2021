@@ -10,11 +10,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public final class CVASizeTest {
-    private CVASizeTest() {}
+public final class CVAsSizeTest {
+    private CVAsSizeTest() {}
 
     public int countCVAsSize(boolean optimized) throws IOException {
-        AtomicInteger cvaSize = new AtomicInteger();
+        AtomicInteger CVAsSize = new AtomicInteger();
         Files.find(Paths.get("test/output/sources"),
                 Integer.MAX_VALUE,
                 (filePath, fileAttr) -> fileAttr.isRegularFile())
@@ -28,20 +28,20 @@ public final class CVASizeTest {
                         } else {
                             SubprogramsTable subprogramsTable = compiler.getSemanticAnalyzer().getSubprogramsTable();
                             VariablesTable variablesTable = compiler.getSemanticAnalyzer().getVariablesTable();
-                            cvaSize.addAndGet(variablesTable.getGlobalVariablesSize());
+                            CVAsSize.addAndGet(variablesTable.getGlobalVariablesSize());
                             for (SubprogramsTable.SubprogramInfo subprogram : subprogramsTable.subprograms()) {
-                                cvaSize.addAndGet(subprogram.getLocalVariablesSize());
+                                CVAsSize.addAndGet(subprogram.getLocalVariablesSize());
                             }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });
-        return cvaSize.get();
+        return CVAsSize.get();
     }
 
     public static void main(String[] args) throws IOException {
-        CVASizeTest CVAsSizeTest = new CVASizeTest();
+        CVAsSizeTest CVAsSizeTest = new CVAsSizeTest();
         int unoptimizedCVAsSize = CVAsSizeTest.countCVAsSize(false),
                 optimizedCVAsSize = CVAsSizeTest.countCVAsSize(true);
         System.out.printf("""
