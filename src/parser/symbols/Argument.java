@@ -58,6 +58,6 @@ public final class Argument extends ParserSymbol {
                 new PrimitiveDeclaration(declMode, type.getPrimitiveType(), identifier);
         symbolTable.put(declaration);
 
-        TACVariable variable = variableGenerator.generate(identifier, type, true);
+        variableGenerator.generate(identifier, type, true);
     }
 }
