@@ -15,10 +15,8 @@ _main:
 /*t0 = 10*/
 	movq	$10, %rax
 	movq	%rax, -16(%rbp)
-/*t2 = t0 * 1*/
+/*t2 = t0*/
 	movq	-16(%rbp), %rax
-	movq	$1, %rbx
-	imulq	%rbx, %rax
 	movq	%rax, -32(%rbp)
 /*t2 = t2 + 8*/
 	movq	-32(%rbp), %rax
@@ -154,10 +152,8 @@ e4:
 	movb	%al, -34(%rbp)
 /*e5: skip*/
 e5:
-/*t12 = i * 1*/
+/*t12 = i*/
 	movq	-8(%rbp), %rax
-	movq	$1, %rbx
-	imulq	%rbx, %rax
 	movq	%rax, -25(%rbp)
 /*t12 = t12 + 8*/
 	movq	-25(%rbp), %rax
@@ -206,10 +202,8 @@ e6:
 	jne 	1f
 	jmp	e7
 1:
-/*t19 = t18 * 1*/
+/*t19 = t18*/
 	movq	-42(%rbp), %rax
-	movq	$1, %rbx
-	imulq	%rbx, %rax
 	movq	%rax, -50(%rbp)
 /*t19 = t19 + 8*/
 	movq	-50(%rbp), %rax
@@ -264,10 +258,8 @@ e8:
 	jne 	1f
 	jmp	e9
 1:
-/*t24 = t23 * 1*/
+/*t24 = t23*/
 	movq	-67(%rbp), %rax
-	movq	$1, %rbx
-	imulq	%rbx, %rax
 	movq	%rax, -75(%rbp)
 /*t24 = t24 + 8*/
 	movq	-75(%rbp), %rax
