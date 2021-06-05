@@ -103,7 +103,7 @@ public class SymbolTable {
         for (Scope scope : scopes) {
             identifiers.addAll(scope.getIdentifiers());
         }
-        Collections.sort(identifiers, new IdentifierPositionComparator());
+        identifiers.sort(new IdentifierPositionComparator());
         return identifiers;
     }
 
