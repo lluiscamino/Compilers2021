@@ -310,12 +310,12 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                         %s
                         %s
                         \tcall \tcompare_strings
-                        \tcmpq\t$%s, %s
+                        \t%s\t$%s, %s
                         \tje  \t%s
                         """,
                 loadInstruction(tacInstruction.getFirstReference(), "%rsi", Type.getInteger().sizeInBytes()),
                 loadInstruction(tacInstruction.getSecondReference(), "%rdi", Type.getInteger().sizeInBytes()),
-                TRUE, register("d", Type.getInteger().sizeInBytes()),
+                instructionCode("cmp", Type.getBoolean().sizeInBytes()), TRUE, register("d", Type.getInteger().sizeInBytes()),
                 tacInstruction.getThirdReference()
         );
     }
