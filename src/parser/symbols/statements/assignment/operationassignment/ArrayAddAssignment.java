@@ -19,9 +19,7 @@ public final class ArrayAddAssignment extends ArrayOperationAssignment {
     @Override
     public void toDot() {
         DotNode dotNode = new DotNode("ARR_ADD_ASSGN", "", "filled", "#5280d6");
-        dotNode.addEdge(() -> {
-            new DotNode(identifier, "plaintext", "filled", "");
-        }, "ident");
+        dotNode.addEdge(() -> new DotNode(identifier, "plaintext", "filled", ""), "ident");
         dotNode.addEdge(expression, "+=");
     }
 }

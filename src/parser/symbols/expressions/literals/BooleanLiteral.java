@@ -25,9 +25,7 @@ public class BooleanLiteral extends Literal {
     public void toDot() {
         DotNode dotNode = new DotNode("BOOL_LIT", "box", "filled", "#f2ad46");
         
-        dotNode.addEdge(() -> {
-            new DotNode(String.valueOf(getValue()), "plaintext", "", "");
-        }, "value");
+        dotNode.addEdge(() -> new DotNode(String.valueOf(getValue()), "plaintext", "", ""), "value");
     }
 
     @Override

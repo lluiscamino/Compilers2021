@@ -22,9 +22,7 @@ public class StringLiteral extends Literal {
     public void toDot() {
         DotNode dotNode = new DotNode("STR_LIT", "box", "filled", "#f2ad46");
         
-        dotNode.addEdge(() -> {
-            new DotNode(getValue(), "plaintext", "", "");
-        }, "value");
+        dotNode.addEdge(() -> new DotNode(getValue(), "plaintext", "", ""), "value");
     }
 
     @Override

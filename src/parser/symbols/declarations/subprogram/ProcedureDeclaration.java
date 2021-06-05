@@ -30,9 +30,7 @@ public class ProcedureDeclaration extends SubprogramDeclaration {
     public void toDot() {
         DotNode dotNode = new DotNode("PROCEDURE", "", "filled", "#005cc5");
         
-        dotNode.addEdge(() -> {
-            new DotNode(identifier, "plaintext", "", "");
-        }, "ident");
+        dotNode.addEdge(() -> new DotNode(identifier, "plaintext", "", ""), "ident");
         dotNode.addEdgeIfNotNull(arguments, "args");
         dotNode.addEdgeIfNotNull(statements, "stmts");
     }

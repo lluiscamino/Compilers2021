@@ -39,9 +39,7 @@ public class IdentifierReference extends Expression {
     public void toDot() {
         DotNode dotNode = new DotNode("IDENT", "box", "filled", "#BADA55");
         
-        dotNode.addEdge(() -> {
-            new DotNode(identifierName, "plaintext", "", "");
-        }, "ident");
+        dotNode.addEdge(() -> new DotNode(identifierName, "plaintext", "", ""), "ident");
     }
 
     @Override

@@ -15,9 +15,7 @@ public final class AddAssignment extends OperationAssignment {
     @Override
     public void toDot() {
         DotNode dotNode = new DotNode("ADD_ASSGN", "", "filled", "#5280d6");
-        dotNode.addEdge(() -> {
-            new DotNode(identifier, "plaintext", "filled", "");
-        }, "ident");
+        dotNode.addEdge(() -> new DotNode(identifier, "plaintext", "filled", ""), "ident");
         dotNode.addEdge(expression, "+=");
     }
 

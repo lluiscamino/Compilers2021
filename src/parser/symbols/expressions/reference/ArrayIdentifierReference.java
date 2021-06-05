@@ -72,9 +72,7 @@ public final class ArrayIdentifierReference extends IdentifierReference {
     public void toDot() {
         DotNode dotNode = new DotNode("IDENT_ARR", "box", "filled", "#afd92b");
 
-        dotNode.addEdge(() -> {
-            new DotNode(identifierName, "plaintext", "", "");
-        }, "ident");
+        dotNode.addEdge(() -> new DotNode(identifierName, "plaintext", "", ""), "ident");
         dotNode.addEdgeIfNotNull(indexes, "indexes");
     }
 

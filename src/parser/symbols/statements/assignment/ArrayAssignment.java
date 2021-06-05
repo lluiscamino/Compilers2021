@@ -78,9 +78,7 @@ public class ArrayAssignment extends Assignment {
     @Override
     public void toDot() {
         DotNode dotNode = new DotNode("ARR_ASSGN", "", "filled", "#5280d6");
-        dotNode.addEdge(() -> {
-            new DotNode(identifier, "plaintext", "filled", "");
-        }, "ident");
+        dotNode.addEdge(() -> new DotNode(identifier, "plaintext", "filled", ""), "ident");
         dotNode.addEdge(indexes, "indexes");
         dotNode.addEdge(expression, "expr");
     }

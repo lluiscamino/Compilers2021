@@ -49,9 +49,7 @@ public final class FunctionDeclaration extends SubprogramDeclaration {
     public void toDot() {
         DotNode dotNode = new DotNode("FUNCTION", "", "filled", "#005cc5");
         
-        dotNode.addEdge(() -> {
-            new DotNode(identifier, "plaintext", "filled", "");
-        }, "ident");
+        dotNode.addEdge(() -> new DotNode(identifier, "plaintext", "filled", ""), "ident");
         dotNode.addEdge(type, "type");
         dotNode.addEdgeIfNotNull(arguments, "args");
         dotNode.addEdgeIfNotNull(statements, "stmts");

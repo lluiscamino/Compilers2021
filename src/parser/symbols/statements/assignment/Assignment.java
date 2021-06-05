@@ -61,9 +61,7 @@ public class Assignment extends Statement {
     @Override
     public void toDot() {
         DotNode dotNode = new DotNode("ASSGN", "", "filled", "#5280d6");
-        dotNode.addEdge(() -> {
-            new DotNode(identifier, "plaintext", "filled", "");
-        }, "ident");
+        dotNode.addEdge(() -> new DotNode(identifier, "plaintext", "filled", ""), "ident");
         dotNode.addEdge(expression, "expr");
     }
 
