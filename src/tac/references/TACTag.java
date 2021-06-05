@@ -18,6 +18,11 @@ public final class TACTag extends TACReference {
     }
 
     @Override
+    public int sizeInBytes() {
+        throw new RuntimeException("TACTag doesn't have an associated size");
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof TACTag)) {
             return false;

@@ -31,6 +31,11 @@ public final class TACLiteral extends TACReference {
     }
 
     @Override
+    public int sizeInBytes() {
+        return type().sizeInBytes();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof TACLiteral)) {
             return false;

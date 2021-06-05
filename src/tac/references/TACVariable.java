@@ -1,5 +1,8 @@
 package tac.references;
 
+import main.Compiler;
+import tac.tables.VariablesTable;
+
 public final class TACVariable extends TACReference {
     private final String identifier;
     private final boolean temporal;
@@ -8,6 +11,12 @@ public final class TACVariable extends TACReference {
         super(id);
         this.identifier = null;
         this.temporal = true;
+    }
+
+    @Override
+    public int sizeInBytes() {
+        VariablesTable variablesTable = Compiler.getCompiler().getSemanticAnalyzer().getVariablesTable();
+        return variablesTable.get(this).getSize();
     }
 
     public TACVariable(int id, String identifier) {

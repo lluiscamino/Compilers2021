@@ -11,6 +11,8 @@ public abstract class TACReference {
         return id;
     }
 
+    public abstract int sizeInBytes();
+
     @Override
     public abstract boolean equals(Object obj);
 
