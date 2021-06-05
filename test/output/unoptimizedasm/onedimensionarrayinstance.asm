@@ -26,15 +26,15 @@ t_main:
 /*t0 = 100*/
 	movq	$100, %rax
 	movq	%rax, -16(%rbp)
-/*t2 = t0 + 1*/
+/*t2 = t0 * 8*/
 	movq	-16(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -32(%rbp)
-/*t2 = t2 * 8*/
-	movq	-32(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -32(%rbp)
+/*t2 = t2 + 8*/
+	movq	-32(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -32(%rbp)
 /*t1 = new array[t2]*/
 	movq	%rsp, %rbx
@@ -101,15 +101,15 @@ e2:
 /*t7 = arr*/
 	movq	-8(%rbp), %rax
 	movq	%rax, -88(%rbp)
-/*t8 = i + 1*/
+/*t8 = i * 8*/
 	movq	-56(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -96(%rbp)
-/*t8 = t8 * 8*/
-	movq	-96(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -96(%rbp)
+/*t8 = t8 + 8*/
+	movq	-96(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -96(%rbp)
 /*t7[t8] = i*/
 	movq	-88(%rbp), %rcx
@@ -153,15 +153,15 @@ e4:
 	jne 	1f
 	jmp	e5
 1:
-/*t11 = t10 + 1*/
+/*t11 = t10 * 8*/
 	movq	-112(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -120(%rbp)
-/*t11 = t11 * 8*/
-	movq	-120(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -120(%rbp)
+/*t11 = t11 + 8*/
+	movq	-120(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -120(%rbp)
 /*el = arr[t11]*/
 	movq	-8(%rbp), %rax

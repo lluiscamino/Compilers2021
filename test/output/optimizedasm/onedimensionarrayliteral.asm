@@ -23,7 +23,7 @@ t_main:
 	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$96, %rsp
-/*t0 = new array[5]*/
+/*t0 = new array[4]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
 	movq	%rax, -16(%rbp)
 /*t0[0] = 4*/
@@ -59,7 +59,7 @@ t_main:
 /*intArray = t0*/
 	movq	-16(%rbp), %rax
 	movq	%rax, -8(%rbp)
-/*t5 = new array[5]*/
+/*t5 = new array[4]*/
 	movq	arr_4@GOTPCREL(%rip), %rax
 	movq	%rax, -32(%rbp)
 /*t5[0] = 4*/
@@ -95,7 +95,7 @@ t_main:
 /*booleanArray = t5*/
 	movq	-32(%rbp), %rax
 	movq	%rax, -24(%rbp)
-/*t12 = new array[5]*/
+/*t12 = new array[4]*/
 	movq	arr_5@GOTPCREL(%rip), %rax
 	movq	%rax, -48(%rbp)
 /*t12[0] = 4*/
@@ -131,13 +131,13 @@ t_main:
 /*stringArray = t12*/
 	movq	-48(%rbp), %rax
 	movq	%rax, -40(%rbp)
-/*t18 = 3*/
-	movq	$3, %rax
+/*t18 = 16*/
+	movq	$16, %rax
 	movq	%rax, -56(%rbp)
-/*t18 = t18 * 8*/
+/*t18 = t18 + 8*/
 	movq	-56(%rbp), %rax
 	movq	$8, %rbx
-	imulq	%rbx, %rax
+	addq	%rbx, %rax
 	movq	%rax, -56(%rbp)
 /*t19 = intArray[t18]*/
 	movq	-8(%rbp), %rax
@@ -148,13 +148,13 @@ t_main:
 /*printInt(t19)*/
 	movq	-64(%rbp), %rdi
 	call	print_uint64
-/*t21 = 3*/
-	movq	$3, %rax
+/*t21 = 16*/
+	movq	$16, %rax
 	movq	%rax, -72(%rbp)
-/*t21 = t21 * 8*/
+/*t21 = t21 + 8*/
 	movq	-72(%rbp), %rax
 	movq	$8, %rbx
-	imulq	%rbx, %rax
+	addq	%rbx, %rax
 	movq	%rax, -72(%rbp)
 /*t22 = booleanArray[t21]*/
 	movq	-24(%rbp), %rax
@@ -165,13 +165,13 @@ t_main:
 /*printBoolean(t22)*/
 	movq	-80(%rbp), %rbx
 	call	print_boolean
-/*t24 = 3*/
-	movq	$3, %rax
+/*t24 = 16*/
+	movq	$16, %rax
 	movq	%rax, -88(%rbp)
-/*t24 = t24 * 8*/
+/*t24 = t24 + 8*/
 	movq	-88(%rbp), %rax
 	movq	$8, %rbx
-	imulq	%rbx, %rax
+	addq	%rbx, %rax
 	movq	%rax, -88(%rbp)
 /*t25 = stringArray[t24]*/
 	movq	-40(%rbp), %rax
@@ -271,9 +271,9 @@ print_uint64:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .fill 5, 8
-	arr_4: .fill 5, 8
-	arr_5: .fill 5, 8
+	arr_3: .fill 40, 1
+	arr_4: .fill 40, 1
+	arr_5: .fill 40, 1
 	str_6: .asciz "Juan\n"
 	str_7: .asciz "Pedro\n"
 	str_8: .asciz "Sara\n"

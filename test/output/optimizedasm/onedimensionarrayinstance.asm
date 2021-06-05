@@ -26,15 +26,15 @@ t_main:
 /*t0 = 100*/
 	movq	$100, %rax
 	movq	%rax, -16(%rbp)
-/*t2 = t0 + 1*/
+/*t2 = t0 * 8*/
 	movq	-16(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -32(%rbp)
-/*t2 = t2 * 8*/
-	movq	-32(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -32(%rbp)
+/*t2 = t2 + 8*/
+	movq	-32(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -32(%rbp)
 /*t1 = new array[t2]*/
 	movq	%rsp, %rbx
@@ -92,15 +92,15 @@ e2:
 	jne 	1f
 	jmp	e3
 1:
-/*t8 = i + 1*/
+/*t8 = i * 8*/
 	movq	-48(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -72(%rbp)
-/*t8 = t8 * 8*/
-	movq	-72(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -72(%rbp)
+/*t8 = t8 + 8*/
+	movq	-72(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -72(%rbp)
 /*arr[t8] = i*/
 	movq	-8(%rbp), %rcx
@@ -138,15 +138,15 @@ e4:
 	jne 	1f
 	jmp	e5
 1:
-/*t11 = t10 + 1*/
+/*t11 = t10 * 8*/
 	movq	-80(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -88(%rbp)
-/*t11 = t11 * 8*/
-	movq	-88(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -88(%rbp)
+/*t11 = t11 + 8*/
+	movq	-88(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -88(%rbp)
 /*el = arr[t11]*/
 	movq	-8(%rbp), %rax

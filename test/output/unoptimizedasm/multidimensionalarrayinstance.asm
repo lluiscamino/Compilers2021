@@ -26,15 +26,15 @@ t_main:
 /*t0 = 100*/
 	movq	$100, %rax
 	movq	%rax, -16(%rbp)
-/*t2 = t0 + 1*/
+/*t2 = t0 * 8*/
 	movq	-16(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -32(%rbp)
-/*t2 = t2 * 8*/
-	movq	-32(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -32(%rbp)
+/*t2 = t2 + 8*/
+	movq	-32(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -32(%rbp)
 /*t1 = new array[t2]*/
 	movq	%rsp, %rbx
@@ -64,15 +64,15 @@ e0:
 /*t5 = 100*/
 	movq	$100, %rax
 	movq	%rax, -56(%rbp)
-/*t7 = t5 + 1*/
+/*t7 = t5 * 8*/
 	movq	-56(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -72(%rbp)
-/*t7 = t7 * 8*/
-	movq	-72(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -72(%rbp)
+/*t7 = t7 + 8*/
+	movq	-72(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -72(%rbp)
 /*t6 = new array[t7]*/
 	movq	%rsp, %rbx
@@ -87,15 +87,15 @@ e0:
 	addq	%rbx, %rcx
 	movq	-56(%rbp), %rbx
 	movq	%rbx, (%rcx)
-/*t4 = t3 + 1*/
+/*t4 = t3 * 8*/
 	movq	-40(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -48(%rbp)
-/*t4 = t4 * 8*/
-	movq	-48(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -48(%rbp)
+/*t4 = t4 + 8*/
+	movq	-48(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -48(%rbp)
 /*t1[t4] = t6*/
 	movq	-24(%rbp), %rcx
@@ -192,15 +192,15 @@ e8:
 /*t14 = input*/
 	movq	-8(%rbp), %rax
 	movq	%rax, -144(%rbp)
-/*t15 = i + 1*/
+/*t15 = i * 8*/
 	movq	-80(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -152(%rbp)
-/*t15 = t15 * 8*/
-	movq	-152(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -152(%rbp)
+/*t15 = t15 + 8*/
+	movq	-152(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -152(%rbp)
 /*t14 = t14[t15]*/
 	movq	-144(%rbp), %rax
@@ -213,15 +213,15 @@ e8:
 	movq	-112(%rbp), %rbx
 	imulq	%rbx, %rax
 	movq	%rax, -160(%rbp)
-/*t15 = j + 1*/
+/*t15 = j * 8*/
 	movq	-112(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -152(%rbp)
-/*t15 = t15 * 8*/
-	movq	-152(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -152(%rbp)
+/*t15 = t15 + 8*/
+	movq	-152(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -152(%rbp)
 /*t14[t15] = t16*/
 	movq	-144(%rbp), %rcx
@@ -256,15 +256,15 @@ e5:
 /*t19 = 2*/
 	movq	$2, %rax
 	movq	%rax, -184(%rbp)
-/*t20 = t19 + 1*/
+/*t20 = t19 * 8*/
 	movq	-184(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -192(%rbp)
-/*t20 = t20 * 8*/
-	movq	-192(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -192(%rbp)
+/*t20 = t20 + 8*/
+	movq	-192(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -192(%rbp)
 /*t21 = input[t20]*/
 	movq	-8(%rbp), %rax
@@ -275,15 +275,15 @@ e5:
 /*t22 = 5*/
 	movq	$5, %rax
 	movq	%rax, -208(%rbp)
-/*t23 = t22 + 1*/
+/*t23 = t22 * 8*/
 	movq	-208(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -216(%rbp)
-/*t23 = t23 * 8*/
-	movq	-216(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -216(%rbp)
+/*t23 = t23 + 8*/
+	movq	-216(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -216(%rbp)
 /*t24 = t21[t23]*/
 	movq	-200(%rbp), %rax
@@ -297,15 +297,15 @@ e5:
 /*t25 = 25*/
 	movq	$25, %rax
 	movq	%rax, -232(%rbp)
-/*t26 = t25 + 1*/
+/*t26 = t25 * 8*/
 	movq	-232(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -240(%rbp)
-/*t26 = t26 * 8*/
-	movq	-240(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -240(%rbp)
+/*t26 = t26 + 8*/
+	movq	-240(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -240(%rbp)
 /*t27 = input[t26]*/
 	movq	-8(%rbp), %rax
@@ -316,15 +316,15 @@ e5:
 /*t28 = 9*/
 	movq	$9, %rax
 	movq	%rax, -256(%rbp)
-/*t29 = t28 + 1*/
+/*t29 = t28 * 8*/
 	movq	-256(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -264(%rbp)
-/*t29 = t29 * 8*/
-	movq	-264(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -264(%rbp)
+/*t29 = t29 + 8*/
+	movq	-264(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -264(%rbp)
 /*t30 = t27[t29]*/
 	movq	-248(%rbp), %rax
@@ -338,15 +338,15 @@ e5:
 /*t31 = 78*/
 	movq	$78, %rax
 	movq	%rax, -280(%rbp)
-/*t32 = t31 + 1*/
+/*t32 = t31 * 8*/
 	movq	-280(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -288(%rbp)
-/*t32 = t32 * 8*/
-	movq	-288(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -288(%rbp)
+/*t32 = t32 + 8*/
+	movq	-288(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -288(%rbp)
 /*t33 = input[t32]*/
 	movq	-8(%rbp), %rax
@@ -357,15 +357,15 @@ e5:
 /*t34 = 32*/
 	movq	$32, %rax
 	movq	%rax, -304(%rbp)
-/*t35 = t34 + 1*/
+/*t35 = t34 * 8*/
 	movq	-304(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -312(%rbp)
-/*t35 = t35 * 8*/
-	movq	-312(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -312(%rbp)
+/*t35 = t35 + 8*/
+	movq	-312(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -312(%rbp)
 /*t36 = t33[t35]*/
 	movq	-296(%rbp), %rax
@@ -379,15 +379,15 @@ e5:
 /*t37 = 42*/
 	movq	$42, %rax
 	movq	%rax, -328(%rbp)
-/*t38 = t37 + 1*/
+/*t38 = t37 * 8*/
 	movq	-328(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -336(%rbp)
-/*t38 = t38 * 8*/
-	movq	-336(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -336(%rbp)
+/*t38 = t38 + 8*/
+	movq	-336(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -336(%rbp)
 /*t39 = input[t38]*/
 	movq	-8(%rbp), %rax
@@ -398,15 +398,15 @@ e5:
 /*t40 = 76*/
 	movq	$76, %rax
 	movq	%rax, -352(%rbp)
-/*t41 = t40 + 1*/
+/*t41 = t40 * 8*/
 	movq	-352(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -360(%rbp)
-/*t41 = t41 * 8*/
-	movq	-360(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -360(%rbp)
+/*t41 = t41 + 8*/
+	movq	-360(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -360(%rbp)
 /*t42 = t39[t41]*/
 	movq	-344(%rbp), %rax
@@ -420,15 +420,15 @@ e5:
 /*t43 = 3*/
 	movq	$3, %rax
 	movq	%rax, -376(%rbp)
-/*t44 = t43 + 1*/
+/*t44 = t43 * 8*/
 	movq	-376(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -384(%rbp)
-/*t44 = t44 * 8*/
-	movq	-384(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -384(%rbp)
+/*t44 = t44 + 8*/
+	movq	-384(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -384(%rbp)
 /*t45 = input[t44]*/
 	movq	-8(%rbp), %rax
@@ -439,15 +439,15 @@ e5:
 /*t46 = 67*/
 	movq	$67, %rax
 	movq	%rax, -400(%rbp)
-/*t47 = t46 + 1*/
+/*t47 = t46 * 8*/
 	movq	-400(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -408(%rbp)
-/*t47 = t47 * 8*/
-	movq	-408(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -408(%rbp)
+/*t47 = t47 + 8*/
+	movq	-408(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -408(%rbp)
 /*t48 = t45[t47]*/
 	movq	-392(%rbp), %rax
@@ -461,15 +461,15 @@ e5:
 /*t49 = 8*/
 	movq	$8, %rax
 	movq	%rax, -424(%rbp)
-/*t50 = t49 + 1*/
+/*t50 = t49 * 8*/
 	movq	-424(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -432(%rbp)
-/*t50 = t50 * 8*/
-	movq	-432(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -432(%rbp)
+/*t50 = t50 + 8*/
+	movq	-432(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -432(%rbp)
 /*t51 = input[t50]*/
 	movq	-8(%rbp), %rax
@@ -480,15 +480,15 @@ e5:
 /*t52 = 54*/
 	movq	$54, %rax
 	movq	%rax, -448(%rbp)
-/*t53 = t52 + 1*/
+/*t53 = t52 * 8*/
 	movq	-448(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -456(%rbp)
-/*t53 = t53 * 8*/
-	movq	-456(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -456(%rbp)
+/*t53 = t53 + 8*/
+	movq	-456(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -456(%rbp)
 /*t54 = t51[t53]*/
 	movq	-440(%rbp), %rax
@@ -502,15 +502,15 @@ e5:
 /*t55 = 97*/
 	movq	$97, %rax
 	movq	%rax, -472(%rbp)
-/*t56 = t55 + 1*/
+/*t56 = t55 * 8*/
 	movq	-472(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -480(%rbp)
-/*t56 = t56 * 8*/
-	movq	-480(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -480(%rbp)
+/*t56 = t56 + 8*/
+	movq	-480(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -480(%rbp)
 /*t57 = input[t56]*/
 	movq	-8(%rbp), %rax
@@ -521,15 +521,15 @@ e5:
 /*t58 = 12*/
 	movq	$12, %rax
 	movq	%rax, -496(%rbp)
-/*t59 = t58 + 1*/
+/*t59 = t58 * 8*/
 	movq	-496(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -504(%rbp)
-/*t59 = t59 * 8*/
-	movq	-504(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -504(%rbp)
+/*t59 = t59 + 8*/
+	movq	-504(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -504(%rbp)
 /*t60 = t57[t59]*/
 	movq	-488(%rbp), %rax
@@ -543,15 +543,15 @@ e5:
 /*t61 = 12*/
 	movq	$12, %rax
 	movq	%rax, -520(%rbp)
-/*t62 = t61 + 1*/
+/*t62 = t61 * 8*/
 	movq	-520(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -528(%rbp)
-/*t62 = t62 * 8*/
-	movq	-528(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -528(%rbp)
+/*t62 = t62 + 8*/
+	movq	-528(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -528(%rbp)
 /*t63 = input[t62]*/
 	movq	-8(%rbp), %rax
@@ -562,15 +562,15 @@ e5:
 /*t64 = 34*/
 	movq	$34, %rax
 	movq	%rax, -544(%rbp)
-/*t65 = t64 + 1*/
+/*t65 = t64 * 8*/
 	movq	-544(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -552(%rbp)
-/*t65 = t65 * 8*/
-	movq	-552(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -552(%rbp)
+/*t65 = t65 + 8*/
+	movq	-552(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -552(%rbp)
 /*t66 = t63[t65]*/
 	movq	-536(%rbp), %rax
@@ -584,15 +584,15 @@ e5:
 /*t67 = 23*/
 	movq	$23, %rax
 	movq	%rax, -568(%rbp)
-/*t68 = t67 + 1*/
+/*t68 = t67 * 8*/
 	movq	-568(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -576(%rbp)
-/*t68 = t68 * 8*/
-	movq	-576(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -576(%rbp)
+/*t68 = t68 + 8*/
+	movq	-576(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -576(%rbp)
 /*t69 = input[t68]*/
 	movq	-8(%rbp), %rax
@@ -603,15 +603,15 @@ e5:
 /*t70 = 32*/
 	movq	$32, %rax
 	movq	%rax, -592(%rbp)
-/*t71 = t70 + 1*/
+/*t71 = t70 * 8*/
 	movq	-592(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -600(%rbp)
-/*t71 = t71 * 8*/
-	movq	-600(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -600(%rbp)
+/*t71 = t71 + 8*/
+	movq	-600(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -600(%rbp)
 /*t72 = t69[t71]*/
 	movq	-584(%rbp), %rax

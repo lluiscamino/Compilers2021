@@ -23,7 +23,7 @@ t_main:
 	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$232, %rsp
-/*t0 = new array[5]*/
+/*t0 = new array[4]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
 	movq	%rax, -16(%rbp)
 /*t0[0] = 4*/
@@ -71,7 +71,7 @@ t_main:
 /*intArray = t0*/
 	movq	-16(%rbp), %rax
 	movq	%rax, -8(%rbp)
-/*t5 = new array[5]*/
+/*t5 = new array[4]*/
 	movq	arr_4@GOTPCREL(%rip), %rax
 	movq	%rax, -64(%rbp)
 /*t5[0] = 4*/
@@ -127,7 +127,7 @@ t_main:
 /*booleanArray = t5*/
 	movq	-64(%rbp), %rax
 	movq	%rax, -56(%rbp)
-/*t12 = new array[5]*/
+/*t12 = new array[4]*/
 	movq	arr_5@GOTPCREL(%rip), %rax
 	movq	%rax, -128(%rbp)
 /*t12[0] = 4*/
@@ -178,15 +178,15 @@ t_main:
 /*t17 = 2*/
 	movq	$2, %rax
 	movq	%rax, -168(%rbp)
-/*t18 = t17 + 1*/
+/*t18 = t17 * 8*/
 	movq	-168(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -176(%rbp)
-/*t18 = t18 * 8*/
-	movq	-176(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -176(%rbp)
+/*t18 = t18 + 8*/
+	movq	-176(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -176(%rbp)
 /*t19 = intArray[t18]*/
 	movq	-8(%rbp), %rax
@@ -200,15 +200,15 @@ t_main:
 /*t20 = 2*/
 	movq	$2, %rax
 	movq	%rax, -192(%rbp)
-/*t21 = t20 + 1*/
+/*t21 = t20 * 8*/
 	movq	-192(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -200(%rbp)
-/*t21 = t21 * 8*/
-	movq	-200(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -200(%rbp)
+/*t21 = t21 + 8*/
+	movq	-200(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -200(%rbp)
 /*t22 = booleanArray[t21]*/
 	movq	-56(%rbp), %rax
@@ -222,15 +222,15 @@ t_main:
 /*t23 = 2*/
 	movq	$2, %rax
 	movq	%rax, -216(%rbp)
-/*t24 = t23 + 1*/
+/*t24 = t23 * 8*/
 	movq	-216(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -224(%rbp)
-/*t24 = t24 * 8*/
-	movq	-224(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -224(%rbp)
+/*t24 = t24 + 8*/
+	movq	-224(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -224(%rbp)
 /*t25 = stringArray[t24]*/
 	movq	-120(%rbp), %rax
@@ -330,9 +330,9 @@ print_uint64:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .fill 5, 8
-	arr_4: .fill 5, 8
-	arr_5: .fill 5, 8
+	arr_3: .fill 40, 1
+	arr_4: .fill 40, 1
+	arr_5: .fill 40, 1
 	str_6: .asciz "Juan\n"
 	str_7: .asciz "Pedro\n"
 	str_8: .asciz "Sara\n"

@@ -23,7 +23,7 @@ t_twoSum:
 	push	%rbp
 	mov 	%rsp, %rbp
 	subq	$256, %rsp
-/*t0 = new array[3]*/
+/*t0 = new array[2]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
 	movq	%rax, -32(%rbp)
 /*t0[0] = 2*/
@@ -167,15 +167,15 @@ e6:
 	jne 	1f
 	jmp	e7
 1:
-/*t16 = i + 1*/
+/*t16 = i * 8*/
 	movq	-72(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -184(%rbp)
-/*t16 = t16 * 8*/
-	movq	-184(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -184(%rbp)
+/*t16 = t16 + 8*/
+	movq	-184(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -184(%rbp)
 /*t17 = nums[t16]*/
 	movq	16(%rbp), %rax
@@ -183,15 +183,15 @@ e6:
 	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -192(%rbp)
-/*t18 = j + 1*/
+/*t18 = j * 8*/
 	movq	-136(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -200(%rbp)
-/*t18 = t18 * 8*/
-	movq	-200(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -200(%rbp)
+/*t18 = t18 + 8*/
+	movq	-200(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -200(%rbp)
 /*t19 = nums[t18]*/
 	movq	16(%rbp), %rax
@@ -230,7 +230,7 @@ e9:
 	jne 	1f
 	jmp	e10
 1:
-/*t22 = new array[3]*/
+/*t22 = new array[2]*/
 	movq	arr_4@GOTPCREL(%rip), %rax
 	movq	%rax, -232(%rbp)
 /*t22[0] = 2*/
@@ -301,7 +301,7 @@ t_main:
 /*t27 = 11*/
 	movq	$11, %rax
 	movq	%rax, -24(%rbp)
-/*t28 = new array[18]*/
+/*t28 = new array[17]*/
 	movq	arr_5@GOTPCREL(%rip), %rax
 	movq	%rax, -32(%rbp)
 /*t28[0] = 17*/
@@ -478,15 +478,15 @@ t_main:
 /*t46 = 0*/
 	movq	$0, %rax
 	movq	%rax, -176(%rbp)
-/*t47 = t46 + 1*/
+/*t47 = t46 * 8*/
 	movq	-176(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -184(%rbp)
-/*t47 = t47 * 8*/
-	movq	-184(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -184(%rbp)
+/*t47 = t47 + 8*/
+	movq	-184(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -184(%rbp)
 /*t48 = result[t47]*/
 	movq	-8(%rbp), %rax
@@ -524,15 +524,15 @@ e12:
 /*t52 = 1*/
 	movq	$1, %rax
 	movq	%rax, -224(%rbp)
-/*t53 = t52 + 1*/
+/*t53 = t52 * 8*/
 	movq	-224(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -232(%rbp)
-/*t53 = t53 * 8*/
-	movq	-232(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -232(%rbp)
+/*t53 = t53 + 8*/
+	movq	-232(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -232(%rbp)
 /*t54 = result[t53]*/
 	movq	-8(%rbp), %rax
@@ -588,15 +588,15 @@ e14:
 /*t60 = 0*/
 	movq	$0, %rax
 	movq	%rax, -288(%rbp)
-/*t61 = t60 + 1*/
+/*t61 = t60 * 8*/
 	movq	-288(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -296(%rbp)
-/*t61 = t61 * 8*/
-	movq	-296(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -296(%rbp)
+/*t61 = t61 + 8*/
+	movq	-296(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -296(%rbp)
 /*t62 = result[t61]*/
 	movq	-8(%rbp), %rax
@@ -610,15 +610,15 @@ e14:
 /*t63 = 1*/
 	movq	$1, %rax
 	movq	%rax, -312(%rbp)
-/*t64 = t63 + 1*/
+/*t64 = t63 * 8*/
 	movq	-312(%rbp), %rax
-	movq	$1, %rbx
-	addq	%rbx, %rax
-	movq	%rax, -320(%rbp)
-/*t64 = t64 * 8*/
-	movq	-320(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
+	movq	%rax, -320(%rbp)
+/*t64 = t64 + 8*/
+	movq	-320(%rbp), %rax
+	movq	$8, %rbx
+	addq	%rbx, %rax
 	movq	%rax, -320(%rbp)
 /*t65 = result[t64]*/
 	movq	-8(%rbp), %rax
@@ -714,8 +714,8 @@ print_uint64:
 	decl_0: .asciz "true\n"
 	decl_1: .asciz "false\n"
 	decl_2: .quad 0
-	arr_3: .fill 3, 8
-	arr_4: .fill 3, 8
-	arr_5: .fill 18, 8
+	arr_3: .fill 24, 1
+	arr_4: .fill 24, 1
+	arr_5: .fill 144, 1
 	str_6: .asciz "Resultado: \n"
 	str_7: .asciz "Sin resultado\n"
