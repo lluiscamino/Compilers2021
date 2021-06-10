@@ -5,7 +5,7 @@ import optimizers.TACOptimizer;
 import org.junit.Test;
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.CopyInstruction;
-import tac.instructions.indexation.IndexAssignmentInstruction;
+import tac.instructions.indexation.indexassignment.IndexAssignmentInstruction;
 import tac.instructions.io.print.PrintIntInstruction;
 import tac.references.TACLiteral;
 import tac.references.TACVariable;

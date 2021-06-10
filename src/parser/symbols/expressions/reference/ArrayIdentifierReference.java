@@ -13,7 +13,7 @@ import symboltable.SymbolTable;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.arithmetic.AddInstruction;
 import tac.instructions.arithmetic.ProductInstruction;
-import tac.instructions.indexation.IndexedValueInstruction;
+import tac.instructions.indexation.indexedvalue.IndexedValueInstruction;
 import tac.references.TACLiteral;
 import tac.references.TACVariable;
 import tac.tables.VariablesTable;

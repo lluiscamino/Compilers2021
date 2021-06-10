@@ -9,7 +9,8 @@ import parser.symbols.types.PrimitiveType;
 import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.array.NewStaticArrayInstruction;
-import tac.instructions.indexation.IndexAssignmentInstruction;
+import tac.instructions.indexation.indexassignment.IndexAssignmentInstruction;
+import tac.instructions.indexation.indexassignment.IndexAssignmentToZeroInstruction;
 import tac.references.TACLiteral;
 
 import java.util.ArrayList;

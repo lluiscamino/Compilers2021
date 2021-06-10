@@ -4,7 +4,7 @@ import dot.DotNode;
 import main.Compiler;
 import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
-import tac.instructions.indexation.IndexedValueInstruction;
+import tac.instructions.indexation.indexedvalue.ZeroIndexedValueInstruction;
 import tac.instructions.length.StringLengthInstruction;
 import tac.references.TACLiteral;
 
