@@ -12,9 +12,6 @@ import tac.references.TACVariable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static assembly.x86.AssemblyCodeGenerationConstants.FALSE;
-import static assembly.x86.AssemblyCodeGenerationConstants.TRUE;
-
 public final class ConstantOperationsOptimizer extends TACOptimizer {
     public ConstantOperationsOptimizer(List<TACInstruction> unoptimizedInstructions) {
         super(unoptimizedInstructions);
