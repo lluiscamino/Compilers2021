@@ -101,7 +101,7 @@ public final class ArrayLiteral extends Literal {
         List<Expression> items = getValue() != null ? getValue().toArrayList() : new ArrayList<>();
         Type elementsType = Type.getArray(type.getPrimitiveType(), numDimensions - 1);
         addTACInstruction(new NewStaticArrayInstruction(tacVariable, new TACLiteral(items.size()), new TACLiteral(elementsType.sizeInBytes())));
-        addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(0), new TACLiteral(items.size())));
+        addTACInstruction(new IndexAssignmentToZeroInstruction(tacVariable, new TACLiteral(items.size())));
         int counter = 0;
         for (Expression item : items) {
             item.toTac();

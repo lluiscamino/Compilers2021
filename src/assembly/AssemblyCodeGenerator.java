@@ -78,7 +78,11 @@ public interface AssemblyCodeGenerator {
 
     String generate(IndexAssignmentInstruction tacInstruction);
 
+    String generate(IndexAssignmentToZeroInstruction tacInstruction);
+
     String generate(IndexedValueInstruction tacInstruction);
+
+    String generate(ZeroIndexedValueInstruction tacInstruction);
 
     String generate(ProcedureCallInstruction tacInstruction);
 

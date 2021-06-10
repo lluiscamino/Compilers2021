@@ -6,7 +6,6 @@ import parser.symbols.types.Type;
 import tac.generators.TACVariableGenerator;
 import tac.instructions.indexation.indexedvalue.ZeroIndexedValueInstruction;
 import tac.instructions.length.StringLengthInstruction;
-import tac.references.TACLiteral;
 
 public final class Length extends Expression {
     private final Expression expression;
@@ -39,7 +38,7 @@ public final class Length extends Expression {
         expression.toTac();
         tacVariable = variableGenerator.generate(Type.getInteger());
         if (expression.getType().isArray()) {
-            addTACInstruction(new IndexedValueInstruction(tacVariable, expression.getTacVariable(), new TACLiteral(0)));
+            addTACInstruction(new ZeroIndexedValueInstruction(tacVariable, expression.getTacVariable()));
         } else {
             addTACInstruction(new StringLengthInstruction(tacVariable, expression.getTacVariable()));
         }

@@ -60,7 +60,7 @@ public final class ArrayInstance extends Expression {
         addTACInstruction(new ProductInstruction(arraySizeInBytes, firstIndex.getTacVariable(), new TACLiteral(elementsType.sizeInBytes())));
         addTACInstruction(new AddInstruction(arraySizeInBytes, arraySizeInBytes, new TACLiteral(Type.getInteger().sizeInBytes())));
         addTACInstruction(new NewDynamicArrayInstruction(tacVariable, arraySizeInBytes));
-        addTACInstruction(new IndexAssignmentInstruction(tacVariable, new TACLiteral(0), firstIndex.getTacVariable()));
+        addTACInstruction(new IndexAssignmentToZeroInstruction(tacVariable, firstIndex.getTacVariable()));
 
         if (arrayDimensions > 1) {
             buildSubArraysTAC();

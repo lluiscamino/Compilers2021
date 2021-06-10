@@ -17,7 +17,9 @@ import tac.instructions.binary.AndInstruction;
 import tac.instructions.binary.NotInstruction;
 import tac.instructions.binary.OrInstruction;
 import tac.instructions.indexation.indexassignment.IndexAssignmentInstruction;
+import tac.instructions.indexation.indexassignment.IndexAssignmentToZeroInstruction;
 import tac.instructions.indexation.indexedvalue.IndexedValueInstruction;
+import tac.instructions.indexation.indexedvalue.ZeroIndexedValueInstruction;
 import tac.instructions.io.ReadInstruction;
 import tac.instructions.io.print.PrintArrayInstruction;
 import tac.instructions.io.print.PrintBooleanInstruction;
@@ -415,6 +417,21 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
     }
 
     @Override
+    public String generate(IndexAssignmentToZeroInstruction tacInstruction) {
+        int addressSize = Type.getInteger().sizeInBytes();
+        int valueSize = tacInstruction.getSecondReference().sizeInBytes();
+        return String.format("""
+                        %s
+                        %s
+                        \t%s\t%s, (%s)
+                        """,
+                loadInstruction(tacInstruction.getFirstReference(), register("c", addressSize), addressSize),
+                loadInstruction(tacInstruction.getSecondReference(), register("b", valueSize), valueSize),
+                instructionCode("mov", valueSize), register("b", valueSize), register("c", addressSize)
+        );
+    }
+
+    @Override
     public String generate(IndexedValueInstruction tacInstruction) {
         int addressSize = Type.getInteger().sizeInBytes();
         int valueSize = tacInstruction.getFirstReference().sizeInBytes();
@@ -428,6 +445,21 @@ public class x86CodeGenerator implements AssemblyCodeGenerator {
                 loadInstruction(tacInstruction.getSecondReference(), register("a", addressSize), addressSize),
                 loadInstruction(tacInstruction.getThirdReference(), register("b", addressSize), addressSize),
                 instructionCode("add", addressSize), register("b", addressSize), register("a", addressSize),
+                instructionCode("mov", valueSize), register("a", addressSize), register("a", valueSize),
+                storeInstruction(register("a", valueSize), tacInstruction.getFirstReference(), valueSize)
+        );
+    }
+
+    @Override
+    public String generate(ZeroIndexedValueInstruction tacInstruction) {
+        int addressSize = Type.getInteger().sizeInBytes();
+        int valueSize = tacInstruction.getFirstReference().sizeInBytes();
+        return String.format("""
+                        %s
+                        \t%s\t(%s), %s
+                        %s
+                        """,
+                loadInstruction(tacInstruction.getSecondReference(), register("a", addressSize), addressSize),
                 instructionCode("mov", valueSize), register("a", addressSize), register("a", valueSize),
                 storeInstruction(register("a", valueSize), tacInstruction.getFirstReference(), valueSize)
         );
