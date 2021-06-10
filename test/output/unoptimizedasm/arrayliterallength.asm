@@ -28,8 +28,6 @@ t_main:
 	movq	%rax, -8(%rbp)
 /*t0[0] = 3*/
 	movq	-8(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$3, %rbx
 	movq	%rbx, (%rcx)
 /*t1 = 3*/
@@ -66,8 +64,6 @@ t_main:
 	movq	%rbx, (%rcx)
 /*t5 = t0[0]*/
 	movq	-8(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -48(%rbp)
 /*printInt(t5)*/
@@ -78,8 +74,6 @@ t_main:
 	movq	%rax, -64(%rbp)
 /*t6[0] = 4*/
 	movq	-64(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t7 = 3*/
@@ -128,8 +122,6 @@ t_main:
 	movq	%rax, -56(%rbp)
 /*t12 = arr[0]*/
 	movq	-56(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -112(%rbp)
 /*printInt(t12)*/
@@ -137,8 +129,6 @@ t_main:
 	call	print_uint64
 /*t13 = arr[0]*/
 	movq	-56(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -120(%rbp)
 /*t14 = new array[2]*/
@@ -146,8 +136,6 @@ t_main:
 	movq	%rax, -128(%rbp)
 /*t14[0] = 2*/
 	movq	-128(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$2, %rbx
 	movq	%rbx, (%rcx)
 /*t15 = 3*/
@@ -170,8 +158,6 @@ t_main:
 	movq	%rbx, (%rcx)
 /*t17 = t14[0]*/
 	movq	-128(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -152(%rbp)
 /*t18 = t13 + t17*/
@@ -184,8 +170,6 @@ t_main:
 	movq	%rax, -168(%rbp)
 /*t19[0] = 3*/
 	movq	-168(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$3, %rbx
 	movq	%rbx, (%rcx)
 /*t20 = 8*/
@@ -230,8 +214,6 @@ t_main:
 	movq	%rbx, (%rcx)
 /*t26 = t19[0]*/
 	movq	-168(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -224(%rbp)
 /*t27 = t18 + t26*/
@@ -244,8 +226,6 @@ t_main:
 	movq	%rax, -240(%rbp)
 /*t28[0] = 1*/
 	movq	-240(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$1, %rbx
 	movq	%rbx, (%rcx)
 /*t29 = 1*/
@@ -259,8 +239,6 @@ t_main:
 	movq	%rbx, (%rcx)
 /*t30 = t28[0]*/
 	movq	-240(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -256(%rbp)
 /*t31 = t27 + t30*/

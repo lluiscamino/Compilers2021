@@ -28,8 +28,6 @@ t_twoSum:
 	movq	%rax, -32(%rbp)
 /*t0[0] = 2*/
 	movq	-32(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$2, %rbx
 	movq	%rbx, (%rcx)
 /*t0[8] = -1*/
@@ -57,8 +55,6 @@ t_twoSum:
 e0:
 /*t7 = nums[0]*/
 	movq	16(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -49(%rbp)
 /*if i < t7 goto e1*/
@@ -103,8 +99,6 @@ e2:
 e4:
 /*t12 = nums[0]*/
 	movq	16(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -68(%rbp)
 /*if j < t12 goto e5*/
@@ -210,8 +204,6 @@ e9:
 	movq	%rax, -120(%rbp)
 /*t22[0] = 2*/
 	movq	-120(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$2, %rbx
 	movq	%rbx, (%rcx)
 /*t22[8] = i*/
@@ -269,8 +261,6 @@ t_main:
 	movq	%rax, -24(%rbp)
 /*t28[0] = 17*/
 	movq	-24(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$17, %rbx
 	movq	%rbx, (%rcx)
 /*t28[8] = 6*/

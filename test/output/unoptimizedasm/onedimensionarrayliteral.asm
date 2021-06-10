@@ -28,8 +28,6 @@ t_main:
 	movq	%rax, -16(%rbp)
 /*t0[0] = 4*/
 	movq	-16(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t1 = 3*/
@@ -76,8 +74,6 @@ t_main:
 	movq	%rax, -64(%rbp)
 /*t5[0] = 4*/
 	movq	-64(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t6 = -1*/
@@ -132,8 +128,6 @@ t_main:
 	movq	%rax, -86(%rbp)
 /*t12[0] = 4*/
 	movq	-86(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t13 = "Juan\n"*/

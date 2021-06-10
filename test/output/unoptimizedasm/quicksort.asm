@@ -494,8 +494,6 @@ t_quicksort:
 	subq	$40, %rsp
 /*t38 = arr[0]*/
 	movq	16(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -16(%rbp)
 /*t39 = 1*/
@@ -536,8 +534,6 @@ t_printArray:
 	movq	%rax, -16(%rbp)
 /*t44 = arr[0]*/
 	movq	16(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -32(%rbp)
 /*t45 = 0*/
@@ -599,8 +595,6 @@ t_main:
 	movq	%rax, -16(%rbp)
 /*t46[0] = 8*/
 	movq	-16(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$8, %rbx
 	movq	%rbx, (%rcx)
 /*t47 = 47*/

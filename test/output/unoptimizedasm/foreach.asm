@@ -28,8 +28,6 @@ t_main:
 	movq	%rax, -16(%rbp)
 /*t0[0] = 16*/
 	movq	-16(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$16, %rbx
 	movq	%rbx, (%rcx)
 /*t1 = 1*/
@@ -224,8 +222,6 @@ t_main:
 	movq	%rax, -216(%rbp)
 /*t27 = arr[0]*/
 	movq	-8(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -232(%rbp)
 /*t28 = 0*/

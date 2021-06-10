@@ -34,8 +34,6 @@ t_average:
 	movq	%rax, -32(%rbp)
 /*t3 = nums[0]*/
 	movq	16(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -48(%rbp)
 /*t4 = 0*/
@@ -85,8 +83,6 @@ e0:
 e1:
 /*t5 = nums[0]*/
 	movq	16(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -72(%rbp)
 /*t6 = sum / t5*/
@@ -113,8 +109,6 @@ t_main:
 	movq	%rax, -16(%rbp)
 /*t8[0] = 6*/
 	movq	-16(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$6, %rbx
 	movq	%rbx, (%rcx)
 /*t9 = 10*/

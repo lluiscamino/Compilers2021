@@ -45,8 +45,6 @@ t_main:
 	movq	%rax, -24(%rbp)
 /*t1[0] = t0*/
 	movq	-24(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	-16(%rbp), %rbx
 	movq	%rbx, (%rcx)
 /*t3 = 0*/
@@ -83,8 +81,6 @@ e0:
 	movq	%rax, -64(%rbp)
 /*t6[0] = t5*/
 	movq	-64(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	-56(%rbp), %rbx
 	movq	%rbx, (%rcx)
 /*t4 = t3 * 8*/

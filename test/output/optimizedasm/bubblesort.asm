@@ -45,8 +45,6 @@ e0:
 e2:
 /*t3 = values[0]*/
 	movq	16(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -25(%rbp)
 /*t5 = t3 - 1*/
@@ -267,8 +265,6 @@ t_printArray:
 	movq	%rax, -16(%rbp)
 /*t28 = values[0]*/
 	movq	16(%rbp), %rax
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -32(%rbp)
 /*value = 0*/
@@ -327,8 +323,6 @@ t_main:
 	movq	%rax, -16(%rbp)
 /*t30[0] = 10*/
 	movq	-16(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$10, %rbx
 	movq	%rbx, (%rcx)
 /*t30[8] = 8*/

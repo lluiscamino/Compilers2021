@@ -32,8 +32,6 @@ _main:
 	movq	%rax, -24(%rbp)
 /*t1[0] = t0*/
 	movq	-24(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	-16(%rbp), %rbx
 	movq	%rbx, (%rcx)
 /*arr1 = t1*/
@@ -44,8 +42,6 @@ _main:
 	movq	%rax, -48(%rbp)
 /*t3[0] = 4*/
 	movq	-48(%rbp), %rcx
-	movq	$0, %rbx
-	addq	%rbx, %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t3[8] = -1*/
@@ -96,8 +92,6 @@ e0:
 	movq	(%rsi), %rsi
 	movq	-8(%rsi), %rax
 
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -16(%rbp)
 /*if i < t9 goto e1*/
@@ -186,8 +180,6 @@ e3:
 	movq	(%rsi), %rsi
 	movq	-8(%rsi), %rax
 
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -58(%rbp)
 /*el = 0*/
@@ -242,8 +234,6 @@ e7:
 	movq	(%rsi), %rsi
 	movq	-40(%rsi), %rax
 
-	movq	$0, %rbx
-	addq	%rbx, %rax
 	movq	(%rax), %rax
 	movq	%rax, -83(%rbp)
 /*el = 0*/
