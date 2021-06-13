@@ -4,6 +4,7 @@ import assembly.AssemblyCodeGenerator;
 import assembly.x86.SizeOffsetCalculator;
 import dot.DotIdGenerator;
 import optimizers.*;
+import optimizers.utils.UnusedTACVariablesRemover;
 import parser.symbols.Program;
 import symboltable.SymbolTable;
 import tac.generators.TACSubprogramGenerator;

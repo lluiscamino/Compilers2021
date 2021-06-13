@@ -1,4 +1,4 @@
-package optimizers;
+package optimizers.utils;
 
 import tac.instructions.TACInstruction;
 import tac.references.TACReference;
