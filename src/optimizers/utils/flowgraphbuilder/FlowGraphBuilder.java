@@ -5,17 +5,21 @@ import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
 import tac.instructions.bifurcation.ifs.IfInstruction;
+import tac.instructions.subprogram.calls.CallInstruction;
 import tac.instructions.subprogram.returns.ReturnInstruction;
 import tac.references.TACTag;
+import tac.tables.SubprogramsTable;
 
 import java.util.*;
 
 public final class FlowGraphBuilder {
     private final List<TACInstruction> instructions;
+    private final SubprogramsTable subprogramsTable;
     private final Map<TACTag, BasicBloc> tagToBasicBloc = new HashMap<>();
 
-    public FlowGraphBuilder(List<TACInstruction> instructions) {
+    public FlowGraphBuilder(List<TACInstruction> instructions, SubprogramsTable subprogramsTable) {
         this.instructions = instructions;
+        this.subprogramsTable = subprogramsTable;
     }
 
     public Collection<BasicBloc> buildFlowGraph() {
@@ -59,7 +63,8 @@ public final class FlowGraphBuilder {
     }
 
     private Collection<BasicBloc> buildBasicBlocs(Map<Integer, BasicBloc> leaders) {
-        startBasicBloc(leaders).addSuccessor(leaders.get(1));
+        int firstInstructionLine = firstProgramInstructionLine();
+        startBasicBloc(leaders).addSuccessor(leaders.get(firstInstructionLine));
         for (BasicBloc basicBloc : leaders.values()) {
             if (basicBloc.isStartOrEndBasicBloc()) {
                 continue;
@@ -75,6 +80,10 @@ public final class FlowGraphBuilder {
             if (instruction instanceof GotoInstruction) {
                 basicBloc.addSuccessor(tagToBasicBloc.get(instruction.getFirstReference()));
                 basicBloc.setEndLineNumber(i);
+            }  else if (instruction instanceof CallInstruction) {
+                SubprogramsTable.SubprogramInfo subprogramInfo = subprogramsTable.get(((CallInstruction) instruction).getSubprogram());
+                basicBloc.addSuccessor(tagToBasicBloc.get(subprogramInfo.getTag()));
+                basicBloc.setEndLineNumber(i);
             } else if (instruction instanceof ReturnInstruction) {
                 basicBloc.addSuccessor(endBasicBloc(leaders));
                 basicBloc.setEndLineNumber(i);
@@ -86,10 +95,21 @@ public final class FlowGraphBuilder {
         return leaders.values();
     }
 
+    private int firstProgramInstructionLine() {
+        for (int i = 0; i < instructions.size(); i++) {
+            TACInstruction instruction = instructions.get(i);
+            if (instruction instanceof SkipInstruction && ((TACTag) instruction.getFirstReference()).isMain()) {
+                return i;
+            }
+        }
+        throw new RuntimeException("First program instruction not found");
+    }
+
     private boolean firstEndingBasicBlocInstruction(int instructionIndex) {
         TACInstruction instruction = instructions.get(instructionIndex);
         return instruction instanceof IfInstruction || instruction instanceof GotoInstruction ||
-                instruction instanceof ReturnInstruction || instruction instanceof SkipInstruction;
+                instruction instanceof CallInstruction || instruction instanceof ReturnInstruction ||
+                instruction instanceof SkipInstruction;
     }
 
     private BasicBloc getBasicBloc(Collection<BasicBloc> basicBlocs, int id) {
