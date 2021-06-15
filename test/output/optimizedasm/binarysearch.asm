@@ -96,8 +96,8 @@ e2:
 /*middle = t12*/
 	movq	-84(%rbp), %rax
 	movq	%rax, -68(%rbp)
-/*t13 = middle * 8*/
-	movq	-68(%rbp), %rax
+/*t13 = t12 * 8*/
+	movq	-84(%rbp), %rax
 	movq	$8, %rbx
 	imulq	%rbx, %rax
 	movq	%rax, -92(%rbp)

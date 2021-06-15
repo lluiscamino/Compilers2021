@@ -132,8 +132,8 @@ t_main:
 /*t25 = 0*/
 	movq	$0, %rax
 	movq	%rax, -24(%rbp)
-/*t27 = arr[0]*/
-	movq	-8(%rbp), %rax
+/*t27 = t0[0]*/
+	movq	-16(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -40(%rbp)
 /*el = 0*/

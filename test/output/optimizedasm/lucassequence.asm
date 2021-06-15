@@ -74,8 +74,8 @@ e2:
 /*num1 = num2*/
 	movq	-24(%rbp), %rax
 	movq	%rax, -16(%rbp)
-/*num2 = tmp*/
-	movq	-41(%rbp), %rax
+/*num2 = t4*/
+	movq	-49(%rbp), %rax
 	movq	%rax, -24(%rbp)
 /*counter = counter + 1*/
 	movq	-32(%rbp), %rax

@@ -133,8 +133,8 @@ t_main:
 	movq	$8, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -56(%rbp)
-/*t19 = intArray[t18]*/
-	movq	-8(%rbp), %rax
+/*t19 = t0[t18]*/
+	movq	-16(%rbp), %rax
 	movq	-56(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
@@ -150,8 +150,8 @@ t_main:
 	movq	$8, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -72(%rbp)
-/*t22 = booleanArray[t21]*/
-	movq	-24(%rbp), %rax
+/*t22 = t5[t21]*/
+	movq	-32(%rbp), %rax
 	movq	-72(%rbp), %rbx
 	addq	%rbx, %rax
 	movb	(%rax), %al
@@ -167,8 +167,8 @@ t_main:
 	movq	$8, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -81(%rbp)
-/*t25 = stringArray[t24]*/
-	movq	-40(%rbp), %rax
+/*t25 = t12[t24]*/
+	movq	-48(%rbp), %rax
 	movq	-81(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax

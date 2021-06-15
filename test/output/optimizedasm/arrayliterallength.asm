@@ -89,15 +89,15 @@ t_main:
 /*arr = t6*/
 	movq	-32(%rbp), %rax
 	movq	%rax, -24(%rbp)
-/*t12 = arr[0]*/
-	movq	-24(%rbp), %rax
+/*t12 = t6[0]*/
+	movq	-32(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -40(%rbp)
 /*printInt(t12)*/
 	movq	-40(%rbp), %rdi
 	call	print_uint64
-/*t13 = arr[0]*/
-	movq	-24(%rbp), %rax
+/*t13 = t6[0]*/
+	movq	-32(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -48(%rbp)
 /*t14 = new array[2]*/

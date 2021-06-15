@@ -293,11 +293,11 @@ e15:
 	movq	$8, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -158(%rbp)
-/*arr[t21] = aux*/
+/*arr[t21] = t15*/
 	movq	16(%rbp), %rcx
 	movq	-158(%rbp), %rbx
 	addq	%rbx, %rcx
-	movq	-110(%rbp), %rbx
+	movq	-126(%rbp), %rbx
 	movq	%rbx, (%rcx)
 /*goto e0*/
 	jmp 	e0

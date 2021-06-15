@@ -243,11 +243,11 @@ t_swap:
 	movq	$8, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -80(%rbp)
-/*values[t25] = temp*/
+/*values[t25] = t19*/
 	movq	16(%rbp), %rcx
 	movq	-80(%rbp), %rbx
 	addq	%rbx, %rcx
-	movq	-32(%rbp), %rbx
+	movq	-48(%rbp), %rbx
 	movq	%rbx, (%rcx)
 /*rtn s1*/
 	movq	%rbp, %rsp

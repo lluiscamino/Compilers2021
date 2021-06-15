@@ -186,8 +186,8 @@ e8:
 	movq	$8, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -106(%rbp)
-/*t14 = t14[t15]*/
-	movq	-98(%rbp), %rax
+/*t14 = input[t15]*/
+	movq	-8(%rbp), %rax
 	movq	-106(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax

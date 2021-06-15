@@ -149,8 +149,8 @@ e5:
 /*t12 = i*/
 	movq	-8(%rbp), %rax
 	movq	%rax, -25(%rbp)
-/*t12 = t12 + 8*/
-	movq	-25(%rbp), %rax
+/*t12 = i + 8*/
+	movq	-8(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -25(%rbp)
@@ -197,8 +197,8 @@ e6:
 /*t19 = t18*/
 	movq	-42(%rbp), %rax
 	movq	%rax, -50(%rbp)
-/*t19 = t19 + 8*/
-	movq	-50(%rbp), %rax
+/*t19 = t18 + 8*/
+	movq	-42(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -50(%rbp)
@@ -251,8 +251,8 @@ e8:
 /*t24 = t23*/
 	movq	-67(%rbp), %rax
 	movq	%rax, -75(%rbp)
-/*t24 = t24 + 8*/
-	movq	-75(%rbp), %rax
+/*t24 = t23 + 8*/
+	movq	-67(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
 	movq	%rax, -75(%rbp)
