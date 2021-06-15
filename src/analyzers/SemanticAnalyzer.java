@@ -3,6 +3,7 @@ package analyzers;
 import assembly.AssemblyCodeGenerator;
 import assembly.x86.SizeOffsetCalculator;
 import dot.DotIdGenerator;
+import optimizers.local.CopyPropagationOptimizer;
 import optimizers.peephole.*;
 import optimizers.utils.BasicBloc;
 import optimizers.utils.UnusedTACVariablesRemover;
@@ -119,6 +120,9 @@ public final class SemanticAnalyzer {
             previousOptimizationCycleInstructions = new ArrayList<>(tacInstructionList);
             tacInstructionList = new NeedlessGotosOptimizer(new InaccessibleCodeOptimizer(new UnusedTagsOptimizer(new ConstantIfsOptimizer(new ArithmeticOperationsOptimizer(new ConstantOperationsOptimizer(new DifferedAssignmentsOptimizer(new AdjacentBranchesOptimizer(tacInstructionList).optimize()).optimize()).optimize()).optimize()).optimize(), subprogramsTable).optimize()).optimize()).optimize();
         } while (!tacInstructionList.equals(previousOptimizationCycleInstructions) && ++cycleCounter < maxCycles);
+        FlowGraphBuilder flowGraphBuilder = new FlowGraphBuilder(tacInstructionList, subprogramsTable);
+        Collection<BasicBloc> basicBlocs = flowGraphBuilder.buildFlowGraph();
+        new CopyPropagationOptimizer(tacInstructionList, basicBlocs).optimize();
         removeUnusedVariables();
     }
 
