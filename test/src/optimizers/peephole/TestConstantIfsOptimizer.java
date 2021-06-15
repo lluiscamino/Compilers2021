@@ -1,8 +1,9 @@
-package src.optimizers;
+package src.optimizers.peephole;
 
-import optimizers.ConstantIfsOptimizer;
-import optimizers.TACOptimizer;
+import optimizers.peephole.ConstantIfsOptimizer;
+import optimizers.peephole.PeepholeOptimizer;
 import org.junit.Test;
+import src.optimizers.TestOptimizer;
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.AddInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -27,7 +28,7 @@ public final class TestConstantIfsOptimizer extends TestOptimizer {
                 new AddInstruction(variable1, variable2, one),
                 new IfEqual(variable1, zero, e1)
         );
-        TACOptimizer optimizer = new ConstantIfsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantIfsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -44,7 +45,7 @@ public final class TestConstantIfsOptimizer extends TestOptimizer {
                 new GotoInstruction(e1),
                 new SkipInstruction(e1)
         );
-        TACOptimizer optimizer = new ConstantIfsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantIfsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -57,7 +58,7 @@ public final class TestConstantIfsOptimizer extends TestOptimizer {
                 new IfEqual(zero, one, e1)
         );
         List<TACInstruction> expectedOptimizedInstructions = Collections.emptyList();
-        TACOptimizer optimizer = new ConstantIfsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantIfsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }

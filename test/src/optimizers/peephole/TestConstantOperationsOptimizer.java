@@ -1,8 +1,9 @@
-package src.optimizers;
+package src.optimizers.peephole;
 
-import optimizers.ConstantOperationsOptimizer;
-import optimizers.TACOptimizer;
+import optimizers.peephole.ConstantOperationsOptimizer;
+import optimizers.peephole.PeepholeOptimizer;
 import org.junit.Test;
+import src.optimizers.TestOptimizer;
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.*;
 import tac.instructions.binary.AndInstruction;
@@ -23,7 +24,7 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new AddInstruction(firstVariable, secondVariable, three)
         );
-        TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -38,7 +39,7 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable, new TACLiteral(4))
         );
-        TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -53,7 +54,7 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable, new TACLiteral(2))
         );
-        TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -68,7 +69,7 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable, new TACLiteral(12))
         );
-        TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -83,7 +84,7 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable, new TACLiteral(3))
         );
-        TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -98,7 +99,7 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable, new TACLiteral(1))
         );
-        TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -113,7 +114,7 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable, new TACLiteral(-3))
         );
-        TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -127,7 +128,7 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable, new TACLiteral(false))
         );
-        TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -141,7 +142,7 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable, new TACLiteral(true))
         );
-        TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -155,7 +156,7 @@ public final class TestConstantOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable, new TACLiteral(false))
         );
-        TACOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ConstantOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }

@@ -1,4 +1,4 @@
-package optimizers;
+package optimizers.peephole;
 
 import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -27,7 +27,7 @@ import java.util.List;
  *     e2: skip
  * </pre>
  */
-public final class AdjacentBranchesOptimizer extends TACOptimizer {
+public final class AdjacentBranchesOptimizer extends PeepholeOptimizer {
     private TACInstruction[] scopedInstructions = null;
 
     public AdjacentBranchesOptimizer(List<TACInstruction> unoptimizedInstructions) {

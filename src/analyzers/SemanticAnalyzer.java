@@ -3,7 +3,7 @@ package analyzers;
 import assembly.AssemblyCodeGenerator;
 import assembly.x86.SizeOffsetCalculator;
 import dot.DotIdGenerator;
-import optimizers.*;
+import optimizers.peephole.*;
 import optimizers.utils.BasicBloc;
 import optimizers.utils.UnusedTACVariablesRemover;
 import optimizers.utils.flowgraphbuilder.FlowGraphBuilder;

@@ -1,13 +1,14 @@
-package optimizers;
+package optimizers.peephole;
 
+import optimizers.Optimizer;
 import tac.instructions.TACInstruction;
 
 import java.util.List;
 
-public abstract class TACOptimizer {
+public abstract class PeepholeOptimizer implements Optimizer {
     protected final List<TACInstruction> unoptimizedInstructions;
 
-    public TACOptimizer(List<TACInstruction> unoptimizedInstructions) {
+    public PeepholeOptimizer(List<TACInstruction> unoptimizedInstructions) {
         this.unoptimizedInstructions = unoptimizedInstructions;
     }
 

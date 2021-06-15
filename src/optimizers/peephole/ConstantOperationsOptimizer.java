@@ -1,4 +1,4 @@
-package optimizers;
+package optimizers.peephole;
 
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.*;
@@ -12,7 +12,7 @@ import tac.references.TACVariable;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class ConstantOperationsOptimizer extends TACOptimizer {
+public final class ConstantOperationsOptimizer extends PeepholeOptimizer {
     public ConstantOperationsOptimizer(List<TACInstruction> unoptimizedInstructions) {
         super(unoptimizedInstructions);
     }

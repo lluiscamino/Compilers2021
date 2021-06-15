@@ -1,4 +1,4 @@
-package optimizers;
+package optimizers.peephole;
 
 import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -8,7 +8,7 @@ import tac.instructions.special.InitProgramInstruction;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class InaccessibleCodeOptimizer extends TACOptimizer {
+public final class InaccessibleCodeOptimizer extends PeepholeOptimizer {
 
     public InaccessibleCodeOptimizer(List<TACInstruction> unoptimizedInstructions) {
         super(unoptimizedInstructions);

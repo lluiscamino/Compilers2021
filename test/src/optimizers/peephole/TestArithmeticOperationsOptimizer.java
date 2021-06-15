@@ -1,8 +1,9 @@
-package src.optimizers;
+package src.optimizers.peephole;
 
-import optimizers.ArithmeticOperationsOptimizer;
-import optimizers.TACOptimizer;
+import optimizers.peephole.ArithmeticOperationsOptimizer;
+import optimizers.peephole.PeepholeOptimizer;
 import org.junit.Test;
+import src.optimizers.TestOptimizer;
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.CopyInstruction;
 import tac.instructions.arithmetic.DivideInstruction;
@@ -22,7 +23,7 @@ public final class TestArithmeticOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new ProductInstruction(variable1, variable2, new TACLiteral(2))
         );
-        TACOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -36,7 +37,7 @@ public final class TestArithmeticOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable1, variable2)
         );
-        TACOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -47,7 +48,7 @@ public final class TestArithmeticOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new ProductInstruction(variable, variable, new TACLiteral(1))
         );
-        TACOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, Collections.emptyList());
     }
@@ -58,7 +59,7 @@ public final class TestArithmeticOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new DivideInstruction(variable1, variable2, new TACLiteral(2))
         );
-        TACOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -72,7 +73,7 @@ public final class TestArithmeticOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable1, variable2)
         );
-        TACOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -83,7 +84,7 @@ public final class TestArithmeticOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new DivideInstruction(variable, variable, new TACLiteral(1))
         );
-        TACOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, Collections.emptyList());
     }
@@ -94,7 +95,7 @@ public final class TestArithmeticOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new ModuloInstruction(variable1, variable2, new TACLiteral(2))
         );
-        TACOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -108,7 +109,7 @@ public final class TestArithmeticOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable1, new TACLiteral(0))
         );
-        TACOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -122,7 +123,7 @@ public final class TestArithmeticOperationsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable, new TACLiteral(0))
         );
-        TACOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new ArithmeticOperationsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }

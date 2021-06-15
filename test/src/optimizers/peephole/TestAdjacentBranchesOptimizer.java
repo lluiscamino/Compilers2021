@@ -1,8 +1,9 @@
-package src.optimizers;
+package src.optimizers.peephole;
 
-import optimizers.AdjacentBranchesOptimizer;
-import optimizers.TACOptimizer;
+import optimizers.peephole.AdjacentBranchesOptimizer;
+import optimizers.peephole.PeepholeOptimizer;
 import org.junit.Test;
+import src.optimizers.TestOptimizer;
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.CopyInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -30,7 +31,7 @@ public final class TestAdjacentBranchesOptimizer extends TestOptimizer {
                 new SkipInstruction(e1),
                 new SkipInstruction(e2)
         );
-        TACOptimizer optimizer = new AdjacentBranchesOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new AdjacentBranchesOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -46,7 +47,7 @@ public final class TestAdjacentBranchesOptimizer extends TestOptimizer {
                 new SkipInstruction(e1),
                 new SkipInstruction(e2)
         );
-        TACOptimizer optimizer = new AdjacentBranchesOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new AdjacentBranchesOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -69,7 +70,7 @@ public final class TestAdjacentBranchesOptimizer extends TestOptimizer {
                 new CopyInstruction(variable, zero),
                 new SkipInstruction(e2)
         );
-        TACOptimizer optimizer = new AdjacentBranchesOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new AdjacentBranchesOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }

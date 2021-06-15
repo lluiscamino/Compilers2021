@@ -1,4 +1,4 @@
-package optimizers;
+package optimizers.peephole;
 
 import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -28,7 +28,7 @@ import java.util.List;
  *     ...
  * </pre>
  */
-public final class ConstantIfsOptimizer extends TACOptimizer {
+public final class ConstantIfsOptimizer extends PeepholeOptimizer {
     public ConstantIfsOptimizer(List<TACInstruction> unoptimizedInstructions) {
         super(unoptimizedInstructions);
     }

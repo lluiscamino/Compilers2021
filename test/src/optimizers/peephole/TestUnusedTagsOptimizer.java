@@ -1,8 +1,9 @@
-package src.optimizers;
+package src.optimizers.peephole;
 
-import optimizers.TACOptimizer;
-import optimizers.UnusedTagsOptimizer;
+import optimizers.peephole.PeepholeOptimizer;
+import optimizers.peephole.UnusedTagsOptimizer;
 import org.junit.Test;
+import src.optimizers.TestOptimizer;
 import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
 import tac.instructions.bifurcation.SkipInstruction;
@@ -21,7 +22,7 @@ public final class TestUnusedTagsOptimizer extends TestOptimizer {
                 new GotoInstruction(tag),
                 new SkipInstruction(tag)
         );
-        TACOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
+        PeepholeOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -32,7 +33,7 @@ public final class TestUnusedTagsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new SkipInstruction(tag)
         );
-        TACOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
+        PeepholeOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -43,7 +44,7 @@ public final class TestUnusedTagsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new SkipInstruction(tag)
         );
-        TACOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
+        PeepholeOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assert optimizedInstructions.isEmpty();
     }

@@ -1,8 +1,9 @@
-package src.optimizers;
+package src.optimizers.peephole;
 
-import optimizers.NeedlessGotosOptimizer;
-import optimizers.TACOptimizer;
+import optimizers.peephole.InaccessibleCodeOptimizer;
+import optimizers.peephole.PeepholeOptimizer;
 import org.junit.Test;
+import src.optimizers.TestOptimizer;
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.CopyInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -14,40 +15,38 @@ import tac.references.TACVariable;
 import java.util.Arrays;
 import java.util.List;
 
-public final class TestNeedlessGotosOptimizer extends TestOptimizer {
+public final class TestInaccessibleCodeOptimizer extends TestOptimizer {
 
     @Test
-    public void testNecessaryGotoIgnored() {
+    public void testAccesibleCodeIgnored() {
         TACVariable variable = new TACVariable(0);
-        TACTag tag = new TACTag(0);
+        TACTag tag1 = new TACTag(0), tag2 = new TACTag(1);
         List<TACInstruction> unoptimizedInstructions = Arrays.asList(
-                new GotoInstruction(tag),
-                new CopyInstruction(variable, new TACLiteral(1)),
-                new SkipInstruction(tag),
-                new CopyInstruction(variable, new TACLiteral(0))
+                new SkipInstruction(tag1),
+                new CopyInstruction(variable, new TACLiteral(0)),
+                new SkipInstruction(tag2)
         );
-        TACOptimizer optimizer = new NeedlessGotosOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new InaccessibleCodeOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
 
     @Test
-    public void testNeedlessGotoOptimized() {
+    public void testUnAccesibleCodeOptimized() {
         TACVariable variable = new TACVariable(0);
         TACTag tag1 = new TACTag(0), tag2 = new TACTag(1);
         List<TACInstruction> unoptimizedInstructions = Arrays.asList(
-                new GotoInstruction(tag1),
-                new CopyInstruction(variable, new TACLiteral(1)),
                 new SkipInstruction(tag1),
-                new GotoInstruction(tag2)
+                new GotoInstruction(tag2),
+                new CopyInstruction(variable, new TACLiteral(0)),
+                new SkipInstruction(tag2)
         );
         List<TACInstruction> expectedOptimizedInstructions = Arrays.asList(
-                new GotoInstruction(tag2),
-                new CopyInstruction(variable, new TACLiteral(1)),
                 new SkipInstruction(tag1),
-                new GotoInstruction(tag2)
+                new GotoInstruction(tag2),
+                new SkipInstruction(tag2)
         );
-        TACOptimizer optimizer = new NeedlessGotosOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new InaccessibleCodeOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }

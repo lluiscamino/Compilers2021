@@ -1,4 +1,4 @@
-package optimizers;
+package optimizers.peephole;
 
 import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class UnusedTagsOptimizer extends TACOptimizer {
+public final class UnusedTagsOptimizer extends PeepholeOptimizer {
     private final SubprogramsTable subprogramsTable;
 
     public UnusedTagsOptimizer(List<TACInstruction> unoptimizedInstructions, SubprogramsTable subprogramsTable) {

@@ -1,4 +1,4 @@
-package optimizers;
+package optimizers.peephole;
 
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.CopyInstruction;
@@ -20,7 +20,7 @@ import java.util.*;
  *     x = ...
  * </pre>
  */
-public final class DifferedAssignmentsOptimizer extends TACOptimizer {
+public final class DifferedAssignmentsOptimizer extends PeepholeOptimizer {
     public DifferedAssignmentsOptimizer(List<TACInstruction> unoptimizedInstructions) {
         super(unoptimizedInstructions);
     }

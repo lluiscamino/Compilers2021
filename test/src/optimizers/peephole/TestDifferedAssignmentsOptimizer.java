@@ -1,8 +1,9 @@
-package src.optimizers;
+package src.optimizers.peephole;
 
-import optimizers.DifferedAssignmentsOptimizer;
-import optimizers.TACOptimizer;
+import optimizers.peephole.DifferedAssignmentsOptimizer;
+import optimizers.peephole.PeepholeOptimizer;
 import org.junit.Test;
+import src.optimizers.TestOptimizer;
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.CopyInstruction;
 import tac.instructions.indexation.indexassignment.IndexAssignmentInstruction;
@@ -26,7 +27,7 @@ public final class TestDifferedAssignmentsOptimizer extends TestOptimizer {
                 new PrintIntInstruction(tempVariable),
                 new CopyInstruction(namedVariable, tempVariable)
         );
-        TACOptimizer optimizer = new DifferedAssignmentsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new DifferedAssignmentsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -43,7 +44,7 @@ public final class TestDifferedAssignmentsOptimizer extends TestOptimizer {
                 new PrintIntInstruction(tempVariable),
                 new CopyInstruction(namedVariable, tempVariable)
         );
-        TACOptimizer optimizer = new DifferedAssignmentsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new DifferedAssignmentsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -60,7 +61,7 @@ public final class TestDifferedAssignmentsOptimizer extends TestOptimizer {
         List<TACInstruction> expectedOptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(namedVariable, zero)
         );
-        TACOptimizer optimizer = new DifferedAssignmentsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new DifferedAssignmentsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }
@@ -88,7 +89,7 @@ public final class TestDifferedAssignmentsOptimizer extends TestOptimizer {
                 new IndexAssignmentInstruction(tempVariable4, new TACLiteral(2), new TACLiteral(12)),
                 new CopyInstruction(namedVariable, tempVariable4)
         );
-        TACOptimizer optimizer = new DifferedAssignmentsOptimizer(unoptimizedInstructions);
+        PeepholeOptimizer optimizer = new DifferedAssignmentsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, expectedOptimizedInstructions);
     }

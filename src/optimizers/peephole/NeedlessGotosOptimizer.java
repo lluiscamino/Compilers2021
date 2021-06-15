@@ -1,4 +1,4 @@
-package optimizers;
+package optimizers.peephole;
 
 import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -27,7 +27,7 @@ import java.util.Map;
  *     goto e2
  * </pre>
  */
-public final class NeedlessGotosOptimizer extends TACOptimizer {
+public final class NeedlessGotosOptimizer extends PeepholeOptimizer {
 
     public NeedlessGotosOptimizer(List<TACInstruction> unoptimizedInstructions) {
         super(unoptimizedInstructions);
