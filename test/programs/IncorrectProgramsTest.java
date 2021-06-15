@@ -167,7 +167,7 @@ public final class IncorrectProgramsTest {
     private void testProgram(final String programName, final ProgramError[] expectedErrors) throws Exception {
         final String programPath = "test/programs/incorrectsources/" + programName;
         Compiler compiler = new Compiler(programPath);
-        compiler.compile(null, null, null, null, null, null, null, null, false, 1);
+        compiler.compile(null, null, null, null, null, null, null, null, null, false, 1);
         List<ProgramError> programErrors = Compiler.getCompiler().getErrorsList();
         assert programErrors.size() == expectedErrors.length;
         for (int i = 0; i < expectedErrors.length; i++) {

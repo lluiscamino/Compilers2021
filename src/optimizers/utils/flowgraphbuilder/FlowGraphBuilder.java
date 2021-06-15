@@ -23,11 +23,7 @@ public final class FlowGraphBuilder {
     }
 
     public Collection<BasicBloc> buildFlowGraph() {
-        Collection<BasicBloc> basicBlocs = buildBasicBlocs(identifyLeaders());
-        for (BasicBloc basicBloc : basicBlocs) {
-            System.out.print(basicBloc.toDot());
-        }
-        return basicBlocs;
+        return buildBasicBlocs(identifyLeaders());
     }
 
     private Map<Integer, BasicBloc> identifyLeaders() {

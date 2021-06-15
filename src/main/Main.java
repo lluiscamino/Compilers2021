@@ -67,6 +67,7 @@ public final class Main {
                 new FileWriter(path + "/3ac.txt"),
                 new FileWriter(path + "/tabla_variables.txt"),
                 new FileWriter(path + "/tabla_subprogramas.txt"),
+                new FileWriter(path + "/diagrama_flujo.dot"),
                 new FileWriter(path + "/assembly.asm"),
                 new FileWriter(path + "/errores.txt"),
                 optimized,

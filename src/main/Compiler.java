@@ -39,7 +39,7 @@ public final class Compiler {
         return errorsList;
     }
 
-    public void compile(Writer tokensWriter, Writer symbolTableWriter, Writer treeWriter, Writer tacWriter, Writer variablesTableWriter, Writer subprogramsTableWriter, Writer assemblyWriter, Writer errorsWriter, boolean optimize, int maxOptimizationCycles) throws Exception {
+    public void compile(Writer tokensWriter, Writer symbolTableWriter, Writer treeWriter, Writer tacWriter, Writer variablesTableWriter, Writer subprogramsTableWriter, Writer flowGraphWriter, Writer assemblyWriter, Writer errorsWriter, boolean optimize, int maxOptimizationCycles) throws Exception {
         scanner.writeTokenList(tokensWriter);
         Program program = parser.getSyntaxTree();
         if (program != null) {
@@ -53,6 +53,7 @@ public final class Compiler {
                     semanticAnalyzer.optimizeTACInstructionList(maxOptimizationCycles);
                 }
                 semanticAnalyzer.writeTAC(tacWriter);
+                semanticAnalyzer.writeFlowGraph(flowGraphWriter);
                 x86CodeGenerator codeGenerator = new x86CodeGenerator(getSemanticAnalyzer().getSubprogramsTable(), getSemanticAnalyzer().getVariablesTable());
                 semanticAnalyzer.writeAssembly(assemblyWriter, codeGenerator);
                 semanticAnalyzer.writeVariablesTable(variablesTableWriter);

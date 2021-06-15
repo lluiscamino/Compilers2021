@@ -22,7 +22,7 @@ public final class ProgramsSizeTest {
                     try {
                         Compiler compiler = new Compiler(filePath.toString());
                         Writer assemblyWriter = new StringWriter();
-                        compiler.compile(null, null, null, null, null, null, assemblyWriter, null, optimized, 10000);
+                        compiler.compile(null, null, null, null, null, null, null, assemblyWriter, null, optimized, 10000);
                         if (!compiler.getErrorsList().isEmpty()) {
                             System.out.println("Error(s) with program " + filePath.getFileName() + ":");
                             compiler.getErrorsList().forEach(System.out::println);

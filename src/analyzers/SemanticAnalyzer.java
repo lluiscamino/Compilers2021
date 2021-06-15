@@ -4,7 +4,9 @@ import assembly.AssemblyCodeGenerator;
 import assembly.x86.SizeOffsetCalculator;
 import dot.DotIdGenerator;
 import optimizers.*;
+import optimizers.utils.BasicBloc;
 import optimizers.utils.UnusedTACVariablesRemover;
+import optimizers.utils.flowgraphbuilder.FlowGraphBuilder;
 import parser.symbols.Program;
 import symboltable.SymbolTable;
 import tac.generators.TACSubprogramGenerator;
@@ -17,6 +19,7 @@ import tac.tables.VariablesTable;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public final class SemanticAnalyzer {
@@ -148,6 +151,22 @@ public final class SemanticAnalyzer {
             return;
         }
         writer.write(subprogramsTable.toString());
+        writer.close();
+    }
+
+    public void writeFlowGraph(Writer writer) throws IOException {
+        if (writer == null) {
+            return;
+        }
+        StringBuilder flowGraphBuffer = new StringBuilder();
+        FlowGraphBuilder flowGraphBuilder = new FlowGraphBuilder(tacInstructionList, subprogramsTable);
+        Collection<BasicBloc> basicBlocs = flowGraphBuilder.buildFlowGraph();
+        flowGraphBuffer.append("strict digraph {\n");
+        for (BasicBloc basicBloc : basicBlocs) {
+            flowGraphBuffer.append(basicBloc.toDot());
+        }
+        flowGraphBuffer.append("}");
+        writer.write(flowGraphBuffer.toString());
         writer.close();
     }
 
