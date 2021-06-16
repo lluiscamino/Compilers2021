@@ -22,159 +22,150 @@ t_main:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$89, %rsp
+	subq	$65, %rsp
 /*t0 = new array[4]*/
 	movq	arr_3@GOTPCREL(%rip), %rax
-	movq	%rax, -16(%rbp)
+	movq	%rax, -8(%rbp)
 /*t0[0] = 4*/
-	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t0[8] = 3*/
-	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rcx
 	movq	$8, %rbx
 	addq	%rbx, %rcx
 	movq	$3, %rbx
 	movq	%rbx, (%rcx)
 /*t0[16] = 8*/
-	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rcx
 	movq	$16, %rbx
 	addq	%rbx, %rcx
 	movq	$8, %rbx
 	movq	%rbx, (%rcx)
 /*t0[24] = 24*/
-	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rcx
 	movq	$24, %rbx
 	addq	%rbx, %rcx
 	movq	$24, %rbx
 	movq	%rbx, (%rcx)
 /*t0[32] = 9*/
-	movq	-16(%rbp), %rcx
+	movq	-8(%rbp), %rcx
 	movq	$32, %rbx
 	addq	%rbx, %rcx
 	movq	$9, %rbx
 	movq	%rbx, (%rcx)
-/*intArray = t0*/
-	movq	-16(%rbp), %rax
-	movq	%rax, -8(%rbp)
 /*t5 = new array[4]*/
 	movq	arr_4@GOTPCREL(%rip), %rax
-	movq	%rax, -32(%rbp)
+	movq	%rax, -16(%rbp)
 /*t5[0] = 4*/
-	movq	-32(%rbp), %rcx
+	movq	-16(%rbp), %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t5[8] = -1*/
-	movq	-32(%rbp), %rcx
+	movq	-16(%rbp), %rcx
 	movq	$8, %rbx
 	addq	%rbx, %rcx
 	movb	$-1, %bl
 	movb	%bl, (%rcx)
 /*t5[9] = 0*/
-	movq	-32(%rbp), %rcx
+	movq	-16(%rbp), %rcx
 	movq	$9, %rbx
 	addq	%rbx, %rcx
 	movb	$0, %bl
 	movb	%bl, (%rcx)
 /*t5[10] = 0*/
-	movq	-32(%rbp), %rcx
+	movq	-16(%rbp), %rcx
 	movq	$10, %rbx
 	addq	%rbx, %rcx
 	movb	$0, %bl
 	movb	%bl, (%rcx)
 /*t5[11] = -1*/
-	movq	-32(%rbp), %rcx
+	movq	-16(%rbp), %rcx
 	movq	$11, %rbx
 	addq	%rbx, %rcx
 	movb	$-1, %bl
 	movb	%bl, (%rcx)
-/*booleanArray = t5*/
-	movq	-32(%rbp), %rax
-	movq	%rax, -24(%rbp)
 /*t12 = new array[4]*/
 	movq	arr_5@GOTPCREL(%rip), %rax
-	movq	%rax, -48(%rbp)
+	movq	%rax, -24(%rbp)
 /*t12[0] = 4*/
-	movq	-48(%rbp), %rcx
+	movq	-24(%rbp), %rcx
 	movq	$4, %rbx
 	movq	%rbx, (%rcx)
 /*t12[8] = "Juan\n"*/
-	movq	-48(%rbp), %rcx
+	movq	-24(%rbp), %rcx
 	movq	$8, %rbx
 	addq	%rbx, %rcx
 	movq	str_6@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
 /*t12[16] = "Pedro\n"*/
-	movq	-48(%rbp), %rcx
+	movq	-24(%rbp), %rcx
 	movq	$16, %rbx
 	addq	%rbx, %rcx
 	movq	str_7@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
 /*t12[24] = "Sara\n"*/
-	movq	-48(%rbp), %rcx
+	movq	-24(%rbp), %rcx
 	movq	$24, %rbx
 	addq	%rbx, %rcx
 	movq	str_8@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
 /*t12[32] = "Antonio\n"*/
-	movq	-48(%rbp), %rcx
+	movq	-24(%rbp), %rcx
 	movq	$32, %rbx
 	addq	%rbx, %rcx
 	movq	str_9@GOTPCREL(%rip), %rbx
 	movq	%rbx, (%rcx)
-/*stringArray = t12*/
-	movq	-48(%rbp), %rax
-	movq	%rax, -40(%rbp)
 /*t18 = 16*/
 	movq	$16, %rax
-	movq	%rax, -56(%rbp)
+	movq	%rax, -32(%rbp)
 /*t18 = t18 + 8*/
-	movq	-56(%rbp), %rax
+	movq	-32(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -56(%rbp)
+	movq	%rax, -32(%rbp)
 /*t19 = t0[t18]*/
-	movq	-16(%rbp), %rax
-	movq	-56(%rbp), %rbx
+	movq	-8(%rbp), %rax
+	movq	-32(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -64(%rbp)
+	movq	%rax, -40(%rbp)
 /*printInt(t19)*/
-	movq	-64(%rbp), %rdi
+	movq	-40(%rbp), %rdi
 	call	print_uint64
 /*t21 = 2*/
 	movq	$2, %rax
-	movq	%rax, -72(%rbp)
+	movq	%rax, -48(%rbp)
 /*t21 = t21 + 8*/
-	movq	-72(%rbp), %rax
+	movq	-48(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -72(%rbp)
+	movq	%rax, -48(%rbp)
 /*t22 = t5[t21]*/
-	movq	-32(%rbp), %rax
-	movq	-72(%rbp), %rbx
+	movq	-16(%rbp), %rax
+	movq	-48(%rbp), %rbx
 	addq	%rbx, %rax
 	movb	(%rax), %al
-	movb	%al, -73(%rbp)
+	movb	%al, -49(%rbp)
 /*printBoolean(t22)*/
-	movb	-73(%rbp), %bl
+	movb	-49(%rbp), %bl
 	call	print_boolean
 /*t24 = 16*/
 	movq	$16, %rax
-	movq	%rax, -81(%rbp)
+	movq	%rax, -57(%rbp)
 /*t24 = t24 + 8*/
-	movq	-81(%rbp), %rax
+	movq	-57(%rbp), %rax
 	movq	$8, %rbx
 	addq	%rbx, %rax
-	movq	%rax, -81(%rbp)
+	movq	%rax, -57(%rbp)
 /*t25 = t12[t24]*/
-	movq	-48(%rbp), %rax
-	movq	-81(%rbp), %rbx
+	movq	-24(%rbp), %rax
+	movq	-57(%rbp), %rbx
 	addq	%rbx, %rax
 	movq	(%rax), %rax
-	movq	%rax, -89(%rbp)
+	movq	%rax, -65(%rbp)
 /*printString(t25)*/
-	movq	-89(%rbp), %rsi
+	movq	-65(%rbp), %rsi
 	call	print_string
 /*rtn s0*/
 	movq	%rbp, %rsp

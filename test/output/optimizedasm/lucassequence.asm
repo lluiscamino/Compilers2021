@@ -22,7 +22,7 @@ t_lucas:
 /*pmb s0*/
 	push	%rbp
 	mov 	%rsp, %rbp
-	subq	$49, %rsp
+	subq	$41, %rsp
 /*num1 = 2*/
 	movq	$2, %rax
 	movq	%rax, -16(%rbp)
@@ -67,15 +67,12 @@ e2:
 	movq	-24(%rbp), %rax
 	movq	-16(%rbp), %rbx
 	addq	%rbx, %rax
-	movq	%rax, -49(%rbp)
-/*tmp = t4*/
-	movq	-49(%rbp), %rax
 	movq	%rax, -41(%rbp)
 /*num1 = num2*/
 	movq	-24(%rbp), %rax
 	movq	%rax, -16(%rbp)
 /*num2 = t4*/
-	movq	-49(%rbp), %rax
+	movq	-41(%rbp), %rax
 	movq	%rax, -24(%rbp)
 /*counter = counter + 1*/
 	movq	-32(%rbp), %rax
