@@ -1,7 +1,7 @@
-package src.optimizers.local;
+package src.optimizers.global;
 
-import optimizers.local.LocalOptimizer;
-import optimizers.local.UnusedDefinitionsOptimizer;
+import optimizers.global.GlobalOptimizer;
+import optimizers.global.UnusedDefinitionsOptimizer;
 import org.junit.Test;
 import src.optimizers.TestOptimizer;
 import tac.instructions.TACInstruction;
@@ -23,7 +23,7 @@ public final class TestUnusedDefinitionsOptimizer extends TestOptimizer {
                 new CopyInstruction(variable, new TACLiteral(0)),
                 new PrintIntInstruction(variable)
         );
-        LocalOptimizer optimizer = new UnusedDefinitionsOptimizer(unoptimizedInstructions, null);
+        GlobalOptimizer optimizer = new UnusedDefinitionsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -34,7 +34,7 @@ public final class TestUnusedDefinitionsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new CopyInstruction(variable, new TACLiteral(0))
         );
-        LocalOptimizer optimizer = new UnusedDefinitionsOptimizer(unoptimizedInstructions, null);
+        GlobalOptimizer optimizer = new UnusedDefinitionsOptimizer(unoptimizedInstructions);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assert optimizedInstructions.isEmpty();
     }

@@ -1,6 +1,5 @@
-package optimizers.local;
+package optimizers.global;
 
-import optimizers.utils.BasicBloc;
 import tac.instructions.TACInstruction;
 import tac.instructions.arithmetic.ArithmeticInstruction;
 import tac.instructions.array.NewArrayInstruction;
@@ -14,9 +13,9 @@ import tac.references.TACVariable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public final class UnusedDefinitionsOptimizer extends LocalOptimizer {
-    public UnusedDefinitionsOptimizer(List<TACInstruction> unoptimizedInstructions, Collection<BasicBloc> basicBlocs) {
-        super(unoptimizedInstructions, basicBlocs);
+public final class UnusedDefinitionsOptimizer extends GlobalOptimizer {
+    public UnusedDefinitionsOptimizer(List<TACInstruction> unoptimizedInstructions) {
+        super(unoptimizedInstructions);
     }
 
     @Override
