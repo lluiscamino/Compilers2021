@@ -1,4 +1,4 @@
-package optimizers.peephole;
+package optimizers.global;
 
 import tac.instructions.TACInstruction;
 import tac.instructions.bifurcation.GotoInstruction;
@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class UnusedTagsOptimizer extends PeepholeOptimizer {
+public final class UnusedTagsOptimizer extends GlobalOptimizer {
     private final SubprogramsTable subprogramsTable;
 
     public UnusedTagsOptimizer(List<TACInstruction> unoptimizedInstructions, SubprogramsTable subprogramsTable) {
@@ -36,7 +36,7 @@ public final class UnusedTagsOptimizer extends PeepholeOptimizer {
             }
         }
         for (TACInstruction instruction : unoptimizedInstructions) {
-            if (!(instruction instanceof SkipInstruction) ||usedTags.contains(instruction.getFirstReference()) ||
+            if (!(instruction instanceof SkipInstruction) || usedTags.contains(instruction.getFirstReference()) ||
                     ((TACTag) instruction.getFirstReference()).isMain()) {
                 optimizedInstructions.add(instruction);
             }

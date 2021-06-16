@@ -1,7 +1,7 @@
-package src.optimizers.peephole;
+package src.optimizers.global;
 
-import optimizers.peephole.PeepholeOptimizer;
-import optimizers.peephole.UnusedTagsOptimizer;
+import optimizers.global.GlobalOptimizer;
+import optimizers.global.UnusedTagsOptimizer;
 import org.junit.Test;
 import src.optimizers.TestOptimizer;
 import tac.instructions.TACInstruction;
@@ -22,7 +22,7 @@ public final class TestUnusedTagsOptimizer extends TestOptimizer {
                 new GotoInstruction(tag),
                 new SkipInstruction(tag)
         );
-        PeepholeOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
+        GlobalOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -33,7 +33,7 @@ public final class TestUnusedTagsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new SkipInstruction(tag)
         );
-        PeepholeOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
+        GlobalOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assertEqualTACInstructionLists(optimizedInstructions, unoptimizedInstructions);
     }
@@ -44,7 +44,7 @@ public final class TestUnusedTagsOptimizer extends TestOptimizer {
         List<TACInstruction> unoptimizedInstructions = Collections.singletonList(
                 new SkipInstruction(tag)
         );
-        PeepholeOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
+        GlobalOptimizer optimizer = new UnusedTagsOptimizer(unoptimizedInstructions, null);
         List<TACInstruction> optimizedInstructions = optimizer.optimize();
         assert optimizedInstructions.isEmpty();
     }

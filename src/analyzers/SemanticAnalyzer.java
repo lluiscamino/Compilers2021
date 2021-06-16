@@ -3,6 +3,7 @@ package analyzers;
 import assembly.AssemblyCodeGenerator;
 import assembly.x86.SizeOffsetCalculator;
 import dot.DotIdGenerator;
+import optimizers.global.UnusedTagsOptimizer;
 import optimizers.local.CopyPropagationOptimizer;
 import optimizers.global.UnusedDefinitionsOptimizer;
 import optimizers.peephole.*;
