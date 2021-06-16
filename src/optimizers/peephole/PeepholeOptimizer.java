@@ -11,6 +11,4 @@ public abstract class PeepholeOptimizer implements Optimizer {
     public PeepholeOptimizer(List<TACInstruction> unoptimizedInstructions) {
         this.unoptimizedInstructions = unoptimizedInstructions;
     }
-
-    public abstract List<TACInstruction> optimize();
 }

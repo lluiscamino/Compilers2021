@@ -15,6 +15,4 @@ public abstract class LocalOptimizer implements Optimizer {
         this.unoptimizedInstructions = unoptimizedInstructions;
         this.basicBlocs = basicBlocs;
     }
-
-    public abstract List<TACInstruction> optimize();
 }
