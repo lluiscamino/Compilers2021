@@ -64,9 +64,9 @@ e3:
 /*max = t1*/
 	movq	-49(%rbp), %rax
 	movq	%rax, -40(%rbp)
-/*if c > max goto e4*/
+/*if c > t1 goto e4*/
 	movq	32(%rbp), %rax
-	movq	-40(%rbp), %rbx
+	movq	-49(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jle 	1f
 	jmp	e4
@@ -105,9 +105,9 @@ e7:
 /*max = t3*/
 	movq	-58(%rbp), %rax
 	movq	%rax, -40(%rbp)
-/*if d > max goto e8*/
+/*if d > t3 goto e8*/
 	movq	40(%rbp), %rax
-	movq	-40(%rbp), %rbx
+	movq	-58(%rbp), %rbx
 	cmpq	%rbx, %rax
 	jle 	1f
 	jmp	e8
