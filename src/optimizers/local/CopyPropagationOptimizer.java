@@ -22,7 +22,7 @@ public final class CopyPropagationOptimizer extends LocalOptimizer {
                     basicBlocRemovedElements = new ArrayList<>();
             generatedElements.put(basicBloc, basicBlocGeneratedElements);
             removedElements.put(basicBloc, basicBlocRemovedElements);
-            for (int line = basicBloc.getStartLineNumber(); line < basicBloc.getEndLineNumber(); line++) {
+            for (int line = basicBloc.getStartLineNumber(); line <= basicBloc.getEndLineNumber(); line++) {
                 TACInstruction instruction = unoptimizedInstructions.get(line);
                 if (!(instruction.getFirstReference() instanceof TACVariable)) {
                     continue;
