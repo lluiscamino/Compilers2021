@@ -4,6 +4,7 @@ import assembly.AssemblyCodeGenerator;
 import assembly.x86.SizeOffsetCalculator;
 import dot.DotIdGenerator;
 import optimizers.local.CopyPropagationOptimizer;
+import optimizers.local.UnusedDefinitionsOptimizer;
 import optimizers.peephole.*;
 import optimizers.utils.BasicBloc;
 import optimizers.utils.UnusedTACVariablesRemover;
@@ -123,6 +124,7 @@ public final class SemanticAnalyzer {
         FlowGraphBuilder flowGraphBuilder = new FlowGraphBuilder(tacInstructionList, subprogramsTable);
         Collection<BasicBloc> basicBlocs = flowGraphBuilder.buildFlowGraph();
         new CopyPropagationOptimizer(tacInstructionList, basicBlocs).optimize();
+        tacInstructionList = new UnusedDefinitionsOptimizer(tacInstructionList, basicBlocs).optimize();
         removeUnusedVariables();
     }
 
