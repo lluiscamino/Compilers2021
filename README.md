@@ -14,5 +14,5 @@
 java -jar Compiladores2021.jar <PROGRAMA> <CICLOS OPTIMIZACIÓN>
 ```
 
-1. **<PROGRAMA>**: Ruta absoluta al fichero con el código fuente
-2. **<CICLOS OPTIMIZACIÓN>** (*Opcional*): Número de máximo de iteraciones en la optimización de código.
+1. <**PROGRAMA**>: Ruta absoluta al fichero con el código fuente
+2. <**CICLOS OPTIMIZACIÓN**> (*Opcional*): Número de máximo de iteraciones en la optimización de código.
