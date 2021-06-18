@@ -9,7 +9,7 @@
 3. El archivo ejecutable se habrá generado en `out/artifacts/Compiladores2021_jar/Compiladores2021.jar`.
   
 ## Instrucciones para utilizar el programa
-  Se debe ejecutar el archivo `Compiladoress2021.jar` desde la consola usando la siguiente sintaxis:
+  Se debe ejecutar el archivo `Compiladores2021.jar` desde la consola usando la siguiente sintaxis:
 ```console
 java -jar Compiladores2021.jar <PROGRAMA> <CICLOS OPTIMIZACIÓN>
 ```
