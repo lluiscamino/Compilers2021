@@ -10,7 +10,7 @@ public final class PrintInstructionFactory {
         TACReference reference = expression.getTacVariable();
 
         if (type.isArray()) {
-            return new PrintArrayInstruction(reference);
+            return new PrintArrayInstruction(reference, expression.getType());
         }
         return switch (type.getPrimitiveType()) {
             case INT, UNKNOWN -> new PrintIntInstruction(reference);

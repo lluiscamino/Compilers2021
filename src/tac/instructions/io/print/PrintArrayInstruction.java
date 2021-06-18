@@ -1,17 +1,21 @@
 package tac.instructions.io.print;
 
 import assembly.AssemblyCodeGenerator;
+import parser.symbols.types.Type;
 import tac.references.TACLiteral;
 import tac.references.TACReference;
 
 public final class PrintArrayInstruction extends PrintInstruction {
-    public PrintArrayInstruction(TACReference reference) {
+    private final Type type;
+
+    public PrintArrayInstruction(TACReference reference, Type type) {
         super(reference);
+        this.type = type;
     }
 
     @Override
     public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {
-        return new PrintStringInstruction(new TACLiteral("Array")).toAssemblyCode(codeGenerator);
+        return new PrintStringInstruction(new TACLiteral("Array " + type)).toAssemblyCode(codeGenerator);
     }
 
     @Override
