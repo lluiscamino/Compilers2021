@@ -25,7 +25,7 @@ public final class Main {
 
     public static void checkCorrectFormat(String[] args) throws Exception {
         if (args.length < 1) {
-            throw new Exception("Formato incorrecto!\nFormato esperado: java -jar Compiladores.jar <PROGRAMA>* <CICLOS OPTIMIZACIÓN>");
+            throw new Exception("Formato incorrecto!\nFormato esperado: java -jar Compiladores2021.jar <PROGRAMA>* <CICLOS OPTIMIZACIÓN>");
         }
     }
 
