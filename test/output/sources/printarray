@@ -1,0 +1,8 @@
+main() {
+    const array boolean[] a = {true, false, false};
+    const array int[][] b = {{7}, {8}, {9}};
+    print(a);
+    print(b);
+    print({3 + 5});
+    print({});
+}

@@ -126,6 +126,13 @@ diff -y -q -w outputs/printstringslength.asm.txt expectedoutputs/printstringslen
 rm unoptimizedasm/printstringslength.asm.o
 rm unoptimizedasm/printstringslength.asm-exec
 
+as unoptimizedasm/printarray.asm -o unoptimizedasm/printarray.asm.o
+ld unoptimizedasm/printarray.asm.o -o unoptimizedasm/printarray.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
+./unoptimizedasm/printarray.asm-exec > outputs/printarray.asm.txt
+diff -y -q -w outputs/printarray.asm.txt expectedoutputs/printarray.asm.txt
+rm unoptimizedasm/printarray.asm.o
+rm unoptimizedasm/printarray.asm-exec
+
 as unoptimizedasm/fibonacci.asm -o unoptimizedasm/fibonacci.asm.o
 ld unoptimizedasm/fibonacci.asm.o -o unoptimizedasm/fibonacci.asm-exec -macosx_version_min 11.0  -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lSystem
 ./unoptimizedasm/fibonacci.asm-exec > outputs/fibonacci.asm.txt
