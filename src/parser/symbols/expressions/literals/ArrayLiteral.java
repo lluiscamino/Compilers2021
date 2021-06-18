@@ -27,7 +27,7 @@ public final class ArrayLiteral extends Literal {
     public Type getType() {
         SymbolList<Expression> exprList = getValue();
         if (exprList == null || exprList.getElement() == null) {
-            return Type.getUnknown();
+            return Type.getArray(PrimitiveType.UNKNOWN, 1);
         }
        PrimitiveType primType = exprList.getElement().getType().getPrimitiveType();
        return Type.getArray(primType, getNumDimensions());
