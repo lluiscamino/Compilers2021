@@ -15,7 +15,7 @@ public final class PrintArrayInstruction extends PrintInstruction {
 
     @Override
     public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {
-        return new PrintStringInstruction(new TACLiteral("Array " + type)).toAssemblyCode(codeGenerator);
+        return new PrintStringInstruction(new TACLiteral("\"Array " + type + "\"")).toAssemblyCode(codeGenerator);
     }
 
     @Override
