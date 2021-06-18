@@ -1,6 +1,7 @@
 package tac.instructions.io.print;
 
 import assembly.AssemblyCodeGenerator;
+import tac.references.TACLiteral;
 import tac.references.TACReference;
 
 public final class PrintArrayInstruction extends PrintInstruction {
@@ -10,7 +11,7 @@ public final class PrintArrayInstruction extends PrintInstruction {
 
     @Override
     public String toAssemblyCode(AssemblyCodeGenerator codeGenerator) {
-        return codeGenerator.generate(this);
+        return new PrintStringInstruction(new TACLiteral("Array")).toAssemblyCode(codeGenerator);
     }
 
     @Override
