@@ -11,7 +11,7 @@
 ## Instrucciones para utilizar el programa
   Se debe ejecutar el archivo `Compiladoress2021.jar` desde la consola usando la siguiente sintaxis:
 ```console
-java -jar Compiladores.jar java -jar Compiladores.jar <PROGRAMA> <CICLOS OPTIMIZACIÓN>
+java -jar Compiladores2021.jar <PROGRAMA> <CICLOS OPTIMIZACIÓN>
 ```
 
 1. **<PROGRAMA>**: Ruta absoluta al fichero con el código fuente
